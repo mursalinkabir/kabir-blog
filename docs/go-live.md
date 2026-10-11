@@ -116,22 +116,24 @@ No variables are needed: the workflows default to `https://smkabir.com`.
 
 ## Part 4. Release the server image (15 min, mostly waiting)
 
-**4.1 Write the changelog entry.** In `CHANGELOG.md`, directly under the line `## Unreleased`, add a blank line
-and a new heading `## 0.1.0 - 2026-10-11`, so the existing sections belong to 0.1.0. (The release refuses to run
-without this heading.)
+**4.1 and 4.2 are done (2026-10-12).** `v0.1.0` was tagged first and its `verify` job failed before any image was
+built: the test scripts read the workflow's `IMAGE` variable by mistake (found by CI, fixed and reproduced locally with
+the same variable set). Tags are never moved, so the fix shipped as **`v0.1.1`**. `v0.1.0` stays in the tag list with
+no image behind it; **0.1.1 is the first real release.**
 
-**4.2 Commit, tag, push.**
+For every later release the steps are: add a `## X.Y.Z - <date>` heading under `## Unreleased` in `CHANGELOG.md`
+(the release refuses to run without it), then
 
 ```sh
-git commit -am "Release 0.1.0"
-git tag v0.1.0
-git push origin main v0.1.0
+git commit -am "Release X.Y.Z"
+git tag vX.Y.Z
+git push origin main vX.Y.Z
 ```
 
 **4.3 Watch it.** GitHub > **Actions** > **release**. Two jobs: **verify** (runs the image tests, about 5 minutes)
 then **image** (build, trivy scan, push).
 
-**You should see:** both green, and in the run summary `ghcr.io/mursalinkabir/kabir-blog-server:0.1.0`.
+**You should see:** both green, and in the run summary `ghcr.io/mursalinkabir/kabir-blog-server:0.1.1`.
 If trivy fails on a fixable HIGH or CRITICAL finding, that is the scan doing its job: the base image needs a bump
 (`apps/server/Dockerfile`); tell me the finding and I will fix it. Tags are never moved, so the fix ships as `v0.1.1`.
 
@@ -139,7 +141,7 @@ If trivy fails on a fixable HIGH or CRITICAL finding, that is the scan doing its
 settings** (right) > **Danger Zone** > **Change visibility** > **Public**. (It holds no content or secrets; public
 lets the cluster pull it without a pull secret.)
 
-**4.5 Check.** `docker logout ghcr.io; docker pull ghcr.io/mursalinkabir/kabir-blog-server:0.1.0` works.
+**4.5 Check.** `docker logout ghcr.io; docker pull ghcr.io/mursalinkabir/kabir-blog-server:0.1.1` works.
 
 ---
 
@@ -181,7 +183,7 @@ rm prod/apps/blog/README.md           # notes for you, not for the cluster
 
 **6.3 Fill in your account id.** Open `prod/apps/blog/blog.yaml`, find
 `RCLONE_CONFIG_R2_ENDPOINT`, and replace `<ACCOUNT_ID>` with the id from 2.2.
-The image tag `0.1.0` (three lines) is already right.
+The image tag `0.1.1` (three lines) is already right.
 
 > **Dry run instead of the apex?** In the HTTPRoute at the bottom set `sectionName: https-wildcard` and
 > `hostnames: ['next.smkabir.com']`, use `next` as the subdomain in Part 7, and set the GitHub **variable**
@@ -211,7 +213,7 @@ Check that the file contains `encryptedData:` and **no** plain values: `grep -c 
 
 ```sh
 git add prod/apps/blog
-git commit -m "blog: smkabir.com static site (kabir-blog-server 0.1.0)"
+git commit -m "blog: smkabir.com static site (kabir-blog-server 0.1.1)"
 git push
 ```
 
@@ -321,7 +323,7 @@ purged, old releases are pruned.
 
 | You see                                      | Likely cause and fix                                                                                                     |
 | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `release` fails at "CHANGELOG has an entry"  | step 4.1: the heading must be `## 0.1.0 ...`                                                                             |
+| `release` fails at "CHANGELOG has an entry"  | step 4.1: the heading must be `## X.Y.Z ...` matching the tag                                                            |
 | `release` fails at trivy                     | a fixable HIGH/CRITICAL in the base image; send me the finding                                                           |
 | Pods `ImagePullBackOff`                      | package still private (4.4), or the tag does not exist                                                                   |
 | Pods Running but `0/2` Ready                 | sidecar cannot read R2: `kubectl -n blog logs deploy/blog -c content-sync`; check the account id and the read-only token |

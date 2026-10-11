@@ -4,7 +4,22 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## Unreleased
 
+## 0.1.1 - 2026-10-12
+
+First release that produced an image.
+
+### Fixed
+
+- Release verification failed at "Release script tests" (docker exit 125) on the `v0.1.0` tag, so nothing was built or
+  pushed for 0.1.0. Cause: `apps/server/tests/run.sh` and `e2e.sh` read `$IMAGE`, which `release.yml` sets for the
+  whole workflow to the GHCR name; the test image was built under that name and the next step looked for
+  `kabir-blog-server:test`. The test scripts now use `TEST_IMAGE`. Reproduced locally by running both steps with
+  `IMAGE` set as in CI (61 image checks and 26 release-script checks pass).
+- Deploy drafts and the guide now use image tag `0.1.1`.
+
 ## 0.1.0 - 2026-10-12
+
+Tagged, but **no image was built** (the verify job failed, see 0.1.1). Use 0.1.1.
 
 ### Added (HTML embeds, 2026-10-12)
 

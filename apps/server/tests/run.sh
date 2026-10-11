@@ -12,7 +12,9 @@ set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"
 cd "$HERE/.."
 
-IMAGE="${IMAGE:-kabir-blog-server:test}"
+# Not called IMAGE on purpose: release.yml sets IMAGE (the GHCR name) for the whole workflow, and a test image built
+# under that name was not found by the next step (v0.1.0 failed exactly there).
+IMAGE="${TEST_IMAGE:-kabir-blog-server:test}"
 PLATFORM="${PLATFORM:-}"
 RUN_ID="t$$"
 BUCKET="ssbucket-$RUN_ID"; SITE="sssite-$RUN_ID"; TMPV="sstmp-$RUN_ID"
