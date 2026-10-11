@@ -61,9 +61,9 @@ spec:
         runAsUser: 101
         runAsGroup: 101
         seccompProfile: { type: RuntimeDefault }
-      # Two replicas on different PVE hosts, then different nodes. Soft until the control-plane taint drift is
-      # fixed (today only prod-w1 is schedulable, so a hard rule would leave replica 2 Pending). Flip both
-      # to DoNotSchedule once `kubectl get nodes` shows four schedulable nodes.
+      # Two replicas on different PVE hosts, then different nodes. Soft ("ScheduleAnyway") on purpose, even though all
+      # four nodes are schedulable (checked 2026-10-12): with a hard rule, losing one PVE host would leave the
+      # replacement replica Pending instead of serving from the surviving host.
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: topology.homelab/pve-host

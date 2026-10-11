@@ -160,6 +160,10 @@ then **fails at "Wait until the origin serves it"** after 10 minutes. **That red
 not routed yet. The release and the `LATEST` pointer are already in R2, which is all the pods need.
 (To avoid waiting 10 minutes, cancel the run once "Point LATEST" is green; nothing else is lost.)
 
+**If "Upload the release" is red:** open the run, the `publish` job. The step before it, "Check the publish secrets
+exist", names any secret that is missing from the `site-publish` environment. If the secrets are present, the upload step
+now prints rclone's own error and the usual causes (bucket name, token scope, account id).
+
 **5.2 Check R2.** Dashboard > R2 > `kabir-blog-site`: a `releases/<sha>-<run>/` folder and a `LATEST` object.
 
 ---
@@ -170,7 +174,9 @@ All of this is in your **homelab-terraform** repo
 (`~/Dev/terraform/homelab-terraform/homelab-terraform`, remote
 `github.com/mursalinkabir/homelab-terraform`). The site repo never commits there; you do, by hand.
 
-**6.1 Context check.**
+**6.1 Context check.** (Checked on 2026-10-12: context `admin@homelab-prod`, Gateway `public` Programmed at 192.168.1.200
+with `https-apex` and `https-wildcard` both accepting routes from any namespace, `sealed-secrets-controller`, the `apps`
+ApplicationSet and the wildcard certificate all healthy, namespace `blog` not yet present, all four nodes schedulable.)
 
 ```sh
 kubectl config current-context        # admin@homelab-prod
@@ -194,25 +200,19 @@ The image tag `0.1.2` (three lines) is already right.
 > `hostnames: ['next.smkabir.com']`, use `next` as the subdomain in Part 7, and set the GitHub **variable**
 > `SITE_URL` to `https://next.smkabir.com`. Repeat Parts 6 and 7 for the apex when you are ready.
 
-**6.4 Seal the read-only R2 token** (values from 2.4; never commit the plain secret). `kubeseal` defaults to the
-controller `sealed-secrets-controller` in `kube-system`, which is what your cluster runs:
+**6.4 Seal the read-only R2 token** (the two values from 2.4; the plain secret is never committed or logged). Use the
+helper in this repo: it prompts for the values (the secret is hidden and not kept in shell history), seals them against
+your cluster's `sealed-secrets-controller`, adds the sync-wave annotation and refuses to write a file that contains a
+plain value:
 
 ```sh
-kubectl create secret generic blog-r2 \
-  --from-literal=RCLONE_CONFIG_R2_ACCESS_KEY_ID='PASTE_READ_ONLY_ACCESS_KEY_ID' \
-  --from-literal=RCLONE_CONFIG_R2_SECRET_ACCESS_KEY='PASTE_READ_ONLY_SECRET' \
-  --namespace blog --dry-run=client -o yaml \
- | kubeseal --format yaml > prod/apps/blog/r2-site.sealed.yaml
+bash ~/Dev/Projects/Kabir-Blog/kabir-blog/deploy/homelab-terraform/seal-blog-r2.sh
 ```
 
-Open `r2-site.sealed.yaml` and add under `metadata:` (so it exists before the Deployment, like the ConfigMap):
-
-```yaml
-annotations:
-  argocd.argoproj.io/sync-wave: '-2'
-```
-
-Check that the file contains `encryptedData:` and **no** plain values: `grep -c PASTE prod/apps/blog/*.yaml` prints 0.
+**You should see:** `seal-blog-r2: wrote .../prod/apps/blog/r2-site.sealed.yaml`. It contains `encryptedData:` with two
+long strings and no readable key. (By hand, if you prefer: `kubectl create secret generic blog-r2 --namespace blog
+--from-literal=RCLONE_CONFIG_R2_ACCESS_KEY_ID=... --from-literal=RCLONE_CONFIG_R2_SECRET_ACCESS_KEY=... --dry-run=client
+-o yaml | kubeseal --format yaml`, then add `argocd.argoproj.io/sync-wave: '-2'` under `metadata.annotations`.)
 
 **6.5 Commit and push.**
 

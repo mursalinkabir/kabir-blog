@@ -40,6 +40,13 @@ echo extra >/tmp/dist-a1111111-100/extra.html
 t "an extra file under an existing id is refused too" nonzero $R upload /tmp/dist-a1111111-100 a1111111-100
 rm /tmp/dist-a1111111-100/extra.html
 
+echo "== preflight (clear errors instead of exit 1)"
+t "check passes on a readable bucket" 0 $R check
+out=$(BUCKET=/tmp/no-such-bucket sh /ci/release.sh upload /tmp/dist-a1111111-100 a1111111-100 2>&1); rc=$?
+is "an unreadable bucket stops the upload" nonzero "$([ $rc -ne 0 ] && echo nonzero || echo zero)"
+case "$out" in *"cannot read the bucket"*"R2_ACCOUNT_ID"*) pass=$((pass + 1)); echo "  PASS  ...and says why, and what to check" ;; *) fail=$((fail + 1)); echo "  FAIL  ...and says why (got: $out)" ;; esac
+case "$(BUCKET=/tmp/no-such-bucket sh /ci/release.sh point LATEST a1111111-100 2>&1)" in *"cannot read the bucket"*) pass=$((pass + 1)); echo "  PASS  a pointer move is guarded the same way" ;; *) fail=$((fail + 1)); echo "  FAIL  a pointer move is not guarded" ;; esac
+
 echo "== pointers"
 t "will not point at a missing release" nonzero $R point LATEST nope-1
 t "will not accept an unknown pointer name" nonzero $R point CURRENT a1111111-100

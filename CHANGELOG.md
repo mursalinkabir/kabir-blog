@@ -4,6 +4,18 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## Unreleased
 
+### Changed (publish diagnostics, 2026-10-12)
+
+- `release.sh` runs a preflight before it uploads, moves a pointer, prunes or rolls back: if the bucket cannot be read
+  it prints rclone's error and the usual causes (missing secret, wrong bucket name, token scope, wrong account id)
+  instead of exiting 1. New `release.sh check`. 4 new tests (30 total).
+- `content` and `content-rollback` first check that the five publish secrets exist and name the missing ones (the
+  first manual run failed at "Upload the release" with nothing to say why).
+- `deploy/homelab-terraform/seal-blog-r2.sh`: prompts for the read-only R2 token (hidden) and writes the SealedSecret,
+  refusing output that contains a plain value. Tested against the live controller's certificate with dummy values.
+- The deploy draft's scheduling comment is corrected: all four nodes are schedulable now; the spread stays soft on
+  purpose so losing one PVE host cannot leave a replica Pending.
+
 ## 0.1.2 - 2026-10-12
 
 First release that produced an image.

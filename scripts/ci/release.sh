@@ -12,6 +12,7 @@
 #   release.sh prune    <keep>                       delete the oldest releases, never LATEST or VERIFIED
 #   release.sh rollback <build_id>                   point LATEST and VERIFIED at an existing release
 #   release.sh exists   <build_id>
+#   release.sh check                                    can the bucket be read with these credentials? (also run first by upload/point/prune/rollback)
 #
 # Environment: BUCKET (rclone path, default r2:kabir-blog-site). rclone reads its R2 credentials from RCLONE_CONFIG_R2_*.
 # Pointers move only after every file of a release is uploaded and re-checked, so a pod can never see a half release.
@@ -29,6 +30,24 @@ valid_id() {
   esac
   [ "${#1}" -le 80 ]
 }
+# Fails with the reason, not just exit 1. Without this a missing secret, a wrong account id, a bucket that does not exist
+# and a token with the wrong scope all look the same in the logs ("Process completed with exit code 1").
+preflight() {
+  err=$(rclone lsf "$BUCKET" --max-depth 1 2>&1 >/dev/null) && return 0
+  {
+    echo "release.sh: cannot read the bucket $BUCKET with the credentials in this environment."
+    echo "rclone said:"
+    printf '%s\n' "$err" | head -8 | sed 's/^/    /'
+    echo "Usual causes, in order:"
+    echo "  - a secret in the site-publish environment is missing or misspelled (R2_ACCOUNT_ID, R2_SITE_WRITE_ACCESS_KEY_ID,"
+    echo "    R2_SITE_WRITE_SECRET_ACCESS_KEY): docs/secrets.md lists the exact names;"
+    echo "  - the bucket does not exist, or its name differs from the R2_SITE_BUCKET variable (default kabir-blog-site);"
+    echo "  - the token was not created for this bucket, or has Object Read only instead of Read & Write;"
+    echo "  - R2_ACCOUNT_ID is not the account that owns the bucket."
+  } >&2
+  exit 1
+}
+
 need_id() { valid_id "$1" || die "invalid build id '$1' (letters, digits, dot, dash, underscore; max 80)"; }
 read_pointer() { rclone cat "$BUCKET/$1" 2>/dev/null | head -c 200 | tr -d '[:space:]' || true; }
 release_exists() { [ -n "$(rclone lsf "$BUCKET/releases/$1" --max-depth 1 2>/dev/null | head -1)" ]; }
@@ -36,6 +55,7 @@ release_exists() { [ -n "$(rclone lsf "$BUCKET/releases/$1" --max-depth 1 2>/dev
 cmd_upload() {
   dist=${1:?dist dir}; id=${2:?build id}
   need_id "$id"
+  preflight
   [ -d "$dist" ] || die "$dist is not a directory"
   [ -f "$dist/index.html" ] || die "$dist/index.html is missing: refusing to publish an empty site"
   built=$(jq -er '.build_id' "$dist/version.json" 2>/dev/null) || die "$dist/version.json is missing or invalid"
@@ -60,6 +80,7 @@ cmd_point() {
   name=${1:?LATEST or VERIFIED}; id=${2:?build id}
   case "$name" in LATEST | VERIFIED) ;; *) die "pointer must be LATEST or VERIFIED" ;; esac
   need_id "$id"
+  preflight
   release_exists "$id" || die "release $id does not exist; refusing to point $name at it"
   printf '%s\n' "$id" | rclone rcat "$BUCKET/$name"
   [ "$(read_pointer "$name")" = "$id" ] || die "$name did not read back as $id"
@@ -86,6 +107,7 @@ cmd_prune() {
   keep=${1:?number of releases to keep}
   case "$keep" in '' | *[!0-9]*) die "keep must be a number" ;; esac
   [ "$keep" -ge 2 ] || die "keep at least 2 releases (the live one and a rollback target)"
+  preflight
   latest=$(read_pointer LATEST); verified=$(read_pointer VERIFIED)
   # Order by the run id after the last dash (<sha>-<run_id>), oldest first. Ids without one sort first.
   ids=$(rclone lsf "$BUCKET/releases" --dirs-only 2>/dev/null | sed 's|/$||' | awk -F- '{ n = $NF; if (n !~ /^[0-9]+$/) n = 0; printf "%020d %s\n", n, $0 }' | sort | cut -d' ' -f2)
@@ -102,6 +124,7 @@ cmd_prune() {
 cmd_rollback() {
   id=${1:?build id}
   need_id "$id"
+  preflight
   release_exists "$id" || die "release $id does not exist"
   built=$(rclone cat "$BUCKET/releases/$id/version.json" 2>/dev/null | jq -er '.build_id') || die "release $id has no valid version.json"
   [ "$built" = "$id" ] || die "release $id contains version.json for '$built'"
@@ -120,5 +143,6 @@ case "$sub" in
   prune) cmd_prune "$@" ;;
   rollback) cmd_rollback "$@" ;;
   exists) cmd_exists "$@" ;;
-  *) die "usage: release.sh upload|point|verify-live|prune|rollback|exists ..." ;;
+  check) preflight; say "bucket $BUCKET is readable with these credentials" ;;
+  *) die "usage: release.sh upload|point|verify-live|prune|rollback|exists|check ..." ;;
 esac

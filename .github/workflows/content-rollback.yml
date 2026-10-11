@@ -35,6 +35,25 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      - name: Check the publish secrets exist (names only; values are never printed)
+        env:
+          HAS_R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID != '' }}
+          HAS_R2_KEY_ID: ${{ secrets.R2_SITE_WRITE_ACCESS_KEY_ID != '' }}
+          HAS_R2_SECRET: ${{ secrets.R2_SITE_WRITE_SECRET_ACCESS_KEY != '' }}
+          HAS_CF_TOKEN: ${{ secrets.CF_API_TOKEN != '' }}
+          HAS_CF_ZONE: ${{ secrets.CF_ZONE_ID != '' }}
+        run: |
+          missing=""
+          [ "$HAS_R2_ACCOUNT_ID" = true ] || missing="$missing R2_ACCOUNT_ID"
+          [ "$HAS_R2_KEY_ID" = true ] || missing="$missing R2_SITE_WRITE_ACCESS_KEY_ID"
+          [ "$HAS_R2_SECRET" = true ] || missing="$missing R2_SITE_WRITE_SECRET_ACCESS_KEY"
+          [ "$HAS_CF_TOKEN" = true ] || missing="$missing CF_API_TOKEN"
+          [ "$HAS_CF_ZONE" = true ] || missing="$missing CF_ZONE_ID"
+          if [ -n "$missing" ]; then
+            echo "::error::Missing in the site-publish environment (Settings > Environments > site-publish):$missing"
+            exit 1
+          fi
+          echo "all five publish secrets are set"
       - name: Install rclone and jq (pinned, checksum-verified)
         run: |
           sh scripts/ci/install-tools.sh rclone
