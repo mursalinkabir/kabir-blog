@@ -21,7 +21,11 @@ const walk = (dir) =>
 const rel = (f) => '/' + relative(dist, f);
 
 const files = walk(dist);
-const htmlFiles = files.filter((f) => f.endsWith('.html'));
+const allHtml = files.filter((f) => f.endsWith('.html'));
+// /embeds/*.html are author-supplied documents with inline script, served with their own sandboxing headers
+// (src/lib/embeds.ts). They are checked separately below and are not pages: no title, canonical or lang rules.
+const embedFiles = allHtml.filter((f) => rel(f).startsWith('/embeds/'));
+const htmlFiles = allHtml.filter((f) => !rel(f).startsWith('/embeds/'));
 // Everything a crawler or a reader could fetch as text. Pagefind's index is binary, so it is checked separately.
 const textFiles = files.filter((f) => ['.html', '.xml', '.json', '.txt'].includes(extname(f)) && !f.includes('/pagefind/'));
 
@@ -106,6 +110,46 @@ for (const file of htmlFiles) {
   }
 }
 
+// ---- HTML embeds: isolated, referenced, and carrying nothing that could leak -------------------------------------------
+{
+  const referenced = new Set();
+  for (const file of htmlFiles) {
+    for (const tag of htmlOf(file).matchAll(/<iframe\b[^>]*>/gi)) {
+      const src = /\bsrc="([^"]*)"/.exec(tag[0])?.[1] ?? '';
+      if (!src.startsWith('/embeds/')) {
+        // The only frames the site is allowed to contain are its embeds and the Turnstile widget (added by script).
+        fail(`${rel(file)}: <iframe src="${src}"> points outside /embeds/`);
+        continue;
+      }
+      referenced.add(src);
+      const sandbox = /\bsandbox="([^"]*)"/.exec(tag[0])?.[1];
+      // `allow-scripts` alone: no allow-same-origin (opaque origin), no top navigation, popups, forms or downloads.
+      if (sandbox === undefined || sandbox.trim() !== 'allow-scripts')
+        fail(`${rel(file)}: embed frame ${src} must have sandbox="allow-scripts" and nothing else (has ${JSON.stringify(sandbox)})`);
+      if (!resolvePath(src)) fail(`${rel(file)}: embed ${src} does not exist`);
+    }
+  }
+  // Same denylist as the repository scan, applied to what the CMS supplied.
+  const deny = (process.env.PRIVACY_DENYLIST ?? '')
+    .split(',')
+    .map((x) => x.trim().toLowerCase())
+    .filter(Boolean);
+  const { scanText } = await import('../../../scripts/privacy-scan.mjs');
+  for (const file of embedFiles) {
+    const page = rel(file);
+    const html = readFileSync(file, 'utf8');
+    if (!referenced.has(page)) fail(`${page}: embed file that no page uses`);
+    if (!/<meta name="robots" content="noindex/.test(html)) fail(`${page}: embed is missing noindex`);
+    // Everything must be inline: the embed CSP blocks remote loads, so a remote reference is a bug to fix now.
+    for (const m of html.matchAll(
+      /<(script|link|img|iframe|object|embed|video|audio|source)\b[^>]*\b(?:src|href|data)\s*=\s*["']?(?:https?:)?\/\//gi,
+    ))
+      fail(`${page}: embed loads a remote resource (<${m[1]}>); inline it (remote loads are blocked)`);
+    if (/@import\s+(?:url\()?["']?(?:https?:)?\/\//i.test(html)) fail(`${page}: embed @imports a remote stylesheet`);
+    for (const hit of scanText(html, deny, { phones: false })) fail(`${page}: ${hit}`);
+  }
+}
+
 // ---- drafts never appear anywhere text is served --------------------------------------------------
 for (const slug of draftSlugs) {
   if (resolvePath(`/posts/${slug}/`) || resolvePath(`/ja/posts/${slug}/`)) fail(`dist contains a page for draft "${slug}"`);
@@ -145,6 +189,6 @@ if (errors.length) {
   process.exit(1);
 }
 console.log(
-  `check-dist: ${htmlFiles.length} pages OK (no inline scripts, lang per locale, no drafts in any text file, ` +
+  `check-dist: ${htmlFiles.length} pages OK, ${embedFiles.length} isolated embed${embedFiles.length === 1 ? '' : 's'} (no inline scripts outside /embeds/, lang per locale, no drafts in any text file, ` +
     `locale rule matches content, references and #anchors resolve, sitemap has ${sitemapped.size} indexable URLs)`,
 );

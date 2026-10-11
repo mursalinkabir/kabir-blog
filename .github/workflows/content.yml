@@ -87,7 +87,7 @@ jobs:
     environment: site-publish
     env:
       BUILD_ID: ${{ needs.build.outputs.build_id }}
-      BUCKET: r2:${{ vars.R2_SITE_BUCKET || 'smkabir-site' }}
+      BUCKET: r2:${{ vars.R2_SITE_BUCKET || 'kabir-blog-site' }}
       RCLONE_CONFIG_R2_TYPE: s3
       RCLONE_CONFIG_R2_PROVIDER: Cloudflare
       RCLONE_CONFIG_R2_ACCESS_KEY_ID: ${{ secrets.R2_SITE_WRITE_ACCESS_KEY_ID }}

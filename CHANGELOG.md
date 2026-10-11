@@ -4,6 +4,25 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## Unreleased
 
+### Added (HTML embeds, 2026-10-12)
+
+- CMS block **HTML embed**: paste a self-contained HTML/CSS/JS document and it appears in the post, running its own
+  script. It is isolated: written to `/embeds/<hash>.html`, framed with `sandbox="allow-scripts"`, served under its own
+  CSP (`sandbox`, `connect-src 'none'`, `default-src 'none'`). The page CSP still has no inline script.
+- `security-headers.json` has an `embeds` header set, rendered to `embed-headers.conf`; nginx serves `/embeds/` with it
+  (immutable, noindex, no referrer). The frame is allowed by `frame-src 'self'`.
+- Build gate: a frame must be `sandbox="allow-scripts"` and nothing else, no frame may point outside `/embeds/`, no
+  orphan or remote-loading embed, and embed text is privacy-scanned. A draft's embed is never built.
+- Tests: 16 new unit tests (embed ids, document wrapping, collection, header guarantees), 11 new image checks, and a
+  real-browser run of the TraderBuddy `motion.html` through nginx (see `docs/cms.md`).
+- `scanText()` takes `{ phones: false }`; embeds use it because SVG data looks like phone numbers.
+
+### Changed (repository is `kabir-blog`, public, 2026-10-12)
+
+- Docs, deploy drafts and the root package name refer to the repository as `kabir-blog` (R2 bucket and image names
+  renamed to match: R2 bucket `kabir-blog-site`, image `ghcr.io/mursalinkabir/kabir-blog-server`; none existed yet).
+  `docs/go-live.md` Part 1 now records the public repo and lists the public-repository settings.
+
 ### Changed (second language is Japanese, 2026-10-12)
 
 - Bengali (`/bn/`) is replaced by Japanese (`/ja/`) throughout: routes, `<html lang>`, hreflang, feeds, UI strings
@@ -57,7 +76,7 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ### Added (deploy path, 2026-10-11)
 
-- `apps/server`: the `smkabir-site-server` image (nginx 1.30 stable, non-root, read-only root) and the content-sync
+- `apps/server`: the `kabir-blog-server` image (nginx 1.30 stable, non-root, read-only root) and the content-sync
   sidecar. Headers are rendered from `apps/site/security-headers.json`, so there is one source of truth.
 - `scripts/ci/release.sh`: immutable releases in R2 with `LATEST` / `VERIFIED` pointers, upload verification, safe
   pruning and rollback. `scripts/ci/install-tools.sh` installs d2 and rclone pinned by SHA-256.

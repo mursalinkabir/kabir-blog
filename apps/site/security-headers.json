@@ -1,7 +1,14 @@
 {
-  "_comment": "Single source for response headers. Rendered into the nginx config (Phase 5) and the failover Worker (Phase 9) so mirror responses match the origin. HSTS is set at the Cloudflare edge.",
-  "Content-Security-Policy": "default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://static.cloudflareinsights.com https://challenges.cloudflare.com; connect-src 'self' https://cloudflareinsights.com; img-src 'self' https://media.smkabir.com data:; frame-src https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; font-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'",
+  "_comment": "Single source for response headers. Rendered into the nginx config (security-headers.conf, embed-headers.conf) and, in Phase 9, the failover Worker so mirror responses match the origin. HSTS is set at the Cloudflare edge. `embeds` is the separate header set for /embeds/*.html: author-supplied HTML with inline script, isolated by CSP `sandbox` (no site origin), `connect-src 'none'` and no remote resources.",
+  "Content-Security-Policy": "default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://static.cloudflareinsights.com https://challenges.cloudflare.com; connect-src 'self' https://cloudflareinsights.com; img-src 'self' https://media.smkabir.com data:; frame-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; font-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'",
   "X-Content-Type-Options": "nosniff",
   "Referrer-Policy": "strict-origin-when-cross-origin",
-  "Permissions-Policy": "camera=(), microphone=(), geolocation=()"
+  "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+  "embeds": {
+    "Content-Security-Policy": "default-src 'none'; sandbox allow-scripts; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; media-src 'self' data:; connect-src 'none'; form-action 'none'; frame-ancestors 'self'; base-uri 'none'; object-src 'none'",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), fullscreen=()",
+    "X-Robots-Tag": "noindex, nofollow"
+  }
 }

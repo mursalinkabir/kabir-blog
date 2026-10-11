@@ -1,7 +1,7 @@
 {
   "media": [
     {
-      "id": 15,
+      "id": 21,
       "alt": {
         "en": "A monitor and a laptop showing code on a desk",
         "ja": "デスクの上でコードを表示しているモニターとノートパソコン"
@@ -11,8 +11,8 @@
         "ja": null
       },
       "credit": "Photo: Pakata Goh on Unsplash",
-      "updatedAt": "2026-10-11T21:12:33.004Z",
-      "createdAt": "2026-10-11T21:12:32.967Z",
+      "updatedAt": "2026-10-11T21:49:12.273Z",
+      "createdAt": "2026-10-11T21:49:12.251Z",
       "url": "/api/media/file/cover-tech.jpg",
       "thumbnailURL": "/api/media/file/cover-tech-480x384.webp",
       "filename": "cover-tech.jpg",
@@ -50,7 +50,7 @@
       }
     },
     {
-      "id": 16,
+      "id": 22,
       "alt": {
         "en": "A narrow alley at night lit by red paper lanterns",
         "ja": "赤い提灯に照らされた夜の細い路地"
@@ -60,8 +60,8 @@
         "ja": null
       },
       "credit": "Photo: Denys Nevozhai on Unsplash",
-      "updatedAt": "2026-10-11T21:12:33.585Z",
-      "createdAt": "2026-10-11T21:12:33.545Z",
+      "updatedAt": "2026-10-11T21:49:12.820Z",
+      "createdAt": "2026-10-11T21:49:12.794Z",
       "url": "/api/media/file/cover-japan.jpg",
       "thumbnailURL": "/api/media/file/cover-japan-480x332.webp",
       "filename": "cover-japan.jpg",
@@ -99,7 +99,7 @@
       }
     },
     {
-      "id": 17,
+      "id": 23,
       "alt": {
         "en": "A placeholder landscape illustration",
         "ja": "サンプルの風景イラスト"
@@ -109,8 +109,8 @@
         "ja": null
       },
       "credit": null,
-      "updatedAt": "2026-10-11T21:12:34.002Z",
-      "createdAt": "2026-10-11T21:12:33.970Z",
+      "updatedAt": "2026-10-11T21:49:13.510Z",
+      "createdAt": "2026-10-11T21:49:13.472Z",
       "url": "/api/media/file/sample-landscape.webp",
       "thumbnailURL": "/api/media/file/sample-landscape-480x300.webp",
       "filename": "sample-landscape.webp",
@@ -148,7 +148,7 @@
       }
     },
     {
-      "id": 18,
+      "id": 24,
       "alt": {
         "en": "A placeholder portrait illustration",
         "ja": "サンプルの人物イラスト"
@@ -158,8 +158,8 @@
         "ja": null
       },
       "credit": null,
-      "updatedAt": "2026-10-11T21:12:34.423Z",
-      "createdAt": "2026-10-11T21:12:34.411Z",
+      "updatedAt": "2026-10-11T21:49:13.913Z",
+      "createdAt": "2026-10-11T21:49:13.885Z",
       "url": "/api/media/file/sample-portrait.webp",
       "thumbnailURL": "/api/media/file/sample-portrait-480x672.webp",
       "filename": "sample-portrait.webp",
@@ -197,7 +197,7 @@
       }
     },
     {
-      "id": 19,
+      "id": 25,
       "alt": {
         "en": "Price charts on a dark trading screen",
         "ja": "暗いトレード画面に映る値動きのチャート"
@@ -207,8 +207,8 @@
         "ja": null
       },
       "credit": "Photo: Nicholas Cappello on Unsplash",
-      "updatedAt": "2026-10-11T21:12:34.825Z",
-      "createdAt": "2026-10-11T21:12:34.813Z",
+      "updatedAt": "2026-10-11T21:49:14.458Z",
+      "createdAt": "2026-10-11T21:49:14.438Z",
       "url": "/api/media/file/cover-finance.jpg",
       "thumbnailURL": "/api/media/file/cover-finance-480x319.webp",
       "filename": "cover-finance.jpg",
@@ -248,101 +248,101 @@
   ],
   "categories": [
     {
-      "id": 7,
+      "id": 10,
       "slug": "tech",
       "name": {
         "en": "Tech",
         "ja": "テック"
       },
-      "updatedAt": "2026-10-11T21:12:34.840Z",
-      "createdAt": "2026-10-11T21:12:34.832Z"
+      "updatedAt": "2026-10-11T21:49:14.478Z",
+      "createdAt": "2026-10-11T21:49:14.467Z"
     },
     {
-      "id": 8,
+      "id": 11,
       "slug": "japan-life",
       "name": {
         "en": "Japan life",
         "ja": "日本の暮らし"
       },
-      "updatedAt": "2026-10-11T21:12:34.850Z",
-      "createdAt": "2026-10-11T21:12:34.844Z"
+      "updatedAt": "2026-10-11T21:49:14.496Z",
+      "createdAt": "2026-10-11T21:49:14.488Z"
     },
     {
-      "id": 9,
+      "id": 12,
       "slug": "finance",
       "name": {
         "en": "Finance",
         "ja": "お金"
       },
-      "updatedAt": "2026-10-11T21:12:34.858Z",
-      "createdAt": "2026-10-11T21:12:34.854Z"
+      "updatedAt": "2026-10-11T21:49:14.507Z",
+      "createdAt": "2026-10-11T21:49:14.500Z"
     }
   ],
   "tags": [
     {
-      "id": 13,
+      "id": 19,
       "slug": "homelab",
       "name": {
         "en": "homelab",
         "ja": "ホームラボ"
       },
-      "updatedAt": "2026-10-11T21:12:34.882Z",
-      "createdAt": "2026-10-11T21:12:34.863Z"
+      "updatedAt": "2026-10-11T21:49:14.519Z",
+      "createdAt": "2026-10-11T21:49:14.511Z"
     },
     {
-      "id": 14,
+      "id": 20,
       "slug": "kubernetes",
       "name": {
         "en": "kubernetes",
         "ja": "Kubernetes"
       },
-      "updatedAt": "2026-10-11T21:12:34.893Z",
-      "createdAt": "2026-10-11T21:12:34.887Z"
+      "updatedAt": "2026-10-11T21:49:14.552Z",
+      "createdAt": "2026-10-11T21:49:14.528Z"
     },
     {
-      "id": 15,
+      "id": 21,
       "slug": "astro",
       "name": {
         "en": "astro",
         "ja": "Astro"
       },
-      "updatedAt": "2026-10-11T21:12:34.903Z",
-      "createdAt": "2026-10-11T21:12:34.898Z"
+      "updatedAt": "2026-10-11T21:49:14.564Z",
+      "createdAt": "2026-10-11T21:49:14.559Z"
     },
     {
-      "id": 16,
+      "id": 22,
       "slug": "language",
       "name": {
         "en": "language",
         "ja": "言葉"
       },
-      "updatedAt": "2026-10-11T21:12:34.911Z",
-      "createdAt": "2026-10-11T21:12:34.906Z"
+      "updatedAt": "2026-10-11T21:49:14.573Z",
+      "createdAt": "2026-10-11T21:49:14.567Z"
     },
     {
-      "id": 17,
+      "id": 23,
       "slug": "paperwork",
       "name": {
         "en": "paperwork",
         "ja": "書類"
       },
-      "updatedAt": "2026-10-11T21:12:34.922Z",
-      "createdAt": "2026-10-11T21:12:34.917Z"
+      "updatedAt": "2026-10-11T21:49:14.583Z",
+      "createdAt": "2026-10-11T21:49:14.578Z"
     },
     {
-      "id": 18,
+      "id": 24,
       "slug": "budgeting",
       "name": {
         "en": "budgeting",
         "ja": "家計"
       },
-      "updatedAt": "2026-10-11T21:12:34.933Z",
-      "createdAt": "2026-10-11T21:12:34.926Z"
+      "updatedAt": "2026-10-11T21:49:14.593Z",
+      "createdAt": "2026-10-11T21:49:14.587Z"
     }
   ],
   "posts": [
     {
-      "id": 12,
+      "id": 17,
       "title": {
         "en": null,
         "ja": "ホームラボでブログを運用する：理由と方法"
@@ -352,9 +352,9 @@
         "ja": "自宅のサーバーで静的ブログを運用する理由、工夫、そして限界についての短いメモ。"
       },
       "slug": "homelab-de-blog-wo-unyo-suru",
-      "category": 7,
+      "category": 10,
       "tags": [
-        13
+        19
       ],
       "pubDate": "2026-10-01T09:00:00.000Z",
       "updatedDate": null,
@@ -594,12 +594,12 @@
           }
         }
       },
-      "updatedAt": "2026-10-11T21:12:34.969Z",
-      "createdAt": "2026-10-11T21:12:34.939Z",
+      "updatedAt": "2026-10-11T21:49:14.633Z",
+      "createdAt": "2026-10-11T21:49:14.598Z",
       "_status": "published"
     },
     {
-      "id": 13,
+      "id": 18,
       "title": {
         "en": "How this site is built: a static blog on a homelab",
         "ja": null
@@ -609,15 +609,15 @@
         "ja": null
       },
       "slug": "how-this-site-is-built",
-      "category": 7,
+      "category": 10,
       "tags": [
-        13,
-        14,
-        15
+        19,
+        20,
+        21
       ],
       "pubDate": "2026-09-28T09:00:00.000Z",
       "updatedDate": "2026-10-03T09:00:00.000Z",
-      "hero": 15,
+      "hero": 21,
       "series": {
         "name": "Building smkabir.com",
         "part": 1
@@ -1296,6 +1296,57 @@
                   }
                 ],
                 "direction": "ltr"
+              },
+              {
+                "tag": "h2",
+                "type": "heading",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "An interactive demo",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "Posts can include small interactive pieces written as plain HTML and JavaScript. They run in a sandboxed frame, so they cannot touch the site around them or send anything anywhere.",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "block",
+                "fields": {
+                  "id": "fx-embed-1",
+                  "html": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<style>\n  body { margin: 0; padding: 1rem; font: 15px/1.5 system-ui, sans-serif; color: #152035; background: #fff; }\n  svg { display: block; width: 100%; height: auto; background: #f4f7f9; border-radius: 8px; }\n  .row { display: flex; gap: .75rem; align-items: center; margin-top: .75rem; flex-wrap: wrap; }\n  button { font: inherit; font-weight: 600; padding: .4rem .9rem; border: 0; border-radius: 6px; background: #007a6e; color: #fff; cursor: pointer; }\n  output { font-variant-numeric: tabular-nums; color: #5b6573; }\n</style>\n</head>\n<body>\n<svg viewBox=\"0 0 600 160\" role=\"img\" aria-label=\"A line that grows by one point each time the button is pressed\">\n  <polyline id=\"line\" fill=\"none\" stroke=\"#01ad9f\" stroke-width=\"3\" stroke-linejoin=\"round\" points=\"\"/>\n</svg>\n<div class=\"row\">\n  <button id=\"add\" type=\"button\">Add a point</button>\n  <button id=\"reset\" type=\"button\">Reset</button>\n  <output id=\"count\" aria-live=\"polite\">0 points</output>\n</div>\n<script>\n  (function () {\n    var pts = [];\n    var line = document.getElementById(\"line\");\n    var count = document.getElementById(\"count\");\n    function draw() {\n      var step = pts.length > 1 ? 580 / (pts.length - 1) : 0;\n      line.setAttribute(\"points\", pts.map(function (y, i) { return (10 + i * step).toFixed(1) + \",\" + y.toFixed(1); }).join(\" \"));\n      count.textContent = pts.length + (pts.length === 1 ? \" point\" : \" points\");\n    }\n    document.getElementById(\"add\").addEventListener(\"click\", function () {\n      var last = pts.length ? pts[pts.length - 1] : 80;\n      pts.push(Math.min(145, Math.max(15, last + (Math.random() - 0.5) * 50)));\n      draw();\n    });\n    document.getElementById(\"reset\").addEventListener(\"click\", function () { pts = []; draw(); });\n    draw();\n  }());\n</script>\n</body>\n</html>\n",
+                  "title": "A line that grows with each button press",
+                  "height": 260,
+                  "caption": "This frame is author-written HTML with its own script, shown in an isolated frame.",
+                  "blockName": "",
+                  "blockType": "html-embed"
+                },
+                "format": "",
+                "version": 2
               }
             ],
             "direction": "ltr"
@@ -1303,12 +1354,12 @@
         },
         "ja": null
       },
-      "updatedAt": "2026-10-11T21:12:35.018Z",
-      "createdAt": "2026-10-11T21:12:34.991Z",
+      "updatedAt": "2026-10-11T21:49:14.677Z",
+      "createdAt": "2026-10-11T21:49:14.649Z",
       "_status": "published"
     },
     {
-      "id": 14,
+      "id": 19,
       "title": {
         "en": "The Japanese words that paperwork actually uses",
         "ja": "役所の書類で本当によく使う日本語"
@@ -1318,14 +1369,14 @@
         "ja": "書類や窓口で何度も出てくる用語の短い用語集です。読み方も添えています。"
       },
       "slug": "japanese-paperwork-vocabulary",
-      "category": 8,
+      "category": 11,
       "tags": [
-        16,
-        17
+        22,
+        23
       ],
       "pubDate": "2026-09-15T09:00:00.000Z",
       "updatedDate": null,
-      "hero": 16,
+      "hero": 22,
       "series": {
         "name": null,
         "part": null
@@ -1409,7 +1460,7 @@
                 "type": "block",
                 "fields": {
                   "id": "fx0007",
-                  "media": 17,
+                  "media": 23,
                   "credit": "Illustration: placeholder",
                   "caption": "A placeholder figure with a caption.",
                   "blockName": "",
@@ -1463,9 +1514,9 @@
                 "fields": {
                   "id": "fx0009",
                   "media": [
-                    17,
-                    18,
-                    17
+                    23,
+                    24,
+                    23
                   ],
                   "blockName": "",
                   "blockType": "gallery-strip"
@@ -1721,12 +1772,12 @@
           }
         }
       },
-      "updatedAt": "2026-10-11T21:12:35.055Z",
-      "createdAt": "2026-10-11T21:12:35.037Z",
+      "updatedAt": "2026-10-11T21:49:14.716Z",
+      "createdAt": "2026-10-11T21:49:14.697Z",
       "_status": "published"
     },
     {
-      "id": 15,
+      "id": 20,
       "title": {
         "en": "An unfinished draft that must never ship"
       },
@@ -1734,7 +1785,7 @@
         "en": "Used to prove that drafts never reach dist/."
       },
       "slug": "unfinished-draft",
-      "category": 7,
+      "category": 10,
       "tags": [],
       "pubDate": "2026-10-05T09:00:00.000Z",
       "updatedDate": null,
@@ -1772,18 +1823,31 @@
                   }
                 ],
                 "direction": "ltr"
+              },
+              {
+                "type": "block",
+                "fields": {
+                  "id": "fx-embed-draft",
+                  "html": "<!doctype html><title>draft</title><p>DRAFT-ONLY-MARKER embed</p><script>1</script>",
+                  "title": "Draft-only embed",
+                  "height": 200,
+                  "blockName": "",
+                  "blockType": "html-embed"
+                },
+                "format": "",
+                "version": 2
               }
             ],
             "direction": "ltr"
           }
         }
       },
-      "updatedAt": "2026-10-11T21:12:35.078Z",
-      "createdAt": "2026-10-11T21:12:35.078Z",
+      "updatedAt": "2026-10-11T21:49:14.731Z",
+      "createdAt": "2026-10-11T21:49:14.731Z",
       "_status": "draft"
     },
     {
-      "id": 16,
+      "id": 21,
       "title": {
         "en": "What the homelab costs to run, in yen",
         "ja": null
@@ -1793,14 +1857,14 @@
         "ja": null
       },
       "slug": "what-the-homelab-costs",
-      "category": 9,
+      "category": 12,
       "tags": [
-        18,
-        13
+        24,
+        19
       ],
       "pubDate": "2026-10-04T09:00:00.000Z",
       "updatedDate": null,
-      "hero": 19,
+      "hero": 25,
       "series": {
         "name": null,
         "part": null
@@ -3044,14 +3108,14 @@
         },
         "ja": null
       },
-      "updatedAt": "2026-10-11T21:12:35.124Z",
-      "createdAt": "2026-10-11T21:12:35.103Z",
+      "updatedAt": "2026-10-11T21:49:14.782Z",
+      "createdAt": "2026-10-11T21:49:14.757Z",
       "_status": "published"
     }
   ],
   "projects": [
     {
-      "id": 5,
+      "id": 7,
       "title": {
         "en": "Homelab",
         "ja": "ホームラボ"
@@ -3064,27 +3128,27 @@
       "status": "maintained",
       "stack": [
         {
-          "id": "6acbfbc34af3840157571677",
+          "id": "6acc045a4c3de6705e6dc329",
           "label": "Talos Linux"
         },
         {
-          "id": "6acbfbc34af3840157571678",
+          "id": "6acc045a4c3de6705e6dc32a",
           "label": "Kubernetes"
         },
         {
-          "id": "6acbfbc34af3840157571679",
+          "id": "6acc045a4c3de6705e6dc32b",
           "label": "Cilium"
         },
         {
-          "id": "6acbfbc34af384015757167a",
+          "id": "6acc045a4c3de6705e6dc32c",
           "label": "Argo CD"
         },
         {
-          "id": "6acbfbc34af384015757167b",
+          "id": "6acc045a4c3de6705e6dc32d",
           "label": "CloudNativePG"
         },
         {
-          "id": "6acbfbc34af384015757167c",
+          "id": "6acc045a4c3de6705e6dc32e",
           "label": "Proxmox"
         }
       ],
@@ -3279,12 +3343,12 @@
           }
         }
       },
-      "updatedAt": "2026-10-11T21:12:35.172Z",
-      "createdAt": "2026-10-11T21:12:35.145Z",
+      "updatedAt": "2026-10-11T21:49:14.835Z",
+      "createdAt": "2026-10-11T21:49:14.806Z",
       "_status": "published"
     },
     {
-      "id": 6,
+      "id": 8,
       "title": {
         "en": "TraderBuddy"
       },
@@ -3295,15 +3359,15 @@
       "status": "active",
       "stack": [
         {
-          "id": "6acbfbc34af384015757167d",
+          "id": "6acc045a4c3de6705e6dc32f",
           "label": "TypeScript"
         },
         {
-          "id": "6acbfbc34af384015757167e",
+          "id": "6acc045a4c3de6705e6dc330",
           "label": "PostgreSQL"
         },
         {
-          "id": "6acbfbc34af384015757167f",
+          "id": "6acc045a4c3de6705e6dc331",
           "label": "Kubernetes"
         }
       ],
@@ -3450,14 +3514,14 @@
           }
         }
       },
-      "updatedAt": "2026-10-11T21:12:35.187Z",
-      "createdAt": "2026-10-11T21:12:35.187Z",
+      "updatedAt": "2026-10-11T21:49:14.851Z",
+      "createdAt": "2026-10-11T21:49:14.851Z",
       "_status": "published"
     }
   ],
   "pages": [
     {
-      "id": 3,
+      "id": 4,
       "title": {
         "en": "About",
         "ja": "このサイトについて"
@@ -3559,8 +3623,8 @@
           }
         }
       },
-      "updatedAt": "2026-10-11T21:12:35.212Z",
-      "createdAt": "2026-10-11T21:12:35.198Z",
+      "updatedAt": "2026-10-11T21:49:14.883Z",
+      "createdAt": "2026-10-11T21:49:14.863Z",
       "_status": "published"
     }
   ],
@@ -3593,7 +3657,7 @@
         "categories",
         "tags"
       ],
-      "updatedAt": "2026-10-11T21:12:35.243Z",
+      "updatedAt": "2026-10-11T21:49:14.920Z",
       "createdAt": "2026-10-11T14:36:37.167Z",
       "globalType": "site"
     },
@@ -3803,11 +3867,11 @@
           "endDate": "2026-03",
           "highlights": [
             {
-              "id": "6acbfbc44af3840157571680",
+              "id": "6acc045b4c3de6705e6dc332",
               "text": "Placeholder highlight one."
             },
             {
-              "id": "6acbfbc44af3840157571681",
+              "id": "6acc045b4c3de6705e6dc333",
               "text": "Placeholder highlight two."
             }
           ]
@@ -3820,7 +3884,7 @@
           "endDate": "2022-03",
           "highlights": [
             {
-              "id": "6acbfbc44af3840157571682",
+              "id": "6acc045b4c3de6705e6dc334",
               "text": "Placeholder highlight."
             }
           ]
@@ -3842,15 +3906,15 @@
           "name": "Languages",
           "keywords": [
             {
-              "id": "6acbfbc44af3840157571683",
+              "id": "6acc045b4c3de6705e6dc335",
               "text": "TypeScript"
             },
             {
-              "id": "6acbfbc44af3840157571684",
+              "id": "6acc045b4c3de6705e6dc336",
               "text": "Go"
             },
             {
-              "id": "6acbfbc44af3840157571685",
+              "id": "6acc045b4c3de6705e6dc337",
               "text": "SQL"
             }
           ]
@@ -3860,15 +3924,15 @@
           "name": "Platform",
           "keywords": [
             {
-              "id": "6acbfbc44af3840157571686",
+              "id": "6acc045b4c3de6705e6dc338",
               "text": "Kubernetes"
             },
             {
-              "id": "6acbfbc44af3840157571687",
+              "id": "6acc045b4c3de6705e6dc339",
               "text": "PostgreSQL"
             },
             {
-              "id": "6acbfbc44af3840157571688",
+              "id": "6acc045b4c3de6705e6dc33a",
               "text": "Terraform"
             }
           ]
@@ -3903,7 +3967,7 @@
         }
       ],
       "certificates": [],
-      "updatedAt": "2026-10-11T21:12:36.526Z",
+      "updatedAt": "2026-10-11T21:49:15.548Z",
       "createdAt": "2026-10-11T14:36:39.104Z",
       "globalType": "resume"
     }

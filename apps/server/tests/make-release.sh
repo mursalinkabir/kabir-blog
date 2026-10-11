@@ -6,13 +6,14 @@ id=$1
 mode=${2:-ok}
 d=/bucket/releases/$id
 rm -rf "$d"
-mkdir -p "$d/about" "$d/_astro" "$d/images" "$d/posts/hello"
+mkdir -p "$d/about" "$d/_astro" "$d/images" "$d/posts/hello" "$d/embeds"
 echo "<!doctype html><title>home $id</title><h1>home $id</h1>" >"$d/index.html"
 echo '<!doctype html><title>about</title>about' >"$d/about/index.html"
 echo '<!doctype html><title>hello</title>hello' >"$d/posts/hello/index.html"
 echo '<!doctype html><title>404</title>not found' >"$d/404.html"
 echo 'body{}' >"$d/_astro/app.abc123.css"
 printf 'webp' >"$d/images/a.webp"
+echo '<!doctype html><title>embed</title><script>1</script>' >"$d/embeds/e1.html"
 # One good redirect, one that tries to break out of the nginx string, one protocol-relative, one https.
 cat >"$d/_redirects.json" <<'JSON'
 [

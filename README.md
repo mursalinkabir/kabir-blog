@@ -1,4 +1,4 @@
-# smkabir-site
+# kabir-blog
 
 Source for [smkabir.com](https://smkabir.com): a static Astro site (English and Japanese) fed by a headless Payload CMS, served from a homelab with an R2 failover.
 

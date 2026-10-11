@@ -13,11 +13,11 @@
 #   release.sh rollback <build_id>                   point LATEST and VERIFIED at an existing release
 #   release.sh exists   <build_id>
 #
-# Environment: BUCKET (rclone path, default r2:smkabir-site). rclone reads its R2 credentials from RCLONE_CONFIG_R2_*.
+# Environment: BUCKET (rclone path, default r2:kabir-blog-site). rclone reads its R2 credentials from RCLONE_CONFIG_R2_*.
 # Pointers move only after every file of a release is uploaded and re-checked, so a pod can never see a half release.
 set -eu
 
-BUCKET="${BUCKET:-r2:smkabir-site}"
+BUCKET="${BUCKET:-r2:kabir-blog-site}"
 export RCLONE_CONFIG="${RCLONE_CONFIG:-/dev/null}"
 
 die() { echo "release.sh: $*" >&2; exit 1; }

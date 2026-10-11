@@ -1,4 +1,4 @@
-# smkabir-site-server: nginx + the content-sync sidecar in ONE image. The pod runs it twice:
+# kabir-blog-server: nginx + the content-sync sidecar in ONE image. The pod runs it twice:
 #   container `nginx`        default command (nginx)
 #   native sidecar `content-sync`   command: content-sync
 # No site content is baked in; releases come from R2 at runtime (docs/PLAN.md, "Site server image").
@@ -16,6 +16,7 @@ RUN apk add --no-cache 'rclone~=1.74' 'jq~=1.8' \
 COPY nginx/nginx.conf               /etc/nginx/nginx.conf
 COPY nginx/site.conf                /etc/nginx/conf.d/site.conf
 COPY nginx/security-headers.conf    /etc/nginx/snippets/security-headers.conf
+COPY nginx/embed-headers.conf       /etc/nginx/snippets/embed-headers.conf
 COPY content-sync/content-sync.sh   /usr/local/bin/content-sync
 RUN chmod 0755 /usr/local/bin/content-sync
 

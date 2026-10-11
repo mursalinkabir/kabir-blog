@@ -186,6 +186,13 @@ export function getPage(slug: string, locale: Locale): { title: string; content:
   return { title: pick(page.title, locale)!, content: pick(page.content, locale)!, available: locales.filter(has) };
 }
 
+/** Every published standalone page that exists in `locale`. */
+export function getAllPages(locale: Locale): { slug: string; title: string; content: LexicalRoot }[] {
+  return many<Page>('pages')
+    .filter((p) => p._status === 'published' && Boolean(pick(p.title, locale)) && hasContent(pick(p.content, locale)))
+    .map((p) => ({ slug: p.slug, title: pick(p.title, locale)!, content: pick(p.content, locale)! }));
+}
+
 /** Tags that have at least one post page in `locale`. */
 export function getUsedTags(locale: Locale): { slug: string; name: string; count: number }[] {
   const counts = new Map<string, { name: string; count: number }>();

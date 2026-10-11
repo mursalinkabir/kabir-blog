@@ -1,4 +1,4 @@
-# smkabir.com — the public blog. DRAFT: lives in smkabir-site/deploy/ until you copy it into
+# smkabir.com — the public blog. DRAFT: lives in kabir-blog/deploy/ until you copy it into
 # homelab-terraform/prod/apps/blog/ by hand (the site repo holds no GitOps credentials, by design).
 #
 # Deployed by the `apps` ApplicationSet into namespace `blog` (the folder name), which is why nothing below
@@ -10,7 +10,7 @@
 #                 signals nginx to reload the redirect map. R2 down = keep serving what we have.
 #   nginx         serves /srv/site/current. No content in the image: a new post is NOT a deploy.
 #
-# A *code* release is a tag push in smkabir-site (v0.1.0 -> ghcr.io/mursalinkabir/smkabir-site-server:0.1.0)
+# A *code* release is a tag push in kabir-blog (v0.1.0 -> ghcr.io/mursalinkabir/kabir-blog-server:0.1.0)
 # plus a hand-made bump of the two `image:` lines below. Rollback is `git revert` of that bump.
 #
 # Things nginx-unprivileged needs that are easy to get wrong (see demo/hello.yaml): it listens on 8080, and
@@ -26,7 +26,7 @@ metadata:
     # With the SealedSecret: everything the sidecar needs exists before the Deployment rolls.
     argocd.argoproj.io/sync-wave: '-2'
 data:
-  REMOTE: 'r2:smkabir-site'
+  REMOTE: 'r2:kabir-blog-site'
   POLL_SECONDS: '60'
   KEEP_RELEASES: '2'
   # rclone reads its remote definition from the environment. The credentials are in the `blog-r2` secret.
@@ -78,7 +78,7 @@ spec:
       initContainers:
         # Creates the (empty) redirect map nginx includes, so nginx can start before the first release lands.
         - name: init-site
-          image: ghcr.io/mursalinkabir/smkabir-site-server:0.1.0 # bump with content-sync and nginx below
+          image: ghcr.io/mursalinkabir/kabir-blog-server:0.1.0 # bump with content-sync and nginx below
           command: ['content-sync', 'init']
           env:
             - { name: SITE_ROOT, value: /srv/site }
@@ -93,7 +93,7 @@ spec:
             - { name: site, mountPath: /srv/site }
             - { name: tmp, mountPath: /tmp }
         - name: content-sync
-          image: ghcr.io/mursalinkabir/smkabir-site-server:0.1.0 # bump with init-site and nginx
+          image: ghcr.io/mursalinkabir/kabir-blog-server:0.1.0 # bump with init-site and nginx
           command: ['content-sync']
           restartPolicy: Always # makes this a native sidecar: starts before nginx, runs for the pod's life
           envFrom:
@@ -111,7 +111,7 @@ spec:
             - { name: tmp, mountPath: /tmp }
       containers:
         - name: nginx
-          image: ghcr.io/mursalinkabir/smkabir-site-server:0.1.0 # bump with the two above
+          image: ghcr.io/mursalinkabir/kabir-blog-server:0.1.0 # bump with the two above
           ports:
             - { name: http, containerPort: 8080 }
           # Liveness: nginx answers by itself, so a pod that has no content yet is alive, just not ready.
@@ -159,7 +159,7 @@ spec:
     matchLabels: { app: blog }
 ---
 # The cluster half of the hostname binding. The other half is the published application route in the
-# Cloudflare dashboard (docs/go-live.md in smkabir-site).
+# Cloudflare dashboard (docs/go-live.md in kabir-blog).
 #
 # smkabir.com is the apex: it uses the Gateway's `https-apex` listener (verified present and Programmed). The
 # wildcard certificate covers the apex too (smkabir-wildcard-tls, Ready), so there is no ACME change.

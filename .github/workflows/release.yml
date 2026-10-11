@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 env:
-  IMAGE: ghcr.io/${{ github.repository_owner }}/smkabir-site-server
+  IMAGE: ghcr.io/${{ github.repository_owner }}/kabir-blog-server
 
 jobs:
   verify:
@@ -38,7 +38,7 @@ jobs:
 
       - name: Release script tests (against a fake bucket)
         run: |
-          docker run --rm -u 0 -v "$PWD/scripts/ci:/ci:ro" --entrypoint sh smkabir-site-server:test /ci/test-release.sh
+          docker run --rm -u 0 -v "$PWD/scripts/ci:/ci:ro" --entrypoint sh kabir-blog-server:test /ci/test-release.sh
 
   image:
     needs: verify

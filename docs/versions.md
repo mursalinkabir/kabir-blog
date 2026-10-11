@@ -50,7 +50,7 @@ without checking its `type`.
 
 ### Where the deploy path departs from docs/PLAN.md
 
-- **One image, not two.** The sidecar is the same `smkabir-site-server` image run with `command: content-sync`
+- **One image, not two.** The sidecar is the same `kabir-blog-server` image run with `command: content-sync`
   (nginx + rclone + jq). One thing to build, scan and pin; the pod runs it as three containers.
 - **`init-site` init container** creates an empty redirect map so nginx can start before the first release exists.
   The plan's `include /srv/site/current/_redirects.conf` would fail nginx startup with no release; the map lives at
@@ -113,6 +113,17 @@ The plan text is left as written; this section is the record of what differs.
   `homelab-de-blog-wo-unyo-suru`. The `jp` inline block's "meaning" is written in Japanese on Japanese pages.
 - **Name:** the Japanese site name `ムルサリン・カビール` is a katakana rendering chosen here; confirm or change it in
   the `site` global.
+
+## Repository name and visibility (2026-10-12)
+
+- The GitHub repo is `mursalinkabir/kabir-blog` and it is **public** (docs/PLAN.md assumed a private `smkabir-site`;
+  its decision A3 allowed public because content lives in Payload).
+- Artifacts were renamed to match, **before** any of them was created: R2 bucket `smkabir-site` → `kabir-blog-site`
+  (future buckets: `kabir-blog-media`, `kabir-blog-pg-backups`), image `smkabir-site-server` →
+  `ghcr.io/mursalinkabir/kabir-blog-server`, tokens `kabir-blog-ci-write` and `kabir-blog-pods-read`. docs/PLAN.md
+  still uses the old names. The `@smkabir/*` workspace package names and the `smkabir.com` domain names are unchanged.
+- First real CI run on GitHub: `build` green (format, check, 70 tests, privacy scan, build, dist gates, with the
+  pinned actions and d2), `publish` red at "Upload the release" because the R2 secrets were not set yet.
 
 ## Still to verify (next phases)
 

@@ -10,6 +10,7 @@ import Figure from './blocks/Figure.astro';
 import GalleryStrip from './blocks/GalleryStrip.astro';
 import Diagram from './blocks/Diagram.astro';
 import Table from './blocks/Table.astro';
+import HtmlEmbed from './blocks/HtmlEmbed.astro';
 
 interface Props {
   node: LexicalNode;
@@ -81,6 +82,8 @@ const entries = type === 'list' ? listItems(node) : [];
     <GalleryStrip media={fields.media} locale={locale} />
   ) : type === 'block' && fields.blockType === 'diagram' ? (
     <Diagram kind={fields.kind} source={fields.source} alt={fields.alt} locale={locale} />
+  ) : type === 'block' && fields.blockType === 'html-embed' ? (
+    <HtmlEmbed html={fields.html} title={fields.title} height={fields.height} caption={fields.caption} locale={locale} />
   ) : type === 'block' ? (
     (() => {
       throw new Error(`Unknown Lexical block "${fields.blockType}"`);

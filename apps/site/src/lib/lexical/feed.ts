@@ -70,6 +70,9 @@ export function lexicalToFeedHtml(doc: LexicalRoot, origin: string, locale: Loca
         return `<p>${(f.media as any[]).map(img).join(' ')}</p>`;
       case 'diagram':
         return '<p><em>(Diagram: view it on the website.)</em></p>';
+      case 'html-embed':
+        // Feed readers do not run script, and the embed lives on its own page: point at the post.
+        return `<p><em>(Interactive content${f.title ? `: ${escapeHtml(String(f.title))}` : ''}. View it on the website.)</em></p>`;
       default:
         throw new Error(`Unknown block "${f.blockType}"`);
     }

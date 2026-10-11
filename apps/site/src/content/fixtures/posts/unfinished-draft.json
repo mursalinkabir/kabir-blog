@@ -47,6 +47,19 @@
               }
             ],
             "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "fx-embed-draft",
+              "blockName": "",
+              "blockType": "html-embed",
+              "title": "Draft-only embed",
+              "html": "<!doctype html><title>draft</title><p>DRAFT-ONLY-MARKER embed</p><script>1</script>",
+              "height": 200
+            }
           }
         ],
         "type": "root"

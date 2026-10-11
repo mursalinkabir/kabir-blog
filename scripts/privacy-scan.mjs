@@ -12,6 +12,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 // The site's public address, and the SSH user of git remotes (git@github.com:owner/repo.git is not a person).
 const ALLOWED_EMAILS = new Set(['hello@smkabir.com', 'git@github.com']);
+// GitHub's no-reply commit addresses (ID+name@users.noreply.github.com) exist so a real address never has to be public.
+const ALLOWED_EMAIL_DOMAINS = new Set(['users.noreply.github.com']);
 const IMAGE_EXT = new Set(['.jpg', '.jpeg', '.webp', '.png']);
 const TEXT_EXT = new Set(['.md', '.json', '.astro', '.ts', '.mjs', '.css', '.html', '.xml', '.txt', '.svg', '.yaml', '.yml']);
 const SKIP_DIRS = new Set(['node_modules', 'dist', '.astro', '.git', 'pagefind']);
@@ -102,11 +104,18 @@ const PHONE = /(?<![\w.])\+?\d{1,3}[-.\s]\(?\d{1,4}\)?[-.\s]\d{2,4}[-.\s]\d{3,4}
 const POSTAL = /〒\s?\d{3}-?\d{4}/g;
 const ADDRESS_MARKER = /[0-9０-９]+\s?丁目|[0-9０-９]+\s?番地/g;
 
-/** Findings for one text file. `denylist` is an array of lowercase terms. */
-export function scanText(text, denylist = []) {
+/**
+ * Findings for one text file. `denylist` is an array of lowercase terms.
+ * `phones: false` skips the phone-number pattern: it is meant for prose, and in SVG path data, viewBoxes and script
+ * (HTML embeds) runs of grouped digits are everywhere. Emails, postal codes, address markers and the denylist still apply.
+ */
+export function scanText(text, denylist = [], { phones = true } = {}) {
   const out = [];
-  for (const m of text.matchAll(EMAIL)) if (!ALLOWED_EMAILS.has(m[0].toLowerCase())) out.push(`email ${m[0]}`);
-  for (const m of text.matchAll(PHONE)) {
+  for (const m of text.matchAll(EMAIL)) {
+    const addr = m[0].toLowerCase();
+    if (!ALLOWED_EMAILS.has(addr) && !ALLOWED_EMAIL_DOMAINS.has(addr.split('@')[1] ?? '')) out.push(`email ${m[0]}`);
+  }
+  for (const m of phones ? text.matchAll(PHONE) : []) {
     const digits = m[0].replace(/\D/g, '');
     if (digits.length >= 9 && digits.length <= 13) out.push(`phone-like number ${m[0]}`);
   }

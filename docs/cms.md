@@ -99,3 +99,45 @@ cd apps/site && node scripts/pull-cms.mjs --raw tests/fixtures/payload-raw.json
 - **Album and gallery collections are not built yet.** The photo strip block covers the plan's photo posts.
 - **No blurhash.** Not needed for a static site with fixed-aspect covers.
 - **Previews, publish hooks and the CMS image** are Phase 4 and Phase 7.
+
+## HTML embeds: author HTML with JavaScript
+
+The editor has an **HTML embed** block for a self-contained piece of HTML, CSS and JavaScript: an animation, a
+calculator, an interactive explainer. Paste a complete page or a fragment; set a title (the frame's accessible name),
+a starting height and an optional caption.
+
+**How it is kept safe** (production-ready design; `apps/site/src/lib/embeds.ts` is the code):
+
+| Layer                                                    | What it guarantees                                                                                      |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| The HTML is never part of a page                         | It is written to `/embeds/<content-hash>.html`; the post holds only an `<iframe>`.                      |
+| `sandbox="allow-scripts"` on the frame                   | An opaque origin: no cookies, no storage, no access to the site's DOM, no navigation, no popups, forms. |
+| `/embeds/` has its own CSP (`sandbox allow-scripts` too) | The document is isolated even if someone opens its URL directly.                                        |
+| `connect-src 'none'`, `default-src 'none'`               | It cannot send anything anywhere, and cannot load remote scripts, styles, fonts, images or frames.      |
+| The page CSP is unchanged                                | Still no inline script on any page: `unsafe-inline` for scripts exists only under `/embeds/`.           |
+| `check-dist.mjs`                                         | Fails the build on a frame without exactly that sandbox, an orphan or remote-loading embed, a leak.     |
+
+So an embed **cannot**: read or change the site, read cookies or storage, make any network request (including to the
+same site), load a library from a CDN, open windows or navigate the page. **Put everything inline.** Links inside an
+embed that point at other pages do not work (no navigation is allowed); put such links in the post text.
+
+What it **can** do: run any script that works on its own (canvas, SVG, timers, `requestAnimationFrame`, `<audio>` from
+a `data:` URL...), and size itself: the frame follows the embed's content height.
+
+Verified on 2026-10-12 with the real TraderBuddy `docs/motion.html` (27 KB, unmodified): it runs, all seven scenes
+build, the frame resizes from 480 to 796 px, `window.origin` is `"null"`, `localStorage`, `document.cookie` and
+`parent.document` all throw, and `fetch` to the same site and to a remote site are both blocked by the CSP, including
+when the embed URL is opened directly.
+
+Other facts:
+
+- Which embeds are built follows which pages are built: a draft's embed is never written to `dist/` (tested).
+- The embed text is privacy-scanned at build time (emails, postal codes, address markers, `PRIVACY_DENYLIST`). The
+  phone-number heuristic is skipped for embeds, because SVG data and script are full of digit groups.
+- Size limit 300 KB per embed. The same HTML in two posts is one file.
+- RSS readers get a one-line "interactive content, view it on the website" note instead of the embed.
+- The embed is not indexed by search engines or Pagefind, and is not in the sitemap.
+- Anyone who can edit in the CMS can add one. Admin access sits behind Cloudflare Access; the isolation above is what
+  makes that acceptable. Treat embeds like code you publish: do not paste HTML you did not write or read.
+- The failover Worker (Phase 9) must serve `/embeds/*` with the `embeds` header set from `security-headers.json`, not
+  the page set, or an embed would be served with the page CSP and simply not run.

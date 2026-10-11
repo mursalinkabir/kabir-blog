@@ -7,7 +7,7 @@
 set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"; ROOT="$(cd "$HERE/../../.." && pwd)"
 DIST="${1:-$ROOT/apps/site/dist}"; PORT="${2:-8081}"
-IMAGE="${IMAGE:-smkabir-site-server:test}"
+IMAGE="${IMAGE:-kabir-blog-server:test}"
 ID=$(jq -er .build_id "$DIST/version.json") || { echo "dist/version.json has no build_id; build with BUILD_ID set"; exit 1; }
 RUN="e2e$$"; B="b-$RUN"; S="s-$RUN"; T="t-$RUN"; N="n-$RUN"
 cleanup() { [ "${KEEP:-0}" = 1 ] || { docker rm -f "$N" >/dev/null 2>&1; docker volume rm -f "$B" "$S" "$T" >/dev/null 2>&1; }; }

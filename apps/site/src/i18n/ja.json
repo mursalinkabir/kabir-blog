@@ -167,5 +167,8 @@
   "aboutPage": {
     "whatIWrite": "書いていること",
     "getInTouch": "連絡先"
+  },
+  "embed": {
+    "needsScript": "この対話型コンテンツには JavaScript が必要です。"
   }
 }

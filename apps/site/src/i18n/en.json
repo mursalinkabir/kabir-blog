@@ -167,5 +167,8 @@
   "aboutPage": {
     "whatIWrite": "What I write about",
     "getInTouch": "Get in touch"
+  },
+  "embed": {
+    "needsScript": "This interactive element needs JavaScript."
   }
 }

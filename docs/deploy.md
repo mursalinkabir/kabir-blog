@@ -17,7 +17,7 @@ Phase 6 (apex cutover). Everything marked **(you)** needs a login this repo does
 | What changes                                   | How it ships                                                                                     | Touches the cluster repo?                                   |
 | ---------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------- |
 | A post, a page, the site's templates or styles | push to `main` (or a CMS publish later). `content.yml` publishes a release; pods follow `LATEST` | **No**                                                      |
-| The nginx config, headers, or the sidecar      | tag `vX.Y.Z`; `release.yml` pushes `ghcr.io/mursalinkabir/smkabir-site-server:X.Y.Z`             | **Yes**: a hand-made tag bump in `prod/apps/blog/blog.yaml` |
+| The nginx config, headers, or the sidecar      | tag `vX.Y.Z`; `release.yml` pushes `ghcr.io/mursalinkabir/kabir-blog-server:X.Y.Z`               | **Yes**: a hand-made tag bump in `prod/apps/blog/blog.yaml` |
 | Roll back content                              | run the **content-rollback** workflow with an earlier build id                                   | No                                                          |
 | Roll back code                                 | `git revert` the bump commit in homelab-terraform                                                | Yes                                                         |
 
@@ -45,13 +45,9 @@ Each step lists what to expect. Stop at the first thing that differs.
 
 ### 1. Accounts and buckets **(you)**
 
-1. Create the repo `smkabir-site` on GitHub and push this one:
-   ```sh
-   git remote add origin git@github.com:mursalinkabir/smkabir-site.git
-   git push -u origin main
-   ```
-   (Nothing in this working tree is committed yet. Commit first.)
-2. Cloudflare: R2 bucket `smkabir-site`. Two API tokens, both limited to that bucket: **Object Read & Write**
+1. The repo is `mursalinkabir/kabir-blog` (public, `origin` is set, `main` is pushed). Artifacts are named after it:
+   R2 bucket `kabir-blog-site`, GHCR image `kabir-blog-server`.
+2. Cloudflare: R2 bucket `kabir-blog-site`. Two API tokens, both limited to that bucket: **Object Read & Write**
    (for CI) and **Object Read only** (for the pods). Note the account id.
 3. GitHub > Settings > Environments > create `site-publish`; add the secrets from `docs/secrets.md` there.
    `SITE_URL` defaults to `https://smkabir.com`; set it only for a dry run on another hostname.
@@ -62,7 +58,7 @@ Each step lists what to expect. Stop at the first thing that differs.
 1. Write the CHANGELOG entry: rename `## Unreleased` to `## 0.1.0 - <date>`.
 2. `git tag v0.1.0 && git push origin v0.1.0`.
 3. `release.yml` runs the image tests, scans with trivy (fixable HIGH/CRITICAL fail), and pushes
-   `ghcr.io/mursalinkabir/smkabir-site-server:0.1.0`. Make the package **public** (it contains no content).
+   `ghcr.io/mursalinkabir/kabir-blog-server:0.1.0`. Make the package **public** (it contains no content).
 
 ### 3. First content release
 

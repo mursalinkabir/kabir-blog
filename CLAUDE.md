@@ -1,4 +1,4 @@
-# smkabir-site — rules for Claude Code
+# kabir-blog — rules for Claude Code
 
 - Work phase by phase from docs/PLAN.md. Stop at each gate and show real command output.
 - Verify every version, config key, CLI flag and API field against current docs before use;
@@ -39,7 +39,10 @@
 
 - Content access goes through `apps/site/src/lib/cms.ts`. Pages never read fixtures or pulled CMS files directly: `cms.ts` picks `src/content/cms` (pulled from Payload) or the fixtures.
 - Pages live under `src/pages/[...locale]/` (English = no prefix, Japanese = `ja`). Use `perLocale()` for `getStaticPaths`.
-- No inline scripts on the public site. Put scripts in `src/scripts/` or `public/`.
+- No inline scripts on the public site. Put scripts in `src/scripts/` or `public/`. The one exception is the CMS
+  "HTML embed" block: author HTML is written to `/embeds/<hash>.html` and framed with `sandbox="allow-scripts"`; that
+  path has its own CSP (`security-headers.json` > `embeds`, rendered to `embed-headers.conf`). Never add
+  `unsafe-inline` to the page CSP, `allow-same-origin` to an embed frame, or `connect-src` to the embed CSP.
 - A missing localized field means no page in that locale. Never fall back to another language.
 - Images: Unsplash License photos only (never Unsplash+), credit in the media `credit` field, WebP at 480/960/1600 px. See docs/images.md.
 - Design: follow docs/design.md (Bookworm-style, light only). Teal `#01ad9f` is decoration; text and buttons use `#007a6e`.

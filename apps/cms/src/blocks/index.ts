@@ -165,6 +165,54 @@ export const DiagramBlock: Block = {
   ],
 };
 
+const MAX_EMBED_BYTES = 300_000;
+
+/**
+ * Author-supplied HTML with its own CSS and JavaScript (an animation, a calculator, an explainer). It is not part of
+ * the page: the site writes it to its own file and shows it in a sandboxed frame (apps/site/src/lib/embeds.ts).
+ * That is what makes this safe to allow, and it is also why the limits below exist: write it as ONE self-contained
+ * document with everything inline.
+ */
+export const HtmlEmbedBlock: Block = {
+  slug: 'html-embed',
+  labels: { singular: 'HTML embed', plural: 'HTML embeds' },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+      required: true,
+      admin: { description: 'What this is, for screen readers (the frame\'s accessible name). Example: "Thirty-second product tour".' },
+    },
+    {
+      name: 'html',
+      type: 'code',
+      required: true,
+      label: 'HTML (a full page, or a fragment)',
+      admin: {
+        language: 'html',
+        description:
+          'Runs in an isolated frame: it cannot read or change this site, cannot use cookies or storage, and cannot ' +
+          'make network requests. Remote scripts, styles, fonts and images are blocked, so put everything inline ' +
+          '(<style>, <script>, inline SVG, data: images). Up to 300 KB.',
+      },
+      validate: (value: unknown) => {
+        if (typeof value !== 'string' || value.trim() === '') return 'HTML is required.';
+        if (Buffer.byteLength(value, 'utf8') > MAX_EMBED_BYTES) return 'This HTML is larger than 300 KB. Keep embeds small.';
+        return true;
+      },
+    },
+    {
+      name: 'height',
+      type: 'number',
+      defaultValue: 480,
+      min: 120,
+      max: 2400,
+      admin: { description: 'Starting height in pixels. The frame then resizes itself to fit the content.' },
+    },
+    { name: 'caption', type: 'text', admin: { description: 'Optional line shown under the frame.' } },
+  ],
+};
+
 /**
  * The article editor. Everything the site can render and nothing it cannot: no upload node (use a Figure block),
  * no internal links, no alignment or indent. A feature the renderer does not know would fail the site build.
@@ -181,7 +229,7 @@ export const articleEditor = lexicalEditor({
     HorizontalRuleFeature(),
     EXPERIMENTAL_TableFeature(),
     BlocksFeature({
-      blocks: [CodeBlock, TerminalBlock, CalloutBlock, FigureBlock, GalleryStripBlock, DiagramBlock],
+      blocks: [CodeBlock, TerminalBlock, CalloutBlock, FigureBlock, GalleryStripBlock, DiagramBlock, HtmlEmbedBlock],
       inlineBlocks: [JpInlineBlock],
     }),
     FixedToolbarFeature(),

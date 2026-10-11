@@ -16,7 +16,7 @@
 #   - any failure leaves the previous release serving. R2 down means "keep what you have".
 #
 # Environment:
-#   REMOTE          required. rclone path of the bucket, e.g. r2:smkabir-site (or a local directory in tests)
+#   REMOTE          required. rclone path of the bucket, e.g. r2:kabir-blog-site (or a local directory in tests)
 #   SITE_ROOT       default /srv/site
 #   POLL_SECONDS    default 60
 #   KEEP_RELEASES   default 2 (the live release and the previous one, for instant local rollback)
@@ -146,12 +146,12 @@ main() {
       init
       ;;
     once)
-      : "${REMOTE:?REMOTE is required, e.g. r2:smkabir-site}"
+      : "${REMOTE:?REMOTE is required, e.g. r2:kabir-blog-site}"
       init
       sync_once
       ;;
     run)
-      : "${REMOTE:?REMOTE is required, e.g. r2:smkabir-site}"
+      : "${REMOTE:?REMOTE is required, e.g. r2:kabir-blog-site}"
       init
       trap 'log "stopping"; exit 0' TERM INT
       log "watching $REMOTE every ${POLL}s"

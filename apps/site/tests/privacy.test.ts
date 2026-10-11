@@ -34,8 +34,13 @@ describe('privacy scan', () => {
   it('flags personal data patterns but allows the site address, versions and dates', () => {
     expect(scanText('mail me: someone@example.com')).toEqual(['email someone@example.com']);
     expect(scanText('hello@smkabir.com')).toEqual([]);
+    expect(scanText('1818238+someone@users.noreply.github.com')).toEqual([]); // GitHub no-reply: made to be public
+    expect(scanText('someone@gmail.com')).toEqual(['email someone@gmail.com']);
     expect(scanText('git remote add origin git@github.com:owner/repo.git')).toEqual([]);
     expect(scanText('call 090-1234-5678')).toHaveLength(1);
+    expect(scanText('viewBox="0 0 1600 900"')).toHaveLength(1); // prose rule: grouped digits look like a phone number
+    expect(scanText('viewBox="0 0 1600 900" 090-1234-5678', [], { phones: false })).toEqual([]); // embeds: skipped
+    expect(scanText('a@gmail.com 〒160-0022', [], { phones: false })).toHaveLength(2); // but the rest still applies
     expect(scanText('〒160-0022 and 3丁目')).toHaveLength(2);
     expect(scanText('pnpm@12.9.1, 2026-10-08, build 20261008, #01ad9f')).toEqual([]);
   });

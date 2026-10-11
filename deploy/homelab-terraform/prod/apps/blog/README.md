@@ -1,19 +1,19 @@
 # prod/apps/blog (draft)
 
-Step-by-step: `docs/go-live.md` in smkabir-site. This README is the short reference.
+Step-by-step: `docs/go-live.md` in kabir-blog. This README is the short reference.
 
 Copy this folder into `homelab-terraform/prod/apps/blog/` by hand. It is plain YAML, sets no namespace, and
-has no `Namespace` object (the `apps` ApplicationSet owns both). Full runbook: `docs/deploy.md` in smkabir-site.
+has no `Namespace` object (the `apps` ApplicationSet owns both). Full runbook: `docs/deploy.md` in kabir-blog.
 
 ## What you still have to supply
 
-| Item                                  | Where                                                      | How                                                                           |
-| ------------------------------------- | ---------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| Cloudflare account id                 | `blog.yaml` ConfigMap `RCLONE_CONFIG_R2_ENDPOINT`          | replace `<ACCOUNT_ID>` (not a secret)                                         |
-| Read-only R2 token for `smkabir-site` | SealedSecret `blog-r2` (below)                             | Cloudflare dashboard: R2 > API tokens, **Object Read only**, this bucket only |
-| The image tag                         | the three `image:` lines                                   | `0.1.0` does not exist until you push the tag `v0.1.0` in smkabir-site        |
-| Public GHCR package                   | GitHub: Packages > smkabir-site-server > visibility Public | the image holds no content or secrets; the pods pull it without a pull secret |
-| Tunnel route                          | Cloudflare dashboard (below)                               | after the HTTPRoute exists                                                    |
+| Item                                     | Where                                                    | How                                                                           |
+| ---------------------------------------- | -------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| Cloudflare account id                    | `blog.yaml` ConfigMap `RCLONE_CONFIG_R2_ENDPOINT`        | replace `<ACCOUNT_ID>` (not a secret)                                         |
+| Read-only R2 token for `kabir-blog-site` | SealedSecret `blog-r2` (below)                           | Cloudflare dashboard: R2 > API tokens, **Object Read only**, this bucket only |
+| The image tag                            | the three `image:` lines                                 | `0.1.0` does not exist until you push the tag `v0.1.0` in kabir-blog          |
+| Public GHCR package                      | GitHub: Packages > kabir-blog-server > visibility Public | the image holds no content or secrets; the pods pull it without a pull secret |
+| Tunnel route                             | Cloudflare dashboard (below)                             | after the HTTPRoute exists                                                    |
 
 ## The SealedSecret (never commit the plain Secret)
 

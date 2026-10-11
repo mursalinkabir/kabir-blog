@@ -1,5 +1,5 @@
 {
-  "name": "smkabir-site",
+  "name": "kabir-blog",
   "private": true,
   "packageManager": "pnpm@12.9.1",
   "engines": {

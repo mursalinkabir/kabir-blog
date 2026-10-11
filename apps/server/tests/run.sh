@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Image tests for smkabir-site-server. Needs only Docker. Builds the image, then checks:
+# Image tests for kabir-blog-server. Needs only Docker. Builds the image, then checks:
 #   1. the content-sync sidecar against a fake bucket (rclone's local backend stands in for R2)
 #   2. nginx under the restrictions the cluster enforces (non-root, read-only root, no capabilities)
 #   3. the two together, sharing a PID namespace like the pod does (redirects reload)
@@ -12,7 +12,7 @@ set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"
 cd "$HERE/.."
 
-IMAGE="${IMAGE:-smkabir-site-server:test}"
+IMAGE="${IMAGE:-kabir-blog-server:test}"
 PLATFORM="${PLATFORM:-}"
 RUN_ID="t$$"
 BUCKET="ssbucket-$RUN_ID"; SITE="sssite-$RUN_ID"; TMPV="sstmp-$RUN_ID"
@@ -131,6 +131,19 @@ eq "images cache an hour in browsers" "public, max-age=3600, s-maxage=86400" "$(
 contains "CSP header present" "$(header "$NGINX" /about/ Content-Security-Policy)" "default-src 'self'"
 contains "CSP present on the 404 page too" "$(header "$NGINX" /nope/ Content-Security-Policy)" "default-src 'self'"
 eq "nosniff" nosniff "$(header "$NGINX" /about/ X-Content-Type-Options)"
+contains "pages keep the strict script policy" "$(header "$NGINX" /about/ Content-Security-Policy)" "script-src 'self' 'wasm-unsafe-eval'"
+eq "embed is served" 200 "$(status "$NGINX" /embeds/e1.html)"
+embed_csp=$(header "$NGINX" /embeds/e1.html Content-Security-Policy)
+contains "embed CSP sandboxes the document" "$embed_csp" "sandbox allow-scripts;"
+contains "embed CSP allows only inline script" "$embed_csp" "script-src 'unsafe-inline';"
+contains "embed CSP blocks all network" "$embed_csp" "connect-src 'none'"
+contains "embed CSP is not the page CSP" "$embed_csp" "default-src 'none'"
+case "$embed_csp" in *allow-same-origin*) fail=$((fail + 1)); echo "  FAIL  embed is never same-origin" ;; *) pass=$((pass + 1)); echo "  PASS  embed is never same-origin" ;; esac
+eq "embed is immutable" "public, max-age=31536000, immutable" "$(header "$NGINX" /embeds/e1.html Cache-Control)"
+eq "embed is noindex" "noindex, nofollow" "$(header "$NGINX" /embeds/e1.html X-Robots-Tag)"
+eq "embed sends no referrer" no-referrer "$(header "$NGINX" /embeds/e1.html Referrer-Policy)"
+eq "missing embed 404" 404 "$(status "$NGINX" /embeds/nope.html)"
+case "$(header "$NGINX" /about/ Content-Security-Policy)" in *sandbox*) fail=$((fail + 1)); echo "  FAIL  the page CSP is not the embed CSP" ;; *) pass=$((pass + 1)); echo "  PASS  the page CSP is not the embed CSP" ;; esac
 eq "Permissions-Policy" "camera=(), microphone=(), geolocation=()" "$(header "$NGINX" /about/ Permissions-Policy)"
 eq "server version hidden" nginx "$(header "$NGINX" / Server)"
 trav=$(status "$NGINX" /../../etc/passwd)

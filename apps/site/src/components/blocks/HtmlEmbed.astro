@@ -1,0 +1,31 @@
+---
+import { embedPath } from '~/lib/embeds';
+import { t, type Locale } from '~/i18n';
+
+interface Props {
+  html: string;
+  title: string;
+  height?: number;
+  caption?: string;
+  locale: Locale;
+}
+const { html, title, height = 480, caption, locale } = Astro.props;
+const src = embedPath(html);
+// The frame starts at `height` and is resized by the embed's own report (src/scripts/embed-frame.ts).
+const start = Math.min(Math.max(Math.round(height) || 480, 120), 2400);
+---
+
+<figure class="embed">
+  <!--
+    sandbox="allow-scripts" and NOTHING else: no allow-same-origin (opaque origin: no cookies, no storage, no access to
+    this page), no top navigation, no popups, no forms. check-dist.mjs fails the build if this ever changes.
+  -->
+  <iframe src={src} title={title} sandbox="allow-scripts" allow="" referrerpolicy="no-referrer" loading="lazy" data-embed height={start}
+  ></iframe>
+  <noscript><p class="embed-note">{t(locale, 'embed.needsScript')}</p></noscript>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<script>
+  import '~/scripts/embed-frame';
+</script>

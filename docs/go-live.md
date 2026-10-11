@@ -32,33 +32,33 @@ Because nothing is at the apex today, going live cannot break an existing site.
 
 ## Part 1. Put the code on GitHub (10 min)
 
-**1.1 Review what will be committed.** In a terminal:
+**Done (2026-10-12):** the repo is `mursalinkabir/kabir-blog` and it is **public**. The repo name differs from the
+`smkabir-site` used in docs/PLAN.md; wherever this guide says "the repo", it means `kabir-blog`. The artifacts are
+named after it: R2 bucket `kabir-blog-site`, image `kabir-blog-server`. (Neither existed yet when they were renamed.)
+
+What a public repo means here: everything committed is world-readable, so secrets live only in GitHub environment
+secrets, the commit author email must be the GitHub no-reply address, and the review below applies to every commit.
+
+**1.1 Before each push.**
 
 ```sh
-cd ~/Dev/Projects/Kabir-Blog/kabir-blog
 npx pnpm@12.9.1 privacy          # expect: privacy-scan: clean
-git add -A
-git status --short | head -60    # skim it: no .env, no node_modules, no dist
+git status --short | head -60    # skim it: no .env, no .dev-credentials, no node_modules, no dist
+git config user.email            # expect the ...@users.noreply.github.com address
 ```
 
-**1.2 Commit.**
+**You should see (first push):** an Actions run named **content**. `build` goes green; `publish` **fails at "Upload
+the release"** because the secrets do not exist yet. That is expected and harmless: no pointer moves. It was
+confirmed on the first real run (2026-10-12).
 
-```sh
-git commit -m "smkabir.com site, deploy path and docs"
-```
+**1.2 Public-repository settings (5 min, once).** Repo > **Settings**:
 
-**1.3 Create the repo.** github.com/new: owner `mursalinkabir`, name **`smkabir-site`**, **Private** is fine,
-leave "Add a README", ".gitignore" and "license" unticked.
-
-**1.4 Push.**
-
-```sh
-git remote add origin https://github.com/mursalinkabir/smkabir-site.git
-git push -u origin main
-```
-
-**You should see:** the branch on GitHub. An Actions run named **content** starts and **fails quickly**. That is
-expected: the secrets do not exist yet.
+- **Code security**: enable _Secret scanning_ and _Push protection_; enable _Private vulnerability reporting_.
+- **Actions > General**: _Fork pull request workflows_ > require approval for all outside collaborators. (The workflows
+  have no `pull_request` trigger, so a fork cannot run them with your secrets; this is a second lock.)
+- **Environments > site-publish**: _Deployment branches and tags_ > **Selected branches** > `main`.
+- **Licence**: add a `LICENSE` file (MIT is the usual choice for the code). The sample posts and the Unsplash photos
+  are credited in `apps/site/public/images/covers/CREDITS.md`.
 
 ---
 
@@ -66,20 +66,20 @@ expected: the secrets do not exist yet.
 
 Your account already uses R2 (the Terraform state), so it is enabled.
 
-**2.1 Create the bucket.** Cloudflare dashboard > **R2 Object Storage** > **Create bucket**: name **`smkabir-site`**,
+**2.1 Create the bucket.** Cloudflare dashboard > **R2 Object Storage** > **Create bucket**: name **`kabir-blog-site`**,
 location Automatic. Leave **public access off**.
 
 **2.2 Note your account id.** R2 overview page, right side: **Account ID**. Copy it (not secret).
 
 **2.3 CI token (read and write).** R2 > **Manage API tokens** > **Create API token**:
 
-- Name `smkabir-site-ci-write`
+- Name `kabir-blog-ci-write`
 - Permission **Object Read & Write**
-- Specify bucket: **smkabir-site** only
+- Specify bucket: **kabir-blog-site** only
 - Create, then copy the **Access Key ID** and **Secret Access Key** now (the secret is shown once).
 
-**2.4 Pod token (read only).** Create a second token: name `smkabir-site-pods-read`, permission **Object Read
-only**, bucket **smkabir-site** only. Copy both values; you need them in Part 6.
+**2.4 Pod token (read only).** Create a second token: name `kabir-blog-pods-read`, permission **Object Read
+only**, bucket **kabir-blog-site** only. Copy both values; you need them in Part 6.
 
 **2.5 Cache-purge token.** Top right profile > **My Profile** > **API Tokens** > **Create Token** > Custom token:
 
@@ -93,7 +93,7 @@ only**, bucket **smkabir-site** only. Copy both values; you need them in Part 6.
 
 ## Part 3. GitHub settings (5 min)
 
-**3.1 Create the environment.** Repo `smkabir-site` > **Settings** > **Environments** > **New environment** >
+**3.1 Create the environment.** Repo `kabir-blog` > **Settings** > **Environments** > **New environment** >
 name **`site-publish`**. No reviewers needed.
 
 **3.2 Add five secrets to that environment** (Environment secrets > Add secret). Names exactly:
@@ -131,21 +131,21 @@ git push origin main v0.1.0
 **4.3 Watch it.** GitHub > **Actions** > **release**. Two jobs: **verify** (runs the image tests, about 5 minutes)
 then **image** (build, trivy scan, push).
 
-**You should see:** both green, and in the run summary `ghcr.io/mursalinkabir/smkabir-site-server:0.1.0`.
+**You should see:** both green, and in the run summary `ghcr.io/mursalinkabir/kabir-blog-server:0.1.0`.
 If trivy fails on a fixable HIGH or CRITICAL finding, that is the scan doing its job: the base image needs a bump
 (`apps/server/Dockerfile`); tell me the finding and I will fix it. Tags are never moved, so the fix ships as `v0.1.1`.
 
-**4.4 Make the package public.** GitHub > your profile > **Packages** > `smkabir-site-server` > **Package
+**4.4 Make the package public.** GitHub > your profile > **Packages** > `kabir-blog-server` > **Package
 settings** (right) > **Danger Zone** > **Change visibility** > **Public**. (It holds no content or secrets; public
 lets the cluster pull it without a pull secret.)
 
-**4.5 Check.** `docker logout ghcr.io; docker pull ghcr.io/mursalinkabir/smkabir-site-server:0.1.0` works.
+**4.5 Check.** `docker logout ghcr.io; docker pull ghcr.io/mursalinkabir/kabir-blog-server:0.1.0` works.
 
 ---
 
 ## Part 5. First content release (5 min)
 
-**5.1** GitHub > **Actions** > the failed **content** run from step 1.4 > **Re-run all jobs**.
+**5.1** GitHub > **Actions** > the failed **content** run from Part 1 > **Re-run all jobs**.
 (Or push any small change to `main`.)
 
 **You should see:** `build` green, then `publish` goes green through "Upload the release" and "Point LATEST", and
@@ -153,7 +153,7 @@ then **fails at "Wait until the origin serves it"** after 10 minutes. **That red
 not routed yet. The release and the `LATEST` pointer are already in R2, which is all the pods need.
 (To avoid waiting 10 minutes, cancel the run once "Point LATEST" is green; nothing else is lost.)
 
-**5.2 Check R2.** Dashboard > R2 > `smkabir-site`: a `releases/<sha>-<run>/` folder and a `LATEST` object.
+**5.2 Check R2.** Dashboard > R2 > `kabir-blog-site`: a `releases/<sha>-<run>/` folder and a `LATEST` object.
 
 ---
 
@@ -211,7 +211,7 @@ Check that the file contains `encryptedData:` and **no** plain values: `grep -c 
 
 ```sh
 git add prod/apps/blog
-git commit -m "blog: smkabir.com static site (smkabir-site-server 0.1.0)"
+git commit -m "blog: smkabir.com static site (kabir-blog-server 0.1.0)"
 git push
 ```
 

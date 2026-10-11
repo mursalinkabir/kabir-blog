@@ -752,6 +752,57 @@
               }
             ],
             "type": "paragraph"
+          },
+          {
+            "type": "heading",
+            "tag": "h2",
+            "version": 1,
+            "format": "",
+            "indent": 0,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "text": "An interactive demo",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "version": 1,
+            "format": "",
+            "indent": 0,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "text": "Posts can include small interactive pieces written as plain HTML and JavaScript. They run in a sandboxed frame, so they cannot touch the site around them or send anything anywhere.",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "fx-embed-1",
+              "blockName": "",
+              "blockType": "html-embed",
+              "title": "A line that grows with each button press",
+              "html": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<style>\n  body { margin: 0; padding: 1rem; font: 15px/1.5 system-ui, sans-serif; color: #152035; background: #fff; }\n  svg { display: block; width: 100%; height: auto; background: #f4f7f9; border-radius: 8px; }\n  .row { display: flex; gap: .75rem; align-items: center; margin-top: .75rem; flex-wrap: wrap; }\n  button { font: inherit; font-weight: 600; padding: .4rem .9rem; border: 0; border-radius: 6px; background: #007a6e; color: #fff; cursor: pointer; }\n  output { font-variant-numeric: tabular-nums; color: #5b6573; }\n</style>\n</head>\n<body>\n<svg viewBox=\"0 0 600 160\" role=\"img\" aria-label=\"A line that grows by one point each time the button is pressed\">\n  <polyline id=\"line\" fill=\"none\" stroke=\"#01ad9f\" stroke-width=\"3\" stroke-linejoin=\"round\" points=\"\"/>\n</svg>\n<div class=\"row\">\n  <button id=\"add\" type=\"button\">Add a point</button>\n  <button id=\"reset\" type=\"button\">Reset</button>\n  <output id=\"count\" aria-live=\"polite\">0 points</output>\n</div>\n<script>\n  (function () {\n    var pts = [];\n    var line = document.getElementById(\"line\");\n    var count = document.getElementById(\"count\");\n    function draw() {\n      var step = pts.length > 1 ? 580 / (pts.length - 1) : 0;\n      line.setAttribute(\"points\", pts.map(function (y, i) { return (10 + i * step).toFixed(1) + \",\" + y.toFixed(1); }).join(\" \"));\n      count.textContent = pts.length + (pts.length === 1 ? \" point\" : \" points\");\n    }\n    document.getElementById(\"add\").addEventListener(\"click\", function () {\n      var last = pts.length ? pts[pts.length - 1] : 80;\n      pts.push(Math.min(145, Math.max(15, last + (Math.random() - 0.5) * 50)));\n      draw();\n    });\n    document.getElementById(\"reset\").addEventListener(\"click\", function () { pts = []; draw(); });\n    draw();\n  }());\n</script>\n</body>\n</html>\n",
+              "height": 260,
+              "caption": "This frame is author-written HTML with its own script, shown in an isolated frame."
+            }
           }
         ],
         "type": "root"
