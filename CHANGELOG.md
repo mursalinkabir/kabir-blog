@@ -13,6 +13,8 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
   first manual run failed at "Upload the release" with nothing to say why).
 - `deploy/homelab-terraform/seal-blog-r2.sh`: prompts for the read-only R2 token (hidden) and writes the SealedSecret,
   refusing output that contains a plain value. Tested against the live controller's certificate with dummy values.
+- `scripts/ci/check-r2-credentials.sh`: tests an R2 key pair against the bucket before it goes into GitHub (200, 401 unknown
+  key id, 403 wrong secret or scope, 404 bucket) and tries the SHA-256 of a pasted Token value.
 - The deploy draft's scheduling comment is corrected: all four nodes are schedulable now; the spread stays soft on
   purpose so losing one PVE host cannot leave a replica Pending.
 

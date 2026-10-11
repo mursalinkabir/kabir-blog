@@ -163,6 +163,8 @@ not routed yet. The release and the `LATEST` pointer are already in R2, which is
 **If "Upload the release" is red:** open the run, the `publish` job. The step before it, "Check the publish secrets
 exist", names any secret that is missing from the `site-publish` environment. If the secrets are present, the upload step
 now prints rclone's own error and the usual causes (bucket name, token scope, account id).
+To test a key pair before pasting it into GitHub, run `bash scripts/ci/check-r2-credentials.sh` (the secret is
+hidden; it prints the S3 error code and what it means, and tries the SHA-256 of a pasted Token value).
 
 **5.2 Check R2.** Dashboard > R2 > `kabir-blog-site`: a `releases/<sha>-<run>/` folder and a `LATEST` object.
 
