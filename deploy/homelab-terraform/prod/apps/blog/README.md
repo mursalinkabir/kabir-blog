@@ -7,13 +7,13 @@ has no `Namespace` object (the `apps` ApplicationSet owns both). Full runbook: `
 
 ## What you still have to supply
 
-| Item                                     | Where                                                    | How                                                                                                                   |
-| ---------------------------------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| Cloudflare account id                    | `blog.yaml` ConfigMap `RCLONE_CONFIG_R2_ENDPOINT`        | replace `<ACCOUNT_ID>` (not a secret)                                                                                 |
-| Read-only R2 token for `kabir-blog-site` | SealedSecret `blog-r2` (below)                           | Cloudflare dashboard: R2 > API tokens, **Object Read only**, this bucket only                                         |
-| The image tag                            | the three `image:` lines                                 | `0.1.1` is the first image (`v0.1.0` never built one: see CHANGELOG); push a new tag for later versions in kabir-blog |
-| Public GHCR package                      | GitHub: Packages > kabir-blog-server > visibility Public | the image holds no content or secrets; the pods pull it without a pull secret                                         |
-| Tunnel route                             | Cloudflare dashboard (below)                             | after the HTTPRoute exists                                                                                            |
+| Item                                     | Where                                                    | How                                                                                                                                            |
+| ---------------------------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Cloudflare account id                    | `blog.yaml` ConfigMap `RCLONE_CONFIG_R2_ENDPOINT`        | replace `<ACCOUNT_ID>` (not a secret)                                                                                                          |
+| Read-only R2 token for `kabir-blog-site` | SealedSecret `blog-r2` (below)                           | Cloudflare dashboard: R2 > API tokens, **Object Read only**, this bucket only                                                                  |
+| The image tag                            | the three `image:` lines                                 | `0.1.2` is the first image (`v0.1.0` and `v0.1.1` stopped before building one: see CHANGELOG); push a new tag for later versions in kabir-blog |
+| Public GHCR package                      | GitHub: Packages > kabir-blog-server > visibility Public | the image holds no content or secrets; the pods pull it without a pull secret                                                                  |
+| Tunnel route                             | Cloudflare dashboard (below)                             | after the HTTPRoute exists                                                                                                                     |
 
 ## The SealedSecret (never commit the plain Secret)
 

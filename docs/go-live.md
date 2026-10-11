@@ -116,10 +116,15 @@ No variables are needed: the workflows default to `https://smkabir.com`.
 
 ## Part 4. Release the server image (15 min, mostly waiting)
 
-**4.1 and 4.2 are done (2026-10-12).** `v0.1.0` was tagged first and its `verify` job failed before any image was
-built: the test scripts read the workflow's `IMAGE` variable by mistake (found by CI, fixed and reproduced locally with
-the same variable set). Tags are never moved, so the fix shipped as **`v0.1.1`**. `v0.1.0` stays in the tag list with
-no image behind it; **0.1.1 is the first real release.**
+**4.1 and 4.2 are done (2026-10-12).** It took three tags, and each one stopped at a gate that did its job:
+
+- `v0.1.0`: `verify` failed. The test scripts read the workflow's `IMAGE` variable by mistake (found by CI, fixed and
+  reproduced locally with the same variable set).
+- `v0.1.1`: `verify` passed, then the **trivy scan** refused the image: `tiff` 4.7.1 (CVE-2026-4775, HIGH), pulled in
+  by an nginx module we never load. The fix removes the unused modules from the image (and `libgd`, `libtiff`,
+  `libxslt` with them).
+- `v0.1.2`: **the first real release.** Tags are never moved, so `v0.1.0` and `v0.1.1` stay in the tag list with no
+  image behind them.
 
 For every later release the steps are: add a `## X.Y.Z - <date>` heading under `## Unreleased` in `CHANGELOG.md`
 (the release refuses to run without it), then
@@ -133,7 +138,7 @@ git push origin main vX.Y.Z
 **4.3 Watch it.** GitHub > **Actions** > **release**. Two jobs: **verify** (runs the image tests, about 5 minutes)
 then **image** (build, trivy scan, push).
 
-**You should see:** both green, and in the run summary `ghcr.io/mursalinkabir/kabir-blog-server:0.1.1`.
+**You should see:** both green, and in the run summary `ghcr.io/mursalinkabir/kabir-blog-server:0.1.2`.
 If trivy fails on a fixable HIGH or CRITICAL finding, that is the scan doing its job: the base image needs a bump
 (`apps/server/Dockerfile`); tell me the finding and I will fix it. Tags are never moved, so the fix ships as `v0.1.1`.
 
@@ -141,7 +146,7 @@ If trivy fails on a fixable HIGH or CRITICAL finding, that is the scan doing its
 settings** (right) > **Danger Zone** > **Change visibility** > **Public**. (It holds no content or secrets; public
 lets the cluster pull it without a pull secret.)
 
-**4.5 Check.** `docker logout ghcr.io; docker pull ghcr.io/mursalinkabir/kabir-blog-server:0.1.1` works.
+**4.5 Check.** `docker logout ghcr.io; docker pull ghcr.io/mursalinkabir/kabir-blog-server:0.1.2` works.
 
 ---
 
@@ -183,7 +188,7 @@ rm prod/apps/blog/README.md           # notes for you, not for the cluster
 
 **6.3 Fill in your account id.** Open `prod/apps/blog/blog.yaml`, find
 `RCLONE_CONFIG_R2_ENDPOINT`, and replace `<ACCOUNT_ID>` with the id from 2.2.
-The image tag `0.1.1` (three lines) is already right.
+The image tag `0.1.2` (three lines) is already right.
 
 > **Dry run instead of the apex?** In the HTTPRoute at the bottom set `sectionName: https-wildcard` and
 > `hostnames: ['next.smkabir.com']`, use `next` as the subdomain in Part 7, and set the GitHub **variable**
@@ -213,7 +218,7 @@ Check that the file contains `encryptedData:` and **no** plain values: `grep -c 
 
 ```sh
 git add prod/apps/blog
-git commit -m "blog: smkabir.com static site (kabir-blog-server 0.1.1)"
+git commit -m "blog: smkabir.com static site (kabir-blog-server 0.1.2)"
 git push
 ```
 

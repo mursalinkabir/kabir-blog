@@ -4,9 +4,22 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## Unreleased
 
-## 0.1.1 - 2026-10-12
+## 0.1.2 - 2026-10-12
 
 First release that produced an image.
+
+### Fixed
+
+- The trivy gate stopped 0.1.1: `tiff` 4.7.1-r0, CVE-2026-4775 (HIGH, fixed in 4.7.2-r0), a dependency of
+  `libgd`, which only the `nginx-module-image-filter` module needs. `nginx.conf` loads no dynamic module, so the
+  Dockerfile now removes every `nginx-module-*` package from the base image; `apk del` takes `libgd`, `tiff` and
+  `libxslt` with them and a build step fails if any is still installed. Re-scanned on linux/amd64: 0 HIGH/CRITICAL.
+  61 image checks, 26 release-script checks and nginx's own config test pass on the slimmed image.
+- Deploy drafts and the guide now use image tag `0.1.2`.
+
+## 0.1.1 - 2026-10-12
+
+Tagged; **no image was built.** `verify` passed and the vulnerability scan refused the image (see 0.1.2).
 
 ### Fixed
 
@@ -19,7 +32,7 @@ First release that produced an image.
 
 ## 0.1.0 - 2026-10-12
 
-Tagged, but **no image was built** (the verify job failed, see 0.1.1). Use 0.1.1.
+Tagged, but **no image was built** (the verify job failed, see 0.1.1). Use 0.1.2.
 
 ### Added (HTML embeds, 2026-10-12)
 

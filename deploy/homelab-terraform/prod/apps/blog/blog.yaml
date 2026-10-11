@@ -10,7 +10,7 @@
 #                 signals nginx to reload the redirect map. R2 down = keep serving what we have.
 #   nginx         serves /srv/site/current. No content in the image: a new post is NOT a deploy.
 #
-# A *code* release is a tag push in kabir-blog (v0.1.1 -> ghcr.io/mursalinkabir/kabir-blog-server:0.1.1)
+# A *code* release is a tag push in kabir-blog (v0.1.2 -> ghcr.io/mursalinkabir/kabir-blog-server:0.1.2)
 # plus a hand-made bump of the two `image:` lines below. Rollback is `git revert` of that bump.
 #
 # Things nginx-unprivileged needs that are easy to get wrong (see demo/hello.yaml): it listens on 8080, and
@@ -78,7 +78,7 @@ spec:
       initContainers:
         # Creates the (empty) redirect map nginx includes, so nginx can start before the first release lands.
         - name: init-site
-          image: ghcr.io/mursalinkabir/kabir-blog-server:0.1.1 # bump with content-sync and nginx below
+          image: ghcr.io/mursalinkabir/kabir-blog-server:0.1.2 # bump with content-sync and nginx below
           command: ['content-sync', 'init']
           env:
             - { name: SITE_ROOT, value: /srv/site }
@@ -93,7 +93,7 @@ spec:
             - { name: site, mountPath: /srv/site }
             - { name: tmp, mountPath: /tmp }
         - name: content-sync
-          image: ghcr.io/mursalinkabir/kabir-blog-server:0.1.1 # bump with init-site and nginx
+          image: ghcr.io/mursalinkabir/kabir-blog-server:0.1.2 # bump with init-site and nginx
           command: ['content-sync']
           restartPolicy: Always # makes this a native sidecar: starts before nginx, runs for the pod's life
           envFrom:
@@ -111,7 +111,7 @@ spec:
             - { name: tmp, mountPath: /tmp }
       containers:
         - name: nginx
-          image: ghcr.io/mursalinkabir/kabir-blog-server:0.1.1 # bump with the two above
+          image: ghcr.io/mursalinkabir/kabir-blog-server:0.1.2 # bump with the two above
           ports:
             - { name: http, containerPort: 8080 }
           # Liveness: nginx answers by itself, so a pod that has no content yet is alive, just not ready.

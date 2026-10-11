@@ -55,10 +55,10 @@ Each step lists what to expect. Stop at the first thing that differs.
 
 ### 2. First code release
 
-1. Write the CHANGELOG entry: rename `## Unreleased` to `## 0.1.1 - <date>` (0.1.0 was tagged but its verify job failed, so no image exists for it).
-2. `git tag v0.1.1 && git push origin v0.1.1`.
+1. Write the CHANGELOG entry: rename `## Unreleased` to `## 0.1.2 - <date>` (0.1.0 and 0.1.1 were tagged but stopped before an image existed: see CHANGELOG).
+2. `git tag v0.1.2 && git push origin v0.1.2`.
 3. `release.yml` runs the image tests, scans with trivy (fixable HIGH/CRITICAL fail), and pushes
-   `ghcr.io/mursalinkabir/kabir-blog-server:0.1.1`. Make the package **public** (it contains no content).
+   `ghcr.io/mursalinkabir/kabir-blog-server:0.1.2`. Make the package **public** (it contains no content).
 
 ### 3. First content release
 
@@ -70,7 +70,7 @@ content under the same id is refused).
 ### 4. Cluster **(you)**
 
 1. Copy `deploy/homelab-terraform/prod/apps/blog/blog.yaml` to `homelab-terraform/prod/apps/blog/`.
-2. Fill `<ACCOUNT_ID>`; create `r2-site.sealed.yaml` (README in that folder). Confirm the tag is `0.1.1`.
+2. Fill `<ACCOUNT_ID>`; create `r2-site.sealed.yaml` (README in that folder). Confirm the tag is `0.1.2`.
 3. Commit and push. Argo CD creates namespace `blog` within about 3 minutes.
 4. ```sh
    kubectl -n blog get pods -o wide        # 2 pods, Ready 2/2 after the sidecar has fetched a release
