@@ -4,6 +4,8 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## Unreleased
 
+## 0.1.0 - 2026-10-12
+
 ### Added (HTML embeds, 2026-10-12)
 
 - CMS block **HTML embed**: paste a self-contained HTML/CSS/JS document and it appears in the post, running its own
