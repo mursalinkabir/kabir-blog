@@ -1,0 +1,35 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { t, localePath, type Locale } from '~/i18n';
+import { bothLocales, perLocale } from '~/lib/routes';
+
+export const getStaticPaths = () => perLocale(() => [{}]);
+const { locale } = Astro.props as { locale: Locale };
+const translations = {
+  placeholder: t(locale, 'search.placeholder'),
+  clear_search: t(locale, 'search.clear'),
+  load_more: t(locale, 'search.loadMore'),
+  zero_results: t(locale, 'search.noResults'),
+  one_result: t(locale, 'search.oneResult'),
+  many_results: t(locale, 'search.manyResults'),
+};
+---
+
+<BaseLayout
+  title={t(locale, 'search.title')}
+  description={t(locale, 'search.description')}
+  locale={locale}
+  path={localePath(locale, '/search/')}
+  alternates={bothLocales('/search/')}
+  noindex
+>
+  <div class="page">
+    <div class="prose-width" data-pagefind-ignore>
+      <header class="page-head"><h1 class="page-title">{t(locale, 'search.title')}</h1></header>
+      <div id="search" data-translations={JSON.stringify(translations)} data-unavailable={t(locale, 'search.unavailable')}></div>
+    </div>
+  </div>
+  <script>
+    import '~/scripts/search';
+  </script>
+</BaseLayout>

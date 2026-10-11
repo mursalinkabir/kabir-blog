@@ -1,0 +1,35 @@
+{
+  "name": "@smkabir/cms",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port 3100",
+    "build": "next build",
+    "start": "next start --port 3100",
+    "payload": "payload",
+    "generate:types": "payload generate:types",
+    "migrate": "payload migrate",
+    "migrate:create": "payload migrate:create",
+    "seed": "payload run src/scripts/seed.ts",
+    "typecheck": "tsc --noEmit",
+    "check:privacy": "payload run src/scripts/check-privacy.ts"
+  },
+  "dependencies": {
+    "@payloadcms/db-postgres": "3.90.2",
+    "@payloadcms/next": "3.90.2",
+    "@payloadcms/richtext-lexical": "3.90.2",
+    "@payloadcms/storage-s3": "3.90.2",
+    "graphql": "^16.14.2",
+    "next": "16.4.0",
+    "payload": "3.90.2",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "6.0.3"
+  }
+}

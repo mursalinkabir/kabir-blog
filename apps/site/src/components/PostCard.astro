@@ -1,0 +1,34 @@
+---
+import Cover from './Cover.astro';
+import PostMeta from './PostMeta.astro';
+import { localePath, type Locale } from '~/i18n';
+import type { PostView } from '~/lib/cms';
+
+interface Props {
+  post: PostView;
+  locale: Locale;
+  featured?: boolean;
+  /** The first image on the page is the LCP element. */
+  eager?: boolean;
+  /** Heading level of the title: 2 on listings, 3 when the card sits under a section heading. */
+  level?: 2 | 3;
+}
+const { post, locale, featured = false, eager = false, level = 2 } = Astro.props;
+const H = `h${level}` as 'h2';
+const href = localePath(locale, `/posts/${post.slug}/`);
+---
+
+<article class:list={['card', { 'card-featured': featured }]}>
+  <a class="card-cover" href={href} tabindex="-1" aria-hidden="true">
+    <Cover
+      hero={post.hero}
+      category={post.category.slug}
+      locale={locale}
+      eager={eager}
+      sizes={featured ? '(min-width: 64rem) 62rem, 100vw' : '(min-width: 48rem) 30rem, 100vw'}
+    />
+  </a>
+  <PostMeta post={post} locale={locale} />
+  <H class="card-title"><a href={href}>{post.title}</a></H>
+  <p class="card-excerpt">{post.description}</p>
+</article>

@@ -1,0 +1,26 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import ProjectCards from '~/components/ProjectCards.astro';
+import { t, localePath, type Locale } from '~/i18n';
+import { getProjects } from '~/lib/cms';
+import { bothLocales, perLocale } from '~/lib/routes';
+
+export const getStaticPaths = () => perLocale(() => [{}]);
+const { locale } = Astro.props as { locale: Locale };
+---
+
+<BaseLayout
+  title={t(locale, 'projects.title')}
+  description={t(locale, 'projects.description')}
+  locale={locale}
+  path={localePath(locale, '/projects/')}
+  alternates={bothLocales('/projects/')}
+>
+  <div class="container page">
+    <header class="page-head">
+      <h1 class="page-title">{t(locale, 'projects.title')}</h1>
+      <p class="page-lede">{t(locale, 'projects.description')}</p>
+    </header>
+    <ProjectCards projects={getProjects(locale)} locale={locale} />
+  </div>
+</BaseLayout>

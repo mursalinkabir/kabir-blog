@@ -1,0 +1,43 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { t, localePath, type Locale } from '~/i18n';
+import { getUsesGroups, sectionLocales } from '~/lib/cms';
+import { alternatesFor, perLocale } from '~/lib/routes';
+
+// Only locales in which something was written get a page (no empty /ja/uses/).
+export const getStaticPaths = () => perLocale(() => [{}], sectionLocales.uses());
+const { locale } = Astro.props as { locale: Locale };
+const groups = getUsesGroups(locale);
+---
+
+<BaseLayout
+  title={t(locale, 'uses.title')}
+  description={t(locale, 'uses.description')}
+  locale={locale}
+  path={localePath(locale, '/uses/')}
+  alternates={alternatesFor('/uses/', sectionLocales.uses())}
+>
+  <div class="page">
+    <div class="prose-width">
+      <header class="page-head page-head-left">
+        <h1 class="page-title">{t(locale, 'uses.title')}</h1>
+        <p class="page-lede">{t(locale, 'uses.description')}</p>
+      </header>
+      {
+        groups.map((g) => (
+          <section class="uses-group">
+            <h2>{g.title}</h2>
+            <ul>
+              {g.items.map((i) => (
+                <li>
+                  {i.name}
+                  {i.note && <span>{i.note}</span>}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>

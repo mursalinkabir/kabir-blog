@@ -1,0 +1,26 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { t, localePath, type Locale } from '~/i18n';
+import { perLocale } from '~/lib/routes';
+
+export const getStaticPaths = () => perLocale(() => [{}]);
+const { locale } = Astro.props as { locale: Locale };
+---
+
+<BaseLayout
+  title={t(locale, 'contact.thanksTitle')}
+  description={t(locale, 'contact.thanksBody')}
+  locale={locale}
+  path={localePath(locale, '/contact/thanks/')}
+  noindex
+>
+  <div class="page">
+    <div class="prose-width">
+      <header class="page-head">
+        <h1 class="page-title">{t(locale, 'contact.thanksTitle')}</h1>
+        <p class="page-lede">{t(locale, 'contact.thanksBody')}</p>
+      </header>
+      <p class="actions"><a class="btn" href={localePath(locale, '/')}>{t(locale, 'contact.back')}</a></p>
+    </div>
+  </div>
+</BaseLayout>

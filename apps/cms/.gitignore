@@ -1,0 +1,8 @@
+.next/
+media/
+.env
+.env.*
+!.env.example
+next-env.d.ts
+.dev-credentials
+tsconfig.tsbuildinfo

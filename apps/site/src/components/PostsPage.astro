@@ -1,0 +1,84 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import PostCard from './PostCard.astro';
+import Pagination from './Pagination.astro';
+import { t, type Locale } from '~/i18n';
+import type { PostView } from '~/lib/cms';
+import { siteName } from '~/lib/cms';
+import { pageCount, pageItems, pagePath } from '~/lib/paginate';
+import type { Alternates } from '~/lib/routes';
+
+interface Props {
+  locale: Locale;
+  posts: PostView[];
+  page: number;
+  /** Path of page 1, e.g. "/" or "/tech/". */
+  base: string;
+  /** Visible heading with the teal bar. Omit on home, which gets a visually hidden h1. */
+  title?: string;
+  description?: string;
+  /** Alternates for page 1. */
+  alternates?: Alternates;
+  rss?: { href: string; title: string }[];
+  structuredData?: object[];
+  /** Larger first card on page 1. */
+  featured?: boolean;
+}
+const { locale, posts, page, base, title, description, alternates = {}, rss = [], structuredData = [], featured = true } = Astro.props;
+const total = pageCount(posts.length, featured);
+const items = pageItems(posts, page, featured);
+const showFeatured = featured && page === 1 && items.length > 0;
+const path = pagePath(locale, base, page);
+const pageLabel = page > 1 ? ` (${t(locale, 'pagination.page', { n: page })})` : '';
+const heading = title ?? siteName(locale);
+// Home page 1 is titled with the site name alone; later pages get "Page n" (the layout appends the site name).
+const metaTitle = title ? `${title}${pageLabel}` : page > 1 ? t(locale, 'pagination.page', { n: page }) : heading;
+---
+
+<BaseLayout
+  title={metaTitle}
+  description={description ?? t(locale, 'posts.description')}
+  locale={locale}
+  path={path}
+  alternates={page === 1 ? alternates : { [locale]: path }}
+  noindex={items.length === 0}
+  rss={rss}
+  structuredData={structuredData}
+>
+  <div class="container listing">
+    {
+      title ? (
+        <header class="page-head">
+          <h1 class="page-title">{title}</h1>
+          {description && <p class="page-lede">{description}</p>}
+        </header>
+      ) : (
+        <h1 class="visually-hidden">{heading}</h1>
+      )
+    }
+    {
+      items.length === 0 ? (
+        <div class="empty">
+          <p>{t(locale, locale === 'en' ? 'posts.noPosts' : 'posts.noPostsLocale')}</p>
+          {locale !== 'en' && (
+            <p>
+              <a class="btn" href={alternates.en ?? '/'} lang="en">
+                {t('en', 'posts.readEnglish')}
+              </a>
+            </p>
+          )}
+        </div>
+      ) : (
+        <>
+          {showFeatured && <PostCard post={items[0]!} locale={locale} featured eager />}
+          <div class="card-grid">
+            {items.slice(showFeatured ? 1 : 0).map((post, i) => (
+              <PostCard post={post} locale={locale} eager={!showFeatured && i < 2} />
+            ))}
+          </div>
+        </>
+      )
+    }
+    <Pagination locale={locale} current={page} total={total} hrefFor={(n) => pagePath(locale, base, n)} />
+  </div>
+</BaseLayout>

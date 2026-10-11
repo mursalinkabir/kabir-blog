@@ -1,0 +1,1306 @@
+{
+  "id": "p5",
+  "_status": "published",
+  "slug": "what-the-homelab-costs",
+  "pubDate": "2026-10-04T09:00:00.000Z",
+  "category": {
+    "id": "c3",
+    "slug": "finance",
+    "name": {
+      "en": "Finance",
+      "ja": "お金"
+    }
+  },
+  "tags": [
+    {
+      "id": "t6",
+      "slug": "budgeting",
+      "name": {
+        "en": "budgeting",
+        "ja": "家計"
+      }
+    },
+    {
+      "id": "t1",
+      "slug": "homelab",
+      "name": {
+        "en": "homelab",
+        "ja": "ホームラボ"
+      }
+    }
+  ],
+  "hero": {
+    "id": "cover-finance",
+    "url": "/images/covers/cover-finance.jpg",
+    "filename": "cover-finance.jpg",
+    "mimeType": "image/jpeg",
+    "width": 2400,
+    "height": 1594,
+    "alt": {
+      "en": "Price charts on a dark trading screen",
+      "ja": "暗いトレード画面に映る値動きのチャート"
+    },
+    "credit": "Photo: Nicholas Cappello on Unsplash",
+    "sizes": {
+      "480": {
+        "url": "/images/covers/cover-finance-480.webp",
+        "width": 480,
+        "height": 319
+      },
+      "960": {
+        "url": "/images/covers/cover-finance-960.webp",
+        "width": 960,
+        "height": 638
+      },
+      "1600": {
+        "url": "/images/covers/cover-finance-1600.webp",
+        "width": 1600,
+        "height": 1063
+      }
+    }
+  },
+  "toc": true,
+  "publishedIn": {
+    "en": true,
+    "ja": false
+  },
+  "title": {
+    "en": "What the homelab costs to run, in yen"
+  },
+  "description": {
+    "en": "A plain ledger of power, internet and storage costs for a small cluster, and the one number that decides whether it is worth it."
+  },
+  "content": {
+    "en": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Running your own hardware is cheaper than renting it only if you count honestly. This is the ledger I keep, with ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "sample figures",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " in place of real ones.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The monthly ledger",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "heading",
+            "tag": "h2"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "table",
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Item",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Basis",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Monthly (¥)",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Electricity",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "4 nodes, about 60 W total",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "1,320",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Internet",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Share of the home fibre line",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "1,500",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Object storage",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Free tier",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "0",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Domain",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "¥1,800 a year",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "150",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Total",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "2,970",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "fields": {
+              "id": "fx0018",
+              "blockName": "",
+              "blockType": "callout",
+              "kind": "note",
+              "body": {
+                "root": {
+                  "direction": "ltr",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "Electricity is the line that moves. Japanese tariffs change with the season and the ",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "fields": {
+                            "id": "fx0017",
+                            "blockName": "",
+                            "blockType": "jp",
+                            "t": "燃料費調整額",
+                            "r": "nenryōhi chōseigaku",
+                            "en": "fuel cost adjustment"
+                          },
+                          "format": "",
+                          "type": "inlineBlock",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": ", so I recalculate it every quarter.",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ],
+                  "type": "root"
+                }
+              }
+            },
+            "format": "",
+            "type": "block",
+            "version": 2
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Hardware, spread over its life",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "heading",
+            "tag": "h2"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The mini PCs are paid for once. Divided over four years, they add a fixed amount to every month:",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "table",
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Hardware",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Cost (¥)",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Months",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Per month (¥)",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Mini PCs (×4)",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "96,000",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "48",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "2,000",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Disks",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "24,000",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "48",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "500",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The number that matters",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "heading",
+            "tag": "h2"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "About ¥5,470 a month, all in. The question is not whether that is cheap, but whether the learning is worth more than the equivalent managed services. For me it is.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          }
+        ],
+        "type": "root"
+      }
+    }
+  }
+}

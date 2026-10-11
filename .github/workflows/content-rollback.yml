@@ -1,0 +1,53 @@
+# Points LATEST and VERIFIED back at an earlier release. The pods follow LATEST within a minute.
+# Nothing is rebuilt and nothing is deleted. Find build ids in the R2 bucket under releases/.
+name: content-rollback
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_id:
+        description: 'Earlier build id to serve (e.g. 3d3c42e-1234567890)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  rollback:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    concurrency:
+      group: site-publish
+      cancel-in-progress: false
+    environment: site-publish
+    env:
+      BUILD_ID: ${{ inputs.build_id }}
+      BUCKET: r2:${{ vars.R2_SITE_BUCKET || 'smkabir-site' }}
+      RCLONE_CONFIG_R2_TYPE: s3
+      RCLONE_CONFIG_R2_PROVIDER: Cloudflare
+      RCLONE_CONFIG_R2_ACCESS_KEY_ID: ${{ secrets.R2_SITE_WRITE_ACCESS_KEY_ID }}
+      RCLONE_CONFIG_R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SITE_WRITE_SECRET_ACCESS_KEY }}
+      RCLONE_CONFIG_R2_ENDPOINT: https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com
+      RCLONE_CONFIG_R2_NO_CHECK_BUCKET: 'true'
+      SITE_URL: ${{ vars.SITE_URL || 'https://smkabir.com' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install rclone and jq (pinned, checksum-verified)
+        run: |
+          sh scripts/ci/install-tools.sh rclone
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Roll back (fails if the release is missing or inconsistent)
+        run: sh scripts/ci/release.sh rollback "$BUILD_ID"
+      - name: Wait until the origin serves it
+        run: sh scripts/ci/release.sh verify-live "$SITE_URL/version.json" "$BUILD_ID" 600
+      - name: Purge the Cloudflare cache
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+        run: |
+          curl -fsS -X POST "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
+            -H "Authorization: Bearer ${CF_API_TOKEN}" -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}' | jq -e '.success == true' >/dev/null

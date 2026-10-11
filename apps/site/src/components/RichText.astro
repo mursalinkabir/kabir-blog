@@ -1,0 +1,19 @@
+---
+import Node from './Node.astro';
+import type { LexicalRoot } from '~/lib/lexical/types';
+import { headings } from '~/lib/lexical/walk';
+import type { Locale } from '~/i18n';
+
+interface Props {
+  doc: LexicalRoot;
+  locale: Locale;
+}
+const { doc, locale } = Astro.props;
+headings(doc); // assigns heading ids once, so the TOC and the body agree
+---
+
+{doc.root.children.map((node) => <Node node={node} locale={locale} />)}
+
+<script>
+  import '~/scripts/jp-gloss';
+</script>

@@ -1,0 +1,27 @@
+---
+import MediaImage from './blocks/MediaImage.astro';
+import CategoryIcon from './CategoryIcon.astro';
+import type { Locale } from '~/i18n';
+import type { Category, Media } from '~/lib/types';
+
+interface Props {
+  hero?: Media;
+  category: Category['slug'];
+  locale: Locale;
+  eager?: boolean;
+  sizes?: string;
+}
+const { hero, category, locale, eager = false, sizes } = Astro.props;
+---
+
+<!-- Always decorative: the title link next to it names the destination. Posts without a cover get a tinted tile. -->{
+  hero ? (
+    <div class="cover">
+      <MediaImage media={hero} locale={locale} decorative loading={eager ? 'eager' : 'lazy'} sizes={sizes} />
+    </div>
+  ) : (
+    <div class:list={['cover', 'cover-fallback', `cover-${category}`]}>
+      <CategoryIcon category={category} size={64} />
+    </div>
+  )
+}

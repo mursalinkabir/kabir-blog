@@ -1,0 +1,57 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import RichText from '~/components/RichText.astro';
+import { t, localePath, type Locale, type StringKey } from '~/i18n';
+import { getProjects } from '~/lib/cms';
+import { safeUrl } from '~/lib/lexical/inline';
+import { alternatesFor, perLocale } from '~/lib/routes';
+
+export const getStaticPaths = () =>
+  perLocale((locale) => getProjects(locale).map((project) => ({ params: { slug: project.slug }, props: { project } })));
+
+const { locale, project } = Astro.props as { locale: Locale; project: ReturnType<typeof getProjects>[number] };
+---
+
+<BaseLayout
+  title={project.title}
+  description={project.summary}
+  locale={locale}
+  path={localePath(locale, `/projects/${project.slug}/`)}
+  alternates={alternatesFor(`/projects/${project.slug}/`, project.available)}
+>
+  <article class="page" data-pagefind-body>
+    <div class="prose-width">
+      <header class="page-head page-head-left">
+        <h1 class="page-title" data-pagefind-meta="title">{project.title}</h1>
+        <p class="page-lede">{project.summary}</p>
+        <p class="page-aside">
+          {t(locale, 'projects.status')}: {t(locale, `projects.statuses.${project.status}` as StringKey)}
+          {
+            project.repo && (
+              <a href={safeUrl(project.repo)} rel="noopener">
+                {t(locale, 'projects.repo')}
+              </a>
+            )
+          }
+          {
+            project.links.map((l) => (
+              <a href={safeUrl(l.url)} rel="noopener">
+                {l.label}
+              </a>
+            ))
+          }
+        </p>
+        {
+          project.stack.length > 0 && (
+            <ul class="tags" aria-label={t(locale, 'projects.stack')} role="list">
+              {project.stack.map((s) => (
+                <li>{s}</li>
+              ))}
+            </ul>
+          )
+        }
+      </header>
+      <div class="prose"><RichText doc={project.content} locale={locale} /></div>
+    </div>
+  </article>
+</BaseLayout>

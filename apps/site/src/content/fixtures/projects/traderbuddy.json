@@ -1,0 +1,158 @@
+{
+  "id": "pr1",
+  "_status": "published",
+  "slug": "traderbuddy",
+  "status": "active",
+  "stack": [
+    "TypeScript",
+    "PostgreSQL",
+    "Kubernetes"
+  ],
+  "links": [],
+  "featured": true,
+  "order": 1,
+  "title": {
+    "en": "TraderBuddy"
+  },
+  "summary": {
+    "en": "Sample entry: an application that runs on the homelab cluster and ships through the same tag-and-GitOps flow as this site."
+  },
+  "content": {
+    "en": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "This is a write-up only, with no link to the running app. Replace this sample text in Payload.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "How it is released",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "heading",
+            "tag": "h2"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Push a version tag.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "CI builds a versioned image.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "A hand-made commit bumps the tag in the GitOps repository.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Argo CD syncs it; rollback is a revert.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              }
+            ],
+            "listType": "number",
+            "start": 1,
+            "tag": "ol",
+            "type": "list"
+          }
+        ],
+        "type": "root"
+      }
+    }
+  }
+}

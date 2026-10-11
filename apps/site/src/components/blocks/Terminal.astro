@@ -1,0 +1,15 @@
+---
+import { Code } from 'astro-expressive-code/components';
+
+interface Props {
+  command: string;
+  output?: string;
+}
+const { command, output } = Astro.props;
+---
+
+<!-- The copy button belongs to the Code frame, so it copies the command only; output is a separate element. -->
+<div class="terminal">
+  <Code code={command} lang="bash" frame="terminal" />
+  {output && <pre class="terminal-output" tabindex="0" set:text={output} />}
+</div>

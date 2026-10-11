@@ -1,0 +1,7 @@
+{
+  "_comment": "Single source for response headers. Rendered into the nginx config (Phase 5) and the failover Worker (Phase 9) so mirror responses match the origin. HSTS is set at the Cloudflare edge.",
+  "Content-Security-Policy": "default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://static.cloudflareinsights.com https://challenges.cloudflare.com; connect-src 'self' https://cloudflareinsights.com; img-src 'self' https://media.smkabir.com data:; frame-src https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; font-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'",
+  "X-Content-Type-Options": "nosniff",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Permissions-Policy": "camera=(), microphone=(), geolocation=()"
+}

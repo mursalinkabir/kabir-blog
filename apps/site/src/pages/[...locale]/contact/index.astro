@@ -1,0 +1,40 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { t, localePath, type Locale } from '~/i18n';
+import { bothLocales, perLocale } from '~/lib/routes';
+
+export const getStaticPaths = () => perLocale(() => [{}]);
+const { locale } = Astro.props as { locale: Locale };
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY as string | undefined;
+---
+
+<BaseLayout
+  title={t(locale, 'contact.title')}
+  description={t(locale, 'contact.description')}
+  locale={locale}
+  path={localePath(locale, '/contact/')}
+  alternates={bothLocales('/contact/')}
+>
+  <div class="container listing">
+    <header class="page-head">
+      <h1 class="page-title">{t(locale, 'contact.title')}</h1>
+      <p class="page-lede">{t(locale, 'contact.description')}</p>
+    </header>
+    <div class="narrow">
+      {/* Same-origin POST handled by the contact Worker (Phase 8): no CORS, CSP form-action 'self' holds. */}
+      <form class="form" method="post" action="/api/contact">
+        <input type="hidden" name="lang" value={locale} />
+        <div class="form-row">
+          <label>{t(locale, 'contact.name')}<input name="name" autocomplete="name" required maxlength="200" /></label>
+          <label>{t(locale, 'contact.email')}<input name="email" type="email" autocomplete="email" required maxlength="320" /></label>
+        </div>
+        <label>{t(locale, 'contact.message')}<textarea name="message" required maxlength="5000"></textarea></label>
+        <label class="hp" aria-hidden="true">{t(locale, 'contact.honeypot')}<input name="website" tabindex="-1" autocomplete="off" /></label
+        >
+        {siteKey ? <div class="cf-turnstile" data-sitekey={siteKey} /> : <p class="notice">{t(locale, 'contact.turnstileMissing')}</p>}
+        <div><button class="button" type="submit" disabled={!siteKey}>{t(locale, 'contact.send')}</button></div>
+      </form>
+    </div>
+  </div>
+  {siteKey && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />}
+</BaseLayout>

@@ -1,0 +1,26 @@
+---
+import PostsPage from '~/components/PostsPage.astro';
+import { getPosts, getSite, pick } from '~/lib/cms';
+import { pageCount } from '~/lib/paginate';
+import { perLocale } from '~/lib/routes';
+import { t, type Locale } from '~/i18n';
+
+// Pages 2..N of the home listing; page 1 is `/`.
+export const getStaticPaths = () =>
+  perLocale((locale) =>
+    Array.from({ length: pageCount(getPosts(locale).length, true) - 1 }, (_, i) => ({
+      params: { page: String(i + 2) },
+      props: { n: i + 2 },
+    })),
+  );
+
+const { locale, n } = Astro.props as { locale: Locale; n: number };
+---
+
+<PostsPage
+  locale={locale}
+  posts={getPosts(locale)}
+  page={n}
+  base="/"
+  description={pick(getSite().tagline, locale) ?? t(locale, 'posts.description')}
+/>

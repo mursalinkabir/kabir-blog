@@ -1,0 +1,171 @@
+{
+  "nav": {
+    "home": "Home",
+    "posts": "Posts",
+    "tech": "Tech",
+    "finance": "Finance",
+    "japan": "Japan life",
+    "projects": "Projects",
+    "resume": "Resume",
+    "now": "Now",
+    "uses": "Uses",
+    "about": "About",
+    "contact": "Contact",
+    "search": "Search",
+    "more": "More",
+    "categories": "Categories",
+    "tags": "Tags"
+  },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "mainNav": "Main",
+    "language": "Language",
+    "tableOfContents": "On this page",
+    "diagram": "Diagram",
+    "diagramSource": "Diagram source",
+    "callout": {
+      "note": "Note",
+      "warn": "Warning",
+      "danger": "Danger"
+    },
+    "menu": "Menu",
+    "pagination": "Pagination",
+    "share": "Share this post",
+    "social": "Social links",
+    "footerNav": "Footer",
+    "done": "Done:",
+    "todo": "To do:",
+    "table": "Data table",
+    "gallery": "Photo gallery"
+  },
+  "posts": {
+    "description": "Everything I have written, newest first.",
+    "readingTime": "{n} min read",
+    "tags": "Tags",
+    "series": "Series",
+    "part": "Part {n}",
+    "noPosts": "No posts here yet.",
+    "noPostsLocale": "There are no posts in this language yet.",
+    "readEnglish": "Read the English posts"
+  },
+  "categories": {
+    "tech": "Tech",
+    "japan-life": "Japan life",
+    "finance": "Finance",
+    "techDescription": "Engineering notes, the homelab and the tools I build.",
+    "financeDescription": "Money in practice: budgets, costs, tax-free accounts and the numbers behind decisions.",
+    "japanDescription": "Living in Japan: paperwork, language, travel and everyday notes."
+  },
+  "tags": {
+    "title": "Tag: {tag}",
+    "description": "Posts tagged {tag}."
+  },
+  "projects": {
+    "title": "Projects",
+    "description": "Things I build and run.",
+    "status": "Status",
+    "stack": "Stack",
+    "repo": "Source",
+    "statuses": {
+      "active": "Active",
+      "maintained": "Maintained",
+      "archived": "Archived",
+      "idea": "Idea"
+    }
+  },
+  "resume": {
+    "title": "Resume",
+    "description": "Experience, education and skills.",
+    "updated": "Updated {date}",
+    "experience": "Experience",
+    "education": "Education",
+    "skills": "Skills",
+    "projects": "Projects",
+    "languages": "Languages",
+    "certificates": "Certificates",
+    "spoken": "Spoken",
+    "reading": "Reading",
+    "present": "Present"
+  },
+  "now": {
+    "title": "Now",
+    "description": "What I am focused on at the moment.",
+    "updated": "Last updated {date}"
+  },
+  "uses": {
+    "title": "Uses",
+    "description": "Hardware, software and the homelab kit I rely on."
+  },
+  "about": {
+    "description": "Who I am and what this site is."
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Send me a message.",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send message",
+    "honeypot": "Leave this field empty",
+    "turnstileMissing": "The spam check is not configured in this build, so the form cannot be sent.",
+    "thanksTitle": "Message sent",
+    "thanksBody": "Thanks. I read everything and will reply from hello@smkabir.com.",
+    "back": "Back to the site"
+  },
+  "search": {
+    "title": "Search",
+    "description": "Search every post on the site.",
+    "unavailable": "Search is built with the production site. Run a full build and preview it to try it.",
+    "placeholder": "Search posts",
+    "clear": "Clear",
+    "noResults": "No results for [SEARCH_TERM]",
+    "oneResult": "[COUNT] result for [SEARCH_TERM]",
+    "manyResults": "[COUNT] results for [SEARCH_TERM]",
+    "loadMore": "Load more results"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "That page does not exist, or it moved.",
+    "home": "Go to the home page"
+  },
+  "footer": {
+    "rss": "RSS",
+    "builtWith": "Built with Astro and Payload. Hosted on a homelab."
+  },
+  "lang": {
+    "en": "English",
+    "ja": "Japanese",
+    "readInOther": "Also available in {lang}"
+  },
+  "fixture": {
+    "banner": "Sample content from fixtures. Replace it in Payload before launch."
+  },
+  "pagination": {
+    "previous": "Previous page",
+    "next": "Next page",
+    "page": "Page {n}"
+  },
+  "share": {
+    "title": "Share",
+    "x": "Share on X",
+    "linkedin": "Share on LinkedIn",
+    "facebook": "Share on Facebook",
+    "hatena": "Add to Hatena Bookmark",
+    "copy": "Copy link",
+    "copied": "Link copied",
+    "copyFailed": "Could not copy the link"
+  },
+  "related": {
+    "title": "Keep reading"
+  },
+  "taxonomy": {
+    "categoriesTitle": "Categories",
+    "categoriesDescription": "Browse posts by subject.",
+    "tagsTitle": "Tags",
+    "tagsDescription": "Browse posts by tag."
+  },
+  "aboutPage": {
+    "whatIWrite": "What I write about",
+    "getInTouch": "Get in touch"
+  }
+}

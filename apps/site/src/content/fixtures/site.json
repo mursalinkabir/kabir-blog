@@ -1,0 +1,28 @@
+{
+  "name": {
+    "en": "Mursalin Kabir",
+    "ja": "ムルサリン・カビール"
+  },
+  "tagline": {
+    "en": "Technology, money and life in Japan.",
+    "ja": "テクノロジー、お金、そして日本での暮らし。"
+  },
+  "email": "hello@smkabir.com",
+  "socials": [],
+  "nav": [
+    "home",
+    "tech",
+    "finance",
+    "japan",
+    "about",
+    "contact"
+  ],
+  "navMore": [
+    "projects",
+    "resume",
+    "now",
+    "uses",
+    "categories",
+    "tags"
+  ]
+}

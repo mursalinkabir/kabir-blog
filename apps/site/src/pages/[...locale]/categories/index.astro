@@ -1,0 +1,39 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import CategoryIcon from '~/components/CategoryIcon.astro';
+import { t, localePath, formatNumber, type Locale } from '~/i18n';
+import { getPosts } from '~/lib/cms';
+import { categoryMeta, categoryOrder } from '~/lib/categories';
+import { bothLocales, perLocale } from '~/lib/routes';
+
+export const getStaticPaths = () => perLocale(() => [{}]);
+const { locale } = Astro.props as { locale: Locale };
+const posts = getPosts(locale);
+---
+
+<BaseLayout
+  title={t(locale, 'taxonomy.categoriesTitle')}
+  description={t(locale, 'taxonomy.categoriesDescription')}
+  locale={locale}
+  path={localePath(locale, '/categories/')}
+  alternates={bothLocales('/categories/')}
+>
+  <div class="container listing">
+    <header class="page-head">
+      <h1 class="page-title">{t(locale, 'taxonomy.categoriesTitle')}</h1>
+    </header>
+    <ul class="pills" role="list">
+      {
+        categoryOrder.map((slug) => (
+          <li>
+            <a class="pill" href={localePath(locale, `/${categoryMeta[slug].route}/`)}>
+              <CategoryIcon category={slug} size={18} />
+              {t(locale, categoryMeta[slug].label)}
+              <span class="pill-count">{formatNumber(locale, posts.filter((p) => p.category.slug === slug).length)}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>

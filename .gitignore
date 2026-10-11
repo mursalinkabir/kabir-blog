@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+
+# Content pulled from the CMS (pnpm cms:pull). Rebuilt on every release; never committed.
+apps/site/src/content/cms/
+apps/site/src/content/cms.next/
+apps/site/public/media/
+apps/site/public/media.next/
+apps/cms/.dev-credentials

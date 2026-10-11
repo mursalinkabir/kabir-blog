@@ -1,0 +1,1417 @@
+@import './fonts.css';
+
+/*
+  smkabir.com — clean, image-led magazine blog (layout and visual language after Bookworm Light).
+  White page, navy headings, grey body, one teal accent, 8px corners, navy footer. Light only.
+  Teal #01ad9f fails contrast as text on white (2.8:1), so it is decoration only; links and buttons use #007a6e.
+*/
+
+:root {
+  --heading: #152035;
+  --text: #5c5e62;
+  --muted: #6a6b6e;
+  --accent: #01ad9f;
+  --link: #007a6e;
+  --link-hover: #005c52;
+  --surface: #fafafa;
+  --border: #e9ebef;
+  --field-border: #7b8089; /* 3.7:1 on white: a control's edge must be visible (WCAG 1.4.11) */
+  --bg: #ffffff;
+  --tint: #e3f5f3;
+  --warn: #9a5000;
+  --danger: #b3261e;
+
+  --font:
+    'Mulish', system-ui, -apple-system, 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic UI', 'Yu Gothic',
+    'Noto Sans JP', 'Noto Sans CJK JP', Meiryo, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --radius-sm: 6px;
+  --radius: 8px;
+  --container: 1000px;
+  --content: 808px;
+  --gutter: clamp(1rem, 4vw, 1.5rem);
+  color-scheme: light;
+}
+
+/* ---- base --------------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 1.5rem;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.625;
+  text-rendering: optimizeLegibility;
+}
+/* Japanese is set looser than Latin, and breaks lines at phrase boundaries where the browser can (auto-phrase is
+   progressive: others fall back to the default). `strict` keeps small kana and the long-vowel mark off line starts. */
+html:lang(ja) body {
+  line-height: 1.85;
+  line-break: strict;
+  word-break: auto-phrase;
+}
+main {
+  flex: 1;
+  width: 100%;
+}
+main:focus {
+  outline: none;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+.container {
+  width: min(100% - 2 * var(--gutter), var(--container));
+  margin-inline: auto;
+}
+.prose-width {
+  width: min(100% - 2 * var(--gutter), var(--content));
+  margin-inline: auto;
+}
+.page {
+  padding-block: 3rem 0;
+}
+.listing {
+  padding-top: clamp(1.5rem, 5vw, 3rem);
+}
+
+a {
+  color: var(--link);
+  text-underline-offset: 0.18em;
+}
+a:hover {
+  color: var(--link-hover);
+}
+:focus-visible {
+  outline: 3px solid var(--link);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+::selection {
+  background: var(--tint);
+  color: var(--heading);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  color: var(--heading);
+  font-weight: 700;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+:lang(ja) :is(h1, h2, h3, h4) {
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+/* :where() keeps this reset at zero specificity so component margins still win. */
+:where(ul, ol)[role='list'] {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -5rem;
+  z-index: 30;
+  padding: 0.6rem 1rem;
+  background: var(--heading);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+.fixture-banner {
+  background: var(--tint);
+  color: var(--heading);
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.4rem var(--gutter);
+}
+
+/* Section and page titles carry a short teal bar. */
+.page-title,
+.section-title {
+  text-align: center;
+  font-size: clamp(2rem, 5vw, 2.5rem);
+}
+.page-title::after,
+.section-title::after {
+  content: '';
+  display: block;
+  width: 2.5rem;
+  height: 4px;
+  margin: 0.9rem auto 0;
+  border-radius: 2px;
+  background: var(--accent);
+}
+.section-title {
+  font-size: clamp(1.75rem, 4vw, 2.075rem);
+}
+.page-head {
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+.page-head-left .page-title,
+.page-head-left .page-lede,
+.page-head-left .resume-updated {
+  text-align: left;
+}
+.page-head-left .page-title::after {
+  margin-left: 0;
+}
+.page-head-left .page-lede {
+  margin-left: 0;
+}
+.page-head-left .page-aside,
+.page-head-left .tags {
+  justify-content: flex-start;
+}
+.page-lede {
+  max-width: 36rem;
+  margin: 1.25rem auto 0;
+  text-align: center;
+  color: var(--muted);
+}
+.page-aside,
+.page-aside-inline {
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+.page-aside {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem 1.25rem;
+  margin: 1rem 0 0;
+}
+.empty {
+  padding-block: 1rem 2rem;
+  text-align: center;
+  color: var(--muted);
+}
+.empty p {
+  margin: 0 0 1rem;
+}
+
+/* ---- buttons, icon buttons -------------------------------------------------------------- */
+.btn,
+.button {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  background: var(--link);
+  color: #fff;
+  border: 0;
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn:hover,
+.button:hover:not(:disabled) {
+  background: var(--link-hover);
+  color: #fff;
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--link);
+  box-shadow: inset 0 0 0 2px var(--link);
+}
+.btn-ghost:hover {
+  background: var(--tint);
+  color: var(--link-hover);
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--heading);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+.icon-btn:hover {
+  color: var(--link);
+  background: var(--surface);
+}
+summary.icon-btn {
+  list-style: none;
+}
+summary.icon-btn::-webkit-details-marker {
+  display: none;
+}
+.icon-btn-outline {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-color: rgb(255 255 255 / 0.75);
+  color: #fff;
+}
+.icon-btn-outline:hover {
+  background: rgb(255 255 255 / 0.12);
+  color: #fff;
+}
+.icon-btn.is-done {
+  color: var(--link);
+  background: var(--tint);
+}
+
+/* ---- header ------------------------------------------------------------------------------ */
+.site-header {
+  background: var(--bg);
+}
+.header-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem 2rem;
+  min-height: 84px;
+}
+.logo {
+  flex: none;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+.logo-mark {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: var(--radius);
+  /* --link, not --accent: white on #01ad9f is only 2.8:1 */
+  background: var(--link);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+.nav-desktop {
+  margin-inline: auto;
+}
+.nav-desktop a,
+.nav-desktop summary {
+  white-space: nowrap; /* Japanese labels may otherwise break between any two characters */
+}
+.nav-desktop > ul {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem 1.75rem;
+}
+.nav-desktop a,
+.nav-desktop summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding-block: 0.35rem;
+  color: var(--heading);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  list-style: none;
+}
+.nav-desktop summary::-webkit-details-marker {
+  display: none;
+}
+.nav-desktop a:hover,
+.nav-desktop summary:hover,
+.nav-desktop a[aria-current='page'],
+.nav-desktop details.is-active > summary {
+  color: var(--link);
+}
+/* The current page is also marked with a bar, so it never relies on colour alone. */
+.nav-desktop > ul > li > a[aria-current='page'],
+.nav-desktop details.is-active > summary {
+  box-shadow: inset 0 -3px 0 var(--link);
+}
+.more > ul a[aria-current='page'],
+.nav-mobile a[aria-current='page'] {
+  box-shadow: inset 3px 0 0 var(--link);
+}
+.more {
+  position: relative;
+}
+.more > ul {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.5rem);
+  z-index: 20;
+  min-width: 11rem;
+  padding: 0.5rem;
+  list-style: none;
+  margin: 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 32px rgb(21 32 53 / 0.12);
+}
+.more > ul a {
+  display: block;
+  padding: 0.45rem 0.75rem;
+  border-radius: var(--radius-sm);
+}
+.more > ul a:hover {
+  background: var(--surface);
+}
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: auto;
+}
+.lang-switch {
+  display: flex;
+  margin-right: 0.35rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+.lang-switch a,
+.lang-current {
+  white-space: nowrap;
+  display: grid;
+  place-items: center;
+  min-width: 2.6rem;
+  height: 2.1rem;
+  padding: 0 0.5rem;
+  text-decoration: none;
+}
+.lang-current {
+  background: var(--link);
+  color: #fff;
+}
+.lang-switch a {
+  color: var(--heading);
+}
+.lang-switch a:hover {
+  background: var(--surface);
+}
+.menu {
+  display: none;
+  position: relative;
+}
+.nav-mobile {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.5rem);
+  z-index: 20;
+  min-width: 13rem;
+  padding: 0.5rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 32px rgb(21 32 53 / 0.12);
+}
+.nav-mobile a {
+  display: block;
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--radius-sm);
+  color: var(--heading);
+  font-weight: 600;
+  text-decoration: none;
+}
+.nav-mobile a:hover,
+.nav-mobile a[aria-current='page'] {
+  background: var(--surface);
+  color: var(--link);
+}
+/* The desktop menu needs about 1010px (English) or 985px (Japanese, after the tighter rules below) of row;
+   below 65rem the "More"-style phone menu is used instead of letting the header overflow. */
+@media (max-width: 64.99rem) {
+  .nav-desktop {
+    display: none;
+  }
+  .menu {
+    display: block;
+  }
+}
+/* Japanese labels are denser and the site name is longer: tighter spacing keeps the row inside the container. */
+@media (min-width: 65rem) {
+  :lang(ja) .logo {
+    font-size: 1.25rem;
+  }
+  :lang(ja) .nav-desktop > ul {
+    gap: 0.25rem 0.875rem;
+    font-size: 0.9375rem;
+  }
+}
+@media (max-width: 29.99rem) {
+  /* A long site name (the Japanese one is ten characters) wraps onto two lines instead of pushing the menu
+     button off the screen. It breaks after the middle dot. */
+  .logo {
+    flex: 0 1 auto;
+    min-width: 0;
+    white-space: normal;
+    line-height: 1.15;
+    font-size: 1rem;
+    gap: 0.45rem;
+  }
+  .logo-mark {
+    flex: none;
+    width: 1.9rem;
+    height: 1.9rem;
+  }
+  .header-row {
+    gap: 0.5rem;
+  }
+  .lang-switch a,
+  .lang-current {
+    min-width: 2.3rem;
+  }
+}
+
+/* ---- avatar, meta ------------------------------------------------------------------------ */
+.avatar {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  border-radius: 50%;
+  background: var(--tint);
+  color: var(--link);
+  font-weight: 800;
+  line-height: 1;
+}
+.avatar-sm {
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 0.6rem;
+}
+.avatar-xl {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius);
+  font-size: clamp(4rem, 12vw, 6rem);
+  background: #d8f1ed;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+.meta li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.meta svg {
+  color: var(--accent);
+}
+.meta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+.meta a:hover {
+  color: var(--link);
+}
+
+/* ---- cards ------------------------------------------------------------------------------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(2rem, 5vw, 3.5rem) 2.5rem;
+}
+.card {
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+.card-grid > .card {
+  margin-bottom: 0;
+}
+.card-cover {
+  display: block;
+  margin-bottom: 1.1rem;
+}
+.cover {
+  aspect-ratio: 97 / 50;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+.card-cover:hover .cover img {
+  transform: scale(1.035);
+}
+.card:has(.card-cover:hover) .card-title a {
+  color: var(--link);
+}
+.cover-fallback {
+  display: grid;
+  place-items: center;
+  background: #d8f1ed;
+  color: #00675c;
+}
+.cover-finance {
+  background: #fbebc6;
+  color: #7a4b00;
+}
+.cover-japan-life {
+  background: #fbdfe1;
+  color: #9b2335;
+}
+.card-title {
+  margin: 0.75rem 0 0.6rem;
+  font-size: 1.75rem;
+  letter-spacing: -0.01em;
+}
+.card-featured .card-title {
+  font-size: 2.075rem;
+}
+.card-title a {
+  color: var(--heading);
+  text-decoration: none;
+}
+.card-title a:hover {
+  color: var(--link);
+}
+.card-excerpt {
+  margin: 0;
+  color: var(--muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+@media (max-width: 47.99rem) {
+  .card-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .card-title,
+  .card-featured .card-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* ---- pagination -------------------------------------------------------------------------- */
+.pagination {
+  margin-block: 1rem 0;
+}
+.pagination ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.page-link {
+  display: grid;
+  place-items: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding: 0 0.5rem;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  color: var(--heading);
+  font-weight: 700;
+  text-decoration: none;
+}
+a.page-link:hover {
+  background: var(--tint);
+  color: var(--heading);
+}
+.page-link.is-current {
+  background: var(--link);
+  border-color: var(--link);
+  color: #fff;
+}
+.page-link.is-disabled {
+  border-color: var(--border);
+  color: var(--muted);
+}
+.page-gap {
+  display: grid;
+  place-items: center;
+  height: 2.5rem;
+  color: var(--muted);
+}
+
+/* ---- pills, tags ------------------------------------------------------------------------- */
+.pills,
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+.pill,
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  color: var(--heading);
+  font-weight: 600;
+  text-decoration: none;
+}
+.pill svg {
+  color: var(--accent);
+}
+.pill:hover,
+.tag:hover {
+  background: var(--tint);
+  color: var(--heading);
+}
+.pill-count {
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+.tag-list {
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+.tag {
+  font-size: 0.9375rem;
+}
+
+/* ---- post -------------------------------------------------------------------------------- */
+.post {
+  padding-top: clamp(1.5rem, 5vw, 3rem);
+}
+.post-head {
+  max-width: 46rem;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+.post-head h1 {
+  font-size: clamp(1.85rem, 5vw, 2.5rem);
+  margin-bottom: 1rem;
+}
+.post-head .meta {
+  justify-content: center;
+}
+.post-series {
+  margin: 0.75rem 0 0;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+.post-cover {
+  margin: 0 0 2.5rem;
+}
+.post-cover img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 97 / 50;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+.post-cover figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  text-align: center;
+}
+.post-body {
+  max-width: var(--content);
+  margin-inline: auto;
+}
+.post-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-top: 3rem;
+}
+.share {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.share-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--heading);
+}
+.share ul {
+  display: flex;
+  gap: 0.15rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.share .icon-btn {
+  color: var(--muted);
+}
+.share .icon-btn:hover {
+  color: var(--link);
+}
+.related {
+  margin-top: clamp(3rem, 8vw, 5rem);
+}
+.related .section-title {
+  margin-bottom: 2rem;
+}
+
+.toc {
+  margin-bottom: 2rem;
+  padding: 0.9rem 1.25rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  font-size: 0.9375rem;
+}
+.toc summary {
+  cursor: pointer;
+  color: var(--heading);
+  font-weight: 700;
+}
+.toc ol {
+  margin: 0.6rem 0 0;
+  padding-left: 1.25rem;
+}
+.toc li {
+  padding-block: 0.15rem;
+}
+.toc .depth-3 {
+  margin-left: 1rem;
+  list-style: circle;
+}
+.toc .depth-4 {
+  margin-left: 2rem;
+  list-style: square;
+}
+
+/* ---- prose ------------------------------------------------------------------------------- */
+.prose {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--text);
+}
+:lang(ja) .prose {
+  line-height: 1.95;
+}
+.prose > * {
+  margin-block: 0;
+}
+.prose > * + * {
+  margin-top: 1.25em;
+}
+.prose h2 {
+  margin-top: 2.2em;
+  font-size: 1.75rem;
+}
+.prose h3 {
+  margin-top: 1.9em;
+  font-size: 1.4rem;
+}
+.prose h4 {
+  margin-top: 1.7em;
+  font-size: 1.15rem;
+}
+.prose :is(h2, h3, h4) + * {
+  margin-top: 0.6em;
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.4em;
+}
+.prose li + li {
+  margin-top: 0.35em;
+}
+.prose li::marker {
+  color: var(--accent);
+  font-weight: 700;
+}
+.prose blockquote {
+  margin-inline: 0;
+  padding: 1.1rem 1.5rem;
+  background: var(--surface);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  color: var(--heading);
+  font-size: 1.125rem;
+  font-style: italic;
+}
+:lang(ja) .prose blockquote {
+  font-style: normal; /* no italic in Japanese type */
+}
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin-block: 2.5em;
+}
+.prose :not(pre) > code {
+  padding: 0.1em 0.4em;
+  background: var(--surface);
+  border-radius: 4px;
+  color: var(--heading);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+.prose strong {
+  color: var(--heading);
+}
+.prose .anchor {
+  margin-left: 0.4rem;
+  color: var(--muted);
+  font-weight: 500;
+  text-decoration: none;
+  opacity: 0;
+}
+.prose :is(h2, h3, h4):hover .anchor {
+  opacity: 1;
+}
+
+.callout {
+  margin-inline: 0;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border-left: 4px solid var(--callout, var(--accent));
+  border-radius: var(--radius);
+}
+.callout > * + * {
+  margin-top: 0.5rem;
+}
+.callout p {
+  margin: 0;
+}
+.callout-title {
+  color: var(--callout, var(--link));
+  font-weight: 800;
+  font-size: 0.9375rem;
+}
+.callout-warn {
+  --callout: var(--warn);
+}
+.callout-danger {
+  --callout: var(--danger);
+}
+
+/* Tables: finance writing lives here. Numeric columns are right-aligned in tabular figures. */
+.table-wrap {
+  overflow-x: auto;
+}
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.prose th,
+.prose td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+}
+.prose thead th {
+  background: var(--surface);
+  color: var(--heading);
+  font-weight: 700;
+}
+.prose thead th:first-child {
+  border-top-left-radius: var(--radius);
+}
+.prose thead th:last-child {
+  border-top-right-radius: var(--radius);
+}
+.prose .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+.prose th.num {
+  white-space: normal;
+}
+
+figure.figure {
+  margin-inline: 0;
+}
+figure.figure img {
+  display: block;
+  width: 100%;
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+figure.figure figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+.gallery-strip {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scroll-snap-type: x proximity;
+}
+.gallery-strip img {
+  flex: none;
+  height: 13rem;
+  width: auto;
+  border-radius: var(--radius);
+  scroll-snap-align: start;
+  background: var(--surface);
+}
+.terminal-output {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  background: var(--surface);
+  border-radius: 0 0 var(--radius) var(--radius);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  color: var(--text);
+}
+.diagram {
+  margin-inline: 0;
+}
+.diagram img {
+  display: block;
+  margin-inline: auto;
+}
+.diagram details {
+  margin-top: 0.5rem;
+  font-size: 0.9375rem;
+}
+.diagram summary {
+  cursor: pointer;
+  color: var(--muted);
+}
+.diagram pre {
+  overflow-x: auto;
+  padding: 0.75rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  font-size: 0.8125rem;
+}
+
+/* Inline Japanese term: reading always visible, English gloss on hover / focus / tap. The tip is display:none
+   until shown (an invisible absolutely positioned box would still widen the page), is a child of the term so
+   it stays open while the pointer is over it, and scripts/jp-gloss.ts flips it inside the viewport. */
+.jp {
+  position: relative;
+  text-decoration: underline dotted var(--muted);
+  text-underline-offset: 0.25em;
+  cursor: help;
+}
+.jp-r {
+  color: var(--muted);
+  font-style: italic;
+}
+.jp-tip {
+  display: none;
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  z-index: 5;
+  width: max-content;
+  max-width: min(16rem, calc(100vw - 2rem));
+  padding: 0.3rem 0.65rem;
+  /* the transparent border keeps the pointer inside the term while it moves up to the tip */
+  border-bottom: 0.4rem solid transparent;
+  background: var(--heading);
+  background-clip: padding-box;
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: normal;
+}
+.jp:hover .jp-tip,
+.jp:focus .jp-tip {
+  display: block;
+}
+.jp.is-end .jp-tip {
+  left: auto;
+  right: 0;
+}
+.jp.is-start .jp-tip {
+  left: 0;
+  right: auto;
+}
+.jp.is-dismissed .jp-tip {
+  display: none;
+}
+
+/* Checklists from the rich-text editor. */
+.prose ul.checklist {
+  list-style: none;
+  padding-left: 0;
+}
+.prose .checklist li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+.check-mark {
+  flex: none;
+  width: 1.05rem;
+  height: 1.05rem;
+  margin-top: 0.3rem;
+  border: 2px solid var(--muted);
+  border-radius: 4px;
+}
+.is-checked > .check-mark {
+  border-color: var(--link);
+  background: var(--link)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 8.5 3 3 6-7' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    center / 80% no-repeat;
+}
+.prose li > ul,
+.prose li > ol {
+  margin-top: 0.35em;
+}
+[hidden] {
+  display: none !important;
+}
+
+/* ---- about ------------------------------------------------------------------------------- */
+.about-intro {
+  display: grid;
+  gap: 2rem 2.5rem;
+  align-items: start;
+}
+.about-photo {
+  aspect-ratio: 2 / 3;
+  max-width: 18rem;
+  width: 100%;
+}
+.about-title {
+  margin-bottom: 1rem;
+  font-size: clamp(1.85rem, 4vw, 2.25rem);
+}
+.about-topics {
+  margin-top: clamp(3rem, 8vw, 5rem);
+}
+.topics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 2rem;
+  margin-top: 2.5rem;
+  text-align: center;
+}
+.topic-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 0.75rem;
+  border-radius: var(--radius);
+  background: var(--tint);
+  color: var(--link);
+}
+.topics h3 {
+  font-size: 1.4rem;
+}
+.topics h3 a {
+  color: var(--heading);
+  text-decoration: none;
+}
+.topics h3 a:hover {
+  color: var(--link);
+}
+.topics p {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+}
+@media (min-width: 48rem) {
+  .about-intro {
+    grid-template-columns: 17rem 1fr;
+  }
+}
+
+/* ---- resume, uses, projects -------------------------------------------------------------- */
+.resume-updated {
+  margin: 0.75rem 0 0;
+  text-align: center;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+.resume-summary {
+  margin-top: 0;
+}
+.resume-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.5rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-weight: 700;
+}
+.resume h2 {
+  margin: 2.5rem 0 1rem;
+  font-size: 1.5rem;
+}
+.resume-entry {
+  margin-bottom: 1.5rem;
+}
+.resume-entry h3 {
+  font-size: 1.15rem;
+}
+.resume-entry p {
+  margin: 0.2rem 0 0;
+}
+.resume-entry .when {
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+.resume-entry ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.2rem;
+}
+.resume dl {
+  display: grid;
+  grid-template-columns: minmax(7rem, max-content) 1fr;
+  gap: 0.5rem 1.5rem;
+  margin: 0;
+}
+.resume dt {
+  font-weight: 700;
+  color: var(--heading);
+}
+.resume dd {
+  margin: 0;
+}
+.uses-group h2 {
+  margin: 2.5rem 0 0.5rem;
+  font-size: 1.5rem;
+}
+.uses-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.uses-group li {
+  padding-block: 0.75rem;
+  border-bottom: 1px solid var(--border);
+  font-weight: 700;
+  color: var(--heading);
+}
+.uses-group li span {
+  display: block;
+  font-weight: 400;
+  color: var(--muted);
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+}
+.tags li {
+  padding: 0.25rem 0.8rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--heading);
+}
+
+/* ---- forms ------------------------------------------------------------------------------- */
+.narrow {
+  max-width: 40rem;
+  margin-inline: auto;
+}
+.form {
+  display: grid;
+  gap: 1.25rem;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+@media (max-width: 36rem) {
+  .form-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.form label {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--heading);
+  font-weight: 700;
+  font-size: 0.9375rem;
+}
+.form input,
+.form textarea {
+  padding: 0.75rem 1rem;
+  color: var(--heading);
+  background: var(--bg);
+  border: 1px solid var(--field-border);
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-weight: 400;
+}
+.form input:focus,
+.form textarea:focus {
+  border-color: var(--link);
+  outline: 2px solid var(--link);
+  outline-offset: 0;
+}
+.form textarea {
+  min-height: 10rem;
+  resize: vertical;
+}
+.hp {
+  position: absolute;
+  left: -9999px;
+}
+.notice {
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-sm);
+  font-size: 0.9375rem;
+}
+
+/* ---- footer ------------------------------------------------------------------------------ */
+.site-footer {
+  margin-top: clamp(4rem, 10vw, 6rem);
+  background: var(--heading);
+  color: rgb(255 255 255 / 0.75);
+  text-align: center;
+}
+.footer-inner {
+  display: grid;
+  justify-items: center;
+  gap: 1.75rem;
+  padding-block: 5rem;
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 2.5rem;
+}
+.footer-links a {
+  color: rgb(255 255 255 / 0.85);
+  font-weight: 600;
+  text-decoration: none;
+}
+.footer-links a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+.footer-copy {
+  margin: 0;
+  font-size: 0.9375rem;
+}
+.site-footer :focus-visible {
+  outline-color: #fff;
+}
+
+/* Pagefind default UI follows the site. */
+.pagefind-ui {
+  --pagefind-ui-scale: 1;
+  --pagefind-ui-primary: var(--link);
+  --pagefind-ui-text: var(--heading);
+  --pagefind-ui-background: var(--bg);
+  --pagefind-ui-border: var(--border);
+  --pagefind-ui-tag: var(--surface);
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 8px;
+  --pagefind-ui-font: var(--font);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  .site-header,
+  .site-footer,
+  .skip-link,
+  .fixture-banner,
+  .share {
+    display: none !important;
+  }
+  body {
+    font-size: 10.5pt;
+    line-height: 1.45;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .page {
+    padding-block: 0;
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "updatedAt": "2026-10-05T00:00:00.000Z",
+  "content": {
+    "en": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Sample: building this site, one phase at a time.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Setting up the CMS and the build pipeline",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Writing the first few posts",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              }
+            ],
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul",
+            "type": "list"
+          }
+        ],
+        "type": "root"
+      }
+    },
+    "ja": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "サンプル：このサイトを一歩ずつ作っています。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          }
+        ],
+        "type": "root"
+      }
+    }
+  }
+}

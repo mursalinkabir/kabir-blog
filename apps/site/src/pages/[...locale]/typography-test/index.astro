@@ -1,0 +1,44 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { perLocale } from '~/lib/routes';
+
+// Phase 1 gate page: Japanese text must break at sensible places, keep small kana and the long-vowel mark off the
+// start of a line, and sit well with Latin letters and digits. Built only in dev or with SITE_TYPOGRAPHY_TEST=1;
+// never part of the production site, sitemap or index.
+export const getStaticPaths = () => (import.meta.env.DEV || process.env.SITE_TYPOGRAPHY_TEST === '1' ? perLocale(() => [{}], ['ja']) : []);
+
+// Characters that must never begin a line (kinsoku shori) when `line-break: strict` is honoured.
+const lineStartProhibited = 'ゃゅょっー、。」』）！？ぁぃぅぇぉァィゥェォッャュョ';
+---
+
+<BaseLayout
+  title="Japanese typography test"
+  description="Line breaking and mixed-script rendering check."
+  locale="ja"
+  path="/ja/typography-test/"
+  noindex
+>
+  <div class="page">
+    <div class="prose-width prose">
+      <h1 class="page-title">日本語の組版テスト (Typography test)</h1>
+      <p>
+        このページは、日本語の本文が読みやすく表示されるかを確認するためのものです。句読点（、。）や閉じかっこ（」）が行頭に来ないこと、文節の途中で不自然に折り返されないことを確かめてください。
+      </p>
+      <h2>行頭禁則の文字</h2>
+      <p style="font-size:1.5rem">{lineStartProhibited}</p>
+      <h3>漢字・ひらがな・カタカナ・英数字の混在</h3>
+      <p>
+        ホームラボの Kubernetes クラスターは Talos Linux 上で動いていて、月の電気代は約 1,200 円です。デプロイは <code>git tag v0.1.0</code>
+        を押すだけ。日付は {new Intl.DateTimeFormat('ja-JP', { dateStyle: 'long' }).format(new Date('2026-10-07'))} です。
+      </p>
+      <p>
+        長音記号を含む語（コンピューター、サーバー、ブラウザー）や、小書き文字を含む語（ちょっと、きょう、ファイル、ウェブ）が、行の折り返しで崩れないことを確認します。この段落は数行にわたるよう、少し長めに書いています。
+      </p>
+      <p>
+        <ruby>役所<rt>やくしょ</rt></ruby>で<ruby>住民票<rt>じゅうみんひょう</rt></ruby>を取るときは、<ruby
+          >本人確認書類<rt>ほんにんかくにんしょるい</rt></ruby
+        >が必要です。
+      </p>
+    </div>
+  </div>
+</BaseLayout>

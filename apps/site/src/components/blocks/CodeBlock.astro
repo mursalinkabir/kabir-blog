@@ -1,0 +1,20 @@
+---
+import { Code } from 'astro-expressive-code/components';
+
+interface Props {
+  code: string;
+  language?: string;
+  filename?: string;
+  /** "4,6-8" */
+  highlightLines?: string;
+}
+const { code, language = 'text', filename, highlightLines } = Astro.props;
+
+const mark = (highlightLines ?? '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean)
+  .map((s) => (/^\d+$/.test(s) ? Number(s) : s));
+---
+
+<Code code={code} lang={language} title={filename} mark={mark.length ? mark : undefined} />

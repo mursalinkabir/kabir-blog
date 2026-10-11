@@ -1,0 +1,30 @@
+---
+import PostsPage from '~/components/PostsPage.astro';
+import { locales, t, type Locale } from '~/i18n';
+import { getPosts, getUsedTags } from '~/lib/cms';
+import { pageParams } from '~/lib/paginate';
+import { alternatesFor, perLocale } from '~/lib/routes';
+
+export const getStaticPaths = () =>
+  perLocale((locale) =>
+    getUsedTags(locale).flatMap((tag) =>
+      pageParams(tag.count).map(({ page, n }) => ({ params: { tag: tag.slug, page }, props: { tag, n } })),
+    ),
+  );
+
+const { locale, tag, n } = Astro.props as { locale: Locale; tag: { slug: string; name: string }; n: number };
+---
+
+<PostsPage
+  locale={locale}
+  posts={getPosts(locale).filter((p) => p.tags.some((x) => x.slug === tag.slug))}
+  page={n}
+  base={`/tags/${tag.slug}/`}
+  title={t(locale, 'tags.title', { tag: tag.name })}
+  description={t(locale, 'tags.description', { tag: tag.name })}
+  alternates={alternatesFor(
+    `/tags/${tag.slug}/`,
+    locales.filter((l) => getUsedTags(l).some((x) => x.slug === tag.slug)),
+  )}
+  featured={false}
+/>

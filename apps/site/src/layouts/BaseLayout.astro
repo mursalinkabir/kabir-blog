@@ -1,0 +1,87 @@
+---
+import '~/styles/global.css';
+import mulishLatin from '@fontsource-variable/mulish/files/mulish-latin-wght-normal.woff2?url';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import { htmlLang, ogLocale, t, locales, type Locale } from '~/i18n';
+import { absolute, type Alternates } from '~/lib/routes';
+import { contentSource, siteName } from '~/lib/cms';
+import { jsonLd } from '~/lib/jsonld';
+
+interface Props {
+  title: string;
+  description: string;
+  locale: Locale;
+  /** Localized path of this page, e.g. /ja/posts/x/ */
+  path: string;
+  alternates?: Alternates;
+  type?: 'website' | 'article';
+  structuredData?: object[];
+  noindex?: boolean;
+  publishedTime?: string;
+  modifiedTime?: string;
+  rss?: { href: string; title: string }[];
+}
+
+const {
+  title,
+  description,
+  locale,
+  path,
+  alternates = {},
+  type = 'website',
+  structuredData = [],
+  noindex = false,
+  publishedTime,
+  modifiedTime,
+  rss = [],
+} = Astro.props;
+const name = siteName(locale);
+const fullTitle = path === '/' || path === '/ja/' ? name : `${title} · ${name}`;
+const canonical = absolute(path);
+const alternateEntries = Object.entries(alternates) as [Locale, string][];
+---
+
+<!doctype html>
+<html lang={htmlLang[locale]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {alternateEntries.length > 1 && alternateEntries.map(([l, p]) => <link rel="alternate" hreflang={htmlLang[l]} href={absolute(p)} />)}
+    {alternateEntries.length > 1 && alternates.en && <link rel="alternate" hreflang="x-default" href={absolute(alternates.en)} />}
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta property="og:site_name" content={name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={ogLocale[locale]} />
+    {locales.filter((l) => l !== locale && alternates[l]).map((l) => <meta property="og:locale:alternate" content={ogLocale[l]} />)}
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+    <meta name="twitter:card" content="summary" />
+    {rss.map((r) => <link rel="alternate" type="application/rss+xml" title={r.title} href={r.href} />)}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {/* Preload the one face that paints the first screen. Japanese pages also use Mulish for Latin letters and digits. */}
+    <link rel="preload" href={mulishLatin} as="font" type="font/woff2" crossorigin />
+    {structuredData.map((d) => <script type="application/ld+json" set:html={jsonLd(d)} />)}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t(locale, 'a11y.skipToContent')}</a>
+    {
+      contentSource === 'fixtures' && (
+        <div class="fixture-banner" role="note">
+          {t(locale, 'fixture.banner')}
+        </div>
+      )
+    }
+    <Header locale={locale} path={path} alternates={alternates} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>

@@ -1,0 +1,39 @@
+# DRAFT, UNTESTED, and deliberately NOT under prod/apps/ (Argo CD would apply it the moment it is copied).
+#
+# Your cluster has no NetworkPolicy anywhere yet, so there is no precedent to copy, and a wrong ingress rule
+# takes the site down. Apply this by hand only after verifying the two TODOs on a throwaway app:
+#
+#   TODO 1  The identity Cilium gives Gateway API (Envoy) traffic. This draft assumes the `ingress` entity.
+#           Check: `cilium identity list | grep -i ingress`, or temporarily log in the policy with
+#           `cilium monitor --type drop` while loading the site.
+#   TODO 2  `toFQDNs` needs Cilium's DNS proxy enabled (`dnsProxy` / `policy-cidr-match-mode` as installed).
+#           Check with a CiliumNetworkPolicy on a test pod before relying on it.
+#
+# Intent (docs/PLAN.md, Kubernetes on homelab-prod): ingress only from the Gateway; egress only to kube-dns and
+# the R2 S3 endpoint on 443. A compromised nginx or sidecar can then reach nothing else in the cluster.
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: blog
+spec:
+  endpointSelector:
+    matchLabels: { app: blog }
+  ingress:
+    - fromEntities: ['ingress'] # TODO 1
+      toPorts:
+        - ports: [{ port: '8080', protocol: TCP }]
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            'k8s:io.kubernetes.pod.namespace': kube-system
+            'k8s:k8s-app': kube-dns
+      toPorts:
+        - ports:
+            - { port: '53', protocol: ANY }
+          rules:
+            dns:
+              - matchPattern: '*'
+    - toFQDNs: # TODO 2
+        - matchPattern: '*.r2.cloudflarestorage.com'
+      toPorts:
+        - ports: [{ port: '443', protocol: TCP }]

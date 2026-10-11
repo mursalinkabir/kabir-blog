@@ -1,0 +1,32 @@
+---
+import { Code } from 'astro-expressive-code/components';
+import { renderD2 } from '~/lib/diagram';
+import { t, type Locale } from '~/i18n';
+
+interface Props {
+  kind: 'd2' | 'mermaid';
+  source: string;
+  alt?: string;
+  locale: Locale;
+}
+const { kind, source, alt, locale } = Astro.props;
+
+// D2 renders to SVG at build time. Mermaid needs a browser (Playwright, Phase 3 pipeline) so it falls back
+// to its source for now; CI refuses to publish that fallback.
+if (kind === 'mermaid' && process.env.CI) throw new Error('Mermaid diagrams are not rendered yet.');
+const rendered = kind === 'd2' ? renderD2(source) : null;
+---
+
+{
+  rendered ? (
+    <figure class="diagram">
+      <img src={rendered} alt={alt ?? t(locale, 'a11y.diagram')} loading="lazy" decoding="async" />
+      <details>
+        <summary>{t(locale, 'a11y.diagramSource')}</summary>
+        <pre set:text={source} />
+      </details>
+    </figure>
+  ) : (
+    <Code code={source} lang={kind === 'd2' ? 'text' : 'mermaid'} title={`${kind} diagram`} />
+  )
+}

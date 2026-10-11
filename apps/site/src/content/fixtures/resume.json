@@ -1,0 +1,93 @@
+{
+  "updatedAt": "2026-10-01T00:00:00.000Z",
+  "basics": {
+    "name": "Mursalin Kabir",
+    "label": "Software engineer",
+    "email": "hello@smkabir.com",
+    "url": "https://smkabir.com",
+    "summary": "Sample summary from the fixtures. Replace it with the real resume in Payload.",
+    "profiles": []
+  },
+  "work": [
+    {
+      "id": "w1",
+      "name": "Example Company",
+      "position": "Software Engineer",
+      "startDate": "2022-04",
+      "endDate": "2026-03",
+      "highlights": [
+        "Placeholder highlight one.",
+        "Placeholder highlight two."
+      ]
+    },
+    {
+      "id": "w2",
+      "name": "Another Example Co.",
+      "position": "Junior Engineer",
+      "startDate": "2019-04",
+      "endDate": "2022-03",
+      "highlights": [
+        "Placeholder highlight."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "id": "e1",
+      "institution": "Example University",
+      "area": "Computer Science",
+      "studyType": "BSc",
+      "startDate": "2015-04",
+      "endDate": "2019-03"
+    }
+  ],
+  "skills": [
+    {
+      "id": "s1",
+      "name": "Languages",
+      "keywords": [
+        "TypeScript",
+        "Go",
+        "SQL"
+      ]
+    },
+    {
+      "id": "s2",
+      "name": "Platform",
+      "keywords": [
+        "Kubernetes",
+        "PostgreSQL",
+        "Terraform"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "rp1",
+      "name": "Homelab",
+      "description": "A Talos Kubernetes cluster managed with GitOps.",
+      "url": "/projects/homelab/"
+    }
+  ],
+  "languages": [
+    {
+      "id": "l1",
+      "language": "English",
+      "spoken": "Placeholder",
+      "reading": "Placeholder"
+    },
+    {
+      "id": "l2",
+      "language": "Bengali",
+      "spoken": "Placeholder",
+      "reading": "Placeholder"
+    },
+    {
+      "id": "l3",
+      "language": "Japanese",
+      "spoken": "Placeholder",
+      "reading": "Placeholder"
+    }
+  ],
+  "certificates": []
+}

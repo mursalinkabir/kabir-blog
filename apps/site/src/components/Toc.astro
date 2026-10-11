@@ -1,0 +1,27 @@
+---
+import { t, type Locale } from '~/i18n';
+import type { Heading } from '~/lib/lexical/walk';
+
+interface Props {
+  headings: Heading[];
+  locale: Locale;
+  /** Expanded by default only on long posts. */
+  open?: boolean;
+}
+const { headings, locale, open = false } = Astro.props;
+---
+
+<details class="toc" open={open}>
+  <summary>{t(locale, 'a11y.tableOfContents')}</summary>
+  <nav aria-label={t(locale, 'a11y.tableOfContents')}>
+    <ol role="list">
+      {
+        headings.map((h) => (
+          <li class={`depth-${h.depth}`}>
+            <a href={`#${h.id}`}>{h.text}</a>
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
+</details>

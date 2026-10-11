@@ -1,0 +1,14 @@
+---
+import { siteName } from '~/lib/cms';
+import { initials } from '~/lib/routes';
+import type { Locale } from '~/i18n';
+
+interface Props {
+  locale: Locale;
+  size?: 'sm' | 'xl';
+}
+const { locale, size = 'sm' } = Astro.props;
+---
+
+<!-- Monogram until a photo is added in Payload. Decorative: the author's name is printed beside it. -->
+<span class:list={['avatar', `avatar-${size}`]} aria-hidden="true">{initials(siteName(locale))}</span>

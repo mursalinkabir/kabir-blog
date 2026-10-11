@@ -1,0 +1,28 @@
+{
+  "name": "smkabir-site",
+  "private": true,
+  "packageManager": "pnpm@12.9.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @smkabir/site dev",
+    "build": "pnpm --filter @smkabir/site build",
+    "check": "pnpm --filter @smkabir/site check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "pnpm --filter @smkabir/site test",
+    "privacy": "node scripts/privacy-scan.mjs",
+    "server:test": "bash apps/server/tests/run.sh",
+    "server:headers": "node apps/server/scripts/render-headers.mjs",
+    "cms:dev": "pnpm --filter @smkabir/cms dev",
+    "cms:migrate": "pnpm --filter @smkabir/cms migrate",
+    "cms:seed": "pnpm --filter @smkabir/cms seed",
+    "cms:check-privacy": "pnpm --filter @smkabir/cms check:privacy",
+    "cms:pull": "pnpm --filter @smkabir/site cms:pull"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.0",
+    "prettier-plugin-astro": "^0.14.1"
+  }
+}

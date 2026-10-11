@@ -1,0 +1,184 @@
+# smkabir.com — the public blog. DRAFT: lives in smkabir-site/deploy/ until you copy it into
+# homelab-terraform/prod/apps/blog/ by hand (the site repo holds no GitOps credentials, by design).
+#
+# Deployed by the `apps` ApplicationSet into namespace `blog` (the folder name), which is why nothing below
+# sets metadata.namespace. The namespace enforces PodSecurity `restricted`.
+#
+# One image, two containers:
+#   content-sync  native sidecar (initContainer with restartPolicy: Always). Polls R2 `LATEST` every 60 s,
+#                 downloads the release beside the live one, checks it, swaps the `current` symlink and
+#                 signals nginx to reload the redirect map. R2 down = keep serving what we have.
+#   nginx         serves /srv/site/current. No content in the image: a new post is NOT a deploy.
+#
+# A *code* release is a tag push in smkabir-site (v0.1.0 -> ghcr.io/mursalinkabir/smkabir-site-server:0.1.0)
+# plus a hand-made bump of the two `image:` lines below. Rollback is `git revert` of that bump.
+#
+# Things nginx-unprivileged needs that are easy to get wrong (see demo/hello.yaml): it listens on 8080, and
+# with a read-only root it needs writable temp space. Our nginx.conf puts every temp path under /tmp, so the
+# only writable mounts are /tmp and /srv/site (proven by apps/server/tests/run.sh, which runs this exact
+# restriction set: uid 101, --read-only, --cap-drop ALL, no-new-privileges).
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: blog-sync
+  annotations:
+    # With the SealedSecret: everything the sidecar needs exists before the Deployment rolls.
+    argocd.argoproj.io/sync-wave: '-2'
+data:
+  REMOTE: 'r2:smkabir-site'
+  POLL_SECONDS: '60'
+  KEEP_RELEASES: '2'
+  # rclone reads its remote definition from the environment. The credentials are in the `blog-r2` secret.
+  RCLONE_CONFIG_R2_TYPE: 's3'
+  RCLONE_CONFIG_R2_PROVIDER: 'Cloudflare'
+  # TODO: replace <ACCOUNT_ID> with your Cloudflare account id (not a secret).
+  RCLONE_CONFIG_R2_ENDPOINT: 'https://<ACCOUNT_ID>.r2.cloudflarestorage.com'
+  # The token is object-read on one bucket; it cannot create or head the bucket itself.
+  RCLONE_CONFIG_R2_NO_CHECK_BUCKET: 'true'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: { maxUnavailable: 0, maxSurge: 1 }
+  selector:
+    matchLabels: { app: blog }
+  template:
+    metadata:
+      labels: { app: blog }
+    spec:
+      automountServiceAccountToken: false
+      # The sidecar signals nginx (HUP) after writing a new redirect map. Same PID namespace, same uid, shared /tmp.
+      shareProcessNamespace: true
+      securityContext:
+        runAsNonRoot: true
+        # Numeric on purpose: the kubelet cannot prove a *named* user is non-root.
+        runAsUser: 101
+        runAsGroup: 101
+        seccompProfile: { type: RuntimeDefault }
+      # Two replicas on different PVE hosts, then different nodes. Soft until the control-plane taint drift is
+      # fixed (today only prod-w1 is schedulable, so a hard rule would leave replica 2 Pending). Flip both
+      # to DoNotSchedule once `kubectl get nodes` shows four schedulable nodes.
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: topology.homelab/pve-host
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels: { app: blog }
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels: { app: blog }
+      initContainers:
+        # Creates the (empty) redirect map nginx includes, so nginx can start before the first release lands.
+        - name: init-site
+          image: ghcr.io/mursalinkabir/smkabir-site-server:0.1.0 # bump with content-sync and nginx below
+          command: ['content-sync', 'init']
+          env:
+            - { name: SITE_ROOT, value: /srv/site }
+          resources:
+            requests: { cpu: 5m, memory: 8Mi }
+            limits: { memory: 32Mi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ['ALL'] }
+          volumeMounts:
+            - { name: site, mountPath: /srv/site }
+            - { name: tmp, mountPath: /tmp }
+        - name: content-sync
+          image: ghcr.io/mursalinkabir/smkabir-site-server:0.1.0 # bump with init-site and nginx
+          command: ['content-sync']
+          restartPolicy: Always # makes this a native sidecar: starts before nginx, runs for the pod's life
+          envFrom:
+            - configMapRef: { name: blog-sync }
+            - secretRef: { name: blog-r2 } # RCLONE_CONFIG_R2_ACCESS_KEY_ID / _SECRET_ACCESS_KEY
+          resources:
+            requests: { cpu: 10m, memory: 32Mi }
+            limits: { memory: 128Mi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ['ALL'] }
+          volumeMounts:
+            - { name: site, mountPath: /srv/site }
+            - { name: tmp, mountPath: /tmp }
+      containers:
+        - name: nginx
+          image: ghcr.io/mursalinkabir/smkabir-site-server:0.1.0 # bump with the two above
+          ports:
+            - { name: http, containerPort: 8080 }
+          # Liveness: nginx answers by itself, so a pod that has no content yet is alive, just not ready.
+          livenessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 20
+          # Readiness: 200 only once a release is in place. A fresh or rescheduled pod takes no traffic
+          # until the sidecar has fetched one.
+          readinessProbe:
+            httpGet: { path: /version.json, port: http }
+            periodSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests: { cpu: 10m, memory: 32Mi }
+            limits: { memory: 128Mi } # no CPU limit: a static site should never be throttled
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ['ALL'] }
+          volumeMounts:
+            - { name: site, mountPath: /srv/site, readOnly: true }
+            - { name: tmp, mountPath: /tmp }
+      volumes:
+        - { name: site, emptyDir: { sizeLimit: 256Mi } } # current + previous release, a few MB each today
+        - { name: tmp, emptyDir: {} }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog
+spec:
+  type: ClusterIP
+  selector: { app: blog }
+  ports:
+    - { name: http, port: 80, targetPort: http, protocol: TCP }
+---
+# Keeps one pod up through node drains and rollouts that the Deployment strategy does not already cover.
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: blog
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels: { app: blog }
+---
+# The cluster half of the hostname binding. The other half is the published application route in the
+# Cloudflare dashboard (docs/go-live.md in smkabir-site).
+#
+# smkabir.com is the apex: it uses the Gateway's `https-apex` listener (verified present and Programmed). The
+# wildcard certificate covers the apex too (smkabir-wildcard-tls, Ready), so there is no ACME change.
+#
+# For a dry run on another hostname first, use hostnames: ["next.smkabir.com"] with sectionName: https-wildcard,
+# add a published route for next.smkabir.com, and set the GitHub variable SITE_URL to https://next.smkabir.com.
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: blog
+spec:
+  parentRefs:
+    - name: public
+      namespace: gateway
+      sectionName: https-apex
+  hostnames:
+    - 'smkabir.com'
+  rules:
+    - matches:
+        - path: { type: PathPrefix, value: / }
+      backendRefs:
+        - { name: blog, port: 80 }

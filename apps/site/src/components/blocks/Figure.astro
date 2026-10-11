@@ -1,0 +1,26 @@
+---
+import MediaImage from './MediaImage.astro';
+import type { Media } from '~/lib/types';
+import type { Locale } from '~/i18n';
+
+interface Props {
+  media: Media;
+  caption?: string;
+  credit?: string;
+  locale: Locale;
+}
+const { media, caption, credit, locale } = Astro.props;
+---
+
+<figure class="figure">
+  <MediaImage media={media} locale={locale} />
+  {
+    (caption || credit) && (
+      <figcaption>
+        {caption}
+        {caption && credit ? ' ' : ''}
+        {credit && <span class="credit">{credit}</span>}
+      </figcaption>
+    )
+  }
+</figure>

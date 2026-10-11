@@ -1,0 +1,37 @@
+---
+import type { Locale } from '~/i18n';
+import type { Media } from '~/lib/types';
+import { pick } from '~/lib/cms';
+import { publicUrl, variantsOf } from '~/lib/media';
+
+interface Props {
+  media: Media;
+  locale: Locale;
+  loading?: 'lazy' | 'eager';
+  sizes?: string;
+  /** Decorative duplicate of a nearby link or heading: empty alt. */
+  decorative?: boolean;
+}
+const { media, locale, loading = 'lazy', sizes = '(min-width: 44rem) 42rem, 100vw', decorative = false } = Astro.props;
+
+// Alt text is a localized field with no fallback (CLAUDE.md): a missing translation fails the build instead of
+// quietly showing another language. Posts whose cover lacks alt in a locale never reach this component (cms.ts).
+const alt = decorative ? '' : pick(media.alt, locale);
+if (alt === undefined) throw new Error(`Media ${media.id} has no ${locale} alt text`);
+
+// Only generated sizes are printed; the upload original is never emitted (see lib/media.ts).
+const variants = variantsOf(media);
+const srcset = variants.length > 0 ? variants.map((v) => `${v.url} ${v.width}w`).join(', ') : undefined;
+---
+
+<img
+  src={publicUrl(media)}
+  srcset={srcset}
+  sizes={srcset ? sizes : undefined}
+  alt={alt}
+  width={media.width}
+  height={media.height}
+  loading={loading}
+  decoding="async"
+  fetchpriority={loading === 'eager' ? 'high' : undefined}
+/>

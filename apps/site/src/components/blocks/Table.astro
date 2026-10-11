@@ -1,0 +1,62 @@
+---
+import { isText, type LexicalNode } from '~/lib/lexical/types';
+import { inlineToHtml } from '~/lib/lexical/inline';
+import { plainText } from '~/lib/lexical/walk';
+import { numericColumns } from '~/lib/table';
+import { t, type Locale } from '~/i18n';
+
+interface Props {
+  rows: LexicalNode[];
+  locale: Locale;
+}
+const { rows, locale } = Astro.props;
+
+type Cell = { html: string; text: string; header: boolean };
+const grid: Cell[][] = rows.map((row) =>
+  ((isText(row) ? [] : row.children) ?? []).map((cell) => {
+    const paras = isText(cell) ? [] : (cell.children ?? []);
+    return {
+      html: paras.map((p) => inlineToHtml(isText(p) ? [p] : p.children)).join('<br>'),
+      text: plainText(paras).trim(),
+      header: !isText(cell) && Number(cell.headerState) > 0,
+    };
+  }),
+);
+
+// Numeric columns are right-aligned with tabular figures so amounts line up (lib/table.ts).
+const numeric = numericColumns(grid);
+const [first, ...rest] = grid;
+const hasHead = first?.every((c) => c.header);
+const bodyRows = hasHead ? rest : grid;
+---
+
+<div class="table-wrap" role="region" tabindex="0" aria-label={t(locale, 'a11y.table')}>
+  <table>
+    {
+      hasHead && (
+        <thead>
+          <tr>
+            {first!.map((c, i) => (
+              <th scope="col" class:list={{ num: numeric[i] }} set:html={c.html} />
+            ))}
+          </tr>
+        </thead>
+      )
+    }
+    <tbody>
+      {
+        bodyRows.map((row) => (
+          <tr>
+            {row.map((c, i) =>
+              c.header ? (
+                <th scope="row" class:list={{ num: numeric[i] }} set:html={c.html} />
+              ) : (
+                <td class:list={{ num: numeric[i] }} set:html={c.html} />
+              ),
+            )}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>

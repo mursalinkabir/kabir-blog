@@ -1,0 +1,15 @@
+---
+import MediaImage from './MediaImage.astro';
+import type { Media } from '~/lib/types';
+import { t, type Locale } from '~/i18n';
+
+interface Props {
+  media: Media[];
+  locale: Locale;
+}
+const { media, locale } = Astro.props;
+---
+
+<div class="gallery-strip" role="group" tabindex="0" aria-label={t(locale, 'a11y.gallery')}>
+  {media.map((m) => <MediaImage media={m} locale={locale} sizes="20rem" />)}
+</div>

@@ -1,0 +1,36 @@
+---
+import PostsPage from '~/components/PostsPage.astro';
+import { t, type Locale } from '~/i18n';
+import { categoryByRoute, getPosts, type CategoryRoute } from '~/lib/cms';
+import { categoryMeta } from '~/lib/categories';
+import { pageParams } from '~/lib/paginate';
+import { bothLocales, perLocale } from '~/lib/routes';
+
+// /tech/, /tech/page/2/, … for each category and locale.
+export const getStaticPaths = () =>
+  perLocale((locale) =>
+    (['tech', 'finance', 'japan'] as CategoryRoute[]).flatMap((route) =>
+      pageParams(getPosts(locale).filter((p) => p.category.slug === categoryByRoute[route]).length).map(({ page, n }) => ({
+        params: { category: route, page },
+        props: { route, n },
+      })),
+    ),
+  );
+
+const { locale, route, n } = Astro.props as { locale: Locale; route: CategoryRoute; n: number };
+const slug = categoryByRoute[route];
+const meta = categoryMeta[slug];
+const feed = `/${route}/rss.xml`;
+---
+
+<PostsPage
+  locale={locale}
+  posts={getPosts(locale).filter((p) => p.category.slug === slug)}
+  page={n}
+  base={`/${route}/`}
+  title={t(locale, meta.label)}
+  description={t(locale, meta.description)}
+  alternates={bothLocales(`/${route}/`)}
+  rss={locale === 'en' ? [{ href: feed, title: `${t(locale, meta.label)} RSS` }] : []}
+  featured={false}
+/>

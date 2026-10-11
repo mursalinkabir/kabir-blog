@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1400" role="img" aria-label="Placeholder portrait">
+  <rect width="1000" height="1400" fill="#e6e1d4"/>
+  <rect x="140" y="160" width="720" height="1080" fill="#2b2a26"/>
+  <circle cx="500" cy="560" r="150" fill="#c8452b"/>
+  <rect x="300" y="780" width="400" height="360" rx="24" fill="#d9d4c7"/>
+</svg>

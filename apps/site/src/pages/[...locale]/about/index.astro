@@ -1,0 +1,60 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import RichText from '~/components/RichText.astro';
+import Avatar from '~/components/Avatar.astro';
+import CategoryIcon from '~/components/CategoryIcon.astro';
+import { localePath, t, type Locale } from '~/i18n';
+import { getPage, getSite, sectionLocales, siteName } from '~/lib/cms';
+import { categoryMeta, categoryOrder } from '~/lib/categories';
+import { alternatesFor, perLocale, absolute } from '~/lib/routes';
+
+export const getStaticPaths = () => perLocale(() => [{}], sectionLocales.about());
+
+const { locale } = Astro.props as { locale: Locale };
+const page = getPage('about', locale)!;
+const description = t(locale, 'about.description');
+---
+
+<BaseLayout
+  title={page.title}
+  description={description}
+  locale={locale}
+  path={localePath(locale, '/about/')}
+  alternates={alternatesFor('/about/', page.available)}
+  structuredData={[
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ProfilePage',
+      mainEntity: { '@type': 'Person', name: siteName('en'), url: absolute('/'), email: getSite().email },
+    },
+  ]}
+>
+  <div class="container listing" data-pagefind-body>
+    <section class="about-intro">
+      <div class="about-photo"><Avatar locale={locale} size="xl" /></div>
+      <div>
+        <h1 class="about-title" data-pagefind-meta="title">{page.title}</h1>
+        <div class="prose"><RichText doc={page.content} locale={locale} /></div>
+        <p><a class="btn" href={localePath(locale, '/contact/')}>{t(locale, 'aboutPage.getInTouch')}</a></p>
+      </div>
+    </section>
+    <section class="about-topics" aria-labelledby="topics-title">
+      <h2 id="topics-title" class="section-title">{t(locale, 'aboutPage.whatIWrite')}</h2>
+      <ul class="topics" role="list">
+        {
+          categoryOrder.map((slug) => (
+            <li>
+              <span class="topic-icon">
+                <CategoryIcon category={slug} size={28} />
+              </span>
+              <h3>
+                <a href={localePath(locale, `/${categoryMeta[slug].route}/`)}>{t(locale, categoryMeta[slug].label)}</a>
+              </h3>
+              <p>{t(locale, categoryMeta[slug].description)}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</BaseLayout>

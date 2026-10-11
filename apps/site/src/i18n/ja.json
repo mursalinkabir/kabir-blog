@@ -1,0 +1,171 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "posts": "記事",
+    "tech": "テック",
+    "finance": "お金",
+    "japan": "日本の暮らし",
+    "projects": "プロジェクト",
+    "resume": "職務経歴",
+    "now": "最近のこと",
+    "uses": "使っているもの",
+    "about": "プロフィール",
+    "contact": "お問い合わせ",
+    "search": "検索",
+    "more": "その他",
+    "categories": "カテゴリー",
+    "tags": "タグ"
+  },
+  "a11y": {
+    "skipToContent": "本文へスキップ",
+    "mainNav": "メインメニュー",
+    "language": "言語",
+    "tableOfContents": "このページの目次",
+    "diagram": "図",
+    "diagramSource": "図のソース",
+    "callout": {
+      "note": "メモ",
+      "warn": "注意",
+      "danger": "警告"
+    },
+    "menu": "メニュー",
+    "pagination": "ページ送り",
+    "share": "この記事を共有",
+    "social": "ソーシャルリンク",
+    "footerNav": "フッター",
+    "done": "完了：",
+    "todo": "未完了：",
+    "table": "データ表",
+    "gallery": "写真ギャラリー"
+  },
+  "posts": {
+    "description": "これまでに書いた記事を新しい順に並べています。",
+    "readingTime": "読了目安 {n} 分",
+    "tags": "タグ",
+    "series": "シリーズ",
+    "part": "第{n}回",
+    "noPosts": "まだ記事がありません。",
+    "noPostsLocale": "この言語の記事はまだありません。",
+    "readEnglish": "英語の記事を読む"
+  },
+  "categories": {
+    "tech": "テック",
+    "japan-life": "日本の暮らし",
+    "finance": "お金",
+    "techDescription": "エンジニアリングのメモ、ホームラボ、自作ツールのこと。",
+    "financeDescription": "お金の実践編。家計、コスト、非課税口座、判断の裏にある数字。",
+    "japanDescription": "日本での暮らし。手続き、言葉、旅行、日々のメモ。"
+  },
+  "tags": {
+    "title": "タグ：{tag}",
+    "description": "「{tag}」のタグが付いた記事です。"
+  },
+  "projects": {
+    "title": "プロジェクト",
+    "description": "作って運用しているもの。",
+    "status": "状況",
+    "stack": "技術スタック",
+    "repo": "ソースコード",
+    "statuses": {
+      "active": "開発中",
+      "maintained": "保守中",
+      "archived": "アーカイブ",
+      "idea": "構想中"
+    }
+  },
+  "resume": {
+    "title": "職務経歴",
+    "description": "経験、学歴、スキル。",
+    "updated": "更新日 {date}",
+    "experience": "職歴",
+    "education": "学歴",
+    "skills": "スキル",
+    "projects": "プロジェクト",
+    "languages": "言語",
+    "certificates": "資格",
+    "spoken": "会話",
+    "reading": "読み書き",
+    "present": "現在"
+  },
+  "now": {
+    "title": "最近のこと",
+    "description": "いま力を入れていること。",
+    "updated": "最終更新 {date}"
+  },
+  "uses": {
+    "title": "使っているもの",
+    "description": "頼りにしているハードウェア、ソフトウェア、ホームラボの機材。"
+  },
+  "about": {
+    "description": "私が何者で、このサイトが何なのか。"
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "description": "メッセージをお送りください。",
+    "name": "お名前",
+    "email": "メールアドレス",
+    "message": "メッセージ",
+    "send": "送信する",
+    "honeypot": "この欄は空のままにしてください",
+    "turnstileMissing": "このビルドではスパム対策が設定されていないため、フォームを送信できません。",
+    "thanksTitle": "送信しました",
+    "thanksBody": "ありがとうございます。すべて目を通し、hello@smkabir.com から返信します。",
+    "back": "サイトに戻る"
+  },
+  "search": {
+    "title": "検索",
+    "description": "サイト内の全記事を検索します。",
+    "unavailable": "検索は本番用ビルドで利用できます。フルビルドしてプレビューすると試せます。",
+    "placeholder": "記事を検索",
+    "clear": "クリア",
+    "noResults": "[SEARCH_TERM] の検索結果はありません",
+    "oneResult": "[SEARCH_TERM] の検索結果 [COUNT] 件",
+    "manyResults": "[SEARCH_TERM] の検索結果 [COUNT] 件",
+    "loadMore": "さらに表示"
+  },
+  "notFound": {
+    "title": "ページが見つかりません",
+    "body": "そのページは存在しないか、移動しました。",
+    "home": "ホームへ戻る"
+  },
+  "footer": {
+    "rss": "RSS",
+    "builtWith": "Astro と Payload で構築し、ホームラボで運用しています。"
+  },
+  "lang": {
+    "en": "English",
+    "ja": "日本語",
+    "readInOther": "{lang}でも読めます"
+  },
+  "fixture": {
+    "banner": "これは fixtures のサンプルコンテンツです。公開前に Payload で置き換えてください。"
+  },
+  "pagination": {
+    "previous": "前のページ",
+    "next": "次のページ",
+    "page": "{n} ページ"
+  },
+  "share": {
+    "title": "共有",
+    "x": "X で共有",
+    "linkedin": "LinkedIn で共有",
+    "facebook": "Facebook で共有",
+    "hatena": "はてなブックマークに追加",
+    "copy": "リンクをコピー",
+    "copied": "リンクをコピーしました",
+    "copyFailed": "リンクをコピーできませんでした"
+  },
+  "related": {
+    "title": "こちらもどうぞ"
+  },
+  "taxonomy": {
+    "categoriesTitle": "カテゴリー",
+    "categoriesDescription": "テーマ別に記事を探せます。",
+    "tagsTitle": "タグ",
+    "tagsDescription": "タグ別に記事を探せます。"
+  },
+  "aboutPage": {
+    "whatIWrite": "書いていること",
+    "getInTouch": "連絡先"
+  }
+}

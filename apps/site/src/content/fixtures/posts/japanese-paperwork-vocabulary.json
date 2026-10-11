@@ -1,0 +1,505 @@
+{
+  "id": "p2",
+  "_status": "published",
+  "slug": "japanese-paperwork-vocabulary",
+  "pubDate": "2026-09-15T09:00:00.000Z",
+  "category": {
+    "id": "c2",
+    "slug": "japan-life",
+    "name": {
+      "en": "Japan life",
+      "ja": "日本の暮らし"
+    }
+  },
+  "tags": [
+    {
+      "id": "t4",
+      "slug": "language",
+      "name": {
+        "en": "language",
+        "ja": "言葉"
+      }
+    },
+    {
+      "id": "t5",
+      "slug": "paperwork",
+      "name": {
+        "en": "paperwork",
+        "ja": "書類"
+      }
+    }
+  ],
+  "hero": {
+    "id": "cover-japan",
+    "url": "/images/covers/cover-japan.jpg",
+    "filename": "cover-japan.jpg",
+    "mimeType": "image/jpeg",
+    "width": 2400,
+    "height": 1658,
+    "alt": {
+      "en": "A narrow alley at night lit by red paper lanterns",
+      "ja": "赤い提灯に照らされた夜の細い路地"
+    },
+    "credit": "Photo: Denys Nevozhai on Unsplash",
+    "sizes": {
+      "480": {
+        "url": "/images/covers/cover-japan-480.webp",
+        "width": 480,
+        "height": 332
+      },
+      "960": {
+        "url": "/images/covers/cover-japan-960.webp",
+        "width": 960,
+        "height": 663
+      },
+      "1600": {
+        "url": "/images/covers/cover-japan-1600.webp",
+        "width": 1600,
+        "height": 1105
+      }
+    }
+  },
+  "toc": false,
+  "publishedIn": {
+    "en": true,
+    "ja": true
+  },
+  "title": {
+    "en": "The Japanese words that paperwork actually uses",
+    "ja": "役所の書類で本当によく使う日本語"
+  },
+  "description": {
+    "en": "A short glossary of terms that keep turning up on forms and at counters, with the reading next to each one.",
+    "ja": "書類や窓口で何度も出てくる用語の短い用語集です。読み方も添えています。"
+  },
+  "content": {
+    "en": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Everyday life in Japan runs on forms. A handful of words cover most of them, such as ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "fields": {
+                  "id": "fx0005",
+                  "blockName": "",
+                  "blockType": "jp",
+                  "t": "本免許",
+                  "r": "honmenkyo",
+                  "en": "full driving licence"
+                },
+                "format": "",
+                "type": "inlineBlock",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " and ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "fields": {
+                  "id": "fx0006",
+                  "blockName": "",
+                  "blockType": "jp",
+                  "t": "表札",
+                  "r": "hyōsatsu",
+                  "en": "nameplate"
+                },
+                "format": "",
+                "type": "inlineBlock",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ". Hover or tap a term to see the English.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "fields": {
+              "id": "fx0007",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "m1",
+                "url": "/fixtures/sample-landscape.svg",
+                "filename": "sample-landscape.svg",
+                "mimeType": "image/svg+xml",
+                "width": 1600,
+                "height": 1000,
+                "alt": {
+                  "en": "A placeholder landscape illustration",
+                  "ja": "サンプルの風景イラスト"
+                }
+              },
+              "caption": "A placeholder figure with a caption.",
+              "credit": "Illustration: placeholder"
+            },
+            "format": "",
+            "type": "block",
+            "version": 2
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Cars have their own vocabulary too. The plate on the back is the ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "fields": {
+                  "id": "fx0008",
+                  "blockName": "",
+                  "blockType": "jp",
+                  "t": "ナンバープレート",
+                  "r": "nanbā purēto",
+                  "en": "number plate"
+                },
+                "format": "",
+                "type": "inlineBlock",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ", and it is one of the first things to hide in a photo.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "fields": {
+              "id": "fx0009",
+              "blockName": "",
+              "blockType": "gallery-strip",
+              "media": [
+                {
+                  "id": "m1",
+                  "url": "/fixtures/sample-landscape.svg",
+                  "filename": "sample-landscape.svg",
+                  "mimeType": "image/svg+xml",
+                  "width": 1600,
+                  "height": 1000,
+                  "alt": {
+                    "en": "A placeholder landscape illustration",
+                    "ja": "サンプルの風景イラスト"
+                  }
+                },
+                {
+                  "id": "m2",
+                  "url": "/fixtures/sample-portrait.svg",
+                  "filename": "sample-portrait.svg",
+                  "mimeType": "image/svg+xml",
+                  "width": 1000,
+                  "height": 1400,
+                  "alt": {
+                    "en": "A placeholder portrait illustration",
+                    "ja": "サンプルの人物イラスト"
+                  }
+                },
+                {
+                  "id": "m1",
+                  "url": "/fixtures/sample-landscape.svg",
+                  "filename": "sample-landscape.svg",
+                  "mimeType": "image/svg+xml",
+                  "width": 1600,
+                  "height": 1000,
+                  "alt": {
+                    "en": "A placeholder landscape illustration",
+                    "ja": "サンプルの風景イラスト"
+                  }
+                }
+              ]
+            },
+            "format": "",
+            "type": "block",
+            "version": 2
+          },
+          {
+            "fields": {
+              "id": "fx0010",
+              "blockName": "",
+              "blockType": "callout",
+              "kind": "warn",
+              "body": {
+                "root": {
+                  "direction": "ltr",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "Before publishing any photo, check the plate, the nameplate, street signs and reflections. See the checklist in the editor.",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ],
+                  "type": "root"
+                }
+              }
+            },
+            "format": "",
+            "type": "block",
+            "version": 2
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "If you have a favourite word that tripped you up, ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 3,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "tell me",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "fields": {
+                  "linkType": "custom",
+                  "newTab": false,
+                  "url": "/contact/"
+                },
+                "type": "link"
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ".",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          }
+        ],
+        "type": "root"
+      }
+    },
+    "ja": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "日本での暮らしは書類で回っています。いくつかの言葉を知っているだけで、ほとんどの書類が読めるようになります。たとえば",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "fields": {
+                  "id": "fx0011",
+                  "blockName": "",
+                  "blockType": "jp",
+                  "t": "本免許",
+                  "r": "honmenkyo",
+                  "en": "正式な運転免許（仮免許ではないもの）"
+                },
+                "format": "",
+                "type": "inlineBlock",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "や",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "fields": {
+                  "id": "fx0012",
+                  "blockName": "",
+                  "blockType": "jp",
+                  "t": "表札",
+                  "r": "hyōsatsu",
+                  "en": "家の名前を示す札"
+                },
+                "format": "",
+                "type": "inlineBlock",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "。言葉にカーソルを合わせるかタップすると、意味が表示されます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "車にも独自の用語があります。後ろのプレートは",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "fields": {
+                  "id": "fx0013",
+                  "blockName": "",
+                  "blockType": "jp",
+                  "t": "ナンバープレート",
+                  "r": "nanbā purēto",
+                  "en": "車両の登録番号が書かれた板"
+                },
+                "format": "",
+                "type": "inlineBlock",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "と呼ばれ、写真を公開する前にまず隠すべきものです。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "fields": {
+              "id": "fx0014",
+              "blockName": "",
+              "blockType": "callout",
+              "kind": "warn",
+              "body": {
+                "root": {
+                  "direction": "ltr",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "写真を公開する前に、ナンバープレート、表札、道路標識、映り込みを確認してください。",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ],
+                  "type": "root"
+                }
+              }
+            },
+            "format": "",
+            "type": "block",
+            "version": 2
+          }
+        ],
+        "type": "root"
+      }
+    }
+  }
+}

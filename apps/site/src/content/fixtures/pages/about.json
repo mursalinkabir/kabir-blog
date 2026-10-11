@@ -1,0 +1,105 @@
+{
+  "id": "pg1",
+  "_status": "published",
+  "slug": "about",
+  "title": {
+    "en": "About",
+    "ja": "このサイトについて"
+  },
+  "content": {
+    "en": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Hi, I am Mursalin Kabir. I write about software, the homelab behind this site, and life in Japan.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "This page is sample copy from the fixtures. Replace it in Payload before launch.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          }
+        ],
+        "type": "root"
+      }
+    },
+    "ja": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ムルサリン・カビールです。ソフトウェア、このサイトを支えているホームラボ、そして日本での暮らしについて書いています。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "このページは fixtures のサンプル文です。公開前に Payload で置き換えてください。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          }
+        ],
+        "type": "root"
+      }
+    }
+  }
+}

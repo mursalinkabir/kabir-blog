@@ -1,0 +1,146 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { t, formatDate, type Locale } from '~/i18n';
+import { getResume } from '~/lib/cms';
+import { perLocale } from '~/lib/routes';
+
+// The resume is English only (A5).
+export const getStaticPaths = () => perLocale(() => [{}], ['en']);
+
+const locale: Locale = 'en';
+const r = getResume();
+const month = (ym?: string) => (ym ? formatDate(locale, `${ym}-01`, { day: undefined }) : t(locale, 'resume.present'));
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  mainEntity: {
+    '@type': 'Person',
+    name: r.basics.name,
+    jobTitle: r.basics.label,
+    url: r.basics.url,
+    email: r.basics.email,
+    sameAs: r.basics.profiles.map((p) => p.url),
+  },
+};
+---
+
+<BaseLayout
+  title={t(locale, 'resume.title')}
+  description={`${r.basics.name}: ${r.basics.label}. ${t(locale, 'resume.description')}`}
+  locale={locale}
+  path="/resume/"
+  alternates={{ en: '/resume/' }}
+  structuredData={[person]}
+>
+  <div class="page">
+    <div class="prose-width resume">
+      <header class="page-head page-head-left">
+        <h1 class="page-title">{r.basics.name}</h1>
+        <p class="page-lede">{r.basics.label}</p>
+        <p class="resume-updated">{t(locale, 'resume.updated', { date: formatDate(locale, r.updatedAt) })}</p>
+      </header>
+      <p class="resume-summary">{r.basics.summary}</p>
+      <ul class="resume-contact" role="list">
+        <li><a href={`mailto:${r.basics.email}`}>{r.basics.email}</a></li>
+        <li><a href="/contact/">{t(locale, 'nav.contact')}</a></li>
+        {
+          r.basics.profiles.map((p) => (
+            <li>
+              <a href={p.url} rel="me noopener">
+                {p.network}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h2>{t(locale, 'resume.experience')}</h2>
+      {
+        r.work.map((w) => (
+          <div class="resume-entry">
+            <h3>
+              {w.position}, {w.name}
+            </h3>
+            <p class="when">
+              {month(w.startDate)} – {month(w.endDate)}
+            </p>
+            <ul>
+              {w.highlights.map((h) => (
+                <li>{h}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+
+      <h2>{t(locale, 'resume.projects')}</h2>
+      {
+        r.projects.map((p) => (
+          <div class="resume-entry">
+            <h3>{p.url ? <a href={p.url}>{p.name}</a> : p.name}</h3>
+            <p>{p.description}</p>
+          </div>
+        ))
+      }
+
+      <h2>{t(locale, 'resume.education')}</h2>
+      {
+        r.education.map((e) => (
+          <div class="resume-entry">
+            <h3>
+              {e.studyType} {e.area}, {e.institution}
+            </h3>
+            <p class="when">
+              {month(e.startDate)} – {month(e.endDate)}
+            </p>
+          </div>
+        ))
+      }
+
+      <h2>{t(locale, 'resume.skills')}</h2>
+      <dl>
+        {
+          r.skills.map((s) => (
+            <>
+              <>
+                <dt>{s.name}</dt>
+                <dd>{s.keywords.join(', ')}</dd>
+              </>
+            </>
+          ))
+        }
+      </dl>
+
+      <h2>{t(locale, 'resume.languages')}</h2>
+      <dl>
+        {
+          r.languages.map((l) => (
+            <>
+              <dt>{l.language}</dt>
+              <dd>
+                {t(locale, 'resume.spoken')}: {l.spoken}
+                <br />
+                {t(locale, 'resume.reading')}: {l.reading}
+              </dd>
+            </>
+          ))
+        }
+      </dl>
+
+      {
+        r.certificates.length > 0 && (
+          <>
+            <h2>{t(locale, 'resume.certificates')}</h2>
+            <ul>
+              {r.certificates.map((c) => (
+                <li>
+                  {c.name}, {c.issuer}, {c.date}
+                </li>
+              ))}
+            </ul>
+          </>
+        )
+      }
+    </div>
+  </div>
+</BaseLayout>

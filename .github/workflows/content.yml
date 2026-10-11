@@ -1,0 +1,148 @@
+# Builds the site and publishes it as a release in R2. The pods pick it up on their own (content-sync polls LATEST),
+# so a content change needs no commit to homelab-terraform. This repo holds NO cluster or GitOps credentials.
+#
+# Triggers: a push to main that touches the site, a CMS publish (repository_dispatch, wired in Phase 7), or by hand.
+# Required secrets/variables: see docs/secrets.md.
+name: content
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/site/**'
+      - 'scripts/ci/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - '.github/workflows/content.yml'
+  repository_dispatch:
+    types: [content-published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    # Five quick publishes become one build: a newer run cancels an older one that is still building.
+    concurrency:
+      group: site-build
+      cancel-in-progress: true
+    outputs:
+      build_id: ${{ steps.id.outputs.build_id }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # <short sha>-<run id>: content-only rebuilds share a git SHA, the run id keeps ids unique.
+      - id: id
+        run: echo "build_id=${GITHUB_SHA::7}-${GITHUB_RUN_ID}" >> "$GITHUB_OUTPUT"
+
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0 (version comes from packageManager)
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install d2 (pinned, checksum-verified)
+        run: |
+          sh scripts/ci/install-tools.sh d2
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm format:check
+      - run: pnpm check
+      - run: pnpm test
+
+      - name: Privacy scan (GPS in images, personal data, denylist)
+        env:
+          PRIVACY_DENYLIST: ${{ secrets.PRIVACY_DENYLIST }}
+        run: pnpm privacy
+
+      # CI=true is set by Actions: a missing d2 binary or BUILD_ID fails the build instead of shipping a gap.
+      - name: Build (i18n check, astro build, dist gates, Pagefind)
+        env:
+          BUILD_ID: ${{ steps.id.outputs.build_id }}
+        run: pnpm build
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: site-dist
+          path: apps/site/dist
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    # A pointer update must never be cut in half: queue, never cancel.
+    concurrency:
+      group: site-publish
+      cancel-in-progress: false
+    # The R2 write token and the Cloudflare token live in this environment only (Settings > Environments).
+    environment: site-publish
+    env:
+      BUILD_ID: ${{ needs.build.outputs.build_id }}
+      BUCKET: r2:${{ vars.R2_SITE_BUCKET || 'smkabir-site' }}
+      RCLONE_CONFIG_R2_TYPE: s3
+      RCLONE_CONFIG_R2_PROVIDER: Cloudflare
+      RCLONE_CONFIG_R2_ACCESS_KEY_ID: ${{ secrets.R2_SITE_WRITE_ACCESS_KEY_ID }}
+      RCLONE_CONFIG_R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SITE_WRITE_SECRET_ACCESS_KEY }}
+      RCLONE_CONFIG_R2_ENDPOINT: https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com
+      RCLONE_CONFIG_R2_NO_CHECK_BUCKET: 'true'
+      # Where CI looks to see the release go live. During Phase 5 set the repository variable to
+      # https://next.smkabir.com; after the apex cutover it is https://smkabir.com.
+      SITE_URL: ${{ vars.SITE_URL || 'https://smkabir.com' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: site-dist
+          path: dist
+
+      - name: Install rclone and jq (pinned, checksum-verified)
+        run: |
+          sh scripts/ci/install-tools.sh rclone
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          command -v jq
+
+      - name: Upload the release (pointers untouched)
+        run: sh scripts/ci/release.sh upload dist "$BUILD_ID"
+
+      - name: Point LATEST at it (the pods start syncing within a minute)
+        run: sh scripts/ci/release.sh point LATEST "$BUILD_ID"
+
+      # A release that never shows up never becomes VERIFIED, and this job fails loudly. The previous
+      # release keeps serving meanwhile.
+      - name: Wait until the origin serves it
+        run: sh scripts/ci/release.sh verify-live "$SITE_URL/version.json" "$BUILD_ID" 600
+
+      - name: Mark it VERIFIED (what the failover Worker serves)
+        run: sh scripts/ci/release.sh point VERIFIED "$BUILD_ID"
+
+      - name: Purge the Cloudflare cache
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+        run: |
+          curl -fsS -X POST "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
+            -H "Authorization: Bearer ${CF_API_TOKEN}" -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}' | jq -e '.success == true' >/dev/null
+          echo "cache purged"
+
+      - name: Prune old releases (keeps the last 20; never a pointed-at release)
+        run: sh scripts/ci/release.sh prune 20
+
+      - name: Summary
+        run: |
+          {
+            echo "### Published \`$BUILD_ID\`"
+            echo "- live at $SITE_URL (version.json matched)"
+            echo "- roll back with the **content-rollback** workflow and a previous build id"
+          } >> "$GITHUB_STEP_SUMMARY"

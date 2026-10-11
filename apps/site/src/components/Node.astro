@@ -1,0 +1,91 @@
+---
+import { isText, type LexicalNode } from '~/lib/lexical/types';
+import { inlineToHtml } from '~/lib/lexical/inline';
+import { headingId, listItems } from '~/lib/lexical/walk';
+import { t, type Locale } from '~/i18n';
+import CodeBlock from './blocks/CodeBlock.astro';
+import Terminal from './blocks/Terminal.astro';
+import Callout from './blocks/Callout.astro';
+import Figure from './blocks/Figure.astro';
+import GalleryStrip from './blocks/GalleryStrip.astro';
+import Diagram from './blocks/Diagram.astro';
+import Table from './blocks/Table.astro';
+
+interface Props {
+  node: LexicalNode;
+  locale: Locale;
+}
+const { node, locale } = Astro.props;
+const Self = Astro.self;
+const kids = isText(node) ? [] : (node.children ?? []);
+const fields = (isText(node) ? {} : (node.fields ?? {})) as Record<string, any>;
+const type = node.type;
+
+if (
+  !['text', 'paragraph', 'heading', 'list', 'quote', 'horizontalrule', 'block', 'linebreak', 'link', 'inlineBlock', 'table'].includes(type)
+) {
+  throw new Error(`Unsupported Lexical node "${type}"`);
+}
+const HeadingTag = (isText(node) ? 'h2' : /^h[2-4]$/.test(String(node.tag)) ? node.tag : 'h2') as 'h2';
+const id = isText(node) ? undefined : headingId(node);
+const ListTag = (!isText(node) && node.listType === 'number' ? 'ol' : 'ul') as 'ul';
+const isCheck = !isText(node) && node.listType === 'check';
+// Nested lists arrive as their own list item; listItems() folds them into the previous item.
+const entries = type === 'list' ? listItems(node) : [];
+---
+
+{
+  type === 'paragraph' ? (
+    <p set:html={inlineToHtml(kids)} />
+  ) : type === 'heading' ? (
+    <HeadingTag id={id}>
+      <Fragment set:html={inlineToHtml(kids)} />
+      {id && (
+        <a class="anchor" href={`#${id}`} aria-hidden="true" tabindex="-1">
+          #
+        </a>
+      )}
+    </HeadingTag>
+  ) : type === 'list' ? (
+    <ListTag class={isCheck ? 'checklist' : undefined}>
+      {entries.map((entry) => (
+        <li class={entry.checked ? 'is-checked' : undefined}>
+          {isCheck && (
+            <>
+              <span class="check-mark" aria-hidden="true" />
+              <span class="visually-hidden">{t(locale, entry.checked ? 'a11y.done' : 'a11y.todo')}</span>
+            </>
+          )}
+          <Fragment set:html={inlineToHtml(entry.inline)} />
+          {entry.nested.map((l) => (
+            <Self node={l} locale={locale} />
+          ))}
+        </li>
+      ))}
+    </ListTag>
+  ) : type === 'quote' ? (
+    <blockquote set:html={inlineToHtml(kids)} />
+  ) : type === 'horizontalrule' ? (
+    <hr />
+  ) : type === 'table' ? (
+    <Table rows={kids} locale={locale} />
+  ) : type === 'block' && fields.blockType === 'code' ? (
+    <CodeBlock code={fields.code} language={fields.language} filename={fields.filename} highlightLines={fields.highlightLines} />
+  ) : type === 'block' && fields.blockType === 'terminal' ? (
+    <Terminal command={fields.command} output={fields.output} />
+  ) : type === 'block' && fields.blockType === 'callout' ? (
+    <Callout kind={fields.kind} title={fields.title} body={fields.body} locale={locale} />
+  ) : type === 'block' && fields.blockType === 'figure' ? (
+    <Figure media={fields.media} caption={fields.caption} credit={fields.credit} locale={locale} />
+  ) : type === 'block' && fields.blockType === 'gallery-strip' ? (
+    <GalleryStrip media={fields.media} locale={locale} />
+  ) : type === 'block' && fields.blockType === 'diagram' ? (
+    <Diagram kind={fields.kind} source={fields.source} alt={fields.alt} locale={locale} />
+  ) : type === 'block' ? (
+    (() => {
+      throw new Error(`Unknown Lexical block "${fields.blockType}"`);
+    })()
+  ) : (
+    <p set:html={inlineToHtml([node])} />
+  )
+}

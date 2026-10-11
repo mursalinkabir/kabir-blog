@@ -1,0 +1,211 @@
+{
+  "id": "pr2",
+  "_status": "published",
+  "slug": "homelab",
+  "status": "maintained",
+  "stack": [
+    "Talos Linux",
+    "Kubernetes",
+    "Cilium",
+    "Argo CD",
+    "CloudNativePG",
+    "Proxmox"
+  ],
+  "links": [],
+  "featured": true,
+  "order": 2,
+  "title": {
+    "en": "Homelab",
+    "ja": "ホームラボ"
+  },
+  "summary": {
+    "en": "A four-node Talos Kubernetes cluster across two Proxmox hosts, managed with Terraform and Argo CD.",
+    "ja": "2 台の Proxmox ホストにまたがる 4 ノードの Talos Kubernetes クラスター。Terraform と Argo CD で管理しています。"
+  },
+  "content": {
+    "en": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The platform behind this site. Everything is declared in Git and applied by Argo CD; nothing is applied by hand.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Pieces",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "heading",
+            "tag": "h2"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Talos Linux nodes on Proxmox (two hosts)",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Cilium with Gateway API for ingress",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "CloudNativePG for Postgres",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Sealed Secrets for secrets in Git",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Cloudflare Tunnel and Access in front",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              }
+            ],
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul",
+            "type": "list"
+          }
+        ],
+        "type": "root"
+      }
+    },
+    "ja": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "このサイトを支えているプラットフォームです。すべては Git で宣言され、Argo CD が適用します。手作業で適用するものはありません。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          }
+        ],
+        "type": "root"
+      }
+    }
+  }
+}

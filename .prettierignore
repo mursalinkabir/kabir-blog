@@ -1,0 +1,15 @@
+dist
+.astro
+node_modules
+pnpm-lock.yaml
+docs/PLAN.md
+apps/site/src/content/fixtures
+apps/site/src/content/cms
+apps/site/public/media
+apps/site/tests/fixtures/payload-raw.json
+apps/cms/src/migrations
+apps/cms/src/payload-types.ts
+apps/cms/src/app/(payload)
+apps/cms/media
+apps/cms/.next
+apps/cms/next-env.d.ts

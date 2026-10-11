@@ -1,0 +1,36 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { t, localePath, formatNumber, type Locale } from '~/i18n';
+import { getUsedTags } from '~/lib/cms';
+import { bothLocales, perLocale } from '~/lib/routes';
+
+export const getStaticPaths = () => perLocale(() => [{}]);
+const { locale } = Astro.props as { locale: Locale };
+const tags = getUsedTags(locale);
+---
+
+<BaseLayout
+  title={t(locale, 'taxonomy.tagsTitle')}
+  description={t(locale, 'taxonomy.tagsDescription')}
+  locale={locale}
+  path={localePath(locale, '/tags/')}
+  alternates={bothLocales('/tags/')}
+>
+  <div class="container listing">
+    <header class="page-head">
+      <h1 class="page-title">{t(locale, 'taxonomy.tagsTitle')}</h1>
+    </header>
+    <ul class="pills" role="list">
+      {
+        tags.map((tag) => (
+          <li>
+            <a class="pill" href={localePath(locale, `/tags/${tag.slug}/`)}>
+              #{tag.name}
+              <span class="pill-count">{formatNumber(locale, tag.count)}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>

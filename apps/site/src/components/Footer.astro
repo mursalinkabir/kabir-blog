@@ -1,0 +1,51 @@
+---
+import SocialIcon from './SocialIcon.astro';
+import { t, localePath, type Locale } from '~/i18n';
+import { getSite, navPageExists, siteName } from '~/lib/cms';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const site = getSite();
+const rss = locale === 'en' ? '/rss.xml' : '/ja/rss.xml';
+const links = [
+  { key: 'about', href: '/about/' },
+  { key: 'contact', href: '/contact/' },
+  { key: 'now', href: '/now/' },
+  { key: 'uses', href: '/uses/' },
+].filter((l) => navPageExists(l.key, locale));
+const social = [
+  ...site.socials.map((s) => ({ name: s.label, label: s.label, href: s.url, me: true })),
+  { name: 'rss', label: t(locale, 'footer.rss'), href: rss, me: false },
+  { name: 'email', label: site.email, href: `mailto:${site.email}`, me: false },
+];
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <nav aria-label={t(locale, 'a11y.footerNav')}>
+      <ul class="footer-links" role="list">
+        {
+          links.map((l) => (
+            <li>
+              <a href={localePath(locale, l.href)}>{t(locale, `nav.${l.key}` as 'nav.about')}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <ul class="footer-social" role="list" aria-label={t(locale, 'a11y.social')}>
+      {
+        social.map((s) => (
+          <li>
+            <a class="icon-btn icon-btn-outline" href={s.href} aria-label={s.label} rel={s.me ? 'me noopener' : undefined}>
+              <SocialIcon name={s.name} />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="footer-copy">© {new Date().getFullYear()} {siteName(locale)}. {t(locale, 'footer.builtWith')}</p>
+  </div>
+</footer>

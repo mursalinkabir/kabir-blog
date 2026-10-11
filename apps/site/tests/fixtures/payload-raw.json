@@ -1,0 +1,3911 @@
+{
+  "media": [
+    {
+      "id": 15,
+      "alt": {
+        "en": "A monitor and a laptop showing code on a desk",
+        "ja": "デスクの上でコードを表示しているモニターとノートパソコン"
+      },
+      "caption": {
+        "en": null,
+        "ja": null
+      },
+      "credit": "Photo: Pakata Goh on Unsplash",
+      "updatedAt": "2026-10-11T21:12:33.004Z",
+      "createdAt": "2026-10-11T21:12:32.967Z",
+      "url": "/api/media/file/cover-tech.jpg",
+      "thumbnailURL": "/api/media/file/cover-tech-480x384.webp",
+      "filename": "cover-tech.jpg",
+      "mimeType": "image/jpeg",
+      "filesize": 513020,
+      "width": 2400,
+      "height": 1920,
+      "focalX": 50,
+      "focalY": 50,
+      "sizes": {
+        "w480": {
+          "url": "/api/media/file/cover-tech-480x384.webp",
+          "width": 480,
+          "height": 384,
+          "mimeType": "image/webp",
+          "filesize": 14944,
+          "filename": "cover-tech-480x384.webp"
+        },
+        "w960": {
+          "url": "/api/media/file/cover-tech-960x768.webp",
+          "width": 960,
+          "height": 768,
+          "mimeType": "image/webp",
+          "filesize": 44126,
+          "filename": "cover-tech-960x768.webp"
+        },
+        "w1600": {
+          "url": "/api/media/file/cover-tech-1600x1280.webp",
+          "width": 1600,
+          "height": 1280,
+          "mimeType": "image/webp",
+          "filesize": 96672,
+          "filename": "cover-tech-1600x1280.webp"
+        }
+      }
+    },
+    {
+      "id": 16,
+      "alt": {
+        "en": "A narrow alley at night lit by red paper lanterns",
+        "ja": "赤い提灯に照らされた夜の細い路地"
+      },
+      "caption": {
+        "en": null,
+        "ja": null
+      },
+      "credit": "Photo: Denys Nevozhai on Unsplash",
+      "updatedAt": "2026-10-11T21:12:33.585Z",
+      "createdAt": "2026-10-11T21:12:33.545Z",
+      "url": "/api/media/file/cover-japan.jpg",
+      "thumbnailURL": "/api/media/file/cover-japan-480x332.webp",
+      "filename": "cover-japan.jpg",
+      "mimeType": "image/jpeg",
+      "filesize": 519358,
+      "width": 2400,
+      "height": 1658,
+      "focalX": 50,
+      "focalY": 50,
+      "sizes": {
+        "w480": {
+          "url": "/api/media/file/cover-japan-480x332.webp",
+          "width": 480,
+          "height": 332,
+          "mimeType": "image/webp",
+          "filesize": 15674,
+          "filename": "cover-japan-480x332.webp"
+        },
+        "w960": {
+          "url": "/api/media/file/cover-japan-960x663.webp",
+          "width": 960,
+          "height": 663,
+          "mimeType": "image/webp",
+          "filesize": 46070,
+          "filename": "cover-japan-960x663.webp"
+        },
+        "w1600": {
+          "url": "/api/media/file/cover-japan-1600x1105.webp",
+          "width": 1600,
+          "height": 1105,
+          "mimeType": "image/webp",
+          "filesize": 98020,
+          "filename": "cover-japan-1600x1105.webp"
+        }
+      }
+    },
+    {
+      "id": 17,
+      "alt": {
+        "en": "A placeholder landscape illustration",
+        "ja": "サンプルの風景イラスト"
+      },
+      "caption": {
+        "en": null,
+        "ja": null
+      },
+      "credit": null,
+      "updatedAt": "2026-10-11T21:12:34.002Z",
+      "createdAt": "2026-10-11T21:12:33.970Z",
+      "url": "/api/media/file/sample-landscape.webp",
+      "thumbnailURL": "/api/media/file/sample-landscape-480x300.webp",
+      "filename": "sample-landscape.webp",
+      "mimeType": "image/webp",
+      "filesize": 9770,
+      "width": 1600,
+      "height": 1000,
+      "focalX": 50,
+      "focalY": 50,
+      "sizes": {
+        "w480": {
+          "url": "/api/media/file/sample-landscape-480x300.webp",
+          "width": 480,
+          "height": 300,
+          "mimeType": "image/webp",
+          "filesize": 2222,
+          "filename": "sample-landscape-480x300.webp"
+        },
+        "w960": {
+          "url": "/api/media/file/sample-landscape-960x600.webp",
+          "width": 960,
+          "height": 600,
+          "mimeType": "image/webp",
+          "filesize": 4654,
+          "filename": "sample-landscape-960x600.webp"
+        },
+        "w1600": {
+          "url": "/api/media/file/sample-landscape-1600x1000.webp",
+          "width": 1600,
+          "height": 1000,
+          "mimeType": "image/webp",
+          "filesize": 8562,
+          "filename": "sample-landscape-1600x1000.webp"
+        }
+      }
+    },
+    {
+      "id": 18,
+      "alt": {
+        "en": "A placeholder portrait illustration",
+        "ja": "サンプルの人物イラスト"
+      },
+      "caption": {
+        "en": null,
+        "ja": null
+      },
+      "credit": null,
+      "updatedAt": "2026-10-11T21:12:34.423Z",
+      "createdAt": "2026-10-11T21:12:34.411Z",
+      "url": "/api/media/file/sample-portrait.webp",
+      "thumbnailURL": "/api/media/file/sample-portrait-480x672.webp",
+      "filename": "sample-portrait.webp",
+      "mimeType": "image/webp",
+      "filesize": 5520,
+      "width": 1000,
+      "height": 1400,
+      "focalX": 50,
+      "focalY": 50,
+      "sizes": {
+        "w480": {
+          "url": "/api/media/file/sample-portrait-480x672.webp",
+          "width": 480,
+          "height": 672,
+          "mimeType": "image/webp",
+          "filesize": 1886,
+          "filename": "sample-portrait-480x672.webp"
+        },
+        "w960": {
+          "url": "/api/media/file/sample-portrait-960x1344.webp",
+          "width": 960,
+          "height": 1344,
+          "mimeType": "image/webp",
+          "filesize": 4838,
+          "filename": "sample-portrait-960x1344.webp"
+        },
+        "w1600": {
+          "url": null,
+          "width": null,
+          "height": null,
+          "mimeType": null,
+          "filesize": null,
+          "filename": null
+        }
+      }
+    },
+    {
+      "id": 19,
+      "alt": {
+        "en": "Price charts on a dark trading screen",
+        "ja": "暗いトレード画面に映る値動きのチャート"
+      },
+      "caption": {
+        "en": null,
+        "ja": null
+      },
+      "credit": "Photo: Nicholas Cappello on Unsplash",
+      "updatedAt": "2026-10-11T21:12:34.825Z",
+      "createdAt": "2026-10-11T21:12:34.813Z",
+      "url": "/api/media/file/cover-finance.jpg",
+      "thumbnailURL": "/api/media/file/cover-finance-480x319.webp",
+      "filename": "cover-finance.jpg",
+      "mimeType": "image/jpeg",
+      "filesize": 361152,
+      "width": 2400,
+      "height": 1594,
+      "focalX": 50,
+      "focalY": 50,
+      "sizes": {
+        "w480": {
+          "url": "/api/media/file/cover-finance-480x319.webp",
+          "width": 480,
+          "height": 319,
+          "mimeType": "image/webp",
+          "filesize": 9586,
+          "filename": "cover-finance-480x319.webp"
+        },
+        "w960": {
+          "url": "/api/media/file/cover-finance-960x638.webp",
+          "width": 960,
+          "height": 638,
+          "mimeType": "image/webp",
+          "filesize": 21362,
+          "filename": "cover-finance-960x638.webp"
+        },
+        "w1600": {
+          "url": "/api/media/file/cover-finance-1600x1063.webp",
+          "width": 1600,
+          "height": 1063,
+          "mimeType": "image/webp",
+          "filesize": 39734,
+          "filename": "cover-finance-1600x1063.webp"
+        }
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": 7,
+      "slug": "tech",
+      "name": {
+        "en": "Tech",
+        "ja": "テック"
+      },
+      "updatedAt": "2026-10-11T21:12:34.840Z",
+      "createdAt": "2026-10-11T21:12:34.832Z"
+    },
+    {
+      "id": 8,
+      "slug": "japan-life",
+      "name": {
+        "en": "Japan life",
+        "ja": "日本の暮らし"
+      },
+      "updatedAt": "2026-10-11T21:12:34.850Z",
+      "createdAt": "2026-10-11T21:12:34.844Z"
+    },
+    {
+      "id": 9,
+      "slug": "finance",
+      "name": {
+        "en": "Finance",
+        "ja": "お金"
+      },
+      "updatedAt": "2026-10-11T21:12:34.858Z",
+      "createdAt": "2026-10-11T21:12:34.854Z"
+    }
+  ],
+  "tags": [
+    {
+      "id": 13,
+      "slug": "homelab",
+      "name": {
+        "en": "homelab",
+        "ja": "ホームラボ"
+      },
+      "updatedAt": "2026-10-11T21:12:34.882Z",
+      "createdAt": "2026-10-11T21:12:34.863Z"
+    },
+    {
+      "id": 14,
+      "slug": "kubernetes",
+      "name": {
+        "en": "kubernetes",
+        "ja": "Kubernetes"
+      },
+      "updatedAt": "2026-10-11T21:12:34.893Z",
+      "createdAt": "2026-10-11T21:12:34.887Z"
+    },
+    {
+      "id": 15,
+      "slug": "astro",
+      "name": {
+        "en": "astro",
+        "ja": "Astro"
+      },
+      "updatedAt": "2026-10-11T21:12:34.903Z",
+      "createdAt": "2026-10-11T21:12:34.898Z"
+    },
+    {
+      "id": 16,
+      "slug": "language",
+      "name": {
+        "en": "language",
+        "ja": "言葉"
+      },
+      "updatedAt": "2026-10-11T21:12:34.911Z",
+      "createdAt": "2026-10-11T21:12:34.906Z"
+    },
+    {
+      "id": 17,
+      "slug": "paperwork",
+      "name": {
+        "en": "paperwork",
+        "ja": "書類"
+      },
+      "updatedAt": "2026-10-11T21:12:34.922Z",
+      "createdAt": "2026-10-11T21:12:34.917Z"
+    },
+    {
+      "id": 18,
+      "slug": "budgeting",
+      "name": {
+        "en": "budgeting",
+        "ja": "家計"
+      },
+      "updatedAt": "2026-10-11T21:12:34.933Z",
+      "createdAt": "2026-10-11T21:12:34.926Z"
+    }
+  ],
+  "posts": [
+    {
+      "id": 12,
+      "title": {
+        "en": null,
+        "ja": "ホームラボでブログを運用する：理由と方法"
+      },
+      "description": {
+        "en": null,
+        "ja": "自宅のサーバーで静的ブログを運用する理由、工夫、そして限界についての短いメモ。"
+      },
+      "slug": "homelab-de-blog-wo-unyo-suru",
+      "category": 7,
+      "tags": [
+        13
+      ],
+      "pubDate": "2026-10-01T09:00:00.000Z",
+      "updatedDate": null,
+      "hero": null,
+      "series": {
+        "name": null,
+        "part": null
+      },
+      "toc": false,
+      "publishedIn": {
+        "en": false,
+        "ja": true
+      },
+      "content": {
+        "en": null,
+        "ja": {
+          "root": {
+            "type": "root",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "ブログを運用する一番簡単な方法は、ホスティングサービスを使うことです。それでも私が自分のホームラボで動かしているのは、手を動かして学べるからです。Kubernetes、データベース、ネットワーク、セキュリティを一度に扱えます。",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "tag": "h2",
+                "type": "heading",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "なぜ静的サイトなのか",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "読者が受け取るのはファイルだけなので、データベースが止まっていても記事は読めます。CMS が必要になるのは、記事を公開するときだけです。",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "tag": "ul",
+                "type": "list",
+                "start": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "listitem",
+                    "value": 1,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "停電や回線障害のときは、ミラーからサイトが配信されます",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "listitem",
+                    "value": 2,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "公開の瞬間を除いて、アプリケーションサーバーは動いていません",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "listitem",
+                    "value": 3,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "リリースはそれぞれ別々に保存されます",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "listType": "bullet",
+                "direction": "ltr"
+              },
+              {
+                "type": "block",
+                "fields": {
+                  "id": "fx0015",
+                  "body": {
+                    "root": {
+                      "type": "root",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "format": "",
+                          "indent": 0,
+                          "version": 1,
+                          "children": [
+                            {
+                              "mode": "normal",
+                              "text": "日本語の表示を確認します：長音記号（サーバー）、小書き文字（ちょっと、ファイル）、全角の句読点（、。）。",
+                              "type": "text",
+                              "style": "",
+                              "detail": 0,
+                              "format": 0,
+                              "version": 1
+                            }
+                          ],
+                          "direction": "ltr"
+                        }
+                      ],
+                      "direction": "ltr"
+                    }
+                  },
+                  "kind": "note",
+                  "blockName": "",
+                  "blockType": "callout"
+                },
+                "format": "",
+                "version": 2
+              },
+              {
+                "type": "block",
+                "fields": {
+                  "id": "fx0016",
+                  "code": "git tag v0.1.0\ngit push origin v0.1.0",
+                  "language": "bash",
+                  "blockName": "",
+                  "blockType": "code"
+                },
+                "format": "",
+                "version": 2
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "最後に一言：自分のサーバーで動かすということは、自分で責任を持つということです。",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "mode": "normal",
+                    "text": "バックアップ",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 1,
+                    "version": 1
+                  },
+                  {
+                    "mode": "normal",
+                    "text": "がなければ、何も完結しません。",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              }
+            ],
+            "direction": "ltr"
+          }
+        }
+      },
+      "updatedAt": "2026-10-11T21:12:34.969Z",
+      "createdAt": "2026-10-11T21:12:34.939Z",
+      "_status": "published"
+    },
+    {
+      "id": 13,
+      "title": {
+        "en": "How this site is built: a static blog on a homelab",
+        "ja": null
+      },
+      "description": {
+        "en": "A headless CMS, a static Astro build, and nginx pods that keep serving even when the CMS is down. The reasoning and the trade-offs.",
+        "ja": null
+      },
+      "slug": "how-this-site-is-built",
+      "category": 7,
+      "tags": [
+        13,
+        14,
+        15
+      ],
+      "pubDate": "2026-09-28T09:00:00.000Z",
+      "updatedDate": "2026-10-03T09:00:00.000Z",
+      "hero": 15,
+      "series": {
+        "name": "Building smkabir.com",
+        "part": 1
+      },
+      "toc": true,
+      "publishedIn": {
+        "en": true,
+        "ja": false
+      },
+      "content": {
+        "en": {
+          "root": {
+            "type": "root",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "This site is a ",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "mode": "normal",
+                    "text": "static",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 1,
+                    "version": 1
+                  },
+                  {
+                    "mode": "normal",
+                    "text": " Astro build. The words live in a headless CMS, but readers never touch it: they get plain files from ",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "mode": "normal",
+                    "text": "nginx",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 16,
+                    "version": 1
+                  },
+                  {
+                    "mode": "normal",
+                    "text": " (or from a mirror in object storage when the homelab is down).",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "tag": "h2",
+                "type": "heading",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "The shape of it",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "Publishing in the CMS triggers a build. The build produces a ",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "mode": "normal",
+                    "text": "dist/",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 16,
+                    "version": 1
+                  },
+                  {
+                    "mode": "normal",
+                    "text": " folder, uploads it as a numbered release, and moves a pointer. The pods notice the new pointer and swap their content without a rollout.",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "block",
+                "fields": {
+                  "id": "fx0001",
+                  "kind": "d2",
+                  "source": "direction: right\nauthor: You { shape: person }\ncms: Payload CMS\nci: GitHub Actions\nr2: Object storage { shape: cylinder }\npods: nginx pods\nauthor -> cms: publish\ncms -> ci: dispatch\nci -> r2: upload release\npods -> r2: poll LATEST",
+                  "blockName": "",
+                  "blockType": "diagram"
+                },
+                "format": "",
+                "version": 2
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "How releases are laid out:",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "tag": "ul",
+                "type": "list",
+                "start": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "listitem",
+                    "value": 1,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Static output, one folder per release",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "listitem",
+                    "value": 2,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "tag": "ol",
+                        "type": "list",
+                        "start": 1,
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "listitem",
+                            "value": 1,
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "Pointer file names the live release",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          },
+                          {
+                            "type": "listitem",
+                            "value": 2,
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "Rollback rewrites the pointer",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "listType": "number",
+                        "direction": "ltr"
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "listitem",
+                    "value": 3,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Content-sync sidecar pulls the new release",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "listType": "bullet",
+                "direction": "ltr"
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "Where the site build stands:",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "tag": "ul",
+                "type": "list",
+                "start": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "listitem",
+                    "value": 1,
+                    "format": "",
+                    "indent": 0,
+                    "checked": true,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Type check clean",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "listitem",
+                    "value": 2,
+                    "format": "",
+                    "indent": 0,
+                    "checked": true,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Pagination tried with a small page size",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "listitem",
+                    "value": 3,
+                    "format": "",
+                    "indent": 0,
+                    "checked": false,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "First real post written",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "listType": "check",
+                "direction": "ltr"
+              },
+              {
+                "tag": "h2",
+                "type": "heading",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "Why not just render pages from the CMS?",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "tag": "ul",
+                "type": "list",
+                "start": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "listitem",
+                    "value": 1,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Availability: ",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 1,
+                        "version": 1
+                      },
+                      {
+                        "mode": "normal",
+                        "text": "a static file keeps working when the database does not.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "listitem",
+                    "value": 2,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Cost: ",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 1,
+                        "version": 1
+                      },
+                      {
+                        "mode": "normal",
+                        "text": "no application runtime on the read path.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "listitem",
+                    "value": 3,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Security: ",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 1,
+                        "version": 1
+                      },
+                      {
+                        "mode": "normal",
+                        "text": "the CMS is only reachable behind an access gate.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "listType": "bullet",
+                "direction": "ltr"
+              },
+              {
+                "type": "block",
+                "fields": {
+                  "id": "fx0002",
+                  "body": {
+                    "root": {
+                      "type": "root",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "format": "",
+                          "indent": 0,
+                          "version": 1,
+                          "children": [
+                            {
+                              "mode": "normal",
+                              "text": "A static site on a single-house homelab is strictly less available than a hosted static platform. The point of running it here is to learn, which is why a failover mirror exists.",
+                              "type": "text",
+                              "style": "",
+                              "detail": 0,
+                              "format": 0,
+                              "version": 1
+                            }
+                          ],
+                          "direction": "ltr"
+                        }
+                      ],
+                      "direction": "ltr"
+                    }
+                  },
+                  "kind": "note",
+                  "blockName": "",
+                  "blockType": "callout"
+                },
+                "format": "",
+                "version": 2
+              },
+              {
+                "tag": "h2",
+                "type": "heading",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "Typed content, end to end",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "The schema is code. Types generated from it are imported by the site, so a schema change that breaks a page fails the type check before it fails a reader.",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "block",
+                "fields": {
+                  "id": "fx0003",
+                  "code": "import type { Post } from '~/lib/types';\n\nexport function hasPage(post: Post, locale: Locale): boolean {\n  return post._status === 'published' && post.publishedIn[locale] === true;\n}",
+                  "filename": "src/lib/posts.ts",
+                  "language": "ts",
+                  "blockName": "",
+                  "blockType": "code",
+                  "highlightLines": "4"
+                },
+                "format": "",
+                "version": 2
+              },
+              {
+                "tag": "h2",
+                "type": "heading",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "Building it",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "A local build is two commands:",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "block",
+                "fields": {
+                  "id": "fx0004",
+                  "output": "i18n: 96 keys present in all locales\n[build] 24 page(s) built in 3.1s\n[build] Complete!",
+                  "command": "pnpm install --frozen-lockfile\npnpm build",
+                  "blockName": "",
+                  "blockType": "terminal"
+                },
+                "format": "",
+                "version": 2
+              },
+              {
+                "type": "quote",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "Published URLs are permanent. Changing a slug without a redirect is a bug.",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "More in the next part, where the CMS goes into the cluster. See the ",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "type": "link",
+                    "fields": {
+                      "url": "/projects/homelab/",
+                      "newTab": false,
+                      "linkType": "custom"
+                    },
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "homelab write-up",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "mode": "normal",
+                    "text": " for the platform.",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              }
+            ],
+            "direction": "ltr"
+          }
+        },
+        "ja": null
+      },
+      "updatedAt": "2026-10-11T21:12:35.018Z",
+      "createdAt": "2026-10-11T21:12:34.991Z",
+      "_status": "published"
+    },
+    {
+      "id": 14,
+      "title": {
+        "en": "The Japanese words that paperwork actually uses",
+        "ja": "役所の書類で本当によく使う日本語"
+      },
+      "description": {
+        "en": "A short glossary of terms that keep turning up on forms and at counters, with the reading next to each one.",
+        "ja": "書類や窓口で何度も出てくる用語の短い用語集です。読み方も添えています。"
+      },
+      "slug": "japanese-paperwork-vocabulary",
+      "category": 8,
+      "tags": [
+        16,
+        17
+      ],
+      "pubDate": "2026-09-15T09:00:00.000Z",
+      "updatedDate": null,
+      "hero": 16,
+      "series": {
+        "name": null,
+        "part": null
+      },
+      "toc": false,
+      "publishedIn": {
+        "en": true,
+        "ja": true
+      },
+      "content": {
+        "en": {
+          "root": {
+            "type": "root",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "Everyday life in Japan runs on forms. A handful of words cover most of them, such as ",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "type": "inlineBlock",
+                    "fields": {
+                      "r": "honmenkyo",
+                      "t": "本免許",
+                      "en": "full driving licence",
+                      "id": "fx0005",
+                      "blockName": "",
+                      "blockType": "jp"
+                    },
+                    "format": "",
+                    "version": 1
+                  },
+                  {
+                    "mode": "normal",
+                    "text": " and ",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "type": "inlineBlock",
+                    "fields": {
+                      "r": "hyōsatsu",
+                      "t": "表札",
+                      "en": "nameplate",
+                      "id": "fx0006",
+                      "blockName": "",
+                      "blockType": "jp"
+                    },
+                    "format": "",
+                    "version": 1
+                  },
+                  {
+                    "mode": "normal",
+                    "text": ". Hover or tap a term to see the English.",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "block",
+                "fields": {
+                  "id": "fx0007",
+                  "media": 17,
+                  "credit": "Illustration: placeholder",
+                  "caption": "A placeholder figure with a caption.",
+                  "blockName": "",
+                  "blockType": "figure"
+                },
+                "format": "",
+                "version": 2
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "Cars have their own vocabulary too. The plate on the back is the ",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "type": "inlineBlock",
+                    "fields": {
+                      "r": "nanbā purēto",
+                      "t": "ナンバープレート",
+                      "en": "number plate",
+                      "id": "fx0008",
+                      "blockName": "",
+                      "blockType": "jp"
+                    },
+                    "format": "",
+                    "version": 1
+                  },
+                  {
+                    "mode": "normal",
+                    "text": ", and it is one of the first things to hide in a photo.",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "block",
+                "fields": {
+                  "id": "fx0009",
+                  "media": [
+                    17,
+                    18,
+                    17
+                  ],
+                  "blockName": "",
+                  "blockType": "gallery-strip"
+                },
+                "format": "",
+                "version": 2
+              },
+              {
+                "type": "block",
+                "fields": {
+                  "id": "fx0010",
+                  "body": {
+                    "root": {
+                      "type": "root",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "format": "",
+                          "indent": 0,
+                          "version": 1,
+                          "children": [
+                            {
+                              "mode": "normal",
+                              "text": "Before publishing any photo, check the plate, the nameplate, street signs and reflections. See the checklist in the editor.",
+                              "type": "text",
+                              "style": "",
+                              "detail": 0,
+                              "format": 0,
+                              "version": 1
+                            }
+                          ],
+                          "direction": "ltr"
+                        }
+                      ],
+                      "direction": "ltr"
+                    }
+                  },
+                  "kind": "warn",
+                  "blockName": "",
+                  "blockType": "callout"
+                },
+                "format": "",
+                "version": 2
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "If you have a favourite word that tripped you up, ",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "type": "link",
+                    "fields": {
+                      "url": "/contact/",
+                      "newTab": false,
+                      "linkType": "custom"
+                    },
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "tell me",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "mode": "normal",
+                    "text": ".",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              }
+            ],
+            "direction": "ltr"
+          }
+        },
+        "ja": {
+          "root": {
+            "type": "root",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "日本での暮らしは書類で回っています。いくつかの言葉を知っているだけで、ほとんどの書類が読めるようになります。たとえば",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "type": "inlineBlock",
+                    "fields": {
+                      "r": "honmenkyo",
+                      "t": "本免許",
+                      "en": "正式な運転免許（仮免許ではないもの）",
+                      "id": "fx0011",
+                      "blockName": "",
+                      "blockType": "jp"
+                    },
+                    "format": "",
+                    "version": 1
+                  },
+                  {
+                    "mode": "normal",
+                    "text": "や",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "type": "inlineBlock",
+                    "fields": {
+                      "r": "hyōsatsu",
+                      "t": "表札",
+                      "en": "家の名前を示す札",
+                      "id": "fx0012",
+                      "blockName": "",
+                      "blockType": "jp"
+                    },
+                    "format": "",
+                    "version": 1
+                  },
+                  {
+                    "mode": "normal",
+                    "text": "。言葉にカーソルを合わせるかタップすると、意味が表示されます。",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "車にも独自の用語があります。後ろのプレートは",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "type": "inlineBlock",
+                    "fields": {
+                      "r": "nanbā purēto",
+                      "t": "ナンバープレート",
+                      "en": "車両の登録番号が書かれた板",
+                      "id": "fx0013",
+                      "blockName": "",
+                      "blockType": "jp"
+                    },
+                    "format": "",
+                    "version": 1
+                  },
+                  {
+                    "mode": "normal",
+                    "text": "と呼ばれ、写真を公開する前にまず隠すべきものです。",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "block",
+                "fields": {
+                  "id": "fx0014",
+                  "body": {
+                    "root": {
+                      "type": "root",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "format": "",
+                          "indent": 0,
+                          "version": 1,
+                          "children": [
+                            {
+                              "mode": "normal",
+                              "text": "写真を公開する前に、ナンバープレート、表札、道路標識、映り込みを確認してください。",
+                              "type": "text",
+                              "style": "",
+                              "detail": 0,
+                              "format": 0,
+                              "version": 1
+                            }
+                          ],
+                          "direction": "ltr"
+                        }
+                      ],
+                      "direction": "ltr"
+                    }
+                  },
+                  "kind": "warn",
+                  "blockName": "",
+                  "blockType": "callout"
+                },
+                "format": "",
+                "version": 2
+              }
+            ],
+            "direction": "ltr"
+          }
+        }
+      },
+      "updatedAt": "2026-10-11T21:12:35.055Z",
+      "createdAt": "2026-10-11T21:12:35.037Z",
+      "_status": "published"
+    },
+    {
+      "id": 15,
+      "title": {
+        "en": "An unfinished draft that must never ship"
+      },
+      "description": {
+        "en": "Used to prove that drafts never reach dist/."
+      },
+      "slug": "unfinished-draft",
+      "category": 7,
+      "tags": [],
+      "pubDate": "2026-10-05T09:00:00.000Z",
+      "updatedDate": null,
+      "hero": null,
+      "series": {
+        "name": null,
+        "part": null
+      },
+      "toc": false,
+      "publishedIn": {
+        "en": true
+      },
+      "content": {
+        "en": {
+          "root": {
+            "type": "root",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "DRAFT-ONLY-MARKER-4f2a",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              }
+            ],
+            "direction": "ltr"
+          }
+        }
+      },
+      "updatedAt": "2026-10-11T21:12:35.078Z",
+      "createdAt": "2026-10-11T21:12:35.078Z",
+      "_status": "draft"
+    },
+    {
+      "id": 16,
+      "title": {
+        "en": "What the homelab costs to run, in yen",
+        "ja": null
+      },
+      "description": {
+        "en": "A plain ledger of power, internet and storage costs for a small cluster, and the one number that decides whether it is worth it.",
+        "ja": null
+      },
+      "slug": "what-the-homelab-costs",
+      "category": 9,
+      "tags": [
+        18,
+        13
+      ],
+      "pubDate": "2026-10-04T09:00:00.000Z",
+      "updatedDate": null,
+      "hero": 19,
+      "series": {
+        "name": null,
+        "part": null
+      },
+      "toc": true,
+      "publishedIn": {
+        "en": true,
+        "ja": false
+      },
+      "content": {
+        "en": {
+          "root": {
+            "type": "root",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "Running your own hardware is cheaper than renting it only if you count honestly. This is the ledger I keep, with ",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "mode": "normal",
+                    "text": "sample figures",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 1,
+                    "version": 1
+                  },
+                  {
+                    "mode": "normal",
+                    "text": " in place of real ones.",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "tag": "h2",
+                "type": "heading",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "The monthly ledger",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "table",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "tablerow",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "Item",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 1,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "Basis",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 1,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "Monthly (¥)",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 1,
+                        "backgroundColor": null
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "tablerow",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "Electricity",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "4 nodes, about 60 W total",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "1,320",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "tablerow",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "Internet",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "Share of the home fibre line",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "1,500",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "tablerow",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "Object storage",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "Free tier",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "0",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "tablerow",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "Domain",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "¥1,800 a year",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "150",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "tablerow",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "Total",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "2,970",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "block",
+                "fields": {
+                  "id": "fx0018",
+                  "body": {
+                    "root": {
+                      "type": "root",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "format": "",
+                          "indent": 0,
+                          "version": 1,
+                          "children": [
+                            {
+                              "mode": "normal",
+                              "text": "Electricity is the line that moves. Japanese tariffs change with the season and the ",
+                              "type": "text",
+                              "style": "",
+                              "detail": 0,
+                              "format": 0,
+                              "version": 1
+                            },
+                            {
+                              "type": "inlineBlock",
+                              "fields": {
+                                "r": "nenryōhi chōseigaku",
+                                "t": "燃料費調整額",
+                                "en": "fuel cost adjustment",
+                                "id": "fx0017",
+                                "blockName": "",
+                                "blockType": "jp"
+                              },
+                              "format": "",
+                              "version": 1
+                            },
+                            {
+                              "mode": "normal",
+                              "text": ", so I recalculate it every quarter.",
+                              "type": "text",
+                              "style": "",
+                              "detail": 0,
+                              "format": 0,
+                              "version": 1
+                            }
+                          ],
+                          "direction": "ltr"
+                        }
+                      ],
+                      "direction": "ltr"
+                    }
+                  },
+                  "kind": "note",
+                  "blockName": "",
+                  "blockType": "callout"
+                },
+                "format": "",
+                "version": 2
+              },
+              {
+                "tag": "h2",
+                "type": "heading",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "Hardware, spread over its life",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "The mini PCs are paid for once. Divided over four years, they add a fixed amount to every month:",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "table",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "tablerow",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "Hardware",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 1,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "Cost (¥)",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 1,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "Months",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 1,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "Per month (¥)",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 1,
+                        "backgroundColor": null
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "tablerow",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "Mini PCs (×4)",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "96,000",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "48",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "2,000",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "tablerow",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "Disks",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "24,000",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "48",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      },
+                      {
+                        "type": "tablecell",
+                        "format": "",
+                        "indent": 0,
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "500",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr",
+                        "headerState": 0,
+                        "backgroundColor": null
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "tag": "h2",
+                "type": "heading",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "The number that matters",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "About ¥5,470 a month, all in. The question is not whether that is cheap, but whether the learning is worth more than the equivalent managed services. For me it is.",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              }
+            ],
+            "direction": "ltr"
+          }
+        },
+        "ja": null
+      },
+      "updatedAt": "2026-10-11T21:12:35.124Z",
+      "createdAt": "2026-10-11T21:12:35.103Z",
+      "_status": "published"
+    }
+  ],
+  "projects": [
+    {
+      "id": 5,
+      "title": {
+        "en": "Homelab",
+        "ja": "ホームラボ"
+      },
+      "summary": {
+        "en": "A four-node Talos Kubernetes cluster across two Proxmox hosts, managed with Terraform and Argo CD.",
+        "ja": "2 台の Proxmox ホストにまたがる 4 ノードの Talos Kubernetes クラスター。Terraform と Argo CD で管理しています。"
+      },
+      "slug": "homelab",
+      "status": "maintained",
+      "stack": [
+        {
+          "id": "6acbfbc34af3840157571677",
+          "label": "Talos Linux"
+        },
+        {
+          "id": "6acbfbc34af3840157571678",
+          "label": "Kubernetes"
+        },
+        {
+          "id": "6acbfbc34af3840157571679",
+          "label": "Cilium"
+        },
+        {
+          "id": "6acbfbc34af384015757167a",
+          "label": "Argo CD"
+        },
+        {
+          "id": "6acbfbc34af384015757167b",
+          "label": "CloudNativePG"
+        },
+        {
+          "id": "6acbfbc34af384015757167c",
+          "label": "Proxmox"
+        }
+      ],
+      "repo": null,
+      "links": [],
+      "featured": true,
+      "order": 2,
+      "hero": null,
+      "content": {
+        "en": {
+          "root": {
+            "type": "root",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "The platform behind this site. Everything is declared in Git and applied by Argo CD; nothing is applied by hand.",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "tag": "h2",
+                "type": "heading",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "Pieces",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "tag": "ul",
+                "type": "list",
+                "start": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "listitem",
+                    "value": 1,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Talos Linux nodes on Proxmox (two hosts)",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "listitem",
+                    "value": 2,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Cilium with Gateway API for ingress",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "listitem",
+                    "value": 3,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "CloudNativePG for Postgres",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "listitem",
+                    "value": 4,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Sealed Secrets for secrets in Git",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "listitem",
+                    "value": 5,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Cloudflare Tunnel and Access in front",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "listType": "bullet",
+                "direction": "ltr"
+              }
+            ],
+            "direction": "ltr"
+          }
+        },
+        "ja": {
+          "root": {
+            "type": "root",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "このサイトを支えているプラットフォームです。すべては Git で宣言され、Argo CD が適用します。手作業で適用するものはありません。",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              }
+            ],
+            "direction": "ltr"
+          }
+        }
+      },
+      "updatedAt": "2026-10-11T21:12:35.172Z",
+      "createdAt": "2026-10-11T21:12:35.145Z",
+      "_status": "published"
+    },
+    {
+      "id": 6,
+      "title": {
+        "en": "TraderBuddy"
+      },
+      "summary": {
+        "en": "Sample entry: an application that runs on the homelab cluster and ships through the same tag-and-GitOps flow as this site."
+      },
+      "slug": "traderbuddy",
+      "status": "active",
+      "stack": [
+        {
+          "id": "6acbfbc34af384015757167d",
+          "label": "TypeScript"
+        },
+        {
+          "id": "6acbfbc34af384015757167e",
+          "label": "PostgreSQL"
+        },
+        {
+          "id": "6acbfbc34af384015757167f",
+          "label": "Kubernetes"
+        }
+      ],
+      "repo": null,
+      "links": [],
+      "featured": true,
+      "order": 1,
+      "hero": null,
+      "content": {
+        "en": {
+          "root": {
+            "type": "root",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "This is a write-up only, with no link to the running app. Replace this sample text in Payload.",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "tag": "h2",
+                "type": "heading",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "How it is released",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "tag": "ol",
+                "type": "list",
+                "start": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "listitem",
+                    "value": 1,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Push a version tag.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "listitem",
+                    "value": 2,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "CI builds a versioned image.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "listitem",
+                    "value": 3,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "A hand-made commit bumps the tag in the GitOps repository.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "listitem",
+                    "value": 4,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Argo CD syncs it; rollback is a revert.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "listType": "number",
+                "direction": "ltr"
+              }
+            ],
+            "direction": "ltr"
+          }
+        }
+      },
+      "updatedAt": "2026-10-11T21:12:35.187Z",
+      "createdAt": "2026-10-11T21:12:35.187Z",
+      "_status": "published"
+    }
+  ],
+  "pages": [
+    {
+      "id": 3,
+      "title": {
+        "en": "About",
+        "ja": "このサイトについて"
+      },
+      "slug": "about",
+      "content": {
+        "en": {
+          "root": {
+            "type": "root",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "Hi, I am Mursalin Kabir. I write about software, the homelab behind this site, and life in Japan.",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "This page is sample copy from the fixtures. Replace it in Payload before launch.",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              }
+            ],
+            "direction": "ltr"
+          }
+        },
+        "ja": {
+          "root": {
+            "type": "root",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "ムルサリン・カビールです。ソフトウェア、このサイトを支えているホームラボ、そして日本での暮らしについて書いています。",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "このページは fixtures のサンプル文です。公開前に Payload で置き換えてください。",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              }
+            ],
+            "direction": "ltr"
+          }
+        }
+      },
+      "updatedAt": "2026-10-11T21:12:35.212Z",
+      "createdAt": "2026-10-11T21:12:35.198Z",
+      "_status": "published"
+    }
+  ],
+  "globals": {
+    "site": {
+      "id": 1,
+      "name": {
+        "en": "Mursalin Kabir",
+        "ja": "ムルサリン・カビール"
+      },
+      "tagline": {
+        "en": "Technology, money and life in Japan.",
+        "ja": "テクノロジー、お金、そして日本での暮らし。"
+      },
+      "email": "hello@smkabir.com",
+      "socials": [],
+      "nav": [
+        "home",
+        "tech",
+        "finance",
+        "japan",
+        "about",
+        "contact"
+      ],
+      "navMore": [
+        "projects",
+        "resume",
+        "now",
+        "uses",
+        "categories",
+        "tags"
+      ],
+      "updatedAt": "2026-10-11T21:12:35.243Z",
+      "createdAt": "2026-10-11T14:36:37.167Z",
+      "globalType": "site"
+    },
+    "now": {
+      "id": 1,
+      "content": {
+        "en": {
+          "root": {
+            "type": "root",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "Sample: building this site, one phase at a time.",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "tag": "ul",
+                "type": "list",
+                "start": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "listitem",
+                    "value": 1,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Setting up the CMS and the build pipeline",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  },
+                  {
+                    "type": "listitem",
+                    "value": 2,
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Writing the first few posts",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "listType": "bullet",
+                "direction": "ltr"
+              }
+            ],
+            "direction": "ltr"
+          }
+        },
+        "ja": {
+          "root": {
+            "type": "root",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "サンプル：このサイトを一歩ずつ作っています。",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              }
+            ],
+            "direction": "ltr"
+          }
+        }
+      },
+      "updatedAt": "2026-10-11T14:36:37.189Z",
+      "createdAt": "2026-10-11T14:36:37.189Z",
+      "globalType": "now"
+    },
+    "uses": {
+      "id": 1,
+      "groups": [
+        {
+          "id": "g1",
+          "items": [
+            {
+              "id": "u1",
+              "name": {
+                "en": "Intel N100 mini PCs"
+              },
+              "note": {
+                "en": "Run the Proxmox hosts and Talos nodes."
+              }
+            },
+            {
+              "id": "u2",
+              "name": {
+                "en": "Proxmox VE"
+              },
+              "note": {
+                "en": "Two hosts, with a separate backup server."
+              }
+            },
+            {
+              "id": "u3",
+              "name": {
+                "en": "Talos Linux"
+              },
+              "note": {
+                "en": "An immutable OS for the Kubernetes nodes."
+              }
+            }
+          ],
+          "title": {
+            "en": "Homelab",
+            "ja": "ホームラボ"
+          }
+        },
+        {
+          "id": "g2",
+          "items": [
+            {
+              "id": "u4",
+              "name": {
+                "en": "Astro"
+              },
+              "note": {
+                "en": "The static site generator behind this site."
+              }
+            },
+            {
+              "id": "u5",
+              "name": {
+                "en": "Payload CMS"
+              },
+              "note": {
+                "en": "Where the words are written."
+              }
+            }
+          ],
+          "title": {
+            "en": "Software",
+            "ja": "ソフトウェア"
+          }
+        }
+      ],
+      "updatedAt": "2026-10-11T14:36:38.902Z",
+      "createdAt": "2026-10-11T14:36:38.902Z",
+      "globalType": "uses"
+    },
+    "resume": {
+      "id": 1,
+      "basics": {
+        "name": "Mursalin Kabir",
+        "label": "Software engineer",
+        "email": "hello@smkabir.com",
+        "url": "https://smkabir.com",
+        "summary": "Sample summary from the fixtures. Replace it with the real resume in Payload.",
+        "profiles": []
+      },
+      "work": [
+        {
+          "id": "w1",
+          "name": "Example Company",
+          "position": "Software Engineer",
+          "startDate": "2022-04",
+          "endDate": "2026-03",
+          "highlights": [
+            {
+              "id": "6acbfbc44af3840157571680",
+              "text": "Placeholder highlight one."
+            },
+            {
+              "id": "6acbfbc44af3840157571681",
+              "text": "Placeholder highlight two."
+            }
+          ]
+        },
+        {
+          "id": "w2",
+          "name": "Another Example Co.",
+          "position": "Junior Engineer",
+          "startDate": "2019-04",
+          "endDate": "2022-03",
+          "highlights": [
+            {
+              "id": "6acbfbc44af3840157571682",
+              "text": "Placeholder highlight."
+            }
+          ]
+        }
+      ],
+      "education": [
+        {
+          "id": "e1",
+          "institution": "Example University",
+          "area": "Computer Science",
+          "studyType": "BSc",
+          "startDate": "2015-04",
+          "endDate": "2019-03"
+        }
+      ],
+      "skills": [
+        {
+          "id": "s1",
+          "name": "Languages",
+          "keywords": [
+            {
+              "id": "6acbfbc44af3840157571683",
+              "text": "TypeScript"
+            },
+            {
+              "id": "6acbfbc44af3840157571684",
+              "text": "Go"
+            },
+            {
+              "id": "6acbfbc44af3840157571685",
+              "text": "SQL"
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Platform",
+          "keywords": [
+            {
+              "id": "6acbfbc44af3840157571686",
+              "text": "Kubernetes"
+            },
+            {
+              "id": "6acbfbc44af3840157571687",
+              "text": "PostgreSQL"
+            },
+            {
+              "id": "6acbfbc44af3840157571688",
+              "text": "Terraform"
+            }
+          ]
+        }
+      ],
+      "projects": [
+        {
+          "id": "rp1",
+          "name": "Homelab",
+          "description": "A Talos Kubernetes cluster managed with GitOps.",
+          "url": "/projects/homelab/"
+        }
+      ],
+      "languages": [
+        {
+          "id": "l1",
+          "language": "English",
+          "spoken": "Placeholder",
+          "reading": "Placeholder"
+        },
+        {
+          "id": "l2",
+          "language": "Bengali",
+          "spoken": "Placeholder",
+          "reading": "Placeholder"
+        },
+        {
+          "id": "l3",
+          "language": "Japanese",
+          "spoken": "Placeholder",
+          "reading": "Placeholder"
+        }
+      ],
+      "certificates": [],
+      "updatedAt": "2026-10-11T21:12:36.526Z",
+      "createdAt": "2026-10-11T14:36:39.104Z",
+      "globalType": "resume"
+    }
+  }
+}

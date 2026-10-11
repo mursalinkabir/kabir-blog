@@ -1,0 +1,108 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import RichText from '~/components/RichText.astro';
+import Toc from '~/components/Toc.astro';
+import PostMeta from '~/components/PostMeta.astro';
+import PostCard from '~/components/PostCard.astro';
+import ShareLinks from '~/components/ShareLinks.astro';
+import MediaImage from '~/components/blocks/MediaImage.astro';
+import { t, localePath, type Locale } from '~/i18n';
+import { getPosts, getRelated, siteName } from '~/lib/cms';
+import { alternatesFor, perLocale, absolute } from '~/lib/routes';
+import { publicUrl } from '~/lib/media';
+
+export const getStaticPaths = () =>
+  perLocale((locale) => getPosts(locale).map((post) => ({ params: { slug: post.slug }, props: { post } })));
+
+const { locale, post } = Astro.props as { locale: Locale; post: ReturnType<typeof getPosts>[number] };
+const path = localePath(locale, `/posts/${post.slug}/`);
+const showToc = post.toc && post.headings.length >= 3;
+const related = getRelated(post, locale);
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.description,
+    datePublished: post.pubDate,
+    dateModified: post.updatedDate ?? post.pubDate,
+    inLanguage: locale,
+    mainEntityOfPage: absolute(path),
+    author: { '@type': 'Person', name: siteName('en'), url: absolute('/about/') },
+    ...(post.hero ? { image: absolute(publicUrl(post.hero)) } : {}),
+  },
+];
+---
+
+<BaseLayout
+  title={post.title}
+  description={post.description}
+  locale={locale}
+  path={path}
+  alternates={alternatesFor(`/posts/${post.slug}/`, post.available)}
+  type="article"
+  publishedTime={post.pubDate}
+  modifiedTime={post.updatedDate}
+  structuredData={structuredData}
+  rss={[{ href: locale === 'en' ? '/rss.xml' : '/ja/rss.xml', title: siteName(locale) }]}
+>
+  <article class="container post" data-pagefind-body>
+    <header class="post-head">
+      <h1 data-pagefind-meta="title">{post.title}</h1>
+      <PostMeta post={post} locale={locale} readingTime />
+      {
+        post.series && (
+          <p class="post-series">
+            {t(locale, 'posts.series')}: {post.series.name}, {t(locale, 'posts.part', { n: post.series.part })}
+          </p>
+        )
+      }
+    </header>
+    {
+      post.hero && (
+        <figure class="post-cover">
+          <MediaImage media={post.hero} locale={locale} loading="eager" sizes="(min-width: 64rem) 62rem, 100vw" />
+          {post.hero.credit && <figcaption>{post.hero.credit}</figcaption>}
+        </figure>
+      )
+    }
+    <div class="post-body">
+      {showToc && <Toc headings={post.headings} locale={locale} open={post.headings.length >= 5} />}
+      <div class="prose">
+        <RichText doc={post.content} locale={locale} />
+      </div>
+      <footer class="post-foot">
+        {
+          post.tags.length > 0 && (
+            <ul class="tag-list" role="list" aria-label={t(locale, 'posts.tags')}>
+              {post.tags.map((tag) => (
+                <li>
+                  <a class="tag" href={localePath(locale, `/tags/${tag.slug}/`)}>
+                    #{tag.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+        <ShareLinks locale={locale} title={post.title} path={path} />
+      </footer>
+      <meta data-pagefind-filter="category[content]" content={post.category.name} />
+      {post.tags.map((tag) => <meta data-pagefind-filter="tag[content]" content={tag.name} />)}
+    </div>
+  </article>
+  {
+    related.length > 0 && (
+      <section class="container related" aria-labelledby="related-title">
+        <h2 id="related-title" class="section-title">
+          {t(locale, 'related.title')}
+        </h2>
+        <div class="card-grid">
+          {related.map((p) => (
+            <PostCard post={p} locale={locale} level={3} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

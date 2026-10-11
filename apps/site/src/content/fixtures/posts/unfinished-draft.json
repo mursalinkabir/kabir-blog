@@ -1,0 +1,56 @@
+{
+  "id": "p4",
+  "_status": "draft",
+  "slug": "unfinished-draft",
+  "pubDate": "2026-10-05T09:00:00.000Z",
+  "category": {
+    "id": "c1",
+    "slug": "tech",
+    "name": {
+      "en": "Tech",
+      "ja": "テック"
+    }
+  },
+  "tags": [],
+  "toc": false,
+  "publishedIn": {
+    "en": true
+  },
+  "title": {
+    "en": "An unfinished draft that must never ship"
+  },
+  "description": {
+    "en": "Used to prove that drafts never reach dist/."
+  },
+  "content": {
+    "en": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "DRAFT-ONLY-MARKER-4f2a",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          }
+        ],
+        "type": "root"
+      }
+    }
+  }
+}

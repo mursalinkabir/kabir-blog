@@ -1,0 +1,67 @@
+{
+  "groups": [
+    {
+      "id": "g1",
+      "title": {
+        "en": "Homelab",
+        "ja": "ホームラボ"
+      },
+      "items": [
+        {
+          "id": "u1",
+          "name": {
+            "en": "Intel N100 mini PCs"
+          },
+          "note": {
+            "en": "Run the Proxmox hosts and Talos nodes."
+          }
+        },
+        {
+          "id": "u2",
+          "name": {
+            "en": "Proxmox VE"
+          },
+          "note": {
+            "en": "Two hosts, with a separate backup server."
+          }
+        },
+        {
+          "id": "u3",
+          "name": {
+            "en": "Talos Linux"
+          },
+          "note": {
+            "en": "An immutable OS for the Kubernetes nodes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "g2",
+      "title": {
+        "en": "Software",
+        "ja": "ソフトウェア"
+      },
+      "items": [
+        {
+          "id": "u4",
+          "name": {
+            "en": "Astro"
+          },
+          "note": {
+            "en": "The static site generator behind this site."
+          }
+        },
+        {
+          "id": "u5",
+          "name": {
+            "en": "Payload CMS"
+          },
+          "note": {
+            "en": "Where the words are written."
+          }
+        }
+      ]
+    }
+  ]
+}

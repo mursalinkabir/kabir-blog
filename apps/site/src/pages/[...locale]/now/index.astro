@@ -1,0 +1,32 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import RichText from '~/components/RichText.astro';
+import { t, localePath, formatDate, type Locale } from '~/i18n';
+import { getNow, pick, sectionLocales } from '~/lib/cms';
+import { alternatesFor, perLocale } from '~/lib/routes';
+
+const now = getNow();
+const available = sectionLocales.now();
+export const getStaticPaths = () => perLocale(() => [{}], sectionLocales.now());
+
+const { locale } = Astro.props as { locale: Locale };
+---
+
+<BaseLayout
+  title={t(locale, 'now.title')}
+  description={t(locale, 'now.description')}
+  locale={locale}
+  path={localePath(locale, '/now/')}
+  alternates={alternatesFor('/now/', available)}
+>
+  <div class="page">
+    <div class="prose-width">
+      <header class="page-head page-head-left">
+        <h1 class="page-title">{t(locale, 'now.title')}</h1>
+        <p class="page-lede">{t(locale, 'now.description')}</p>
+        <p class="page-aside">{t(locale, 'now.updated', { date: formatDate(locale, now.updatedAt) })}</p>
+      </header>
+      <div class="prose"><RichText doc={pick(now.content, locale)!} locale={locale} /></div>
+    </div>
+  </div>
+</BaseLayout>

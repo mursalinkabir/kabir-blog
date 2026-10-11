@@ -1,0 +1,54 @@
+---
+import MediaImage from './blocks/MediaImage.astro';
+import { t, localePath, type Locale, type StringKey } from '~/i18n';
+import type { ProjectView } from '~/lib/cms';
+
+interface Props {
+  projects: ProjectView[];
+  locale: Locale;
+  level?: 2 | 3;
+}
+const { projects, locale, level = 2 } = Astro.props;
+const H = `h${level}` as 'h2';
+---
+
+<div class="card-grid">
+  {
+    projects.map((p) => (
+      <article class="card">
+        <a class="card-cover" href={localePath(locale, `/projects/${p.slug}/`)} tabindex="-1" aria-hidden="true">
+          <div class:list={['cover', { 'cover-fallback': !p.hero }]}>
+            {p.hero ? (
+              <MediaImage media={p.hero} locale={locale} decorative />
+            ) : (
+              <svg
+                viewBox="0 0 24 24"
+                width="56"
+                height="56"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="m8 8-4 4 4 4M16 8l4 4-4 4M13.500 5l-3 14" />
+              </svg>
+            )}
+          </div>
+        </a>
+        <ul class="meta" role="list">
+          <li>{t(locale, `projects.statuses.${p.status}` as StringKey)}</li>
+          {p.stack.slice(0, 3).map((s) => (
+            <li>{s}</li>
+          ))}
+        </ul>
+        <H class="card-title">
+          <a href={localePath(locale, `/projects/${p.slug}/`)}>{p.title}</a>
+        </H>
+        <p class="card-excerpt">{p.summary}</p>
+      </article>
+    ))
+  }
+</div>

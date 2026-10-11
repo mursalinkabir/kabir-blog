@@ -1,0 +1,19 @@
+---
+import RichText from '../RichText.astro';
+import type { LexicalRoot } from '~/lib/lexical/types';
+import { t, type Locale } from '~/i18n';
+
+interface Props {
+  kind?: 'note' | 'warn' | 'danger';
+  title?: string;
+  body: LexicalRoot;
+  locale: Locale;
+}
+const { kind = 'note', title, body, locale } = Astro.props;
+const label = title ?? t(locale, `a11y.callout.${kind}` as 'a11y.callout.note');
+---
+
+<div class={`callout callout-${kind}`} role="note">
+  <p class="callout-title">{label}</p>
+  <RichText doc={body} locale={locale} />
+</div>
