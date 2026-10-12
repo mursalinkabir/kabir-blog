@@ -4,6 +4,12 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## Unreleased
 
+### Changed (CMS hardening, 2026-10-12)
+
+- Removed the template's unused `/api/graphql` and `/api/graphql-playground` route files; GraphQL was already
+  disabled in the config and answered 404, now the routes are not in the production build at all. The CMS builds for
+  production with `next build` (about 30 s).
+
 ### Added (how the site stays up, 2026-10-12)
 
 - Post **How smkabir.com stays up: releases, pointers and a failover that is still on paper** (Building smkabir.com,
