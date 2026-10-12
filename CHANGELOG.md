@@ -4,6 +4,13 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## Unreleased
 
+### Added (how the site stays up, 2026-10-12)
+
+- Post **How smkabir.com stays up: releases, pointers and a failover that is still on paper** (Building smkabir.com,
+  part 2): the release and pointer model, what each failure does and whether that is built, the failover Worker design
+  (marked as not built), rollback, what has and has not been proven, and the Cloudflare challenge that blocked CI.
+- `docs/deploy.md`: "cannot prove locally" replaced by what the first real deploy proved.
+
 ### Changed (publish diagnostics, 2026-10-12)
 
 - `verify-live` reports what it actually saw instead of "nothing": the HTTP status and the start of the body, "HTTP

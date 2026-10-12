@@ -120,16 +120,19 @@ live release plus the previous one on disk.
 | Homelab down                          | the site is down until the failover Worker exists (Phase 9). Publishing also stops                                                         |
 | CI cannot reach the site              | the job fails loudly and `VERIFIED` does not move; the live site is unaffected                                                             |
 
-## What local testing cannot prove
+## What has been proven, and what has not (updated 2026-10-12)
 
-Be explicit about these when the first real deploy surprises you:
+The first real deploy happened on 2026-10-12. What used to be "cannot be proven locally" is now measured:
 
-- **R2 itself.** rclone's S3 backend with `provider = Cloudflare` and the env-based remote is configured from the
-  documented options, but every test here used a local directory as the bucket. First real run is the test.
-- **GitHub Actions.** The workflows are linted and the scripts they call are tested, but they have not run on GitHub.
-- **Cilium, Gateway API, Argo CD, the tunnel, the apex flattened CNAME.** Only the manifest schema was checked.
-- **trivy results** depend on the day's vulnerability database.
-- **NetworkPolicy** is a draft with two open questions (file header).
+| Item                                                    | Status                                                                                                                                                                                    |
+| ------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| R2 (rclone with `provider = Cloudflare`, scoped tokens) | Proven in production: upload, pointer moves, prune; pods read with a read-only token. A wrong secret gives `403 SignatureDoesNotMatch`.                                                   |
+| GitHub Actions (`content`, `release`)                   | Proven. Found and fixed: a test variable collided with the workflow's `IMAGE`; the vulnerability scan stopped a release (`tiff`); Cloudflare's bot challenge blocked the live-site check. |
+| Cilium Gateway, Argo CD, the tunnel, the apex           | Proven: Synced/Healthy in about two minutes, TLS verifies, HTTPRoute attached to `https-apex`.                                                                                            |
+| Trivy                                                   | Passed after the unused nginx modules were removed. The result depends on the day's database.                                                                                             |
+| **The failover Worker**                                 | **Not built.** A homelab-wide outage still takes the site down. See the post "How smkabir.com stays up".                                                                                  |
+| A real power cut or a sustained R2 outage               | Not exercised.                                                                                                                                                                            |
+| NetworkPolicy                                           | Still a draft with two open questions (file header).                                                                                                                                      |
 
 ## Troubleshooting
 
