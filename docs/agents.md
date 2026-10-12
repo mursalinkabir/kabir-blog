@@ -132,6 +132,48 @@ while Japanese is unfinished: `update_draft` with `language: ja, visible: false`
 | Switch one tool off for a key | Admin, **MCP > API keys**, the tool checkboxes.                                                   |
 | Review before it goes live    | Leave auto-publish off: the agent's drafts wait in the admin under Posts for a person to publish. |
 
+## After the site goes live: where the agent connects and what happens on publish
+
+The public site is static files served by nginx; **it has no MCP endpoint and never will**. The agent talks to the CMS,
+which is a separate application (Phase 4) at `https://cms.smkabir.com`, behind Cloudflare Access.
+
+```text
+Claude Code / Claude Desktop
+        | MCP over HTTPS   (Authorization: Bearer <agent key>  +  CF-Access-Client-Id/Secret <service token>)
+        v
+Cloudflare Access  -- service-token policy -->  cms.smkabir.com/api/mcp   (Payload CMS, in the cluster)
+                                                   |  rules, audit log, drafts, versions (Postgres)
+                                                   |  publish -> hook -> GitHub repository_dispatch
+                                                   v
+GitHub Actions "content": pull from the CMS -> privacy scan -> build -> upload release to R2 -> move LATEST
+                                                   v
+nginx pods (content-sync polls LATEST every 60 s)  ->  smkabir.com shows the new post
+```
+
+| Step                        | Typical time     | If it fails                                                                                         |
+| --------------------------- | ---------------- | --------------------------------------------------------------------------------------------------- |
+| Agent calls `publish_post`  | seconds          | refused with reasons; nothing changes                                                               |
+| Hook asks GitHub to rebuild | 20 s (debounced) | logged; the post is published in the CMS but the site is not rebuilt: re-run the `content` workflow |
+| Build and upload            | 2 to 4 minutes   | the previous release keeps serving; the job is red                                                  |
+| Pods pick up `LATEST`       | up to 60 s       | the previous release keeps serving                                                                  |
+
+So a post is live roughly **3 to 6 minutes** after the agent publishes. If the CMS is down the **site stays up**
+(it is static); only writing stops. If the site's pods are down the CMS and the agent still work.
+
+Connecting from your laptop to the production CMS (illustrative; use the same bridge, no client change):
+
+```sh
+# Claude Code, direct HTTP:
+claude mcp add --transport http kabir-blog-live https://cms.smkabir.com/api/mcp \
+  --header "Authorization: Bearer <agent key>" \
+  --header "CF-Access-Client-Id: <id>" --header "CF-Access-Client-Secret: <secret>"
+# Claude Desktop (stdio bridge reading these from its environment; the bridge sends the three headers):
+#   env: { "MCP_URL": "https://cms.smkabir.com/api/mcp", "MCP_KEY": "...", "CF_ACCESS_CLIENT_ID": "...", "CF_ACCESS_CLIENT_SECRET": "..." }
+```
+
+Run the local and the live server side by side under different names (`kabir-blog` and `kabir-blog-live`) so a draft
+never goes to the wrong place.
+
 ## Before pointing a remote agent at the live CMS (Phase 4 checklist, illustrative)
 
 1. CMS deployed behind Cloudflare Access; the agent connects with an Access **service token** header plus its MCP key.

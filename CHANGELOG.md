@@ -27,6 +27,9 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
   git-ignored `.dev-credentials`, never in a client config. `pnpm cms:install-claude` merges it into Claude Desktop's
   config with a backup; `scripts/check-bridge.mjs` tests it.
 
+- The bridge sends `CF-Access-Client-Id` / `CF-Access-Client-Secret` when set, for the production CMS behind Cloudflare
+  Access (4 checks). `docs/agents.md` describes the live path and its timings.
+
 ### Changed (AI agent)
 
 - "Logged in" now means a `users` account: the MCP plugin adds an auth collection, and a key used on the REST API

@@ -3,6 +3,9 @@
 // subprocesses and cannot send an Authorization header themselves (Claude Desktop; also fine for Claude Code).
 //
 //   MCP_URL   default http://localhost:3100/api/mcp
+//   CF_ACCESS_CLIENT_ID / CF_ACCESS_CLIENT_SECRET
+//             a Cloudflare Access service token. Set both when MCP_URL is the production CMS (https://cms.smkabir.com/
+//             api/mcp), which sits behind Access; they are sent as the CF-Access-Client-* headers.
 //   MCP_KEY   the agent's MCP key. If unset, AGENT_MCP_KEY is read from apps/cms/.dev-credentials (git-ignored,
 //             mode 0600), so the key never has to be written into a client's config file.
 //
@@ -28,6 +31,15 @@ function loadKey() {
 }
 
 const url = process.env.MCP_URL ?? 'http://localhost:3100/api/mcp';
+const accessId = process.env.CF_ACCESS_CLIENT_ID;
+const accessSecret = process.env.CF_ACCESS_CLIENT_SECRET;
+if (Boolean(accessId) !== Boolean(accessSecret)) {
+  log('set both CF_ACCESS_CLIENT_ID and CF_ACCESS_CLIENT_SECRET, or neither');
+  process.exit(1);
+}
+const headers = {
+  ...(accessId ? { 'CF-Access-Client-Id': accessId, 'CF-Access-Client-Secret': accessSecret } : {}),
+};
 const key = loadKey();
 if (!key) {
   log('no key: set MCP_KEY, or run `pnpm cms:agent-key` so AGENT_MCP_KEY is in apps/cms/.dev-credentials');
@@ -38,7 +50,9 @@ let upstream;
 async function connect() {
   if (upstream) return upstream;
   const client = new Client({ name: 'kabir-blog-bridge', version: '1.0.0' });
-  await client.connect(new StreamableHTTPClientTransport(new URL(url), { requestInit: { headers: { Authorization: `Bearer ${key}` } } }));
+  await client.connect(
+    new StreamableHTTPClientTransport(new URL(url), { requestInit: { headers: { ...headers, Authorization: `Bearer ${key}` } } }),
+  );
   upstream = client;
   return client;
 }
