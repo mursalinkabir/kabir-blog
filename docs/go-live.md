@@ -324,6 +324,25 @@ purged, old releases are pruned.
 | Two pods, one lost               | `kubectl -n blog delete pod <one>` while reloading    | no failed requests                                              |
 | Spread                           | `kubectl -n blog get pods -o wide`                    | two different nodes (needs the control-plane taint drift fixed) |
 
+## After it is live: Cloudflare settings worth changing (found on 2026-10-12)
+
+Checked on the live site with a real browser and `curl`. The site works; these are the loose ends, in order of value.
+
+| Setting (Cloudflare dashboard)                                   | What was seen                                                                                                                                                                                                                | Change                                                                                                                                                    |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SSL/TLS > Edge Certificates > **Always Use HTTPS**               | `http://smkabir.com/` answers `200` over plain HTTP, with no redirect.                                                                                                                                                       | Turn on.                                                                                                                                                  |
+| SSL/TLS > Edge Certificates > **HTTP Strict Transport Security** | No `strict-transport-security` header. docs/PLAN.md expects HSTS to be set at the edge.                                                                                                                                      | Enable, after Always Use HTTPS has worked for a while (start with 6 months, no preload).                                                                  |
+| Security > Bots > **JavaScript detections** (Bot Fight Mode)     | Cloudflare injects an inline script into every HTML page. The page CSP blocks it (one console error per view) and inside an embed it throws a cross-origin error. Harmless, but noisy and it means the detection never runs. | Turn JavaScript detections off, or accept the console noise.                                                                                              |
+| Rules > **Cache Rules**                                          | Assets are `cf-cache-status: HIT`; HTML is `DYNAMIC`, so every page view reaches the homelab and `s-maxage=86400` is ignored.                                                                                                | Rule: hostname `smkabir.com` > Eligible for cache, Edge TTL "use origin Cache-Control". The `content` workflow already purges everything after a publish. |
+| DNS and Rules > **Redirect Rules** (`www`)                       | `www.smkabir.com` does not resolve.                                                                                                                                                                                          | Part 8.                                                                                                                                                   |
+| Scrape Shield > **Email Address Obfuscation**                    | Cloudflare rewrites `hello@smkabir.com` links and injects `email-decode.min.js` (same origin, allowed).                                                                                                                      | Fine to leave on.                                                                                                                                         |
+
+Not a Cloudflare setting: the first `content` run waited ten minutes for a site that was not routed yet and failed at
+"Wait until the origin serves it". After the route exists, **Re-run failed jobs** on that run: the upload is "already
+uploaded and identical", `VERIFIED` is set, the cache is purged and old releases are pruned.
+
+---
+
 ## From now on
 
 | You want to                           | Do                                                                                                                                                    |
