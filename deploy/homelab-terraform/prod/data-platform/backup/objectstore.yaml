@@ -1,0 +1,34 @@
+# Backup destination for pg-main: Cloudflare R2, through the Barman Cloud plugin. Production-ready.
+# Copy to homelab-terraform/prod/data-platform/09-pg-main-objectstore.yaml (README.md in this folder has the order).
+#
+# One object store per cluster, as the plugin docs recommend. serverName is left empty, as they require.
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: pg-main-r2
+  namespace: platform
+  annotations:
+    argocd.argoproj.io/sync-wave: '0'
+spec:
+  # 30 days of recovery window: base backups older than the first one still needed for it are deleted after the next
+  # backup completes.
+  retentionPolicy: '30d'
+  configuration:
+    destinationPath: 's3://kabir-blog-pg-backups/'
+    endpointURL: 'https://a0c4c54453b5b6b904079f2718ce1cef.r2.cloudflarestorage.com'
+    s3Credentials:
+      accessKeyId: { name: pg-backups-r2, key: ACCESS_KEY_ID }
+      secretAccessKey: { name: pg-backups-r2, key: ACCESS_SECRET_KEY }
+    wal:
+      compression: gzip
+    data:
+      compression: gzip
+  instanceSidecarConfiguration:
+    # R2 is not AWS: newer AWS SDKs add checksum headers it rejects (the plugin docs name this workaround for
+    # S3-compatible stores that answer with an x-amz-content-sha256 error).
+    env:
+      - { name: AWS_REQUEST_CHECKSUM_CALCULATION, value: when_required }
+      - { name: AWS_RESPONSE_CHECKSUM_VALIDATION, value: when_required }
+    resources:
+      requests: { cpu: 20m, memory: 64Mi }
+      limits: { memory: 256Mi }

@@ -1,0 +1,18 @@
+# Daily base backup of pg-main at 03:15 UTC (CNPG cron has six fields; the first is seconds). Production-ready.
+# Copy to homelab-terraform/prod/data-platform/10-pg-main-scheduled-backup.yaml AFTER the Cluster carries the plugin.
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: pg-main-daily
+  namespace: platform
+  annotations:
+    argocd.argoproj.io/sync-wave: '2'
+spec:
+  schedule: '0 15 3 * * *'
+  immediate: true
+  backupOwnerReference: self
+  cluster:
+    name: pg-main
+  method: plugin
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io

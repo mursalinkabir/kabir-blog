@@ -4,6 +4,18 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## Unreleased
 
+## 0.2.0 - 2026-10-12
+
+The CMS becomes a deployable service: first release that also builds `kabir-blog-cms`. The site image
+(`kabir-blog-server`) is unchanged in behaviour; `0.1.2` keeps running until its tag is bumped.
+
+### Added (CMS deploy drafts, 2026-10-12)
+
+- `deploy/homelab-terraform/`: `prod/apps/cms/cms.yaml` (Deployment, Service, HTTPRoute, ConfigMap),
+  `seal-cms-core.sh` (generates and seals the role password, `PAYLOAD_SECRET` and `DATABASE_URL` once, offline),
+  `seal-cms-extras.sh` (media bucket and dispatch token), and `prod/data-platform/backup/` (pg-main to R2 through the
+  Barman Cloud plugin, with the order and what each step does to the running database).
+
 ### Added (CMS as a deployable service, 2026-10-12)
 
 - **Cloudflare Access verification in the CMS** (`apps/cms/src/proxy.ts`, `src/lib/accessJwt.ts`, `accessGate.ts`):

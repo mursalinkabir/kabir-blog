@@ -1,0 +1,143 @@
+# smkabir.com CMS (Payload). DRAFT: lives in kabir-blog/deploy/ until copied into homelab-terraform/prod/apps/cms/
+# by hand (the site repo holds no GitOps credentials, by design). Production-ready once the image tag exists.
+#
+# Deployed by the `apps` ApplicationSet into namespace `cms` (the folder name), which is why nothing below sets
+# metadata.namespace. The namespace enforces PodSecurity `restricted`.
+#
+# One replica, strategy Recreate: Payload applies its committed migrations when the first /readyz probe connects,
+# and there must never be two migrators. The CMS is internal, so a restart (~10 s) costs nothing visitors can see.
+#
+# It is not reachable until you add a tunnel route for cms.smkabir.com, and it refuses every request except /healthz
+# and /readyz until CF_ACCESS_TEAM_DOMAIN and CF_ACCESS_AUD below name the Access application. Create the Access
+# application first, then fill those two values, then add the route. (docs/deploy.md, "The CMS service".)
+#
+# A code release is a tag push in kabir-blog (v0.2.0 -> ghcr.io/mursalinkabir/kabir-blog-cms:0.2.0) plus a hand-made
+# bump of the `image:` line below. Rollback is `git revert` of that bump.
+#
+# Secrets (all SealedSecrets in this folder):
+#   cms-app     PAYLOAD_SECRET, DATABASE_URL            sealed by deploy/.../seal-cms-core.sh
+#   cms-media   S3_BUCKET, S3_ENDPOINT, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY      seal-cms-extras.sh (optional)
+#   cms-github  GITHUB_DISPATCH_TOKEN                   seal-cms-extras.sh (optional)
+# The optional two are `optional: true`: without cms-media the CMS keeps uploads on local disk (lost on restart),
+# without cms-github a publish saves but does not rebuild the site. Pods do not restart when a Secret changes: bump
+# the `secrets-rev` annotation on the pod template below in the same commit.
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cms-config
+  annotations:
+    argocd.argoproj.io/sync-wave: '-2'
+data:
+  CMS_PUBLIC_URL: 'https://cms.smkabir.com'
+  MEDIA_PUBLIC_URL: 'https://media.smkabir.com'
+  GITHUB_REPOSITORY: 'mursalinkabir/kabir-blog'
+  # The kill switch for agent publishing. Anything but exactly "1" means an agent can write drafts, not publish.
+  AGENT_AUTO_PUBLISH: '0'
+  # The Access application. Empty = the CMS answers 503 to everything but the probes (fails closed).
+  # TODO: team domain, e.g. your-team.cloudflareaccess.com
+  CF_ACCESS_TEAM_DOMAIN: ''
+  # TODO: the "cms" application's AUD tag (Zero Trust -> Access -> Applications -> cms -> Overview).
+  CF_ACCESS_AUD: ''
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cms
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels: { app: cms }
+  template:
+    metadata:
+      labels: { app: cms }
+      annotations:
+        # Bump when cms-media or cms-github change (pods do not restart on a Secret change).
+        kabir-blog/secrets-rev: '1'
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        # Numeric on purpose: the kubelet cannot prove a *named* user is non-root.
+        runAsUser: 10001
+        runAsGroup: 10001
+        seccompProfile: { type: RuntimeDefault }
+      # Not on prod-1: it is the smallest node and carries an etcd member and the control-plane VIP
+      # (see prod/data-platform/03-cnpg-cluster.yaml for the same reasoning).
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - { key: kubernetes.io/hostname, operator: NotIn, values: ['prod-1'] }
+      containers:
+        - name: cms
+          image: ghcr.io/mursalinkabir/kabir-blog-cms:0.2.0 # bump with each CMS release
+          ports:
+            - { name: http, containerPort: 3100 }
+          envFrom:
+            - configMapRef: { name: cms-config }
+            - secretRef: { name: cms-app }
+            - secretRef: { name: cms-media, optional: true }
+            - secretRef: { name: cms-github, optional: true }
+          # Liveness answers from the proxy, so a pod stuck waiting for the database is alive but not ready.
+          livenessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 20
+          # Readiness runs Payload's init (which applies migrations) and one database query.
+          readinessProbe:
+            httpGet: { path: /readyz, port: http }
+            periodSeconds: 10
+            failureThreshold: 3
+          # Migrations on first start can take longer than a steady-state probe window.
+          startupProbe:
+            httpGet: { path: /readyz, port: http }
+            periodSeconds: 5
+            failureThreshold: 36
+          resources:
+            requests: { cpu: 50m, memory: 384Mi }
+            limits: { memory: 1Gi } # no CPU limit: the admin should not be throttled
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ['ALL'] }
+          volumeMounts:
+            - { name: next-cache, mountPath: /app/apps/cms/.next/cache }
+            - { name: media, mountPath: /app/apps/cms/media }
+            - { name: tmp, mountPath: /tmp }
+      volumes:
+        - { name: next-cache, emptyDir: { sizeLimit: 256Mi } }
+        - { name: media, emptyDir: { sizeLimit: 512Mi } } # only used while cms-media is absent
+        - { name: tmp, emptyDir: { sizeLimit: 128Mi } }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cms
+spec:
+  type: ClusterIP
+  selector: { app: cms }
+  ports:
+    - { name: http, port: 80, targetPort: http, protocol: TCP }
+---
+# The cluster half of the hostname binding. The other half is the tunnel route, added only AFTER the Access
+# application exists. A wildcard subdomain uses the Gateway's `https-wildcard` listener (cms.smkabir.com is covered
+# by smkabir-wildcard-tls).
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: cms
+spec:
+  parentRefs:
+    - name: public
+      namespace: gateway
+      sectionName: https-wildcard
+  hostnames:
+    - 'cms.smkabir.com'
+  rules:
+    - matches:
+        - path: { type: PathPrefix, value: / }
+      backendRefs:
+        - { name: cms, port: 80 }

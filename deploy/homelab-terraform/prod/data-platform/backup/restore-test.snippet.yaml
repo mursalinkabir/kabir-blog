@@ -1,0 +1,21 @@
+# ILLUSTRATIVE: a scratch cluster that restores pg-main from R2, to prove the backups work (Phase 4 gate). Apply it
+# in a scratch namespace by hand, check the data, then delete it. It needs its own copy of the ObjectStore and the
+# pg-backups-r2 Secret in that namespace. Never leave it running: two clusters archiving to one path corrupt it, so
+# the recovered cluster must NOT have spec.plugins pointing at the same ObjectStore.
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: pg-restore-test
+spec:
+  instances: 1
+  storage: { size: 5Gi }
+  bootstrap:
+    recovery:
+      source: pg-main
+  externalClusters:
+    - name: pg-main
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: pg-main-r2
+          serverName: pg-main

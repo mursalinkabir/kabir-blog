@@ -1,0 +1,8 @@
+# ILLUSTRATIVE: the two lines that switch WAL archiving on. Add them under `spec:` of pg-main in
+# prod/data-platform/03-cnpg-cluster.yaml by hand, in their own commit. Adding a plugin adds a sidecar to every
+# instance, so the operator rolls the three instances one at a time and switches the primary over once.
+plugins:
+  - name: barman-cloud.cloudnative-pg.io
+    isWALArchiver: true
+    parameters:
+      barmanObjectName: pg-main-r2
