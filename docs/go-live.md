@@ -24,8 +24,12 @@ Because nothing is at the apex today, going live cannot break an existing site.
 1. **The content is sample content.** The site shows a "Sample content from fixtures" banner, a placeholder
    resume, and sample posts. Going live puts that on smkabir.com. If you do not want that yet, do Parts 1 to 7
    with the **dry-run** option in Part 6, and move to the apex when the real content exists.
-2. **`hello@smkabir.com` does not receive mail yet** (the zone has no MX; Email Routing comes from your probe plan).
-   It is printed in the footer icon and on the resume. The contact form is disabled until the contact Worker exists.
+2. **`hello@smkabir.com` receives mail** (done 2026-10-12 with Cloudflare Email Routing: three MX records at
+   `route1`-`route3.mx.cloudflare.net` and the SPF record `v=spf1 include:_spf.mx.cloudflare.net ~all`, both seen in
+   the live DNS). It forwards to a private inbox and the catch-all drops everything else. Routing is receive-only:
+   to reply **as** `hello@`, use Gmail "Send mail as" and merge `include:_spf.google.com` into the one SPF record.
+   The address is printed in the footer icon and on the resume. The contact form stays disabled until the contact
+   Worker exists (Phase 8).
 3. **No failover yet.** If the homelab is down the site is down (the R2 failover Worker is Phase 9).
 
 ---

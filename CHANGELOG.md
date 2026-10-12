@@ -4,6 +4,11 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## Unreleased
 
+### Changed (email, 2026-10-12)
+
+- `hello@smkabir.com` receives mail through Cloudflare Email Routing (MX and SPF verified in the live DNS). The guide
+  no longer lists it as a gap; the contact form is still disabled until the contact Worker exists.
+
 ### Added (TraderBuddy series, 2026-10-12)
 
 - Three posts, English only, as a series: **TraderBuddy in thirty seconds** (the motion film, unmodified, as an
