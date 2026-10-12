@@ -2,12 +2,14 @@ import type { CollectionConfig } from 'payload';
 import { readerReadsAdminWrites } from '../access';
 import { articleEditor } from '../blocks';
 import { lockSlugAfterPublish, validateSlug } from '../hooks/slug';
+import { dispatchAfterPublish } from '../hooks/dispatchContentPublished';
 
 export const Projects: CollectionConfig = {
   slug: 'projects',
   access: readerReadsAdminWrites,
   admin: { useAsTitle: 'title', defaultColumns: ['title', 'status', 'featured', 'order', '_status'] },
   versions: { drafts: { autosave: { interval: 2000 } }, maxPerDoc: 25 },
+  hooks: { afterChange: [dispatchAfterPublish] },
   fields: [
     { name: 'title', type: 'text', localized: true, required: true },
     { name: 'summary', type: 'text', localized: true, required: true, maxLength: 200 },

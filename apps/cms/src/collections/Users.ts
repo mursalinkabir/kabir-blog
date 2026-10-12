@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload';
-import { isAdmin, isLoggedIn } from '../access';
+import { isAdmin, isLoggedIn, roleOf } from '../access';
 
 /**
  * Admin users and read-only API users. There is no public registration: the first user is created through the admin
@@ -21,9 +21,9 @@ export const Users: CollectionConfig = {
     // Anyone signed in may see the user list (needed for relationships in the admin); only admins change it.
     read: isLoggedIn,
     create: isAdmin,
-    update: ({ req: { user } }) => (user?.role === 'admin' ? true : user ? { id: { equals: user.id } } : false),
+    update: ({ req: { user } }) => (roleOf(user) === 'admin' ? true : roleOf(user) && user ? { id: { equals: user.id } } : false),
     delete: isAdmin,
-    admin: ({ req: { user } }) => user?.role === 'admin',
+    admin: ({ req: { user } }) => roleOf(user) === 'admin',
   },
   fields: [
     { name: 'name', type: 'text' },
@@ -36,8 +36,12 @@ export const Users: CollectionConfig = {
       options: [
         { label: 'Admin (full access)', value: 'admin' },
         { label: 'Reader (read-only API key: builder, preview)', value: 'reader' },
+        {
+          label: 'Agent (MCP: writes its own posts; publishing is gated, see docs/agents.md)',
+          value: 'agent',
+        },
       ],
-      access: { update: ({ req: { user } }) => user?.role === 'admin' },
+      access: { update: ({ req: { user } }) => roleOf(user) === 'admin' },
     },
   ],
 };

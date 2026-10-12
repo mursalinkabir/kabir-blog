@@ -18,6 +18,16 @@ Stored in the `site-publish` **environment** unless noted, so only the publish j
 | `R2_SITE_BUCKET`                  | variable                                   | bucket name, default `kabir-blog-site`                                                                         | publish                           | n/a                   |
 | `SITE_URL`                        | variable                                   | where CI watches `version.json`; defaults to `https://smkabir.com`, set only for a dry run on another hostname | publish, rollback                 | n/a                   |
 
+Added with the agent path (docs/agents.md). Production only; none exists yet:
+
+| Name                                              | Kind                              | Scope                                                                 | Used by                |
+| ------------------------------------------------- | --------------------------------- | --------------------------------------------------------------------- | ---------------------- |
+| `PAYLOAD_BUILDER_KEY`                             | repository secret                 | the read-only builder user's API key                                  | `content.yml` CMS pull |
+| `CF_ACCESS_CLIENT_ID` / `CF_ACCESS_CLIENT_SECRET` | repository secret                 | Cloudflare Access service token for the CMS application               | `content.yml` CMS pull |
+| `CMS_URL`                                         | repository variable               | `https://cms.smkabir.com`; its presence switches CI to CMS content    | `content.yml`          |
+| `GITHUB_DISPATCH_TOKEN`                           | CMS runtime secret (SealedSecret) | fine-grained, `kabir-blog` only, Contents read and write              | CMS publish hook       |
+| agent MCP key                                     | the agent's own secret store      | one per agent, created with `pnpm cms:agent-key`; revoke in the admin | the AI agent           |
+
 Added by later phases (not used yet): `CF_ACCESS_CLIENT_ID`, `CF_ACCESS_CLIENT_SECRET` (CI service token for the
 CMS, Phase 3), `PAYLOAD_BUILDER_KEY` (read-only, Phase 3), the dispatch PAT (Phase 7).
 

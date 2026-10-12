@@ -4,6 +4,29 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## Unreleased
 
+### Added (AI agent writes and publishes, 2026-10-12)
+
+- MCP endpoint `/api/mcp` through `@payloadcms/plugin-mcp` 3.90.2 with nine custom tools: `site_guide`, `list_posts`,
+  `get_post`, `create_draft`, `update_draft`, `upload_image`, `check_post`, `publish_post`, `unpublish_post`. Only these
+  tools exist; no generic collection tools are enabled. English and Japanese.
+- Markdown dialect for the agent (callouts, terminal, d2, inline Japanese terms, media figures) converted to exactly
+  the Lexical nodes the renderer accepts, and back, so an agent can edit existing posts without destroying blocks it
+  cannot express (`[[keep:id]]`). Raw HTML, remote images and unsafe links are refused.
+- `agent` role with enforcement in CMS hooks, not only in the tools: own posts only, no embeds, no deletes, kill
+  switch `AGENT_AUTO_PUBLISH`, every visible language must pass the rules, privacy scan, daily limit, audit log
+  (`agent-log`). Migration `agent_publishing` (applies, rolls back, re-applies).
+- `dispatchContentPublished` hook: a publish asks GitHub Actions to rebuild (debounced), when `GITHUB_DISPATCH_TOKEN`
+  is set. `content.yml` builds from the CMS when the repository variable `CMS_URL` is set.
+- `pnpm cms:agent-key`, `pnpm cms:check-agent`; 34 CMS unit tests, 28 + 22 end-to-end checks over the real MCP
+  protocol, 14 checks of which copy is live. `docs/agents.md`.
+
+### Changed (AI agent)
+
+- "Logged in" now means a `users` account: the MCP plugin adds an auth collection, and a key used on the REST API
+  would otherwise have counted as logged in.
+- The privacy detector is split into `scripts/privacy-core.mjs` (importable by the CMS) and the CLI wrapper. It now
+  also finds a phone number at the end of a sentence, which it missed before.
+
 ### Changed (publish diagnostics, 2026-10-12)
 
 - `release.sh` runs a preflight before it uploads, moves a pointer, prunes or rolls back: if the bucket cannot be read

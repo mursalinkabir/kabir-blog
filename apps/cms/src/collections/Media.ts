@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { CollectionConfig } from 'payload';
-import { readerReadsAdminWrites } from '../access';
+import { agentMayCreate } from '../access';
 import { stripImageMetadata } from '../hooks/stripImageMetadata';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -21,7 +21,7 @@ const webp = (width: number) => ({
  */
 export const Media: CollectionConfig = {
   slug: 'media',
-  access: readerReadsAdminWrites,
+  access: agentMayCreate,
   admin: {
     useAsTitle: 'filename',
     defaultColumns: ['filename', 'alt', 'credit', 'updatedAt'],

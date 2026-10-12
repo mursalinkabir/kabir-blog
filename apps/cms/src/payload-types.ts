@@ -64,6 +64,7 @@ export type SupportedTimezones =
 export interface Config {
   auth: {
     users: UserAuthOperations;
+    'payload-mcp-api-keys': PayloadMcpApiKeyAuthOperations;
   };
   blocks: {};
   collections: {
@@ -74,6 +75,8 @@ export interface Config {
     posts: Post;
     projects: Project;
     pages: Page;
+    'agent-log': AgentLog;
+    'payload-mcp-api-keys': PayloadMcpApiKey;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -88,6 +91,8 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
+    'agent-log': AgentLogSelect<false> | AgentLogSelect<true>;
+    'payload-mcp-api-keys': PayloadMcpApiKeysSelect<false> | PayloadMcpApiKeysSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -113,13 +118,31 @@ export interface Config {
   widgets: {
     collections: CollectionsWidget;
   };
-  user: User;
+  user: User | PayloadMcpApiKey;
   jobs: {
     tasks: unknown;
     workflows: unknown;
   };
 }
 export interface UserAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
+}
+export interface PayloadMcpApiKeyAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -144,7 +167,7 @@ export interface UserAuthOperations {
 export interface User {
   id: number;
   name?: string | null;
-  role: 'admin' | 'reader';
+  role: 'admin' | 'reader' | 'agent';
   updatedAt: string;
   createdAt: string;
   enableAPIKey?: boolean | null;
@@ -275,6 +298,7 @@ export interface Post {
     name?: string | null;
     part?: number | null;
   };
+  createdByAgent?: boolean | null;
   toc?: boolean | null;
   /**
    * Each language is published on its own. A language with this off (or with a missing title, summary, text or image description) gets no page: it never falls back to another language.
@@ -380,6 +404,88 @@ export interface Page {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "agent-log".
+ */
+export interface AgentLog {
+  id: number;
+  tool: string;
+  outcome: 'ok' | 'refused' | 'error';
+  userId?: number | null;
+  postId?: number | null;
+  locale?: string | null;
+  summary?: string | null;
+  detail?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * API keys control which collections, resources, tools, and prompts MCP clients can access
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-mcp-api-keys".
+ */
+export interface PayloadMcpApiKey {
+  id: number;
+  /**
+   * The user that the API key is associated with.
+   */
+  user: number | User;
+  /**
+   * A useful label for the API key.
+   */
+  label?: string | null;
+  /**
+   * The purpose of the API key.
+   */
+  description?: string | null;
+  'payload-mcp-tool'?: {
+    /**
+     * Read this first: the rules, limits, categories, tags and the Markdown dialect for writing posts.
+     */
+    siteGuide?: boolean | null;
+    /**
+     * List posts (newest first) with their id, slug, status and which languages have a title. Use it to avoid duplicates.
+     */
+    listPosts?: boolean | null;
+    /**
+     * Read one post, in both languages, as Markdown you can edit and send back with update_draft.
+     */
+    getPost?: boolean | null;
+    /**
+     * Create a new post as a DRAFT in one language. It is not public. Add the other language later with update_draft.
+     */
+    createDraft?: boolean | null;
+    /**
+     * Change one language of a post you created (or add a language to it). Send only what changes; markdown replaces the whole text.
+     */
+    updateDraft?: boolean | null;
+    /**
+     * Upload one picture (JPEG, PNG, WebP or AVIF, up to 8 MB). Location data is stripped. Alt text in BOTH languages is required.
+     */
+    uploadImage?: boolean | null;
+    /**
+     * Dry run of the publish rules for one language. Returns the list of problems (empty = it may be published). Changes nothing.
+     */
+    checkPost?: boolean | null;
+    /**
+     * Publish one or both languages of a post you created. Every language that will be visible must pass the rules; if one fails, nothing changes and the reasons are returned.
+     */
+    publishPost?: boolean | null;
+    /**
+     * Take a post you created OFF the site entirely (both languages). It stays as a draft you can edit and publish again. Never blocked.
+     */
+    unpublishPost?: boolean | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  enableAPIKey?: boolean | null;
+  apiKey?: string | null;
+  apiKeyIndex?: string | null;
+  hasAPIKey?: boolean | null;
+  collection: 'payload-mcp-api-keys';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -429,12 +535,25 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'agent-log';
+        value: number | AgentLog;
+      } | null)
+    | ({
+        relationTo: 'payload-mcp-api-keys';
+        value: number | PayloadMcpApiKey;
       } | null);
   globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: number | User;
+      }
+    | {
+        relationTo: 'payload-mcp-api-keys';
+        value: number | PayloadMcpApiKey;
+      };
   updatedAt: string;
   createdAt: string;
 }
@@ -444,10 +563,15 @@ export interface PayloadLockedDocument {
  */
 export interface PayloadPreference {
   id: number;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: number | User;
+      }
+    | {
+        relationTo: 'payload-mcp-api-keys';
+        value: number | PayloadMcpApiKey;
+      };
   key?: string | null;
   value?:
     | {
@@ -594,6 +718,7 @@ export interface PostsSelect<T extends boolean = true> {
         name?: T;
         part?: T;
       };
+  createdByAgent?: T;
   toc?: T;
   publishedIn?: T;
   content?: T;
@@ -643,6 +768,49 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "agent-log_select".
+ */
+export interface AgentLogSelect<T extends boolean = true> {
+  tool?: T;
+  outcome?: T;
+  userId?: T;
+  postId?: T;
+  locale?: T;
+  summary?: T;
+  detail?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-mcp-api-keys_select".
+ */
+export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
+  user?: T;
+  label?: T;
+  description?: T;
+  'payload-mcp-tool'?:
+    | T
+    | {
+        siteGuide?: T;
+        listPosts?: T;
+        getPost?: T;
+        createDraft?: T;
+        updateDraft?: T;
+        uploadImage?: T;
+        checkPost?: T;
+        publishPost?: T;
+        unpublishPost?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  enableAPIKey?: T;
+  apiKey?: T;
+  apiKeyIndex?: T;
+  hasAPIKey?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

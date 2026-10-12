@@ -5,6 +5,7 @@ import { buildConfig } from 'payload';
 import { postgresAdapter } from '@payloadcms/db-postgres';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { s3Storage } from '@payloadcms/storage-s3';
+import { mcpPlugin } from '@payloadcms/plugin-mcp';
 
 import { Users } from './collections/Users';
 import { Media } from './collections/Media';
@@ -13,6 +14,8 @@ import { Tags } from './collections/Tags';
 import { Posts } from './collections/Posts';
 import { Projects } from './collections/Projects';
 import { Pages } from './collections/Pages';
+import { AgentLog } from './collections/AgentLog';
+import { agentTools } from './mcp/tools';
 import { NowGlobal, ResumeGlobal, SiteGlobal, UsesGlobal } from './globals';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -25,7 +28,7 @@ export default buildConfig({
     importMap: { baseDir: path.resolve(dirname) },
     meta: { titleSuffix: ' · smkabir.com CMS' },
   },
-  collections: [Users, Media, Categories, Tags, Posts, Projects, Pages],
+  collections: [Users, Media, Categories, Tags, Posts, Projects, Pages, AgentLog],
   globals: [SiteGlobal, NowGlobal, UsesGlobal, ResumeGlobal],
   editor: lexicalEditor(),
 
@@ -57,25 +60,31 @@ export default buildConfig({
   sharp,
 
   // Phase 4: media goes to R2 and is served from media.smkabir.com, never through the tunnel. Unset locally.
-  plugins: useR2
-    ? [
-        s3Storage({
-          collections: {
-            media: {
-              generateFileURL: ({ filename, prefix }) => `${process.env.MEDIA_PUBLIC_URL}/${prefix ? `${prefix}/` : ''}${filename}`,
+  plugins: [
+    // The MCP endpoint (/api/mcp) an AI agent writes and publishes through. Only the custom tools in src/mcp are
+    // exposed: no generic collection tools are enabled, so there is no way to reach data the tools do not offer.
+    // Keys are created per agent user with `pnpm cms:agent-key`; each key can switch single tools off in the admin.
+    mcpPlugin({ collections: {}, userCollection: 'users', mcp: { tools: agentTools } }),
+    ...(useR2
+      ? [
+          s3Storage({
+            collections: {
+              media: {
+                generateFileURL: ({ filename, prefix }) => `${process.env.MEDIA_PUBLIC_URL}/${prefix ? `${prefix}/` : ''}${filename}`,
+              },
             },
-          },
-          bucket: process.env.S3_BUCKET as string,
-          config: {
-            region: 'auto',
-            endpoint: process.env.S3_ENDPOINT,
-            credentials: {
-              accessKeyId: process.env.S3_ACCESS_KEY_ID as string,
-              secretAccessKey: process.env.S3_SECRET_ACCESS_KEY as string,
+            bucket: process.env.S3_BUCKET as string,
+            config: {
+              region: 'auto',
+              endpoint: process.env.S3_ENDPOINT,
+              credentials: {
+                accessKeyId: process.env.S3_ACCESS_KEY_ID as string,
+                secretAccessKey: process.env.S3_SECRET_ACCESS_KEY as string,
+              },
+              forcePathStyle: true,
             },
-            forcePathStyle: true,
-          },
-        }),
-      ]
-    : [],
+          }),
+        ]
+      : []),
+  ],
 });

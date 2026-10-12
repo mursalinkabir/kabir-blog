@@ -11,7 +11,7 @@
     "check": "pnpm --filter @smkabir/site check",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "pnpm --filter @smkabir/site test",
+    "test": "pnpm --filter @smkabir/site --filter @smkabir/cms test",
     "privacy": "node scripts/privacy-scan.mjs",
     "server:test": "bash apps/server/tests/run.sh",
     "server:headers": "node apps/server/scripts/render-headers.mjs",
@@ -19,7 +19,9 @@
     "cms:migrate": "pnpm --filter @smkabir/cms migrate",
     "cms:seed": "pnpm --filter @smkabir/cms seed",
     "cms:check-privacy": "pnpm --filter @smkabir/cms check:privacy",
-    "cms:pull": "pnpm --filter @smkabir/site cms:pull"
+    "cms:pull": "pnpm --filter @smkabir/site cms:pull",
+    "cms:agent-key": "pnpm --filter @smkabir/cms agent-key",
+    "cms:check-agent": "pnpm --filter @smkabir/cms check:agent"
   },
   "devDependencies": {
     "prettier": "^3.6.0",

@@ -12,24 +12,32 @@
     "migrate:create": "payload migrate:create",
     "seed": "payload run src/scripts/seed.ts",
     "typecheck": "tsc --noEmit",
-    "check:privacy": "payload run src/scripts/check-privacy.ts"
+    "check:privacy": "payload run src/scripts/check-privacy.ts",
+    "test": "vitest run",
+    "agent-key": "payload run src/scripts/create-agent-key.ts",
+    "check:agent": "node scripts/check-agent.mjs on && node scripts/check-agent-semantics.mjs"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.90.2",
     "@payloadcms/next": "3.90.2",
+    "@payloadcms/plugin-mcp": "3.90.2",
     "@payloadcms/richtext-lexical": "3.90.2",
     "@payloadcms/storage-s3": "3.90.2",
     "graphql": "^16.14.2",
+    "marked": "18.1.0",
     "next": "16.4.0",
     "payload": "3.90.2",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "sharp": "^0.35.5"
+    "sharp": "^0.35.5",
+    "zod": "3.25.76"
   },
   "devDependencies": {
+    "@modelcontextprotocol/sdk": "1.30.0",
     "@types/node": "^24.19.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "vitest": "4.1.11"
   }
 }

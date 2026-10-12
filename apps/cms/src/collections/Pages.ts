@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 import { readerReadsAdminWrites } from '../access';
 import { articleEditor } from '../blocks';
 import { lockSlugAfterPublish, validateSlug } from '../hooks/slug';
+import { dispatchAfterPublish } from '../hooks/dispatchContentPublished';
 
 /** Standalone pages such as About. A page exists in a language only where its title and text exist. */
 export const Pages: CollectionConfig = {
@@ -9,6 +10,7 @@ export const Pages: CollectionConfig = {
   access: readerReadsAdminWrites,
   admin: { useAsTitle: 'title', defaultColumns: ['title', 'slug', '_status', 'updatedAt'] },
   versions: { drafts: { autosave: { interval: 2000 } }, maxPerDoc: 25 },
+  hooks: { afterChange: [dispatchAfterPublish] },
   fields: [
     { name: 'title', type: 'text', localized: true, required: true },
     {

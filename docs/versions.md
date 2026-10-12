@@ -125,6 +125,32 @@ The plan text is left as written; this section is the record of what differs.
 - First real CI run on GitHub: `build` green (format, check, 70 tests, privacy scan, build, dist gates, with the
   pinned actions and d2), `publish` red at "Upload the release" because the R2 secrets were not set yet.
 
+## AI agent publishing (verified 2026-10-12)
+
+| Item                     | Pin / fact                                                                                     |
+| ------------------------ | ---------------------------------------------------------------------------------------------- |
+| `@payloadcms/plugin-mcp` | 3.90.2 (peer `payload: 3.90.2`); depends on `@modelcontextprotocol/sdk` 1.30.0 and `zod` ^3.25 |
+| `marked`                 | 18.1.0 (Markdown lexer for the agent dialect)                                                  |
+| `zod`                    | 3.25.76 (v3 on purpose: the plugin's tool types are Zod 3)                                     |
+
+Found by running it, not by reading the docs:
+
+- **Auth:** a Bearer key is HMAC-hashed with `PAYLOAD_SECRET` and looked up in `payload-mcp-api-keys`; the key's
+  `user` becomes `req.user` in every tool. A key's `user` cannot be set through the API (field access), so
+  `create-agent-key.ts` sets it with `overrideAccess`.
+- **The key collection is itself an auth collection**, so `req.user` can be a key document. `isLoggedIn` therefore
+  requires `collection === 'users'`; otherwise the key worked as a REST login and could list users.
+- **A foreign key from the audit log to posts made publishing hang**, with nothing in the log: the audit insert (its
+  own connection) waited on the save that holds the post row, which waited for the hook. Seen in `pg_stat_activity` as
+  `Lock/transactionid`. The log stores plain ids.
+- **Any non-draft save promotes the whole latest draft in every language.** A per-language "unpublish" therefore wrote
+  pending edits into the live copy. Unpublish is whole-post, and the publish gate judges every visible language.
+- **Generated `migrate:down` was broken** for the new tables (`DROP TABLE ... CASCADE` then `DROP CONSTRAINT`): fixed
+  with `IF EXISTS` and proven by down + up.
+- **`payload run` and the Next dev server do not hot-reload hook changes reliably**; restart after editing a hook.
+- **The phone-number detector missed a number ending a sentence** (`...5678.`), found by the privacy end-to-end
+  check; fixed for the repo scan, the build gate and the CMS.
+
 ## Still to verify (next phases)
 
 - **D2 on CMS-authored source:** diagram source now comes from the CMS, written only by admins behind Access. D2

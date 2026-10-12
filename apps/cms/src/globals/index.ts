@@ -1,8 +1,10 @@
 import type { GlobalConfig } from 'payload';
 import { isAdmin, isLoggedIn } from '../access';
 import { articleEditor } from '../blocks';
+import { dispatchAfterGlobalChange } from '../hooks/dispatchContentPublished';
 
 const access = { read: isLoggedIn, update: isAdmin };
+const hooks = { afterChange: [dispatchAfterGlobalChange] };
 
 const NAV_KEYS = ['home', 'tech', 'finance', 'japan', 'about', 'contact', 'projects', 'resume', 'now', 'uses', 'categories', 'tags'];
 const navOptions = NAV_KEYS.map((value) => ({ label: value, value }));
@@ -10,6 +12,7 @@ const navOptions = NAV_KEYS.map((value) => ({ label: value, value }));
 export const SiteGlobal: GlobalConfig = {
   slug: 'site',
   access,
+  hooks,
   admin: { description: 'Name, tagline, contact address, links and the navigation.' },
   fields: [
     { name: 'name', type: 'text', localized: true, required: true },
@@ -33,6 +36,7 @@ export const NowGlobal: GlobalConfig = {
   slug: 'now',
   label: 'Now',
   access,
+  hooks,
   fields: [{ name: 'content', type: 'richText', localized: true, editor: articleEditor }],
 };
 
@@ -40,6 +44,7 @@ export const UsesGlobal: GlobalConfig = {
   slug: 'uses',
   label: 'Uses',
   access,
+  hooks,
   fields: [
     {
       name: 'groups',
@@ -66,6 +71,7 @@ export const ResumeGlobal: GlobalConfig = {
   slug: 'resume',
   label: 'Resume',
   access,
+  hooks,
   fields: [
     {
       name: 'basics',

@@ -57,6 +57,17 @@ jobs:
       - run: pnpm check
       - run: pnpm test
 
+      # Only when a CMS is reachable from GitHub (Phase 4: repository variable CMS_URL plus the three secrets below).
+      # Without CMS_URL the build uses the committed fixtures, exactly as before.
+      - name: Pull content from the CMS
+        if: ${{ vars.CMS_URL != '' }}
+        env:
+          CMS_URL: ${{ vars.CMS_URL }}
+          CMS_API_KEY: ${{ secrets.PAYLOAD_BUILDER_KEY }}
+          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+        run: pnpm cms:pull
+
       - name: Privacy scan (GPS in images, personal data, denylist)
         env:
           PRIVACY_DENYLIST: ${{ secrets.PRIVACY_DENYLIST }}
@@ -66,6 +77,8 @@ jobs:
       - name: Build (i18n check, astro build, dist gates, Pagefind)
         env:
           BUILD_ID: ${{ steps.id.outputs.build_id }}
+          # `cms` fails the build if the pull produced nothing, so a CMS outage can never publish sample content.
+          SITE_CONTENT: ${{ vars.CMS_URL != '' && 'cms' || '' }}
         run: pnpm build
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

@@ -100,6 +100,10 @@ cd apps/site && node scripts/pull-cms.mjs --raw tests/fixtures/payload-raw.json
 - **No blurhash.** Not needed for a static site with fixed-aspect covers.
 - **Previews, publish hooks and the CMS image** are Phase 4 and Phase 7.
 
+## Writing through an AI agent
+
+An agent can write and publish posts over MCP, with the rules enforced inside the CMS. See [agents.md](agents.md).
+
 ## HTML embeds: author HTML with JavaScript
 
 The editor has an **HTML embed** block for a self-contained piece of HTML, CSS and JavaScript: an animation, a

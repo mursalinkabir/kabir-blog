@@ -1,4 +1,4 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres';
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
@@ -733,7 +733,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "resume_languages_order_idx" ON "resume_languages" USING btree ("_order");
   CREATE INDEX "resume_languages_parent_id_idx" ON "resume_languages" USING btree ("_parent_id");
   CREATE INDEX "resume_certificates_order_idx" ON "resume_certificates" USING btree ("_order");
-  CREATE INDEX "resume_certificates_parent_id_idx" ON "resume_certificates" USING btree ("_parent_id");`)
+  CREATE INDEX "resume_certificates_parent_id_idx" ON "resume_certificates" USING btree ("_parent_id");`);
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
@@ -806,5 +806,5 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TYPE "public"."enum__pages_v_version_status";
   DROP TYPE "public"."enum__pages_v_published_locale";
   DROP TYPE "public"."enum_site_nav";
-  DROP TYPE "public"."enum_site_nav_more";`)
+  DROP TYPE "public"."enum_site_nav_more";`);
 }

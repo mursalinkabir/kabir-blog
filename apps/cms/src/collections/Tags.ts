@@ -1,10 +1,10 @@
 import type { CollectionConfig } from 'payload';
-import { readerReadsAdminWrites } from '../access';
+import { agentMayCreate } from '../access';
 import { validateSlug } from '../hooks/slug';
 
 export const Tags: CollectionConfig = {
   slug: 'tags',
-  access: readerReadsAdminWrites,
+  access: agentMayCreate,
   admin: { useAsTitle: 'slug', defaultColumns: ['slug', 'name'] },
   fields: [
     { name: 'slug', type: 'text', required: true, unique: true, validate: validateSlug },

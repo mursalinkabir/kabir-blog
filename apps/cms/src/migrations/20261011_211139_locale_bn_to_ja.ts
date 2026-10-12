@@ -1,4 +1,4 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres';
 
 /*
  * The second language changed from Bengali (bn) to Japanese (ja).
@@ -23,22 +23,22 @@ const LOCALE_TABLES = [
   'now_locales',
   'uses_groups_items_locales',
   'uses_groups_locales',
-]
+];
 
-const VERSION_TABLES = ['_posts_v', '_projects_v', '_pages_v']
+const VERSION_TABLES = ['_posts_v', '_projects_v', '_pages_v'];
 
 export async function up({ db }: MigrateUpArgs): Promise<void> {
   for (const table of LOCALE_TABLES) {
-    await db.execute(sql.raw(`DELETE FROM "${table}" WHERE "_locale" = 'bn';`))
+    await db.execute(sql.raw(`DELETE FROM "${table}" WHERE "_locale" = 'bn';`));
   }
   for (const table of VERSION_TABLES) {
-    await db.execute(sql.raw(`UPDATE "${table}" SET "published_locale" = NULL WHERE "published_locale" = 'bn';`))
+    await db.execute(sql.raw(`UPDATE "${table}" SET "published_locale" = NULL WHERE "published_locale" = 'bn';`));
   }
   await db.execute(sql`
     ALTER TYPE "public"."_locales" RENAME VALUE 'bn' TO 'ja';
     ALTER TYPE "public"."enum__posts_v_published_locale" RENAME VALUE 'bn' TO 'ja';
     ALTER TYPE "public"."enum__projects_v_published_locale" RENAME VALUE 'bn' TO 'ja';
-    ALTER TYPE "public"."enum__pages_v_published_locale" RENAME VALUE 'bn' TO 'ja';`)
+    ALTER TYPE "public"."enum__pages_v_published_locale" RENAME VALUE 'bn' TO 'ja';`);
 }
 
 export async function down({ db }: MigrateDownArgs): Promise<void> {
@@ -46,5 +46,5 @@ export async function down({ db }: MigrateDownArgs): Promise<void> {
     ALTER TYPE "public"."_locales" RENAME VALUE 'ja' TO 'bn';
     ALTER TYPE "public"."enum__posts_v_published_locale" RENAME VALUE 'ja' TO 'bn';
     ALTER TYPE "public"."enum__projects_v_published_locale" RENAME VALUE 'ja' TO 'bn';
-    ALTER TYPE "public"."enum__pages_v_published_locale" RENAME VALUE 'ja' TO 'bn';`)
+    ALTER TYPE "public"."enum__pages_v_published_locale" RENAME VALUE 'ja' TO 'bn';`);
 }

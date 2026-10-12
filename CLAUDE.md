@@ -33,6 +33,9 @@
 - CMS: `docker compose up -d postgres` · `pnpm cms:migrate` · `pnpm cms:seed` · `pnpm cms:dev` (:3100) ·
   `pnpm cms:pull` · `pnpm cms:check-privacy`. Release builds set `SITE_CONTENT=cms`. See docs/cms.md.
 - `payload run <script>` exits when the module loads: scripts need top-level `await`.
+- AI agent publishing (MCP): `pnpm cms:agent-key`, `pnpm cms:check-agent`; rules and operation in docs/agents.md.
+  The agent's limits are enforced in CMS hooks (`apps/cms/src/hooks/agentGuards.ts`), never only in the tools. The
+  audit log must not use relationships to posts or users (a foreign key made the publish hang).
 - `pnpm server:test` (builds the server image and tests the sidecar and nginx; needs Docker) · `pnpm server:headers` (re-render nginx headers after editing `security-headers.json`)
 
 ## Code conventions

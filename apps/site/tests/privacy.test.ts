@@ -38,6 +38,9 @@ describe('privacy scan', () => {
     expect(scanText('someone@gmail.com')).toEqual(['email someone@gmail.com']);
     expect(scanText('git remote add origin git@github.com:owner/repo.git')).toEqual([]);
     expect(scanText('call 090-1234-5678')).toHaveLength(1);
+    expect(scanText('call 090-1234-5678.')).toHaveLength(1); // at the end of a sentence
+    expect(scanText('Phone: +81 90 1234 5678, then')).toHaveLength(1);
+    expect(scanText('version 1.20.3.4 and 2026-10-12.')).toEqual([]);
     expect(scanText('viewBox="0 0 1600 900"')).toHaveLength(1); // prose rule: grouped digits look like a phone number
     expect(scanText('viewBox="0 0 1600 900" 090-1234-5678', [], { phones: false })).toEqual([]); // embeds: skipped
     expect(scanText('a@gmail.com 〒160-0022', [], { phones: false })).toHaveLength(2); // but the rest still applies

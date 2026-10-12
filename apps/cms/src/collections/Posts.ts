@@ -1,18 +1,21 @@
 import type { CollectionConfig } from 'payload';
-import { readerReadsAdminWrites } from '../access';
+import { isAdminField, postAccess } from '../access';
+import { agentAfterChange, agentBeforeChange } from '../hooks/agentGuards';
+import { dispatchAfterPublish } from '../hooks/dispatchContentPublished';
 import { articleEditor } from '../blocks';
 import { lockSlugAfterPublish, validateSlug } from '../hooks/slug';
 import { requiredRichTextWhenPublished, requiredTextWhenPublished } from '../hooks/requiredWhenPublished';
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
-  access: readerReadsAdminWrites,
+  access: postAccess,
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'category', 'pubDate', '_status', 'updatedAt'],
     description: 'Save keeps a draft. Publish makes it public (and, once wired in Phase 7, rebuilds the site).',
   },
   versions: { drafts: { autosave: { interval: 2000 } }, maxPerDoc: 25 },
+  hooks: { beforeChange: [agentBeforeChange], afterChange: [agentAfterChange, dispatchAfterPublish] },
   fields: [
     { name: 'title', type: 'text', localized: true, validate: requiredTextWhenPublished('Title') },
     {
@@ -51,6 +54,15 @@ export const Posts: CollectionConfig = {
         { name: 'name', type: 'text' },
         { name: 'part', type: 'number', min: 1 },
       ],
+    },
+    {
+      name: 'createdByAgent',
+      type: 'checkbox',
+      defaultValue: false,
+      index: true,
+      // Set by the CMS when an agent key creates the post. An agent may later change only posts where this is true.
+      admin: { hidden: true },
+      access: { create: isAdminField, update: isAdminField },
     },
     { name: 'toc', type: 'checkbox', defaultValue: true, label: 'Show a contents list' },
     {
