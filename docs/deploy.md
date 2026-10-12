@@ -171,6 +171,21 @@ Runtime configuration (production-ready; names only, values live in SealedSecret
 | `CF_ACCESS_TEAM_DOMAIN`, `CF_ACCESS_AUD`       | ConfigMap    | the Access application; **empty = the CMS refuses everything**         |
 | `CMS_PUBLIC_URL`, `AGENT_AUTO_PUBLISH`         | ConfigMap    | `https://cms.smkabir.com`; `0` until you decide agents may publish     |
 
+### Your steps for the CMS (Cloudflare dashboard, then two scripts)
+
+1. **R2 → Create bucket** `kabir-blog-media` (public access: attach the custom domain `media.smkabir.com`).
+2. **R2 → Create bucket** `kabir-blog-pg-backups` (no public access, no custom domain).
+3. **R2 → Manage R2 API tokens → Create API token**, twice, each **Object Read & Write**, each scoped to **one** bucket
+   (`kabir-blog-media`, then `kabir-blog-pg-backups`). Copy each Access Key ID and Secret Access Key when shown.
+4. Run `bash deploy/homelab-terraform/seal-cms-extras.sh` (media token, optional GitHub dispatch token) and
+   `bash deploy/homelab-terraform/prod/data-platform/backup/seal-pg-backups.sh` (backups token). Both prompt with
+   hidden input and write sealed files only.
+5. **Zero Trust → Access → Applications → Add → Self-hosted**, domain `cms.smkabir.com`; policy Allow = your email,
+   plus a Service Auth policy for the service token the CI and the agent bridge use. Copy the team domain and the
+   application's AUD tag into `CF_ACCESS_TEAM_DOMAIN` and `CF_ACCESS_AUD` in `cms.yaml`.
+6. Only then: **Networks → Tunnels → `k8s-homelab` → Published application routes** for `cms.smkabir.com`
+   (service `https://cilium-gateway-public.gateway.svc.cluster.local:443`, origin server name `cms.smkabir.com`).
+
 Order that keeps the admin from ever being public: DB role and CMS Deployment (no route) → Access application
 "cms" → set `CF_ACCESS_TEAM_DOMAIN` and `CF_ACCESS_AUD` → tunnel route for `cms.smkabir.com` → verify with and
 without Access (`docs/PLAN.md`, Phase 4 gate).

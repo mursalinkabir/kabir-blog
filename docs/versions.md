@@ -95,6 +95,9 @@ Verified by running it, not by reading docs:
 - **`prodMigrations` runs on connect, in production only** (`@payloadcms/db-postgres` `connect.js`: `NODE_ENV ===
 'production' && this.prodMigrations`). Proven by starting the image against an empty database: four migrations
   applied, `/readyz` answered 200 after about 4 s, a second start was a no-op.
+- **The CMS runtime image carries no package manager and no esbuild binary.** The v0.2.0 trivy gate failed on npm's
+  bundled dependencies and on the `esbuild` Go binary traced into the standalone output; both are removed in the
+  runtime stage and the image still migrates and serves `/readyz` (checked on an empty database).
 - **Next 16 renamed middleware to `proxy.ts`**, Node runtime by default; the CMS access gate is `src/proxy.ts`.
 - **The standalone build needs `outputFileTracingRoot` at the workspace root** because the publish gate imports
   `scripts/privacy-core.mjs` from outside the app; the image build also copies `scripts/privacy-scan.mjs` because

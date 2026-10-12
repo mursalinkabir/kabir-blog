@@ -4,6 +4,18 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## Unreleased
 
+## 0.2.1 - 2026-10-12
+
+### Fixed
+
+- The 0.2.0 CMS image was stopped by the trivy gate and never pushed (the server image `0.2.0` was). Two sources, both
+  runtime-irrelevant: npm's bundled copies of `brace-expansion`, `tar`, `undici` and `ip-address` in the Node base
+  image, and the `esbuild` Go binary that file tracing pulled in through build tooling (25 Go standard-library
+  findings). The runtime stage now removes npm, npx, corepack and yarn, and deletes the esbuild binary. Re-scanned:
+  0 HIGH/CRITICAL; the smoke test and the empty-database startup (four migrations, `/readyz` 200) pass on the slimmed
+  image.
+- `deploy/homelab-terraform/prod/apps/cms/cms.yaml` uses image tag `0.2.1`; there is no `kabir-blog-cms:0.2.0`.
+
 ## 0.2.0 - 2026-10-12
 
 The CMS becomes a deployable service: first release that also builds `kabir-blog-cms`. The site image

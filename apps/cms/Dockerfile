@@ -40,6 +40,14 @@ COPY --from=build --chown=10001:10001 /repo/apps/cms/.next/static ./apps/cms/.ne
 RUN mkdir -p /app/apps/cms/.next/cache /app/apps/cms/media \
  && chown -R 10001:10001 /app/apps/cms/.next/cache /app/apps/cms/media
 
+# Nothing at runtime installs packages, so the package managers in the base image go: npm bundles its own copies of
+# brace-expansion, tar, undici and ip-address, which is where the v0.2.0 trivy gate stopped. Also drop the esbuild
+# *binary* that file tracing pulled in through the build tooling (a Go program, with Go's standard-library findings);
+# Payload does not call it at runtime, which the end-to-end check in docs/versions.md proves.
+RUN rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack /opt/yarn-v* \
+          /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack /usr/local/bin/yarn /usr/local/bin/yarnpkg \
+ && find /app/node_modules -type f -path '*/@esbuild/*/bin/esbuild' -delete
+
 # Numeric: the kubelet cannot prove a *named* user is non-root.
 USER 10001:10001
 EXPOSE 3100

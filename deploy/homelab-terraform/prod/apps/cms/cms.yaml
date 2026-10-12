@@ -11,7 +11,7 @@
 # and /readyz until CF_ACCESS_TEAM_DOMAIN and CF_ACCESS_AUD below name the Access application. Create the Access
 # application first, then fill those two values, then add the route. (docs/deploy.md, "The CMS service".)
 #
-# A code release is a tag push in kabir-blog (v0.2.0 -> ghcr.io/mursalinkabir/kabir-blog-cms:0.2.0) plus a hand-made
+# A code release is a tag push in kabir-blog (v0.2.1 -> ghcr.io/mursalinkabir/kabir-blog-cms:0.2.1) plus a hand-made
 # bump of the `image:` line below. Rollback is `git revert` of that bump.
 #
 # Secrets (all SealedSecrets in this folder):
@@ -74,7 +74,7 @@ spec:
                   - { key: kubernetes.io/hostname, operator: NotIn, values: ['prod-1'] }
       containers:
         - name: cms
-          image: ghcr.io/mursalinkabir/kabir-blog-cms:0.2.0 # bump with each CMS release
+          image: ghcr.io/mursalinkabir/kabir-blog-cms:0.2.1 # bump with each CMS release
           ports:
             - { name: http, containerPort: 3100 }
           envFrom:
