@@ -81,6 +81,20 @@ t "succeeds when the origin reports the id" 0 $R verify-live http://127.0.0.1:80
 t "times out when it never does" nonzero $R verify-live http://127.0.0.1:8099/version.json other-1 10
 kill $ORIGIN 2>/dev/null
 
+# what the failure message says: a block page and a non-JSON page are told apart from each other
+( while :; do printf 'HTTP/1.0 403 Forbidden\r\nContent-Type: text/html\r\n\r\n<html><title>Just a moment...</title>' | nc -l -p 8098 >/dev/null 2>&1; done ) &
+BLOCKED=$!
+( while :; do printf 'HTTP/1.0 200 OK\r\nContent-Type: text/html\r\n\r\n<html>Not the version file</html>' | nc -l -p 8097 >/dev/null 2>&1; done ) &
+HTML=$!
+sleep 1
+out=$(sh /ci/release.sh verify-live http://127.0.0.1:8098/version.json b500-500 10 2>&1); rc=$?
+case "$out" in *"Last response:"*"403"*) pass=$((pass + 1)); echo "  PASS  a blocked request is reported as such (403), not as 'nothing'" ;; *) fail=$((fail + 1)); echo "  FAIL  a 403 is not reported: $out" ;; esac
+out=$(sh /ci/release.sh verify-live http://127.0.0.1:8097/version.json b500-500 10 2>&1)
+case "$out" in *"not a version document"*) pass=$((pass + 1)); echo "  PASS  an HTML page where the version file should be is called out" ;; *) fail=$((fail + 1)); echo "  FAIL  a non-JSON page is not called out: $out" ;; esac
+out=$(sh /ci/release.sh verify-live http://127.0.0.1:9/version.json b500-500 10 2>&1)
+case "$out" in *"no response"*) pass=$((pass + 1)); echo "  PASS  a dead origin is reported as no response" ;; *) fail=$((fail + 1)); echo "  FAIL  a dead origin is not reported: $out" ;; esac
+kill $BLOCKED $HTML 2>/dev/null
+
 echo
 echo "release.sh tests: $pass passed, $fail failed"
 [ "$fail" -eq 0 ]

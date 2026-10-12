@@ -4,6 +4,14 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## Unreleased
 
+### Changed (publish diagnostics, 2026-10-12)
+
+- `verify-live` reports what it actually saw instead of "nothing": the HTTP status and the start of the body, "HTTP
+  200 but not a version document", or "no response" with the client's error, and a progress line a minute. A manual run
+  failed for ten minutes with `last saw 'nothing'`, which could not tell a not-yet-routed site from a Cloudflare
+  challenge. It identifies itself with a `kabir-blog-ci` User-Agent. Three new tests (33 in total).
+- On GitHub Actions a `release.sh` failure is also written as an annotation, so it appears on the run summary.
+
 ### Changed (email, 2026-10-12)
 
 - `hello@smkabir.com` receives mail through Cloudflare Email Routing (MX and SPF verified in the live DNS). The guide

@@ -21,7 +21,12 @@ set -eu
 BUCKET="${BUCKET:-r2:kabir-blog-site}"
 export RCLONE_CONFIG="${RCLONE_CONFIG:-/dev/null}"
 
-die() { echo "release.sh: $*" >&2; exit 1; }
+# On GitHub Actions the message also becomes an annotation: it shows on the run summary, not only in the step log.
+die() {
+  echo "release.sh: $*" >&2
+  [ -n "${GITHUB_ACTIONS:-}" ] && echo "::error title=release.sh::$*"
+  exit 1
+}
 say() { echo "release.sh: $*"; }
 
 valid_id() {
@@ -87,20 +92,45 @@ cmd_point() {
   say "$name -> $id"
 }
 
+# One request to the live site. Sets $obs to what was actually seen, and $got to the build id when there is one.
+# "Nothing" used to cover a 403 challenge, a 404, a tunnel error page and a timeout alike; they need different fixes.
+UA="kabir-blog-ci/1.0 (+https://github.com/mursalinkabir/kabir-blog)"
+probe() {
+  _body=$(mktemp); _err=$(mktemp); got=""
+  if command -v curl >/dev/null 2>&1; then
+    code=$(curl -sS -m 10 -A "$UA" -o "$_body" -w '%{http_code}' "$1" 2>"$_err") || code="no-response"
+  elif wget -q -T 10 -U "$UA" -O "$_body" "$1" 2>"$_err"; then
+    code=200
+  else
+    code="no-response"
+  fi
+  snippet=$(head -c 70 "$_body" | tr -c '[:print:]' ' ' | tr -s ' ')
+  case $code in
+    200)
+      got=$(jq -r '.build_id // empty' "$_body" 2>/dev/null || true)
+      if [ -n "$got" ]; then obs="HTTP 200, build_id $got"; else obs="HTTP 200 but not a version document: $snippet"; fi ;;
+    no-response) obs="no response: $(head -c 120 "$_err" | tr -s '\n' ' ')" ;;
+    *) obs="HTTP $code: $snippet" ;;
+  esac
+  rm -f "$_body" "$_err"
+}
+
 cmd_verify_live() {
   url=${1:?version.json url}; id=${2:?build id}; timeout=${3:-600}
   need_id "$id"
-  waited=0
+  waited=0; obs="no request made"
   while [ "$waited" -le "$timeout" ]; do
-    got=$(wget -qO- -T 10 "$url" 2>/dev/null | jq -r '.build_id' 2>/dev/null || true)
+    probe "$url"
     if [ "$got" = "$id" ]; then
       say "$url reports $id after ${waited}s"
       return 0
     fi
+    # A line a minute, so a long wait shows what it is waiting on without flooding the log.
+    [ $((waited % 60)) -eq 0 ] && say "waiting (${waited}s): $obs"
     sleep 10
     waited=$((waited + 10))
   done
-  die "$url did not report $id within ${timeout}s (last saw '${got:-nothing}')"
+  die "$url did not report $id within ${timeout}s. Last response: $obs"
 }
 
 cmd_prune() {
