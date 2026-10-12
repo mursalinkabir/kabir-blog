@@ -171,6 +171,11 @@ Runtime configuration (production-ready; names only, values live in SealedSecret
 | `CF_ACCESS_TEAM_DOMAIN`, `CF_ACCESS_AUD`       | ConfigMap    | the Access application; **empty = the CMS refuses everything**         |
 | `CMS_PUBLIC_URL`, `AGENT_AUTO_PUBLISH`         | ConfigMap    | `https://cms.smkabir.com`; `0` until you decide agents may publish     |
 
+**Proven in the cluster (2026-10-12, `kabir-blog-cms:0.2.1`):** the pod became Ready 22 s after Argo created it, the
+four migrations applied to database `payload` on `pg-main`, and the `payload` `Database` resource reports applied.
+Not yet proven: the Access gate through the Gateway (no tunnel route exists), media in R2, publish dispatch, and a
+backup restore (no backups exist yet; `deploy/homelab-terraform/prod/data-platform/backup/`).
+
 ### Your steps for the CMS (Cloudflare dashboard, then two scripts)
 
 1. **R2 → Create bucket** `kabir-blog-media` (public access: attach the custom domain `media.smkabir.com`).
