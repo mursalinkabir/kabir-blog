@@ -172,6 +172,14 @@ hidden; it prints the S3 error code and what it means, and tries the SHA-256 of 
 
 ## Part 6. The cluster (15 min)
 
+**Done on 2026-10-12, on the apex** (`https-apex`, `smkabir.com`). Commit `890f3a7` in homelab-terraform added
+`prod/apps/blog/`. Argo CD synced it to Synced/Healthy in about two minutes; both pods are `2/2` on different PVE hosts;
+the sidecar is serving the release that was built from `main`; the HTTPRoute is Accepted and `https-apex` has one route
+attached. Checked from the LAN through the Gateway (`--resolve smkabir.com:443:192.168.1.200`): TLS verifies against the
+wildcard certificate, `/version.json` returns that release, pages, the three TraderBuddy posts, `/ja/`, the feeds and
+`robots.txt` are 200, `/about` redirects to `/about/` without a port, a missing page is a 404, pages carry the strict CSP
+and `/embeds/*` carries the isolating one. **Only Part 7 (the Cloudflare route) stands between this and the internet.**
+
 All of this is in your **homelab-terraform** repo
 (`~/Dev/terraform/homelab-terraform/homelab-terraform`, remote
 `github.com/mursalinkabir/homelab-terraform`). The site repo never commits there; you do, by hand.
