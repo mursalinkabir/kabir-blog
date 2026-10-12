@@ -66,13 +66,16 @@ without checking its `type`.
 
 ## CMS (Phase 2 and 3, verified 2026-10-11)
 
-| Item                    | Pin                  | Notes                                                                                        |
-| ----------------------- | -------------------- | -------------------------------------------------------------------------------------------- |
-| payload, @payloadcms/\* | 3.90.2               | `db-postgres`, `next`, `richtext-lexical`, `storage-s3` all on the same version              |
-| Next                    | 16.4.0               | Payload's own peer range                                                                     |
-| React / React DOM       | 19.3.0               |                                                                                              |
-| sharp                   | 0.35.5               | `withMetadata` defaults to false for generated sizes; the original is re-encoded by our hook |
-| Postgres (local)        | `postgres:16-alpine` | the cluster's pg-main is 16.15                                                               |
+| Item                    | Pin                                                                                      | Notes                                                                                        |
+| ----------------------- | ---------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| payload, @payloadcms/\* | 3.90.2                                                                                   | `db-postgres`, `next`, `richtext-lexical`, `storage-s3` all on the same version              |
+| Next                    | 16.4.0                                                                                   | Payload's own peer range                                                                     |
+| React / React DOM       | 19.3.0                                                                                   |                                                                                              |
+| sharp                   | 0.35.5                                                                                   | `withMetadata` defaults to false for generated sizes; the original is re-encoded by our hook |
+| Postgres (local)        | `postgres:16-alpine`                                                                     | the cluster's pg-main is 16.15                                                               |
+| jose                    | 6.2.3                                                                                    | verifies the Cloudflare Access assertion (RS256, remote JWKS); `createLocalJWKSet` in tests  |
+| CMS image base          | `node:24-alpine@sha256:ebfe2f90462722a7a4de65e91990e97fe0d401c70e0e762c5b53302f905ec1c1` | Node 24.21.0, Alpine 3.24.2 (checked 2026-10-12); bump by hand                               |
+| pnpm in the image       | 12.9.1                                                                                   | same as `packageManager`; installed from the npm registry in the build stage                 |
 
 Verified by running it, not by reading docs:
 
@@ -89,6 +92,15 @@ Verified by running it, not by reading docs:
 - **Payload never upscales.** A 1200 px original gets 480 and 960 but no 1600.
 - **Lexical output round-trips unchanged:** text, lists, tables, the `jp` inline block and callout, code, terminal,
   figure, photo-strip and diagram blocks compared byte for byte against the fixtures; only media objects differ.
+- **`prodMigrations` runs on connect, in production only** (`@payloadcms/db-postgres` `connect.js`: `NODE_ENV ===
+'production' && this.prodMigrations`). Proven by starting the image against an empty database: four migrations
+  applied, `/readyz` answered 200 after about 4 s, a second start was a no-op.
+- **Next 16 renamed middleware to `proxy.ts`**, Node runtime by default; the CMS access gate is `src/proxy.ts`.
+- **The standalone build needs `outputFileTracingRoot` at the workspace root** because the publish gate imports
+  `scripts/privacy-core.mjs` from outside the app; the image build also copies `scripts/privacy-scan.mjs` because
+  `next build` type-checks the seed/check scripts.
+- **A linux/amd64 image built under emulation on a 4 GB Docker VM is OOM-killed** (exit 137) in the Next type-check.
+  CI builds it natively on an amd64 runner; local smoke tests use the host architecture.
 - **Per-language publish status is experimental in Payload**, so publication per language is a localized checkbox
   (`publishedIn`) next to the document-level draft/published status.
 

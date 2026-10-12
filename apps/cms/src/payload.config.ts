@@ -16,6 +16,7 @@ import { Projects } from './collections/Projects';
 import { Pages } from './collections/Pages';
 import { AgentLog } from './collections/AgentLog';
 import { agentTools } from './mcp/tools';
+import { migrations } from './migrations';
 import { NowGlobal, ResumeGlobal, SiteGlobal, UsesGlobal } from './globals';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -54,6 +55,9 @@ export default buildConfig({
     // in production is exactly what was reviewed.
     push: false,
     migrationDir: path.resolve(dirname, 'migrations'),
+    // The container has no `payload` CLI. In production the adapter applies the committed migrations itself when it
+    // connects (one replica, Recreate strategy, so there is never a second migrator).
+    prodMigrations: migrations,
   }),
 
   typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },

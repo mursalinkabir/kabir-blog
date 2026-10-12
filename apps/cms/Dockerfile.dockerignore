@@ -1,0 +1,13 @@
+**/node_modules
+**/.next
+**/.git
+**/.env
+**/.env.*
+**/.dev-credentials
+apps/cms/media
+apps/cms/tsconfig.tsbuildinfo
+apps/site/**
+!apps/site/package.json
+.github
+docs
+deploy

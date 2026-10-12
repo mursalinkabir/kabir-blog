@@ -40,6 +40,11 @@ CMS, Phase 3), `PAYLOAD_BUILDER_KEY` (read-only, Phase 3), the dispatch PAT (Pha
 | --------- | --------- | ---------------------------------------------------------------------- | ------------------------------------------------- | ------ |
 | `blog-r2` | `blog`    | `RCLONE_CONFIG_R2_ACCESS_KEY_ID`, `RCLONE_CONFIG_R2_SECRET_ACCESS_KEY` | R2 **object read only**, bucket `kabir-blog-site` | yearly |
 
+| `cms-app` | `cms` | `PAYLOAD_SECRET`, `DATABASE_URL` | generated at seal time, never displayed | on suspicion |
+| `cms-media` | `cms` | `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY` | R2 **object read and write**, bucket `kabir-blog-media` only | yearly |
+| `cms-github` | `cms` | `GITHUB_DISPATCH_TOKEN` | fine-grained PAT, this repository, Contents read and write | before expiry |
+| `payload-postgres-credentials` | `platform` | role `payload` password (basic-auth) | same generated password as `DATABASE_URL` | with `cms-app` |
+
 The two R2 tokens are different on purpose: CI can write releases, the pods can only read them, so a compromised
 pod cannot alter what the site serves or what the failover mirror will serve.
 

@@ -134,6 +134,47 @@ The first real deploy happened on 2026-10-12. What used to be "cannot be proven 
 | A real power cut or a sustained R2 outage               | Not exercised.                                                                                                                                                                            |
 | NetworkPolicy                                           | Still a draft with two open questions (file header).                                                                                                                                      |
 
+## The CMS service (Phase 4)
+
+The CMS is a second image, `ghcr.io/mursalinkabir/kabir-blog-cms:<version>`, built by the `cms-image` job of
+`release.yml` on the same `vX.Y.Z` tag as the server image (`apps/cms/Dockerfile`, build context = repo root). It is
+deployed the same way: a hand-made tag bump in homelab-terraform (`prod/apps/cms/cms.yaml`), rolled back with
+`git revert`. The job smoke-tests the image under the cluster's restrictions (uid 10001, read-only root filesystem, all
+capabilities dropped) and fails the release on a fixable HIGH or CRITICAL finding.
+
+**Access is verified in the application, not only at the edge.** `apps/cms/src/proxy.ts` checks the
+`Cf-Access-Jwt-Assertion` header on every request in production (RS256 signature against the team's keys, issuer,
+audience, expiry), so a mistaken tunnel route or a port-forward still cannot reach the admin or `/api/mcp`.
+
+| Path          | Behaviour                                                                                               |
+| ------------- | ------------------------------------------------------------------------------------------------------- |
+| `/healthz`    | `200` from the proxy itself; liveness. No Access needed (the kubelet cannot present one).               |
+| `/readyz`     | `200` only when Payload started, migrations ran and the database answered; readiness. No Access needed. |
+| anything else | valid assertion → served; none → `401`; invalid → `403`; Access not configured → `503` (fails closed).  |
+
+Outside production the gate is open, so `pnpm cms:dev` and the local agent checks are unchanged.
+
+**Migrations run at startup.** The image has no `payload` CLI. In production the Postgres adapter applies the
+committed migrations (`prodMigrations`) when it connects, which the first `/readyz` probe triggers, so a new pod
+migrates before it takes traffic. The Deployment is one replica with `strategy: Recreate`, so there is never a second
+migrator. A schema change therefore ships as: migration committed → tag → image → tag bump.
+
+Runtime configuration (production-ready; names only, values live in SealedSecrets or the ConfigMap):
+
+| Variable                                       | Where        | Meaning                                                                |
+| ---------------------------------------------- | ------------ | ---------------------------------------------------------------------- |
+| `DATABASE_URL`                                 | SealedSecret | `pg-main-rw` directly (the pooler is transaction-mode), role `payload` |
+| `PAYLOAD_SECRET`                               | SealedSecret | signs sessions and API keys                                            |
+| `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`     | SealedSecret | R2 token for the media bucket only                                     |
+| `GITHUB_DISPATCH_TOKEN`                        | SealedSecret | fine-grained, this repo, Contents write; rebuilds the site on publish  |
+| `S3_BUCKET`, `S3_ENDPOINT`, `MEDIA_PUBLIC_URL` | ConfigMap    | media bucket, R2 endpoint, `https://media.smkabir.com`                 |
+| `CF_ACCESS_TEAM_DOMAIN`, `CF_ACCESS_AUD`       | ConfigMap    | the Access application; **empty = the CMS refuses everything**         |
+| `CMS_PUBLIC_URL`, `AGENT_AUTO_PUBLISH`         | ConfigMap    | `https://cms.smkabir.com`; `0` until you decide agents may publish     |
+
+Order that keeps the admin from ever being public: DB role and CMS Deployment (no route) → Access application
+"cms" → set `CF_ACCESS_TEAM_DOMAIN` and `CF_ACCESS_AUD` → tunnel route for `cms.smkabir.com` → verify with and
+without Access (`docs/PLAN.md`, Phase 4 gate).
+
 ## Troubleshooting
 
 | You see                                                | Look at                                                                                                       |

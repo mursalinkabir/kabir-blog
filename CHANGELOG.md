@@ -4,6 +4,22 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## Unreleased
 
+### Added (CMS as a deployable service, 2026-10-12)
+
+- **Cloudflare Access verification in the CMS** (`apps/cms/src/proxy.ts`, `src/lib/accessJwt.ts`, `accessGate.ts`):
+  in production every request must carry a valid `Cf-Access-Jwt-Assertion` (signature, issuer, audience, expiry), and
+  an unconfigured Access application makes the CMS refuse everything (503) rather than open. Outside production the
+  gate is open. 18 new unit tests against a local key set (user and service-token assertions, wrong audience, wrong
+  issuer, expired, foreign key, `alg: none`, no identity).
+- **Probes:** `/healthz` (liveness, answered by the proxy) and `/readyz` (Payload started, migrations ran, database
+  answered), neither behind Access.
+- **Migrations at startup:** `prodMigrations` applies the committed migrations when the adapter connects in
+  production, so the image needs no CLI. Proven on an empty database.
+- **CMS image** (`apps/cms/Dockerfile`, Node 24 Alpine pinned by digest, uid 10001, standalone output) and a
+  `cms-image` job in `release.yml`: build, smoke test under the cluster's restrictions (`apps/cms/tests/image-smoke.sh`),
+  trivy, push `ghcr.io/<owner>/kabir-blog-cms:<version>`. The verify job now also runs the CMS unit tests.
+- Docs: `docs/deploy.md` "The CMS service", `docs/secrets.md` rows for the CMS secrets, `docs/versions.md` pins.
+
 ### Changed (CMS hardening, 2026-10-12)
 
 - Removed the template's unused `/api/graphql` and `/api/graphql-playground` route files; GraphQL was already
