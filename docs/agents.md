@@ -15,16 +15,29 @@ Snippets are marked **production-ready** or **illustrative**.
 | Remote agent against the live CMS       | After Phase 4 (CMS in the cluster, behind Cloudflare Access)                   |
 | Publishing triggers a site rebuild      | Hook is built; needs `GITHUB_DISPATCH_TOKEN` and Phase 4 for CI to see the CMS |
 
-## Connect an agent locally (production-ready commands)
+## Connect Claude Code and Claude Desktop locally (production-ready commands)
+
+Both clients launch a small local program (`apps/cms/scripts/mcp-stdio-bridge.mjs`) that forwards to the CMS. It
+reads the agent's key from `apps/cms/.dev-credentials` (git-ignored, mode 0600), so **no key is written into either
+client's config file**, and Claude Desktop, which cannot send an `Authorization` header to a local server, works too.
 
 ```sh
 docker compose up -d postgres
 npx pnpm@12.9.1 cms:migrate
-npx pnpm@12.9.1 cms:agent-key         # creates the agent user and key; AGENT_MCP_KEY goes to apps/cms/.dev-credentials
-npx pnpm@12.9.1 cms:dev               # http://localhost:3100
+npx pnpm@12.9.1 cms:agent-key           # creates the agent user and its key in apps/cms/.dev-credentials
+npx pnpm@12.9.1 cms:dev                 # http://localhost:3100 (the agent needs the CMS running)
+npx pnpm@12.9.1 cms:install-claude      # adds "kabir-blog" to Claude Desktop's config (with a backup)
+claude mcp add --scope user kabir-blog -- "$(command -v node)" "$PWD/apps/cms/scripts/mcp-stdio-bridge.mjs"
+```
 
-set -a; . apps/cms/.dev-credentials; set +a
-claude mcp add --transport http kabir-blog http://localhost:3100/api/mcp --header "Authorization: Bearer $AGENT_MCP_KEY"
+Quit and reopen Claude Desktop once. `claude mcp list` should show `kabir-blog ... Connected`. To undo:
+`node apps/cms/scripts/install-claude-clients.mjs --remove` and `claude mcp remove kabir-blog`.
+
+A client that can send headers (a remote agent, later) can use the HTTP endpoint directly instead
+(illustrative):
+
+```sh
+claude mcp add --transport http kabir-blog https://cms.smkabir.com/api/mcp --header "Authorization: Bearer <key>"
 ```
 
 Then ask the agent, for example: _"Read the site guide, then write a short post in English and Japanese about

@@ -20,6 +20,13 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 - `pnpm cms:agent-key`, `pnpm cms:check-agent`; 34 CMS unit tests, 28 + 22 end-to-end checks over the real MCP
   protocol, 14 checks of which copy is live. `docs/agents.md`.
 
+### Added (Claude Code and Claude Desktop, 2026-10-12)
+
+- `apps/cms/scripts/mcp-stdio-bridge.mjs`: a stdio MCP server that forwards to `/api/mcp`, so Claude Desktop (which
+  cannot send an `Authorization` header to a local server) and Claude Code use the same nine tools. The key stays in the
+  git-ignored `.dev-credentials`, never in a client config. `pnpm cms:install-claude` merges it into Claude Desktop's
+  config with a backup; `scripts/check-bridge.mjs` tests it.
+
 ### Changed (AI agent)
 
 - "Logged in" now means a `users` account: the MCP plugin adds an auth collection, and a key used on the REST API

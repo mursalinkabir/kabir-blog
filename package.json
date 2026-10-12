@@ -21,7 +21,8 @@
     "cms:check-privacy": "pnpm --filter @smkabir/cms check:privacy",
     "cms:pull": "pnpm --filter @smkabir/site cms:pull",
     "cms:agent-key": "pnpm --filter @smkabir/cms agent-key",
-    "cms:check-agent": "pnpm --filter @smkabir/cms check:agent"
+    "cms:check-agent": "pnpm --filter @smkabir/cms check:agent",
+    "cms:install-claude": "pnpm --filter @smkabir/cms install:claude"
   },
   "devDependencies": {
     "prettier": "^3.6.0",

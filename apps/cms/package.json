@@ -15,7 +15,8 @@
     "check:privacy": "payload run src/scripts/check-privacy.ts",
     "test": "vitest run",
     "agent-key": "payload run src/scripts/create-agent-key.ts",
-    "check:agent": "node scripts/check-agent.mjs on && node scripts/check-agent-semantics.mjs"
+    "check:agent": "node scripts/check-agent.mjs on && node scripts/check-agent-semantics.mjs && node scripts/check-bridge.mjs",
+    "install:claude": "node scripts/install-claude-clients.mjs"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.90.2",
