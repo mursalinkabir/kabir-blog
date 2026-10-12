@@ -95,11 +95,14 @@ cmd_point() {
 # One request to the live site. Sets $obs to what was actually seen, and $got to the build id when there is one.
 # "Nothing" used to cover a 403 challenge, a 404, a tunnel error page and a timeout alike; they need different fixes.
 UA="kabir-blog-ci/1.0 (+https://github.com/mursalinkabir/kabir-blog)"
+# CI_PROBE_TOKEN, when set, is sent as `X-CI-Probe`. A Cloudflare WAF custom rule that matches this header can skip the
+# bot/security challenges for the version check only, instead of weakening them for every visitor.
 probe() {
   _body=$(mktemp); _err=$(mktemp); got=""
+  _tok="${CI_PROBE_TOKEN:-}"
   if command -v curl >/dev/null 2>&1; then
-    code=$(curl -sS -m 10 -A "$UA" -o "$_body" -w '%{http_code}' "$1" 2>"$_err") || code="no-response"
-  elif wget -q -T 10 -U "$UA" -O "$_body" "$1" 2>"$_err"; then
+    code=$(curl -sS -m 10 -A "$UA" ${_tok:+-H "X-CI-Probe: $_tok"} -o "$_body" -w '%{http_code}' "$1" 2>"$_err") || code="no-response"
+  elif wget -q -T 10 -U "$UA" ${_tok:+--header "X-CI-Probe: $_tok"} -O "$_body" "$1" 2>"$_err"; then
     code=200
   else
     code="no-response"

@@ -61,6 +61,9 @@ jobs:
       - name: Roll back (fails if the release is missing or inconsistent)
         run: sh scripts/ci/release.sh rollback "$BUILD_ID"
       - name: Wait until the origin serves it
+        env:
+          # Optional: lets a Cloudflare WAF skip rule recognise this request (docs/go-live.md).
+          CI_PROBE_TOKEN: ${{ secrets.CI_PROBE_TOKEN }}
         run: sh scripts/ci/release.sh verify-live "$SITE_URL/version.json" "$BUILD_ID" 600
       - name: Purge the Cloudflare cache
         env:

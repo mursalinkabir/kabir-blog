@@ -95,6 +95,19 @@ out=$(sh /ci/release.sh verify-live http://127.0.0.1:9/version.json b500-500 10 
 case "$out" in *"no response"*) pass=$((pass + 1)); echo "  PASS  a dead origin is reported as no response" ;; *) fail=$((fail + 1)); echo "  FAIL  a dead origin is not reported: $out" ;; esac
 kill $BLOCKED $HTML 2>/dev/null
 
+# the probe header: sent when CI_PROBE_TOKEN is set, absent when it is not
+rm -f /tmp/req-with /tmp/req-without
+( printf 'HTTP/1.0 200 OK\r\nContent-Type: application/json\r\n\r\n{"build_id":"h1"}' | nc -l -p 8096 >/tmp/req-with 2>/dev/null ) &
+sleep 1
+CI_PROBE_TOKEN=s3cret-token sh /ci/release.sh verify-live http://127.0.0.1:8096/version.json h1 10 >/dev/null 2>&1
+sleep 1
+if grep -qi '^x-ci-probe: s3cret-token' /tmp/req-with 2>/dev/null; then pass=$((pass + 1)); echo "  PASS  the probe header is sent when CI_PROBE_TOKEN is set"; else fail=$((fail + 1)); echo "  FAIL  no X-CI-Probe header: $(head -c 200 /tmp/req-with 2>/dev/null)"; fi
+( printf 'HTTP/1.0 200 OK\r\nContent-Type: application/json\r\n\r\n{"build_id":"h2"}' | nc -l -p 8095 >/tmp/req-without 2>/dev/null ) &
+sleep 1
+env -u CI_PROBE_TOKEN sh /ci/release.sh verify-live http://127.0.0.1:8095/version.json h2 10 >/dev/null 2>&1
+sleep 1
+if grep -qi '^x-ci-probe' /tmp/req-without 2>/dev/null; then fail=$((fail + 1)); echo "  FAIL  a probe header was sent without a token"; else pass=$((pass + 1)); echo "  PASS  no probe header without a token"; fi
+
 echo
 echo "release.sh tests: $pass passed, $fail failed"
 [ "$fail" -eq 0 ]

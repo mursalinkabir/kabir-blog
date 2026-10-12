@@ -328,6 +328,25 @@ purged, old releases are pruned.
 | Two pods, one lost               | `kubectl -n blog delete pod <one>` while reloading    | no failed requests                                              |
 | Spread                           | `kubectl -n blog get pods -o wide`                    | two different nodes (needs the control-plane taint drift fixed) |
 
+## If "Wait until the origin serves it" says `HTTP 403 ... Just a moment...` (found on 2026-10-12)
+
+Cloudflare served its challenge page to GitHub's runner, so CI could not read `/version.json` even though the site was
+serving the right release (the public `version.json`, R2 `LATEST` and both pods all agreed). Find which control did it:
+**Security > Events**, filter on the time of the run and on source "Microsoft Corporation" (AS8075); the **Service**
+column names it.
+
+| Service shown                           | Fix                                                                                                                                       |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Bot Fight Mode                          | Turn it off (Security > Bots). On the Free plan it cannot be skipped by a rule. This also removes the injected inline script noted below. |
+| Security Level / Managed Challenge      | Lower the security level, or use the rule below.                                                                                          |
+| Browser Integrity Check / a custom rule | Use the rule below, or switch the check off.                                                                                              |
+
+**Narrow option that keeps protection for visitors** (works for everything except Bot Fight Mode): put a random string
+in the GitHub secret `CI_PROBE_TOKEN` (repository or `site-publish` environment). The version check then sends it as the
+header `X-CI-Probe`. In Cloudflare, **Security > WAF > Custom rules**, create a rule: field _Request Header_ `X-CI-Probe`
+equals that string, **and** URI Path equals `/version.json`; action **Skip**, tick the security features that issued the
+challenge. Nothing else changes for anyone else.
+
 ## After it is live: Cloudflare settings worth changing (found on 2026-10-12)
 
 Checked on the live site with a real browser and `curl`. The site works; these are the loose ends, in order of value.

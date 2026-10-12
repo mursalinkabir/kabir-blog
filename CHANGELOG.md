@@ -11,6 +11,9 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
   failed for ten minutes with `last saw 'nothing'`, which could not tell a not-yet-routed site from a Cloudflare
   challenge. It identifies itself with a `kabir-blog-ci` User-Agent. Three new tests (33 in total).
 - On GitHub Actions a `release.sh` failure is also written as an annotation, so it appears on the run summary.
+- The first real use of that message showed `HTTP 403 ... Just a moment...`: Cloudflare was challenging GitHub's
+  runner. The live-site check can now send an optional `X-CI-Probe` header (secret `CI_PROBE_TOKEN`) so a WAF skip rule
+  can let only that request through; `docs/go-live.md` has the decision table. Two more tests (35 in total).
 
 ### Changed (email, 2026-10-12)
 
