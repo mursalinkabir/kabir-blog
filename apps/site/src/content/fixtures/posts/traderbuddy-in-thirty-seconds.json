@@ -1,0 +1,510 @@
+{
+  "id": "p-tb-motion",
+  "_status": "published",
+  "slug": "traderbuddy-in-thirty-seconds",
+  "pubDate": "2026-10-12T08:00:00.000Z",
+  "category": {
+    "id": "c1",
+    "slug": "tech",
+    "name": {
+      "en": "Tech",
+      "ja": "テック"
+    }
+  },
+  "tags": [
+    {
+      "id": "t-tb",
+      "slug": "traderbuddy",
+      "name": {
+        "en": "traderbuddy"
+      }
+    },
+    {
+      "id": "t-anim",
+      "slug": "animation",
+      "name": {
+        "en": "animation"
+      }
+    },
+    {
+      "id": "t-trading",
+      "slug": "trading",
+      "name": {
+        "en": "trading"
+      }
+    }
+  ],
+  "hero": {
+    "id": "cover-finance",
+    "url": "/images/covers/cover-finance.jpg",
+    "filename": "cover-finance.jpg",
+    "mimeType": "image/jpeg",
+    "width": 2400,
+    "height": 1594,
+    "alt": {
+      "en": "Price charts on a dark trading screen",
+      "ja": "暗いトレード画面に映る値動きのチャート"
+    },
+    "credit": "Photo: Nicholas Cappello on Unsplash",
+    "sizes": {
+      "480": {
+        "url": "/images/covers/cover-finance-480.webp",
+        "width": 480,
+        "height": 319
+      },
+      "960": {
+        "url": "/images/covers/cover-finance-960.webp",
+        "width": 960,
+        "height": 638
+      },
+      "1600": {
+        "url": "/images/covers/cover-finance-1600.webp",
+        "width": 1600,
+        "height": 1063
+      }
+    }
+  },
+  "series": {
+    "name": "TraderBuddy",
+    "part": 1
+  },
+  "toc": false,
+  "publishedIn": {
+    "en": true,
+    "ja": false
+  },
+  "title": {
+    "en": "TraderBuddy in thirty seconds"
+  },
+  "description": {
+    "en": "A thirty-second animated tour of TraderBuddy: chart, after-close alert, scanner, SEC financials and portfolio. It tracks and alerts. It never trades."
+  },
+  "content": {
+    "en": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "type": "root",
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Thirty seconds, seven scenes, on a loop: what TraderBuddy is for, in the order you would meet it. The sequence is drawn live in your browser from a few hundred lines of script, with no video file behind it, so you can pause it, restart it, or jump to any scene.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "tbembed1",
+              "blockName": "",
+              "blockType": "html-embed",
+              "title": "TraderBuddy in thirty seconds: an animated title sequence",
+              "html": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>TraderBuddy in Thirty Seconds</title>\n<style>\n/* A 30s looping title sequence for TraderBuddy.\n   Single dark look on purpose: this is a video frame, not a document, so it\n   commits to one palette and paints every colour explicitly.\n   Palette is the docs site's own, so the film and the pages match. */\n:root {\n  color-scheme: dark;\n  --bg: #0e1116;\n  --panel: #151a21;\n  --line: #272d36;\n  --fg: #dfe3e8;\n  --muted: #949cab;\n  --accent: #2dd4a7;   /* the only \"acted on\" colour */\n  --warn: #f0b90b;     /* alert levels only */\n  --up: #4ade80;       /* direction and financial health only */\n  --down: #f6465d;\n  --sans: -apple-system, BlinkMacSystemFont, \"Segoe UI\", system-ui, sans-serif;\n  --mono: ui-monospace, SFMono-Regular, \"SF Mono\", Menlo, Consolas, monospace;\n}\n\nbody { margin: 0; font-size: 14px; background: var(--bg); color: var(--fg); font-family: var(--sans); }\na { color: var(--accent); }\n.page { max-width: 68rem; margin: 0 auto; padding-block: 1.5rem 3rem; padding-left: 1rem; padding-right: 1rem; }\n\n.masthead { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.9rem; }\n.masthead h1 { font-size: 1rem; font-weight: 640; margin: 0; letter-spacing: 0.01em; }\n.masthead p { margin: 0; color: var(--muted); font-size: 0.8125rem; }\n\n.stagewrap { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #0b0e12; }\n#stage { display: block; width: 100%; height: auto; max-width: 100%; font-family: var(--sans); }\n#stage text { fill: var(--fg); }\n.tnum { font-variant-numeric: tabular-nums; }\n\n.bar { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.75rem; flex-wrap: wrap; }\nbutton {\n  font: inherit; font-size: 0.8125rem; color: var(--fg); background: var(--panel);\n  border: 1px solid var(--line); border-radius: 5px; padding: 0.35rem 0.75rem; cursor: pointer;\n}\nbutton:hover { border-color: var(--muted); }\nbutton:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }\n.clock { color: var(--muted); font-size: 0.8125rem; font-variant-numeric: tabular-nums; min-width: 0; }\n.clock b { color: var(--fg); font-weight: 600; }\n\n.track { position: relative; height: 22px; flex: 1 1 14rem; min-width: 10rem; cursor: pointer; }\n.track::before { content: \"\"; position: absolute; left: 0; right: 0; top: 10px; height: 2px; background: var(--line); border-radius: 2px; }\n#fill { position: absolute; left: 0; top: 10px; height: 2px; width: 0; background: var(--accent); border-radius: 2px; }\n#head { position: absolute; top: 5px; left: 0; width: 2px; height: 12px; background: var(--fg); }\n.tick { position: absolute; top: 7px; width: 1px; height: 8px; background: var(--line); }\n\n.scenes { list-style: none; display: grid; gap: 0.3rem; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); margin: 1rem 0 0; padding: 0; }\n.scenes button { width: 100%; text-align: left; display: grid; gap: 0.1rem; padding: 0.45rem 0.6rem; }\n.scenes .n { font-size: 0.8125rem; }\n.scenes .t { font-size: 0.6875rem; color: var(--muted); font-variant-numeric: tabular-nums; }\n.scenes li[aria-current=\"true\"] button { border-color: var(--accent); }\n.scenes li[aria-current=\"true\"] .n { color: var(--accent); }\n\n.note { color: var(--muted); font-size: 0.8125rem; margin: 1.1rem 0 0; max-width: 60ch; }\n@media (prefers-reduced-motion: reduce) { #fill, #head { transition: none; } }\n</style>\n</head>\n<body>\n\n<div class=\"page\">\n  <div class=\"masthead\">\n    <h1>TraderBuddy — thirty-second title sequence</h1>\n    <p>Seven scenes · loops · example data throughout</p>\n  </div>\n\n  <div class=\"stagewrap\">\n    <svg id=\"stage\" viewBox=\"0 0 1600 900\" role=\"img\"\n         aria-label=\"A thirty-second animated sequence introducing TraderBuddy: the tagline it tracks and alerts, it never trades; a chart building its candles and moving average; a price alert being armed at 230 and delivered only after the US close; a scanner narrowing 600 symbols to 13; an SEC filing becoming a financial health score of 78 with five pillars; and a portfolio chart where the cost line steps up when money is added.\"></svg>\n  </div>\n\n  <div class=\"bar\">\n    <button id=\"play\" type=\"button\">Pause</button>\n    <button id=\"restart\" type=\"button\">Restart</button>\n    <div class=\"track\" id=\"track\" role=\"presentation\"><div id=\"fill\"></div><div id=\"head\"></div></div>\n    <div class=\"clock\"><b id=\"now\">0:00</b> / 0:30 · <span id=\"label\">Thesis</span></div>\n  </div>\n\n  <ul class=\"scenes\" id=\"sceneList\"></ul>\n\n  <p class=\"note\">Every figure on screen is an illustration, not live data. The sequence deliberately never shows an alert firing during a session, and never shows an order ticket: TraderBuddy checks alerts once a day after the close, and it cannot place trades.</p>\n</div>\n\n<script>\n(function () {\n  \"use strict\";\n\n  var NS = \"http://www.w3.org/2000/svg\";\n  var stage = document.getElementById(\"stage\");\n  var T = 30000;\n\n  var C = {\n    bg: \"#0e1116\", panel: \"#151a21\", line: \"#272d36\", fg: \"#dfe3e8\",\n    muted: \"#949cab\", accent: \"#2dd4a7\", warn: \"#f0b90b\", up: \"#4ade80\", down: \"#f6465d\"\n  };\n\n  var SCENES = [\n    { id: \"thesis\",  name: \"Thesis\",     a: 0,     b: 3000  },\n    { id: \"chart\",   name: \"The chart\",  a: 3000,  b: 9000  },\n    { id: \"alert\",   name: \"The alert\",  a: 9000,  b: 16000 },\n    { id: \"scanner\", name: \"Scanner\",    a: 16000, b: 21000 },\n    { id: \"fin\",     name: \"Financials\", a: 21000, b: 25000 },\n    { id: \"port\",    name: \"Portfolio\",  a: 25000, b: 28000 },\n    { id: \"lockup\",  name: \"Lock-up\",    a: 28000, b: 30000 }\n  ];\n\n  // ---- helpers -----------------------------------------------------------\n  function el(tag, attrs, parent) {\n    var n = document.createElementNS(NS, tag);\n    for (var k in attrs) { if (attrs[k] !== undefined) n.setAttribute(k, attrs[k]); }\n    (parent || stage).appendChild(n);\n    return n;\n  }\n  function text(s, x, y, o) {\n    o = o || {};\n    var n = el(\"text\", {\n      x: x, y: y, \"font-size\": o.size || 22, \"font-weight\": o.weight || 400,\n      fill: o.fill || C.fg, \"text-anchor\": o.anchor || \"start\",\n      \"letter-spacing\": o.ls, class: o.tnum ? \"tnum\" : undefined\n    }, o.parent);\n    n.textContent = s;\n    return n;\n  }\n  function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }\n  function seg(t, a, b) { return clamp((t - a) / (b - a)); }\n  function eo(t) { return 1 - Math.pow(1 - t, 3); }          // ease out cubic\n  function fade(node, v) { node.setAttribute(\"opacity\", v); }\n  function show(node, on) { node.style.display = on ? \"\" : \"none\"; }\n  function dash(node, p) {                                    // draw a line on\n    var L = node.getTotalLength();\n    node.setAttribute(\"stroke-dasharray\", L);\n    node.setAttribute(\"stroke-dashoffset\", L * (1 - p));\n  }\n\n  // ---- scene 1 + 7: the lock-up -----------------------------------------\n  function buildLockup(withType) {\n    var g = el(\"g\", {});\n    var cx = 800;\n    var clipId = \"clip\" + (withType ? \"A\" : \"B\");\n    var defs = el(\"defs\", {}, g);\n    var clip = el(\"clipPath\", { id: clipId }, defs);\n    var clipRect = el(\"rect\", { x: cx, y: 330, width: 0, height: 110 }, clip);\n\n    var word = text(\"TraderBuddy\", cx, 420, { size: 76, weight: 650, anchor: \"middle\", parent: g });\n    if (withType) word.setAttribute(\"clip-path\", \"url(#\" + clipId + \")\");\n    var caret = el(\"rect\", { x: cx, y: 362, width: 3, height: 62, fill: C.accent }, g);\n    var rule = el(\"line\", { x1: cx - 230, y1: 478, x2: cx + 230, y2: 478, stroke: C.line, \"stroke-width\": 1 }, g);\n    var tag = text(\"It tracks and alerts. It never trades.\", cx, 530, { size: 26, fill: C.muted, anchor: \"middle\", parent: g });\n\n    var w = 0;\n    return {\n      g: g,\n      update: function (t, a) {\n        if (!w) { w = word.getComputedTextLength() || 440; }\n        var typed = withType ? eo(seg(t, a + 150, a + 1350)) : 1;\n        clipRect.setAttribute(\"x\", cx - w / 2);\n        clipRect.setAttribute(\"width\", w * typed);\n        fade(caret, withType && typed < 1 ? 1 : 0);\n        caret.setAttribute(\"x\", cx - w / 2 + w * typed);\n        dash(rule, eo(seg(t, a + 1250, a + 1900)));\n        fade(tag, eo(seg(t, a + 1700, a + 2300)));\n        // the lock-up fades to black so the loop rejoins scene 1 cleanly\n        g.setAttribute(\"opacity\", withType ? 1 : 1 - seg(t, 29600, 30000));\n      }\n    };\n  }\n\n  // ---- scene 2 + 3: the chart, then the alert ----------------------------\n  var BARS = [\n    [211.4,213.0,210.2,212.6],[212.6,214.8,212.1,214.2],[214.1,215.0,212.4,212.9],\n    [212.8,213.6,210.9,211.5],[211.6,214.4,211.2,214.0],[214.2,217.1,213.8,216.8],\n    [216.7,218.2,215.6,216.1],[216.0,216.9,213.1,213.7],[213.8,216.2,213.3,215.9],\n    [216.0,219.4,215.7,219.0],[219.1,221.6,218.4,221.2],[221.1,222.0,218.9,219.6],\n    [219.5,220.4,216.8,217.3],[217.4,220.1,217.0,219.8],[219.9,223.2,219.5,222.9],\n    [222.8,225.1,222.2,224.6],[224.7,226.0,223.1,223.5],[223.4,224.2,220.6,221.1],\n    [221.2,224.6,220.9,224.3],[224.4,227.8,224.0,227.4],[227.5,229.1,226.3,228.6],\n    [228.5,229.4,226.9,227.2],[227.3,230.6,227.0,230.2],[230.3,232.4,229.6,231.8]\n  ];\n\n  function buildChart() {\n    var g = el(\"g\", {});\n    var X0 = 200, X1 = 1300, Y0 = 220, Y1 = 700, PLO = 208, PHI = 234;\n    var y = function (p) { return Y1 - (p - PLO) * (Y1 - Y0) / (PHI - PLO); };\n    var step = (X1 - X0) / BARS.length, bw = 26;\n\n    var plot = el(\"g\", {}, g);   // dims when the day ends\n\n    [210, 215, 220, 225, 230].forEach(function (p) {\n      el(\"line\", { x1: X0, y1: y(p), x2: X1, y2: y(p), stroke: C.line, \"stroke-width\": 1 }, plot);\n      text(p.toFixed(2), X1 + 20, y(p) + 7, { size: 18, fill: C.muted, tnum: true, parent: plot });\n    });\n    el(\"line\", { x1: X0, y1: Y1 + 1, x2: X1, y2: Y1 + 1, stroke: C.line, \"stroke-width\": 1 }, plot);\n\n    var candles = BARS.map(function (b, i) {\n      var o = b[0], h = b[1], l = b[2], c = b[3];\n      var cx = X0 + step * (i + 0.5);\n      var cls = c >= o ? C.up : C.down;\n      var cg = el(\"g\", {}, plot);\n      el(\"line\", { x1: cx, y1: y(h), x2: cx, y2: y(l), stroke: cls, \"stroke-width\": 2 }, cg);\n      el(\"rect\", {\n        x: cx - bw / 2, y: y(Math.max(o, c)), width: bw,\n        height: Math.max(Math.abs(y(o) - y(c)), 2), fill: cls\n      }, cg);\n      return { g: cg, oy: y(o) };\n    });\n\n    var smaPts = [];\n    for (var i = 4; i < BARS.length; i++) {\n      var s = 0;\n      for (var j = i - 4; j <= i; j++) { s += BARS[j][3]; }\n      smaPts.push((X0 + step * (i + 0.5)) + \",\" + y(s / 5));\n    }\n    var sma = el(\"polyline\", { points: smaPts.join(\" \"), fill: \"none\", stroke: \"#7aa2f7\", \"stroke-width\": 3 }, plot);\n\n    var legend = el(\"g\", {}, plot);\n    text(\"AAPL\", X0, 180, { size: 30, weight: 650, parent: legend });\n    text(\"1D · SMA 20 · RSI 14\", X0 + 130, 180, { size: 20, fill: C.muted, parent: legend });\n    var dot = el(\"circle\", { cx: X0 + 7, cy: 205, r: 6, fill: C.up }, legend);\n    text(\"Live from IEX\", X0 + 24, 212, { size: 18, fill: C.up, parent: legend });\n\n    var cap2 = text(\"Every indicator computed on the server. Your browser never calculates.\",\n      X0, 820, { size: 24, fill: C.muted });\n    g.appendChild(cap2);\n\n    // --- the alert layer (scene 3) ---\n    var al = el(\"g\", {}, g);\n    var aline = el(\"line\", { x1: X0, y1: y(222), x2: X1, y2: y(222), stroke: C.warn, \"stroke-width\": 3 }, al);\n    var pill = el(\"g\", {}, al);\n    el(\"rect\", { x: X0 + 6, y: y(230) - 44, width: 310, height: 30, rx: 5, fill: C.warn }, pill);\n    text(\"Alert · crosses above 230\", X0 + 20, y(230) - 23, { size: 19, weight: 600, fill: \"#10131a\", parent: pill });\n\n    var night = el(\"g\", {}, g);          // sun → moon sweep\n    var sun = el(\"g\", {}, night);\n    el(\"circle\", { cx: 0, cy: 0, r: 15, fill: C.warn }, sun);\n    for (var r = 0; r < 8; r++) {\n      var ang = r * Math.PI / 4;\n      el(\"line\", {\n        x1: Math.cos(ang) * 22, y1: Math.sin(ang) * 22,\n        x2: Math.cos(ang) * 29, y2: Math.sin(ang) * 29,\n        stroke: C.warn, \"stroke-width\": 2.5\n      }, sun);\n    }\n    var moon = el(\"g\", {}, night);\n    el(\"circle\", { cx: 0, cy: 0, r: 16, fill: C.fg }, moon);\n    el(\"circle\", { cx: 9, cy: -6, r: 15, fill: C.bg }, moon);\n\n    var closeLab = text(\"After the US close\", X0, 128, { size: 34, weight: 620 });\n    g.appendChild(closeLab);\n\n    var steps = [\n      { x: 200, l1: \"The session's\", l2: \"1-minute bars\" },\n      { x: 640, l1: \"Did it cross?\", l2: \"\" },\n      { x: 1080, l1: \"Your channels\", l2: \"\" }\n    ].map(function (s) {\n      var sg = el(\"g\", {}, g);\n      el(\"rect\", { x: s.x, y: 400, width: 360, height: 130, rx: 8, fill: C.panel, stroke: C.line, \"stroke-width\": 1 }, sg);\n      text(s.l1, s.x + 180, s.l2 ? 455 : 472, { size: 26, weight: 600, anchor: \"middle\", parent: sg });\n      if (s.l2) { text(s.l2, s.x + 180, 490, { size: 26, weight: 600, anchor: \"middle\", parent: sg }); }\n      return sg;\n    });\n\n    var arrows = [[560, 640], [1000, 1080]].map(function (p) {\n      var ag = el(\"g\", {}, g);\n      el(\"line\", { x1: p[0] + 8, y1: 465, x2: p[1] - 14, y2: 465, stroke: C.muted, \"stroke-width\": 2.5 }, ag);\n      el(\"polygon\", { points: (p[1] - 16) + \",459 \" + (p[1] - 4) + \",465 \" + (p[1] - 16) + \",471\", fill: C.muted }, ag);\n      return ag;\n    });\n\n    var rule = text(\"The previous close must sit on the other side.\", 820, 575, { size: 21, fill: C.muted, anchor: \"middle\" });\n    g.appendChild(rule);\n\n    var card = el(\"g\", {}, g);\n    el(\"rect\", { x: 200, y: 620, width: 940, height: 92, rx: 8, fill: C.panel, stroke: C.line, \"stroke-width\": 1 }, card);\n    el(\"rect\", { x: 200, y: 620, width: 4, height: 92, fill: C.warn }, card);\n    text(\"AAPL crossed above 230.00 — the alert has re-armed.\", 232, 675, { size: 25, parent: card });\n\n    var cap3 = text(\"Checked once a day, after the close. Sent to your own Slack or Telegram.\",\n      X0, 820, { size: 24, fill: C.muted });\n    g.appendChild(cap3);\n\n    return {\n      g: g,\n      update: function (t) {\n        // scene 2: candles build, then the average draws\n        candles.forEach(function (c, i) {\n          var p = eo(seg(t, 3250 + i * 70, 3430 + i * 70));\n          c.g.setAttribute(\"opacity\", p);\n          c.g.setAttribute(\"transform\", \"translate(0,\" + c.oy + \") scale(1,\" + p + \") translate(0,\" + (-c.oy) + \")\");\n        });\n        dash(sma, eo(seg(t, 4900, 5900)));\n        fade(legend, eo(seg(t, 3150, 3650)));\n        dot.setAttribute(\"opacity\", 0.45 + 0.55 * Math.abs(Math.sin(t / 420)));\n        fade(cap2, eo(seg(t, 5800, 6350)) * (1 - seg(t, 8700, 9000)));\n\n        // scene 3: the level is dragged up, armed, and only then delivered\n        var drag = eo(seg(t, 9100, 10200));\n        var lv = y(222 + 8 * drag);\n        aline.setAttribute(\"y1\", lv); aline.setAttribute(\"y2\", lv);\n        fade(aline, seg(t, 9000, 9150));\n        fade(pill, eo(seg(t, 10150, 10500)));\n\n        // once the day is over the chart drops right back, so the steps read\n        plot.setAttribute(\"opacity\", 1 - 0.88 * eo(seg(t, 10900, 11500)));\n        fade(al, (1 - 0.88 * eo(seg(t, 10900, 11500))) * seg(t, 9000, 9150));\n\n        var sweep = eo(seg(t, 11400, 12200));\n        fade(night, seg(t, 11350, 11500) * (1 - seg(t, 12150, 12400)));\n        night.setAttribute(\"transform\", \"translate(\" + (200 + 1100 * sweep) + \",120)\");\n        fade(sun, 1 - clamp(sweep * 1.8));\n        fade(moon, clamp((sweep - 0.45) * 2.2));\n        fade(closeLab, eo(seg(t, 11800, 12200)));\n\n        steps.forEach(function (sg, i) {\n          var a = 12300 + i * 400;\n          fade(sg, eo(seg(t, a, a + 350)));\n        });\n        arrows.forEach(function (ag, i) {\n          var a = 12620 + i * 400;\n          fade(ag, eo(seg(t, a, a + 280)));\n        });\n        fade(rule, eo(seg(t, 13900, 14300)));\n\n        var rise = eo(seg(t, 14600, 15200));\n        fade(card, rise);\n        card.setAttribute(\"transform\", \"translate(0,\" + (60 * (1 - rise)) + \")\");\n        fade(cap3, eo(seg(t, 12000, 12400)));\n      }\n    };\n  }\n\n  // ---- scene 4: the scanner ---------------------------------------------\n  function buildScanner() {\n    var g = el(\"g\", {});\n    var cols = 20, rows = 10, cw = 52, ch = 22, gx = 10, gy = 20;\n    var x0 = (1600 - (cols * cw + (cols - 1) * gx)) / 2, y0 = 300;\n    var chips = [];\n    for (var r = 0; r < rows; r++) {\n      for (var c = 0; c < cols; c++) {\n        chips.push(el(\"rect\", {\n          x: x0 + c * (cw + gx), y: y0 + r * (ch + gy),\n          width: cw, height: ch, rx: 3, fill: C.line\n        }, g));\n      }\n    }\n    var hits = [7, 19, 33, 46, 58, 71, 84, 97, 110, 126, 139, 151, 168];\n\n    var count = text(\"600\", 800, 230, { size: 70, weight: 650, anchor: \"middle\", tnum: true });\n    g.appendChild(count);\n    var cap = text(\"Filter 600 symbols down to the ones that matched. As of the last close.\",\n      200, 820, { size: 24, fill: C.muted });\n    g.appendChild(cap);\n\n    return {\n      g: g,\n      update: function (t) {\n        var appear = seg(t, 16050, 16450);\n        var dim = eo(seg(t, 16500, 16750));\n        chips.forEach(function (ch2, i) {\n          var born = clamp(appear * chips.length - i * 0.04);\n          ch2.setAttribute(\"opacity\", born * (1 - 0.85 * dim));\n          ch2.setAttribute(\"fill\", C.line);\n        });\n        hits.forEach(function (idx, k) {\n          var lit = eo(seg(t, 16800 + k * 60, 16980 + k * 60));\n          if (lit > 0) {\n            chips[idx].setAttribute(\"fill\", C.accent);\n            chips[idx].setAttribute(\"opacity\", 0.15 + 0.85 * lit);\n          }\n        });\n        var p = eo(seg(t, 16800, 17650));\n        count.textContent = Math.round(600 + (13 - 600) * p);\n        fade(count, seg(t, 16200, 16500));\n        fade(cap, eo(seg(t, 16600, 17000)));\n      }\n    };\n  }\n\n  // ---- scene 5: financials ----------------------------------------------\n  function buildFinancials() {\n    var g = el(\"g\", {});\n    var doc = el(\"g\", {}, g);\n    el(\"rect\", { x: 180, y: 250, width: 300, height: 370, rx: 6, fill: C.panel, stroke: C.line, \"stroke-width\": 1 }, doc);\n    for (var i = 0; i < 9; i++) {\n      el(\"rect\", { x: 212, y: 296 + i * 34, width: (i % 3 === 2 ? 150 : 236), height: 10, rx: 2, fill: C.line }, doc);\n    }\n    text(\"10-K · filed with the SEC\", 330, 660, { size: 20, fill: C.muted, anchor: \"middle\", parent: doc });\n\n    var score = text(\"0\", 180, 400, { size: 130, weight: 680, tnum: true });\n    var of = text(\"/ 100\", 400, 400, { size: 34, fill: C.muted });\n    var verdict = text(\"Financially healthy.\", 182, 452, { size: 25, fill: C.muted });\n    g.appendChild(score); g.appendChild(of); g.appendChild(verdict);\n\n    var ROWS = [\n      [\"Profitability\", 86, C.up], [\"Cash flow\", 81, C.up], [\"Balance sheet\", 74, C.up],\n      [\"Shareholders\", 68, C.warn], [\"Growth\", 52, C.warn]\n    ];\n    var BX = 900, BW = 440;\n    var bars = ROWS.map(function (r, i) {\n      var y = 270 + i * 70;\n      var bg2 = el(\"g\", {}, g);\n      text(r[0], BX - 24, y + 6, { size: 22, anchor: \"end\", parent: bg2 });\n      el(\"rect\", { x: BX, y: y - 10, width: BW, height: 16, rx: 3, fill: C.line }, bg2);\n      var f = el(\"rect\", { x: BX, y: y - 10, width: 0, height: 16, rx: 3, fill: r[2] }, bg2);\n      var v = text(\"0\", BX + BW + 20, y + 6, { size: 21, tnum: true, parent: bg2 });\n      return { g: bg2, fill: f, val: v, target: r[1] };\n    });\n    text(\"0\", BX, 620, { size: 17, fill: C.muted, parent: g });\n    text(\"100\", BX + BW, 620, { size: 17, fill: C.muted, anchor: \"end\", parent: g });\n\n    var cap = text(\"Read from the filing itself. A number it doesn't report is left out, never shown as zero.\",\n      200, 820, { size: 24, fill: C.muted });\n    g.appendChild(cap);\n\n    return {\n      g: g,\n      update: function (t) {\n        var inP = eo(seg(t, 21050, 21600));\n        var collapse = eo(seg(t, 21650, 22150));\n        fade(doc, inP * (1 - collapse));\n        doc.setAttribute(\"transform\",\n          \"translate(\" + (-220 * (1 - inP)) + \",0) translate(330,430) scale(\" + (1 - 0.55 * collapse) + \") translate(-330,-430)\");\n\n        var sp = eo(seg(t, 22100, 23000));\n        score.textContent = Math.round(78 * sp);\n        fade(score, seg(t, 22100, 22300));\n        fade(of, seg(t, 22600, 22900));\n        fade(verdict, eo(seg(t, 22900, 23250)));\n\n        bars.forEach(function (b, i) {\n          var a = 22950 + i * 120;\n          var p = eo(seg(t, a, a + 520));\n          fade(b.g, seg(t, a - 150, a + 50));\n          b.fill.setAttribute(\"width\", BW * (b.target / 100) * p);\n          b.val.textContent = Math.round(b.target * p);\n        });\n        fade(cap, eo(seg(t, 23400, 23800)));\n      }\n    };\n  }\n\n  // ---- scene 6: value against cost --------------------------------------\n  function buildPortfolio() {\n    var g = el(\"g\", {});\n    var VAL = [10000,10420,10180,10910,11240,15180,15640,15020,15880,16210,15940,16480];\n    var COST = [10000,10000,10000,10000,10000,14000,14000,14000,14000,14000,14000,14000];\n    var X0 = 240, X1 = 1360, VLO = 9000, VHI = 17500, Y0 = 280, Y1 = 660;\n    var x = function (i) { return X0 + i * (X1 - X0) / (VAL.length - 1); };\n    var y = function (v) { return Y1 - (v - VLO) * (Y1 - Y0) / (VHI - VLO); };\n\n    [10000, 12500, 15000, 17500].forEach(function (v) {\n      el(\"line\", { x1: X0, y1: y(v), x2: X1, y2: y(v), stroke: C.line, \"stroke-width\": 1 }, g);\n      text(\"$\" + v.toLocaleString(\"en-US\"), X1 + 18, y(v) + 6, { size: 18, fill: C.muted, tnum: true, parent: g });\n    });\n\n    // cost is a step, not a ramp: it holds flat, then jumps the day money lands\n    var costPts = [];\n    COST.forEach(function (v, i) {\n      if (i > 0 && v !== COST[i - 1]) { costPts.push(x(i) + \",\" + y(COST[i - 1])); }\n      costPts.push(x(i) + \",\" + y(v));\n    });\n    var costLine = el(\"polyline\", {\n      points: costPts.join(\" \"),\n      fill: \"none\", stroke: C.muted, \"stroke-width\": 3\n    }, g);\n    var valLine = el(\"polyline\", {\n      points: VAL.map(function (v, i) { return x(i) + \",\" + y(v); }).join(\" \"),\n      fill: \"none\", stroke: C.up, \"stroke-width\": 4\n    }, g);\n    var endDot = el(\"circle\", { cx: x(11), cy: y(VAL[11]), r: 8, fill: C.up }, g);\n\n    var marker = el(\"g\", {}, g);\n    el(\"line\", { x1: x(5), y1: 250, x2: x(5), y2: Y1, stroke: C.line, \"stroke-width\": 2 }, marker);\n    text(\"You add $4,000 here\", x(5) + 18, 290, { size: 24, parent: marker });\n    text(\"the cost line steps up with it\", x(5) + 18, 322, { size: 20, fill: C.muted, parent: marker });\n\n    var lv = text(\"Value 16,480\", 240, 208, { size: 22, fill: C.up, tnum: true });\n    var lc = text(\"Cost 14,000\", 450, 208, { size: 22, fill: C.muted, tnum: true });\n    g.appendChild(lv); g.appendChild(lc);\n\n    var cap = text(\"So a deposit can never look like a return.\", 240, 820, { size: 24, fill: C.muted });\n    g.appendChild(cap);\n\n    return {\n      g: g,\n      update: function (t) {\n        var p = eo(seg(t, 25100, 26400));\n        dash(valLine, p);\n        dash(costLine, eo(seg(t, 25250, 26500)));\n        fade(endDot, seg(t, 26350, 26600));\n        fade(marker, eo(seg(t, 26450, 26900)));\n        fade(lv, seg(t, 25050, 25350));\n        fade(lc, seg(t, 25200, 25500));\n        fade(cap, eo(seg(t, 26900, 27300)));\n      }\n    };\n  }\n\n  // ---- assemble ----------------------------------------------------------\n  var layers = {\n    thesis: buildLockup(true),\n    chart: buildChart(),\n    scanner: buildScanner(),\n    fin: buildFinancials(),\n    port: buildPortfolio(),\n    lockup: buildLockup(false)\n  };\n  layers.alert = layers.chart;   // scenes 2 and 3 share the chart\n\n  // \"Example data\" sits over every scene that shows a number\n  var stamp = text(\"Example data\", 1400, 866, { size: 17, fill: C.muted, anchor: \"end\" });\n\n  function render(t) {\n    SCENES.forEach(function (s) {\n      var on = t >= s.a && t < s.b;\n      var L = layers[s.id];\n      if (s.id === \"alert\") { return; }                 // drawn by the chart layer\n      if (s.id === \"chart\") { on = t >= 3000 && t < 16000; }\n      show(L.g, on);\n      if (on) { L.update(t, s.a); }\n    });\n    fade(stamp, t >= 3000 && t < 28000 ? 1 : 0);\n  }\n\n  // ---- transport ---------------------------------------------------------\n  var playBtn = document.getElementById(\"play\");\n  var restartBtn = document.getElementById(\"restart\");\n  var track = document.getElementById(\"track\");\n  var fill = document.getElementById(\"fill\");\n  var head = document.getElementById(\"head\");\n  var nowEl = document.getElementById(\"now\");\n  var labelEl = document.getElementById(\"label\");\n  var list = document.getElementById(\"sceneList\");\n\n  var reduced = window.matchMedia && window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches;\n  var t = 1800;              // open on the composed lock-up, not on black\n  var playing = false;\n  var last = 0;\n\n  SCENES.forEach(function (s, i) {\n    var li = document.createElement(\"li\");\n    var b = document.createElement(\"button\");\n    b.type = \"button\";\n    b.innerHTML = '<span class=\"n\">' + (i + 1) + \". \" + s.name + '</span><span class=\"t\">' + fmt(s.a) + \"</span>\";\n    b.addEventListener(\"click\", function () { seek(s.a + 1); });\n    li.appendChild(b);\n    list.appendChild(li);\n    var tick = document.createElement(\"div\");\n    tick.className = \"tick\";\n    tick.style.left = (s.a / T * 100) + \"%\";\n    track.appendChild(tick);\n  });\n\n  function fmt(ms) {\n    var s = Math.floor(ms / 1000);\n    return \"0:\" + (s < 10 ? \"0\" : \"\") + s;\n  }\n  function current() {\n    for (var i = SCENES.length - 1; i >= 0; i--) { if (t >= SCENES[i].a) { return SCENES[i]; } }\n    return SCENES[0];\n  }\n  function chrome() {\n    var p = t / T;\n    fill.style.width = (p * 100) + \"%\";\n    head.style.left = (p * 100) + \"%\";\n    nowEl.textContent = fmt(t);\n    var cur = current();\n    labelEl.textContent = cur.name;\n    var items = list.children;\n    for (var i = 0; i < items.length; i++) {\n      items[i].setAttribute(\"aria-current\", SCENES[i].id === cur.id ? \"true\" : \"false\");\n    }\n  }\n  function frame(ts) {\n    if (!playing) { return; }\n    if (!last) { last = ts; }\n    var dt = Math.min(ts - last, 100);\n    last = ts;\n    t += dt;\n    if (t >= T) { t -= T; }\n    render(t); chrome();\n    requestAnimationFrame(frame);\n  }\n  function play() {\n    if (playing) { return; }\n    playing = true; last = 0; playBtn.textContent = \"Pause\";\n    requestAnimationFrame(frame);\n  }\n  function pause() { playing = false; playBtn.textContent = \"Play\"; }\n  function seek(ms) {\n    t = Math.max(0, Math.min(T - 1, ms));\n    render(t); chrome();\n  }\n\n  playBtn.addEventListener(\"click\", function () { playing ? pause() : play(); });\n  restartBtn.addEventListener(\"click\", function () { seek(0); play(); });\n  track.addEventListener(\"click\", function (e) {\n    var r = track.getBoundingClientRect();\n    seek((e.clientX - r.left) / r.width * T);\n  });\n\n  render(t); chrome();\n  if (reduced) { pause(); } else { setTimeout(play, 700); }\n}());\n</script>\n</body>\n</html>\n",
+              "height": 780,
+              "caption": "The sequence loops. Use Pause, Restart, the timeline or a scene button. Every figure is an illustration, not live data."
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The seven scenes",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Thesis",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " (0:00). It tracks and alerts. It never trades.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "The chart",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " (0:03). Candles building, with a server-computed moving average.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "The alert",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " (0:09). A price level armed at 230, and delivered only after the US close.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Scanner",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " (0:16). About 600 symbols narrowed to 13.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Financials",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " (0:21). A filing from the SEC becomes a financial health score of 78, in five parts.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Portfolio",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " (0:25). The cost line steps up when money is added, so a deposit is never mistaken for a return.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 6
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Lock-up",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " (0:28). The name and the one-line claim again.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 7
+              }
+            ],
+            "type": "list",
+            "listType": "number",
+            "start": 1,
+            "tag": "ol"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "30be60f34b6bf5f0",
+              "blockName": "",
+              "blockType": "callout",
+              "kind": "note",
+              "title": "Why it never shows an alert firing in the session",
+              "body": {
+                "root": {
+                  "direction": "ltr",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "type": "root",
+                  "children": [
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "TraderBuddy checks alerts once a day, after the close, so the film never shows one firing mid-session. It also never shows an order ticket: there is no order entry anywhere in the product.",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Keep reading",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "type": "link",
+                    "fields": {
+                      "linkType": "custom",
+                      "newTab": false,
+                      "url": "/posts/traderbuddy-features/"
+                    },
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Everything TraderBuddy does",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ]
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": ": the feature tour, with the illustrations and example messages.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "type": "link",
+                    "fields": {
+                      "linkType": "custom",
+                      "newTab": false,
+                      "url": "/posts/traderbuddy-architecture/"
+                    },
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Architecture and tech stack",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ]
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": ": what it is built from, and the provider limits that shaped it.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          }
+        ]
+      }
+    }
+  }
+}

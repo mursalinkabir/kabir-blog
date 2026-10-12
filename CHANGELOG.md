@@ -4,6 +4,14 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## Unreleased
 
+### Added (TraderBuddy series, 2026-10-12)
+
+- Three posts, English only, as a series: **TraderBuddy in thirty seconds** (the motion film, unmodified, as an
+  isolated HTML embed with a scene list as text), **Everything TraderBuddy does** (the feature tour: the four
+  illustrations as embeds, cards as lead-in lists, the example panels as callouts) and **TraderBuddy architecture**
+  (the two component and dataflow diagrams as real D2 blocks from the project's `.d2` sources).
+- The privacy detector ignores SVG `viewBox` numbers (also inside JSON strings); they matched the phone pattern.
+
 ### Added (AI agent writes and publishes, 2026-10-12)
 
 - MCP endpoint `/api/mcp` through `@payloadcms/plugin-mcp` 3.90.2 with nine custom tools: `site_guide`, `list_posts`,

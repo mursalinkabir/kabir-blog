@@ -41,7 +41,9 @@ describe('privacy scan', () => {
     expect(scanText('call 090-1234-5678.')).toHaveLength(1); // at the end of a sentence
     expect(scanText('Phone: +81 90 1234 5678, then')).toHaveLength(1);
     expect(scanText('version 1.20.3.4 and 2026-10-12.')).toEqual([]);
-    expect(scanText('viewBox="0 0 1600 900"')).toHaveLength(1); // prose rule: grouped digits look like a phone number
+    expect(scanText('<svg viewBox="0 0 1600 900">')).toEqual([]); // SVG geometry is not a phone number
+    expect(scanText('{"html":"<svg viewBox=\\"0 0 1600 900\\">"}')).toEqual([]); // ...also inside a JSON string
+    expect(scanText('0 0 1600 900')).toHaveLength(1); // the same digits in prose still are
     expect(scanText('viewBox="0 0 1600 900" 090-1234-5678', [], { phones: false })).toEqual([]); // embeds: skipped
     expect(scanText('a@gmail.com 〒160-0022', [], { phones: false })).toHaveLength(2); // but the rest still applies
     expect(scanText('〒160-0022 and 3丁目')).toHaveLength(2);

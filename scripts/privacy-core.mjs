@@ -107,7 +107,10 @@ export function scanText(text, denylist = [], { phones = true } = {}) {
     const addr = m[0].toLowerCase();
     if (!ALLOWED_EMAILS.has(addr) && !ALLOWED_EMAIL_DOMAINS.has(addr.split('@')[1] ?? '')) out.push(`email ${m[0]}`);
   }
-  for (const m of phones ? text.matchAll(PHONE) : []) {
+  // An SVG viewBox is four numbers separated by spaces ("0 0 1600 900"): geometry, never a phone number. The
+  // optional backslashes are for the same attribute inside a JSON string (fixtures keep embed HTML that way).
+  const forPhones = text.replace(/viewBox\s*=\s*\\?["'][^"'\\]*\\?["']/gi, '');
+  for (const m of phones ? forPhones.matchAll(PHONE) : []) {
     const digits = m[0].replace(/\D/g, '');
     if (digits.length >= 9 && digits.length <= 13) out.push(`phone-like number ${m[0]}`);
   }

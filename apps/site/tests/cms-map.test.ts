@@ -110,7 +110,8 @@ describe('mapAll() on the captured response', () => {
   it('never downloads media used only by an unpublished post', () => {
     const draft = files.get('posts/unfinished-draft.json');
     expect(draft._status).toBe('draft');
-    expect(counts.publishedPosts).toBe(4);
+    expect(counts.publishedPosts).toBe(raw.posts.filter((p: { _status: string }) => p._status === 'published').length);
+    expect(counts.publishedPosts).toBeLessThan(counts.posts); // the draft is in the data and is not counted
     expect(downloads.length).toBeGreaterThan(0);
   });
 

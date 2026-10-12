@@ -1,0 +1,3086 @@
+{
+  "id": "p-tb-features",
+  "_status": "published",
+  "slug": "traderbuddy-features",
+  "pubDate": "2026-10-12T08:10:00.000Z",
+  "category": {
+    "id": "c1",
+    "slug": "tech",
+    "name": {
+      "en": "Tech",
+      "ja": "テック"
+    }
+  },
+  "tags": [
+    {
+      "id": "t-tb",
+      "slug": "traderbuddy",
+      "name": {
+        "en": "traderbuddy"
+      }
+    },
+    {
+      "id": "t-trading",
+      "slug": "trading",
+      "name": {
+        "en": "trading"
+      }
+    }
+  ],
+  "hero": {
+    "id": "cover-finance",
+    "url": "/images/covers/cover-finance.jpg",
+    "filename": "cover-finance.jpg",
+    "mimeType": "image/jpeg",
+    "width": 2400,
+    "height": 1594,
+    "alt": {
+      "en": "Price charts on a dark trading screen",
+      "ja": "暗いトレード画面に映る値動きのチャート"
+    },
+    "credit": "Photo: Nicholas Cappello on Unsplash",
+    "sizes": {
+      "480": {
+        "url": "/images/covers/cover-finance-480.webp",
+        "width": 480,
+        "height": 319
+      },
+      "960": {
+        "url": "/images/covers/cover-finance-960.webp",
+        "width": 960,
+        "height": 638
+      },
+      "1600": {
+        "url": "/images/covers/cover-finance-1600.webp",
+        "width": 1600,
+        "height": 1063
+      }
+    }
+  },
+  "series": {
+    "name": "TraderBuddy",
+    "part": 2
+  },
+  "toc": true,
+  "publishedIn": {
+    "en": true,
+    "ja": false
+  },
+  "title": {
+    "en": "Everything TraderBuddy does"
+  },
+  "description": {
+    "en": "A self-hosted terminal for the US market: server-side indicators, after-close alerts, a screener, SEC financials and a manual portfolio. It never trades."
+  },
+  "content": {
+    "en": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "type": "root",
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "It tracks and alerts. It never trades.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "A self-hosted terminal for the US market: charts with every indicator computed on the server, alerts that reach your own Slack or Telegram after the close, a screener over ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "~",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "600 symbols, company financials read straight from SEC filings, and a portfolio you keep by hand. No broker connection, no order entry, and nothing about you sold to anyone.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "tbembed1",
+              "blockName": "",
+              "blockType": "html-embed",
+              "title": "An example TraderBuddy chart: daily candles with a server-computed moving average, a price alert level drawn at 230 with its bell enabled, and a dashed average-cost line at 214 for a symbol held in a portfolio.",
+              "html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>An example TraderBuddy chart: daily candles with a server-computed moving averag</title><style>:root{color-scheme:dark;--bg:#0e1116;--panel:#151a21;--border:#272d36;--text:#dfe3e8;--muted:#949cab;--accent:#2dd4a7;--warn:#f0b90b;--danger:#f6465d;--up:#4ade80;--down:#f6465d;--grid:#272d36}\n*{box-sizing:border-box}\nbody{margin:0;padding:1rem;background:var(--panel);color:var(--text);font:15px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",system-ui,sans-serif}\n.figscroll{overflow-x:auto}\n.fig svg{display:block;width:100%;height:auto;overflow:visible}\n@media (max-width:620px){.fig svg{min-width:560px}}\n/* Shared SVG type and structure. */\n.fig svg text { font-family: inherit; fill: var(--text); }\n.grid { stroke: var(--grid); stroke-width: 1; }\n.ax, .ann-m { font-size: 11px; fill: var(--muted); }\n.ax-l { font-size: 12px; }\n.ann { font-size: 11.5px; fill: var(--muted); }\n.val { font-size: 12px; font-variant-numeric: tabular-nums; }\n.band { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }\n.band.good { fill: var(--up); }\n.band.fair { fill: var(--warn); }\n\n/* Chart figure. */\n.wick { stroke-width: 1.2; }\n.body { stroke-width: 1; }\n.up { stroke: var(--up); fill: var(--up); }\n.down { stroke: var(--down); fill: var(--down); }\n.sma { stroke: #7aa2f7; stroke-width: 1.6; }\n.alert-line { stroke: var(--warn); stroke-width: 1.4; stroke-dasharray: 1 0; }\n.pill rect { fill: var(--warn); }\n.pill-t { font-size: 10.5px; font-weight: 600; fill: #1a1d23; }\n.cost-line { stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 5 4; }\n.sym { font-size: 15px; font-weight: 650; }\n.leg { font-size: 11.5px; fill: var(--muted); }\n.leg-live { font-size: 11.5px; fill: var(--up); }\n\n/* Financial health figure. */\n.score-n { font-size: 34px; font-weight: 680; }\n.score-u { font-size: 14px; fill: var(--muted); }\n.track { fill: var(--grid); }\n.fill-good { fill: var(--up); }\n.fill-fair { fill: var(--warn); }\n.fill-weak { fill: var(--down); }\n\n/* Portfolio figure. */\n.value-series { stroke: var(--up); stroke-width: 2; }\n.cost-series { stroke: var(--muted); stroke-width: 1.6; stroke-dasharray: 5 4; }\n.endpoint { fill: var(--up); }\n.marker { stroke: var(--border); stroke-width: 1; }\n.leg-v { font-size: 11.5px; fill: var(--up); }\n.leg-c { font-size: 11.5px; fill: var(--muted); }\n\n/* Alert flow figure. */\n.node, .check { fill: var(--bg); stroke: var(--border); stroke-width: 1; }\n.check { stroke-dasharray: 4 3; }\n.node-t, .check-t { font-size: 13px; font-weight: 640; }\n.node-b { font-size: 12px; fill: var(--muted); }\n.edge, .edge-d { stroke: currentColor; stroke-width: 1.3; color: var(--muted); fill: none; }\n.edge-d { stroke-dasharray: 4 3; }\n.edge-l { font-size: 10.5px; fill: var(--muted); text-anchor: middle; }\n\n</style></head><body><div class=\"fig\"><div class=\"figscroll\"><svg viewBox=\"0 0 760 330\" role=\"img\" aria-label=\"An example TraderBuddy chart: daily candles with a server-computed moving average, a price alert level drawn at 230 with its bell enabled, and a dashed average-cost line at 214 for a symbol held in a portfolio.\"><line class=\"grid\" x1=\"8\" y1=\"255.1\" x2=\"672\" y2=\"255.1\" /><text class=\"ax\" x=\"680\" y=\"258.6\">210.00</text><line class=\"grid\" x1=\"8\" y1=\"212.8\" x2=\"672\" y2=\"212.8\" /><text class=\"ax\" x=\"680\" y=\"216.3\">215.00</text><line class=\"grid\" x1=\"8\" y1=\"170.5\" x2=\"672\" y2=\"170.5\" /><text class=\"ax\" x=\"680\" y=\"174.0\">220.00</text><line class=\"grid\" x1=\"8\" y1=\"128.2\" x2=\"672\" y2=\"128.2\" /><text class=\"ax\" x=\"680\" y=\"131.7\">225.00</text><line class=\"grid\" x1=\"8\" y1=\"85.8\" x2=\"672\" y2=\"85.8\" /><text class=\"ax\" x=\"680\" y=\"89.3\">230.00</text><line class=\"wick up\" x1=\"21.8\" y1=\"229.7\" x2=\"21.8\" y2=\"253.4\" /><rect class=\"body up\" x=\"14.1\" y=\"233.1\" width=\"15.5\" height=\"10.1\" /><line class=\"wick up\" x1=\"49.5\" y1=\"214.5\" x2=\"49.5\" y2=\"237.3\" /><rect class=\"body up\" x=\"41.8\" y=\"219.5\" width=\"15.5\" height=\"13.6\" /><line class=\"wick down\" x1=\"77.2\" y1=\"212.8\" x2=\"77.2\" y2=\"234.8\" /><rect class=\"body down\" x=\"69.5\" y=\"220.4\" width=\"15.5\" height=\"10.1\" /><line class=\"wick down\" x1=\"104.8\" y1=\"224.6\" x2=\"104.8\" y2=\"247.5\" /><rect class=\"body down\" x=\"97.1\" y=\"231.4\" width=\"15.5\" height=\"11.0\" /><line class=\"wick up\" x1=\"132.5\" y1=\"217.8\" x2=\"132.5\" y2=\"244.9\" /><rect class=\"body up\" x=\"124.8\" y=\"221.2\" width=\"15.5\" height=\"20.3\" /><line class=\"wick up\" x1=\"160.2\" y1=\"195.0\" x2=\"160.2\" y2=\"222.9\" /><rect class=\"body up\" x=\"152.5\" y=\"197.5\" width=\"15.5\" height=\"22.0\" /><line class=\"wick down\" x1=\"187.8\" y1=\"185.7\" x2=\"187.8\" y2=\"207.7\" /><rect class=\"body down\" x=\"180.1\" y=\"198.4\" width=\"15.5\" height=\"5.1\" /><line class=\"wick down\" x1=\"215.5\" y1=\"196.7\" x2=\"215.5\" y2=\"228.8\" /><rect class=\"body down\" x=\"207.8\" y=\"204.3\" width=\"15.5\" height=\"19.5\" /><line class=\"wick up\" x1=\"243.2\" y1=\"202.6\" x2=\"243.2\" y2=\"227.2\" /><rect class=\"body up\" x=\"235.5\" y=\"205.2\" width=\"15.5\" height=\"17.7\" /><line class=\"wick up\" x1=\"270.8\" y1=\"175.5\" x2=\"270.8\" y2=\"206.8\" /><rect class=\"body up\" x=\"263.1\" y=\"178.9\" width=\"15.5\" height=\"25.4\" /><line class=\"wick up\" x1=\"298.5\" y1=\"156.9\" x2=\"298.5\" y2=\"184.0\" /><rect class=\"body up\" x=\"290.8\" y=\"160.3\" width=\"15.5\" height=\"17.8\" /><line class=\"wick down\" x1=\"326.2\" y1=\"153.5\" x2=\"326.2\" y2=\"179.8\" /><rect class=\"body down\" x=\"318.5\" y=\"161.2\" width=\"15.5\" height=\"12.6\" /><line class=\"wick down\" x1=\"353.8\" y1=\"167.1\" x2=\"353.8\" y2=\"197.5\" /><rect class=\"body down\" x=\"346.1\" y=\"174.7\" width=\"15.5\" height=\"18.6\" /><line class=\"wick up\" x1=\"381.5\" y1=\"169.6\" x2=\"381.5\" y2=\"195.8\" /><rect class=\"body up\" x=\"373.8\" y=\"172.2\" width=\"15.5\" height=\"20.3\" /><line class=\"wick up\" x1=\"409.2\" y1=\"143.4\" x2=\"409.2\" y2=\"174.7\" /><rect class=\"body up\" x=\"401.5\" y=\"145.9\" width=\"15.5\" height=\"25.4\" /><line class=\"wick up\" x1=\"436.8\" y1=\"127.3\" x2=\"436.8\" y2=\"151.8\" /><rect class=\"body up\" x=\"429.1\" y=\"131.5\" width=\"15.5\" height=\"15.3\" /><line class=\"wick down\" x1=\"464.5\" y1=\"119.7\" x2=\"464.5\" y2=\"144.2\" /><rect class=\"body down\" x=\"456.8\" y=\"130.7\" width=\"15.5\" height=\"10.1\" /><line class=\"wick down\" x1=\"492.2\" y1=\"134.9\" x2=\"492.2\" y2=\"165.4\" /><rect class=\"body down\" x=\"484.5\" y=\"141.7\" width=\"15.5\" height=\"19.5\" /><line class=\"wick up\" x1=\"519.8\" y1=\"131.5\" x2=\"519.8\" y2=\"162.8\" /><rect class=\"body up\" x=\"512.1\" y=\"134.1\" width=\"15.5\" height=\"26.2\" /><line class=\"wick up\" x1=\"547.5\" y1=\"104.5\" x2=\"547.5\" y2=\"136.6\" /><rect class=\"body up\" x=\"539.8\" y=\"107.8\" width=\"15.5\" height=\"25.4\" /><line class=\"wick up\" x1=\"575.2\" y1=\"93.5\" x2=\"575.2\" y2=\"117.2\" /><rect class=\"body up\" x=\"567.5\" y=\"97.7\" width=\"15.5\" height=\"9.3\" /><line class=\"wick down\" x1=\"602.8\" y1=\"90.9\" x2=\"602.8\" y2=\"112.1\" /><rect class=\"body down\" x=\"595.1\" y=\"98.5\" width=\"15.5\" height=\"11.0\" /><line class=\"wick up\" x1=\"630.5\" y1=\"80.8\" x2=\"630.5\" y2=\"111.2\" /><rect class=\"body up\" x=\"622.8\" y=\"84.2\" width=\"15.5\" height=\"24.5\" /><line class=\"wick up\" x1=\"658.2\" y1=\"65.5\" x2=\"658.2\" y2=\"89.2\" /><rect class=\"body up\" x=\"650.5\" y=\"70.6\" width=\"15.5\" height=\"12.7\" /><polyline class=\"sma\" fill=\"none\" points=\"132.5,229.4 160.2,222.2 187.8,219.0 215.5,217.7 243.2,210.2 270.8,201.8 298.5,194.3 326.2,188.4 353.8,182.3 381.5,175.7 409.2,169.1 436.8,163.4 464.5,156.8 492.2,150.3 519.8,142.7 547.5,135.1 575.2,128.3 602.8,122.1 630.5,106.7 658.2,94.0\" /><line class=\"alert-line\" x1=\"8\" y1=\"85.8\" x2=\"672\" y2=\"85.8\" /><g class=\"pill\"><rect x=\"12\" y=\"66.8\" width=\"176\" height=\"16\" rx=\"3\" /><text class=\"pill-t\" x=\"19\" y=\"78.8\">▲ Alert · crosses above 230</text></g><line class=\"cost-line\" x1=\"8\" y1=\"221.2\" x2=\"672\" y2=\"221.2\" /><text class=\"ann\" x=\"668\" y=\"236.2\" text-anchor=\"end\">Your average cost, 214.00 · a symbol you hold</text><text class=\"sym\" x=\"8\" y=\"24\">AAPL</text><text class=\"leg\" x=\"70\" y=\"24\">1D · SMA 20 · RSI 14</text><text class=\"leg-live\" x=\"8\" y=\"42\">● Live from IEX</text><text class=\"leg\" x=\"104\" y=\"42\">Last close 231.80</text><line class=\"grid\" x1=\"8\" y1=\"273\" x2=\"672\" y2=\"273\" /><text class=\"ax\" x=\"8\" y=\"292\">24 sessions</text><text class=\"ax\" x=\"672\" y=\"292\" text-anchor=\"end\">today</text></svg></div></div></body></html>",
+              "height": 320,
+              "caption": "One symbol, as the chart shows it: candles, a server-computed moving average, an alert armed at 230, and the dashed line marking what you paid. An illustration with example prices."
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The chart",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Open a symbol and you get candles from one minute to one week, drawn from closed bars cached on the server with one live forming bar on top. Scroll back and deeper history loads.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Indicators, computed server-side.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " SMA, EMA, RSI, ATR, VWAP, MACD, Bollinger Bands and Stochastic. Your browser draws them; it never calculates them, so the chart and an alert can never disagree.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Drawing tools.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Trendlines, horizontals, rectangles and text, with magnet snapping, undo and redo, and an object tree. Everything is saved per symbol and waiting when you come back.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Live where it counts.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Real-time prices stream for the symbols you have open. The rest are polled and labelled ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "delayed",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": ", so you always know which number you are looking at.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Baseline mode.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Show closes against a reference instead of in absolute terms: since you added the symbol, 1W, 1M, 3M, YTD or 1Y. The legend names the reference price and its date.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Info and news beside the chart.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Profile, P/E, P/B, dividend yield, beta, a 52-week range bar and analyst ratings, marked as opinion. News follows your watchlist and falls back to market news when it is empty.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Symbols you hold are marked.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " A dashed average-cost line on the chart and a dot in the watchlist, so a position never gets lost between pages.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 6
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Search from anywhere.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "⌘K",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " finds any symbol. ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "↵",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " opens its chart, ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "⌘↵",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " adds it to your watchlist. What you type is never logged.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 7
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Usable on a phone.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " The chart keeps the screen. Indicators, Draw, Watchlist, News and Info are named buttons underneath, and the page tabs sit along the bottom.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 8
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Alerts",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Draw a line where you care about the price, turn on its bell, and TraderBuddy watches that level for you. Or create one from the Alerts page, where every alert you own is listed, editable, renewable and deletable.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "tbembed2",
+              "blockName": "",
+              "blockType": "html-embed",
+              "title": "How an alert travels: your alert, then after the US close the session’s one-minute bars are read once a day, and only if the previous close sat on the other side of your level does a message go to the channels you connected.",
+              "html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>How an alert travels: your alert, then after the US close the session’s one-minu</title><style>:root{color-scheme:dark;--bg:#0e1116;--panel:#151a21;--border:#272d36;--text:#dfe3e8;--muted:#949cab;--accent:#2dd4a7;--warn:#f0b90b;--danger:#f6465d;--up:#4ade80;--down:#f6465d;--grid:#272d36}\n*{box-sizing:border-box}\nbody{margin:0;padding:1rem;background:var(--panel);color:var(--text);font:15px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",system-ui,sans-serif}\n.figscroll{overflow-x:auto}\n.fig svg{display:block;width:100%;height:auto;overflow:visible}\n@media (max-width:620px){.fig svg{min-width:560px}}\n/* Shared SVG type and structure. */\n.fig svg text { font-family: inherit; fill: var(--text); }\n.grid { stroke: var(--grid); stroke-width: 1; }\n.ax, .ann-m { font-size: 11px; fill: var(--muted); }\n.ax-l { font-size: 12px; }\n.ann { font-size: 11.5px; fill: var(--muted); }\n.val { font-size: 12px; font-variant-numeric: tabular-nums; }\n.band { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }\n.band.good { fill: var(--up); }\n.band.fair { fill: var(--warn); }\n\n/* Chart figure. */\n.wick { stroke-width: 1.2; }\n.body { stroke-width: 1; }\n.up { stroke: var(--up); fill: var(--up); }\n.down { stroke: var(--down); fill: var(--down); }\n.sma { stroke: #7aa2f7; stroke-width: 1.6; }\n.alert-line { stroke: var(--warn); stroke-width: 1.4; stroke-dasharray: 1 0; }\n.pill rect { fill: var(--warn); }\n.pill-t { font-size: 10.5px; font-weight: 600; fill: #1a1d23; }\n.cost-line { stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 5 4; }\n.sym { font-size: 15px; font-weight: 650; }\n.leg { font-size: 11.5px; fill: var(--muted); }\n.leg-live { font-size: 11.5px; fill: var(--up); }\n\n/* Financial health figure. */\n.score-n { font-size: 34px; font-weight: 680; }\n.score-u { font-size: 14px; fill: var(--muted); }\n.track { fill: var(--grid); }\n.fill-good { fill: var(--up); }\n.fill-fair { fill: var(--warn); }\n.fill-weak { fill: var(--down); }\n\n/* Portfolio figure. */\n.value-series { stroke: var(--up); stroke-width: 2; }\n.cost-series { stroke: var(--muted); stroke-width: 1.6; stroke-dasharray: 5 4; }\n.endpoint { fill: var(--up); }\n.marker { stroke: var(--border); stroke-width: 1; }\n.leg-v { font-size: 11.5px; fill: var(--up); }\n.leg-c { font-size: 11.5px; fill: var(--muted); }\n\n/* Alert flow figure. */\n.node, .check { fill: var(--bg); stroke: var(--border); stroke-width: 1; }\n.check { stroke-dasharray: 4 3; }\n.node-t, .check-t { font-size: 13px; font-weight: 640; }\n.node-b { font-size: 12px; fill: var(--muted); }\n.edge, .edge-d { stroke: currentColor; stroke-width: 1.3; color: var(--muted); fill: none; }\n.edge-d { stroke-dasharray: 4 3; }\n.edge-l { font-size: 10.5px; fill: var(--muted); text-anchor: middle; }\n\n</style></head><body><div class=\"fig\"><div class=\"figscroll\"><svg viewBox=\"0 0 760 300\" role=\"img\" aria-label=\"How an alert travels: your alert, then after the US close the session’s one-minute bars are read once a day, and only if the previous close sat on the other side of your level does a message go to the channels you connected.\"><defs><marker id=\"ah\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0,1 L9,5 L0,9 z\" fill=\"currentColor\" /></marker></defs><rect class=\"node\" x=\"8\" y=\"64\" width=\"224\" height=\"92\" rx=\"6\" /><text class=\"node-t\" x=\"24\" y=\"90\">Your alert</text><text class=\"node-b\" x=\"24\" y=\"112\">A line you drew on the chart,</text><text class=\"node-b\" x=\"24\" y=\"129\">or a row on the Alerts page.</text><rect class=\"node\" x=\"268\" y=\"64\" width=\"224\" height=\"92\" rx=\"6\" /><text class=\"node-t\" x=\"284\" y=\"90\">After the US close</text><text class=\"node-b\" x=\"284\" y=\"112\">The session’s 1-minute bars,</text><text class=\"node-b\" x=\"284\" y=\"129\">fetched once. Never ticks.</text><rect class=\"node\" x=\"528\" y=\"64\" width=\"224\" height=\"92\" rx=\"6\" /><text class=\"node-t\" x=\"544\" y=\"90\">Your channels</text><text class=\"node-b\" x=\"544\" y=\"112\">Slack DM, Telegram chat</text><text class=\"node-b\" x=\"544\" y=\"129\">or a signed webhook.</text><line class=\"edge\" x1=\"232\" y1=\"110\" x2=\"264\" y2=\"110\" marker-end=\"url(#ah)\" /><line class=\"edge\" x1=\"492\" y1=\"110\" x2=\"524\" y2=\"110\" marker-end=\"url(#ah)\" /><text class=\"edge-l\" x=\"248\" y=\"100\">once a day</text><text class=\"edge-l\" x=\"508\" y=\"100\">only if it crossed</text><rect class=\"check\" x=\"268\" y=\"186\" width=\"224\" height=\"80\" rx=\"6\" /><text class=\"check-t\" x=\"284\" y=\"210\">The crossing test</text><text class=\"node-b\" x=\"284\" y=\"232\">The previous close must sit on</text><text class=\"node-b\" x=\"284\" y=\"249\">the other side of your level.</text><line class=\"edge-d\" x1=\"380\" y1=\"156\" x2=\"380\" y2=\"186\" marker-end=\"url(#ah)\" /><text class=\"ann-m\" x=\"8\" y=\"286\">A level you are already past does not fire. Nothing is evaluated in your browser. Alerts last 90 days, then you renew them.</text></svg></div></div></body></html>",
+              "height": 320,
+              "caption": "How an alert reaches you, and the one rule that decides whether it fires."
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The timing is the part worth knowing before you rely on it: alerts are checked ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "once per trading day, after the US close",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ", on that session's one-minute bars. That is a deliberate trade — the real-time budget belongs to the charts you have open — and it means an alert tells you on the evening of the day something happened, not the second it happens. The single exception is opening movers, below.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Price levels.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Crosses above, below, or either. On a trendline, the level is read along the line at the moment of checking, so a sloping level stays correct as time passes.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Conditions, not just levels.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " A close crossing its SMA or EMA, a golden or death cross, a daily move of X%, a new 52-week or all-time high or low, a volume spike, or RSI crossing a level. Any symbol in the universe, ETFs included.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Told what happened.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " A condition alert says what occurred rather than quoting a number: \"the 50-day crossed above the 200-day\", not \"value ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": ">",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " threshold\".",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Your channels, your credentials.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " A Slack DM, a Slack channel you pick, a Telegram chat, or a signed webhook. Every enabled channel gets every alert, and one failing never costs you the others.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "A lifecycle, not a graveyard.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Alerts last 90 days and then wait for you to renew them, re-arm after they fire, and keep a per-alert history of what happened and when. Renew or delete in bulk.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "The chart agrees with the server.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " A bell on the chart means a real alert exists on the server. You will never be shown one that isn't actually armed.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 6
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Scanner",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Filter about 600 symbols — the S&P 500, Nasdaq-100 names, roughly 100 ETFs, plus anything on your own watchlist or in your portfolio — on price moves, the 52-week range, volume against its average, SMA 20/50/200, RSI, golden and death crosses, new highs and lows, P/E, market cap and financial health. Thirteen scans are built in. Duplicate one to edit it, or save up to 25 of your own.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "839dc7c2cfe91acd",
+              "blockName": "",
+              "blockType": "callout",
+              "kind": "note",
+              "title": "Big daily moves · S&P 500",
+              "body": {
+                "root": {
+                  "direction": "ltr",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "type": "root",
+                  "children": [
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 2,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "As of the close, Fri 9 Oct 2026",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 1,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "What this scanner looks for",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "direction": "ltr",
+                          "format": "",
+                          "indent": 0,
+                          "version": 1,
+                          "children": [
+                            {
+                              "detail": 0,
+                              "format": 1,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "Index:",
+                              "type": "text",
+                              "version": 1
+                            },
+                            {
+                              "detail": 0,
+                              "format": 0,
+                              "mode": "normal",
+                              "style": "",
+                              "text": " S&P 500 — the 500 largest US listed companies.",
+                              "type": "text",
+                              "version": 1
+                            }
+                          ],
+                          "type": "listitem",
+                          "value": 1
+                        },
+                        {
+                          "direction": "ltr",
+                          "format": "",
+                          "indent": 0,
+                          "version": 1,
+                          "children": [
+                            {
+                              "detail": 0,
+                              "format": 1,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "Change today:",
+                              "type": "text",
+                              "version": 1
+                            },
+                            {
+                              "detail": 0,
+                              "format": 0,
+                              "mode": "normal",
+                              "style": "",
+                              "text": " above 7% or below −7% — a move far outside a normal session.",
+                              "type": "text",
+                              "version": 1
+                            }
+                          ],
+                          "type": "listitem",
+                          "value": 2
+                        },
+                        {
+                          "direction": "ltr",
+                          "format": "",
+                          "indent": 0,
+                          "version": 1,
+                          "children": [
+                            {
+                              "detail": 0,
+                              "format": 1,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "Volume:",
+                              "type": "text",
+                              "version": 1
+                            },
+                            {
+                              "detail": 0,
+                              "format": 0,
+                              "mode": "normal",
+                              "style": "",
+                              "text": " above 2× its 20-day average — unusual participation, not a quiet drift.",
+                              "type": "text",
+                              "version": 1
+                            }
+                          ],
+                          "type": "listitem",
+                          "value": 3
+                        }
+                      ],
+                      "type": "list",
+                      "listType": "bullet",
+                      "start": 1,
+                      "tag": "ul"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 1,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "Matches",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "direction": "ltr",
+                          "format": "",
+                          "indent": 0,
+                          "version": 1,
+                          "children": [
+                            {
+                              "detail": 0,
+                              "format": 0,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "Thu 8 Oct: ",
+                              "type": "text",
+                              "version": 1
+                            },
+                            {
+                              "detail": 0,
+                              "format": 16,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "MRNA",
+                              "type": "text",
+                              "version": 1
+                            },
+                            {
+                              "detail": 0,
+                              "format": 0,
+                              "mode": "normal",
+                              "style": "",
+                              "text": " — Volume ",
+                              "type": "text",
+                              "version": 1
+                            },
+                            {
+                              "detail": 0,
+                              "format": 1,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "2.4×",
+                              "type": "text",
+                              "version": 1
+                            },
+                            {
+                              "detail": 0,
+                              "format": 0,
+                              "mode": "normal",
+                              "style": "",
+                              "text": " its 20-day average (New)",
+                              "type": "text",
+                              "version": 1
+                            }
+                          ],
+                          "type": "listitem",
+                          "value": 1
+                        },
+                        {
+                          "direction": "ltr",
+                          "format": "",
+                          "indent": 0,
+                          "version": 1,
+                          "children": [
+                            {
+                              "detail": 0,
+                              "format": 0,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "Fri 9 Oct: ",
+                              "type": "text",
+                              "version": 1
+                            },
+                            {
+                              "detail": 0,
+                              "format": 16,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "MRNA",
+                              "type": "text",
+                              "version": 1
+                            },
+                            {
+                              "detail": 0,
+                              "format": 0,
+                              "mode": "normal",
+                              "style": "",
+                              "text": " — +14.2% on the day",
+                              "type": "text",
+                              "version": 1
+                            }
+                          ],
+                          "type": "listitem",
+                          "value": 2
+                        },
+                        {
+                          "direction": "ltr",
+                          "format": "",
+                          "indent": 0,
+                          "version": 1,
+                          "children": [
+                            {
+                              "detail": 0,
+                              "format": 0,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "and twelve more S&P 500 names moved 7% or more that session",
+                              "type": "text",
+                              "version": 1
+                            }
+                          ],
+                          "type": "listitem",
+                          "value": 3
+                        }
+                      ],
+                      "type": "list",
+                      "listType": "bullet",
+                      "start": 1,
+                      "tag": "ul"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "A real match: Moderna's 8–9 October spike, caught by a 7% move scan and a 2× volume scan.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Written in plain language.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Every scanner explains itself as you build it: \"Debt / equity: below 1× — total debt over equity; under 1 is a lighter balance sheet.\" You can add a description in your own words.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Honest about its clock.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Results are a snapshot taken after each close, and the page says which close. Symbols that were not matching the session before are marked ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "New",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": ".",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "It can come to you.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Turn on ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Send matches to my channels",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " — new matches only, or every match — and one message per evening lists what each of your scanners found, every symbol linking to its chart. Nothing is sent on a day nothing matched.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "No false precision.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " A symbol whose value is unknown — no 200-day average yet, no P/E — never matches a filter on it, instead of being quietly counted as zero.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Financials",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Search a company and TraderBuddy reads its latest 10-K or 10-Q from the SEC, names the filing it used, links to it, and turns it into one score with the five parts behind it.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "tbembed3",
+              "blockName": "",
+              "blockType": "html-embed",
+              "title": "An example financial health score of 78 out of 100, broken into five pillars drawn on the same scale: profitability 86, cash flow 81, balance sheet 74, shareholders 68 and growth 52.",
+              "html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>An example financial health score of 78 out of 100, broken into five pillars dra</title><style>:root{color-scheme:dark;--bg:#0e1116;--panel:#151a21;--border:#272d36;--text:#dfe3e8;--muted:#949cab;--accent:#2dd4a7;--warn:#f0b90b;--danger:#f6465d;--up:#4ade80;--down:#f6465d;--grid:#272d36}\n*{box-sizing:border-box}\nbody{margin:0;padding:1rem;background:var(--panel);color:var(--text);font:15px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",system-ui,sans-serif}\n.figscroll{overflow-x:auto}\n.fig svg{display:block;width:100%;height:auto;overflow:visible}\n@media (max-width:620px){.fig svg{min-width:560px}}\n/* Shared SVG type and structure. */\n.fig svg text { font-family: inherit; fill: var(--text); }\n.grid { stroke: var(--grid); stroke-width: 1; }\n.ax, .ann-m { font-size: 11px; fill: var(--muted); }\n.ax-l { font-size: 12px; }\n.ann { font-size: 11.5px; fill: var(--muted); }\n.val { font-size: 12px; font-variant-numeric: tabular-nums; }\n.band { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }\n.band.good { fill: var(--up); }\n.band.fair { fill: var(--warn); }\n\n/* Chart figure. */\n.wick { stroke-width: 1.2; }\n.body { stroke-width: 1; }\n.up { stroke: var(--up); fill: var(--up); }\n.down { stroke: var(--down); fill: var(--down); }\n.sma { stroke: #7aa2f7; stroke-width: 1.6; }\n.alert-line { stroke: var(--warn); stroke-width: 1.4; stroke-dasharray: 1 0; }\n.pill rect { fill: var(--warn); }\n.pill-t { font-size: 10.5px; font-weight: 600; fill: #1a1d23; }\n.cost-line { stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 5 4; }\n.sym { font-size: 15px; font-weight: 650; }\n.leg { font-size: 11.5px; fill: var(--muted); }\n.leg-live { font-size: 11.5px; fill: var(--up); }\n\n/* Financial health figure. */\n.score-n { font-size: 34px; font-weight: 680; }\n.score-u { font-size: 14px; fill: var(--muted); }\n.track { fill: var(--grid); }\n.fill-good { fill: var(--up); }\n.fill-fair { fill: var(--warn); }\n.fill-weak { fill: var(--down); }\n\n/* Portfolio figure. */\n.value-series { stroke: var(--up); stroke-width: 2; }\n.cost-series { stroke: var(--muted); stroke-width: 1.6; stroke-dasharray: 5 4; }\n.endpoint { fill: var(--up); }\n.marker { stroke: var(--border); stroke-width: 1; }\n.leg-v { font-size: 11.5px; fill: var(--up); }\n.leg-c { font-size: 11.5px; fill: var(--muted); }\n\n/* Alert flow figure. */\n.node, .check { fill: var(--bg); stroke: var(--border); stroke-width: 1; }\n.check { stroke-dasharray: 4 3; }\n.node-t, .check-t { font-size: 13px; font-weight: 640; }\n.node-b { font-size: 12px; fill: var(--muted); }\n.edge, .edge-d { stroke: currentColor; stroke-width: 1.3; color: var(--muted); fill: none; }\n.edge-d { stroke-dasharray: 4 3; }\n.edge-l { font-size: 10.5px; fill: var(--muted); text-anchor: middle; }\n\n</style></head><body><div class=\"fig\"><div class=\"figscroll\"><svg viewBox=\"0 0 760 250\" role=\"img\" aria-label=\"An example financial health score of 78 out of 100, broken into five pillars drawn on the same scale: profitability 86, cash flow 81, balance sheet 74, shareholders 68 and growth 52.\"><text class=\"score-n\" x=\"8\" y=\"42\">78</text><text class=\"score-u\" x=\"62\" y=\"42\">/ 100</text><text class=\"ann\" x=\"8\" y=\"64\">Financially healthy. Strongest area: profitability. Weakest: growth.</text><line class=\"grid\" x1=\"150\" y1=\"86\" x2=\"570\" y2=\"86\" /><text class=\"ax-l\" x=\"8\" y=\"112\">Profitability</text><rect class=\"track\" x=\"150\" y=\"101\" width=\"420\" height=\"11\" rx=\"2\" /><rect class=\"fill-good\" x=\"150\" y=\"101\" width=\"361.2\" height=\"11\" rx=\"2\" /><text class=\"val\" x=\"582\" y=\"112\">86</text><text class=\"band good\" x=\"618\" y=\"112\">good</text><text class=\"ax-l\" x=\"8\" y=\"140\">Balance sheet</text><rect class=\"track\" x=\"150\" y=\"129\" width=\"420\" height=\"11\" rx=\"2\" /><rect class=\"fill-good\" x=\"150\" y=\"129\" width=\"310.8\" height=\"11\" rx=\"2\" /><text class=\"val\" x=\"582\" y=\"140\">74</text><text class=\"band good\" x=\"618\" y=\"140\">good</text><text class=\"ax-l\" x=\"8\" y=\"168\">Cash flow</text><rect class=\"track\" x=\"150\" y=\"157\" width=\"420\" height=\"11\" rx=\"2\" /><rect class=\"fill-good\" x=\"150\" y=\"157\" width=\"340.2\" height=\"11\" rx=\"2\" /><text class=\"val\" x=\"582\" y=\"168\">81</text><text class=\"band good\" x=\"618\" y=\"168\">good</text><text class=\"ax-l\" x=\"8\" y=\"196\">Growth</text><rect class=\"track\" x=\"150\" y=\"185\" width=\"420\" height=\"11\" rx=\"2\" /><rect class=\"fill-fair\" x=\"150\" y=\"185\" width=\"218.4\" height=\"11\" rx=\"2\" /><text class=\"val\" x=\"582\" y=\"196\">52</text><text class=\"band fair\" x=\"618\" y=\"196\">fair</text><text class=\"ax-l\" x=\"8\" y=\"224\">Shareholders</text><rect class=\"track\" x=\"150\" y=\"213\" width=\"420\" height=\"11\" rx=\"2\" /><rect class=\"fill-fair\" x=\"150\" y=\"213\" width=\"285.6\" height=\"11\" rx=\"2\" /><text class=\"val\" x=\"582\" y=\"224\">68</text><text class=\"band fair\" x=\"618\" y=\"224\">fair</text><text class=\"ax\" x=\"150\" y=\"250\">0</text><text class=\"ax\" x=\"570\" y=\"250\" text-anchor=\"end\">100</text></svg></div></div></body></html>",
+              "height": 320,
+              "caption": "A financial health score and the five parts behind it, all on the same 0–100 scale. Example figures."
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Every number in a sentence.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Each indicator carries its value, a five-year trend, a good / fair / weak marker and one plain explanation: \"Out of every $100 of revenue, $23 is left after the direct costs.\"",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Two checks shown test by test.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " The Piotroski F-score's nine pass/fail tests and the Altman Z-score's safe, grey or distress zones, each displayed in full so the score is never a black box.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "The statements themselves.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Five years of income statement, balance sheet and cash flow, in line names a person recognises.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Unknown is never zero.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " A figure the filing does not report is left out. A part without enough data says so, and a company with too little to go on gets no score at all.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Banks are judged as banks.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " For banks and insurers the measures that do not apply are dropped rather than invented, and the page says which and why.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Not advice.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " The score summarises what a company reported about its past. It does not forecast the share price, and the page says so plainly.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 6
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Portfolio",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "A ledger you keep yourself: buys, sells, dividends, splits and fees, typed in or imported from CSV with a preview and per-row errors first. There is no broker connection, by choice. Positions, profit and loss, and history are all derived by replaying what you entered.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "tbembed4",
+              "blockName": "",
+              "blockType": "html-embed",
+              "title": "An example portfolio chart with two lines from nightly snapshots: market value rising to 16,480 dollars and cost basis stepping from 10,000 to 14,000 dollars in the month money was added, so a deposit cannot be mistaken for a return.",
+              "html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>An example portfolio chart with two lines from nightly snapshots: market value r</title><style>:root{color-scheme:dark;--bg:#0e1116;--panel:#151a21;--border:#272d36;--text:#dfe3e8;--muted:#949cab;--accent:#2dd4a7;--warn:#f0b90b;--danger:#f6465d;--up:#4ade80;--down:#f6465d;--grid:#272d36}\n*{box-sizing:border-box}\nbody{margin:0;padding:1rem;background:var(--panel);color:var(--text);font:15px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",system-ui,sans-serif}\n.figscroll{overflow-x:auto}\n.fig svg{display:block;width:100%;height:auto;overflow:visible}\n@media (max-width:620px){.fig svg{min-width:560px}}\n/* Shared SVG type and structure. */\n.fig svg text { font-family: inherit; fill: var(--text); }\n.grid { stroke: var(--grid); stroke-width: 1; }\n.ax, .ann-m { font-size: 11px; fill: var(--muted); }\n.ax-l { font-size: 12px; }\n.ann { font-size: 11.5px; fill: var(--muted); }\n.val { font-size: 12px; font-variant-numeric: tabular-nums; }\n.band { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }\n.band.good { fill: var(--up); }\n.band.fair { fill: var(--warn); }\n\n/* Chart figure. */\n.wick { stroke-width: 1.2; }\n.body { stroke-width: 1; }\n.up { stroke: var(--up); fill: var(--up); }\n.down { stroke: var(--down); fill: var(--down); }\n.sma { stroke: #7aa2f7; stroke-width: 1.6; }\n.alert-line { stroke: var(--warn); stroke-width: 1.4; stroke-dasharray: 1 0; }\n.pill rect { fill: var(--warn); }\n.pill-t { font-size: 10.5px; font-weight: 600; fill: #1a1d23; }\n.cost-line { stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 5 4; }\n.sym { font-size: 15px; font-weight: 650; }\n.leg { font-size: 11.5px; fill: var(--muted); }\n.leg-live { font-size: 11.5px; fill: var(--up); }\n\n/* Financial health figure. */\n.score-n { font-size: 34px; font-weight: 680; }\n.score-u { font-size: 14px; fill: var(--muted); }\n.track { fill: var(--grid); }\n.fill-good { fill: var(--up); }\n.fill-fair { fill: var(--warn); }\n.fill-weak { fill: var(--down); }\n\n/* Portfolio figure. */\n.value-series { stroke: var(--up); stroke-width: 2; }\n.cost-series { stroke: var(--muted); stroke-width: 1.6; stroke-dasharray: 5 4; }\n.endpoint { fill: var(--up); }\n.marker { stroke: var(--border); stroke-width: 1; }\n.leg-v { font-size: 11.5px; fill: var(--up); }\n.leg-c { font-size: 11.5px; fill: var(--muted); }\n\n/* Alert flow figure. */\n.node, .check { fill: var(--bg); stroke: var(--border); stroke-width: 1; }\n.check { stroke-dasharray: 4 3; }\n.node-t, .check-t { font-size: 13px; font-weight: 640; }\n.node-b { font-size: 12px; fill: var(--muted); }\n.edge, .edge-d { stroke: currentColor; stroke-width: 1.3; color: var(--muted); fill: none; }\n.edge-d { stroke-dasharray: 4 3; }\n.edge-l { font-size: 10.5px; fill: var(--muted); text-anchor: middle; }\n\n</style></head><body><div class=\"fig\"><div class=\"figscroll\"><svg viewBox=\"0 0 760 290\" role=\"img\" aria-label=\"An example portfolio chart with two lines from nightly snapshots: market value rising to 16,480 dollars and cost basis stepping from 10,000 to 14,000 dollars in the month money was added, so a deposit cannot be mistaken for a return.\"><line class=\"grid\" x1=\"8\" y1=\"208.7\" x2=\"648\" y2=\"208.7\" /><text class=\"ax\" x=\"656\" y=\"212.2\">$10,000</text><line class=\"grid\" x1=\"8\" y1=\"150.5\" x2=\"648\" y2=\"150.5\" /><text class=\"ax\" x=\"656\" y=\"154.0\">$12,500</text><line class=\"grid\" x1=\"8\" y1=\"92.2\" x2=\"648\" y2=\"92.2\" /><text class=\"ax\" x=\"656\" y=\"95.7\">$15,000</text><line class=\"grid\" x1=\"8\" y1=\"34.0\" x2=\"648\" y2=\"34.0\" /><text class=\"ax\" x=\"656\" y=\"37.5\">$17,500</text><polyline class=\"cost-series\" fill=\"none\" points=\"8.0,208.7 66.2,208.7 124.4,208.7 182.5,208.7 240.7,208.7 298.9,115.5 357.1,115.5 415.3,115.5 473.5,115.5 531.6,115.5 589.8,115.5 648.0,115.5\" /><polyline class=\"value-series\" fill=\"none\" points=\"8.0,208.7 66.2,198.9 124.4,204.5 182.5,187.5 240.7,179.8 298.9,88.0 357.1,77.3 415.3,91.8 473.5,71.7 531.6,64.0 589.8,70.3 648.0,57.8\" /><circle class=\"endpoint\" cx=\"648.0\" cy=\"57.8\" r=\"4\" /><line class=\"marker\" x1=\"298.9\" y1=\"28\" x2=\"298.9\" y2=\"232\" /><text class=\"ann\" x=\"306.9\" y=\"40\">You add $4,000 here</text><text class=\"ann-m\" x=\"306.9\" y=\"56\">cost rises with it, so the deposit cannot read as a gain</text><text class=\"leg-v\" x=\"8\" y=\"24\">— Value 16,480</text><text class=\"leg-c\" x=\"136\" y=\"24\">— Cost 14,000</text><line class=\"grid\" x1=\"8\" y1=\"233\" x2=\"648\" y2=\"233\" /><text class=\"ax\" x=\"8.0\" y=\"252\" text-anchor=\"middle\">Nov</text><text class=\"ax\" x=\"124.4\" y=\"252\" text-anchor=\"middle\">Jan</text><text class=\"ax\" x=\"240.7\" y=\"252\" text-anchor=\"middle\">Mar</text><text class=\"ax\" x=\"357.1\" y=\"252\" text-anchor=\"middle\">May</text><text class=\"ax\" x=\"473.5\" y=\"252\" text-anchor=\"middle\">Jul</text><text class=\"ax\" x=\"589.8\" y=\"252\" text-anchor=\"middle\">Sep</text></svg></div></div></body></html>",
+              "height": 320,
+              "caption": "Value against cost from nightly snapshots. Example figures."
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Arithmetic you can trust.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Money and quantities are exact decimals end to end, never floating point. Every edit replays the whole ledger, so a backdated sell that would oversell is refused and names the transaction it conflicts with.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Average cost, stated as such.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Positions use average cost rather than tax lots, and the interface tells you that instead of letting you assume otherwise.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Allocation.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " By symbol or by sector, with ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Unknown",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " shown rather than hidden when a sector isn't available.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Corporate actions flagged.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Splits and dividends that look unrecorded are pointed out, and \"Record it\" pre-fills the transaction. Nothing is ever applied to your ledger automatically.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Macro context",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Eight series on one page: the 10-year and 2-year Treasury yields, the 10y−2y spread, the Fed funds rate, CPI, unemployment, the VIX and the Shiller CAPE. Every figure shows the observation date it belongs to, because a macro number without its date reads as today's when it can be months old.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Colour follows meaning rather than direction, and stops where meaning stops:",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "table",
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Series",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "When it rises",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Unemployment, CPI, VIX, Shiller CAPE",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Worse — more joblessness, faster inflation, more stress, a more expensive starting point",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "10y−2y spread",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Better — it is the ",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 2,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "fall",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": " through zero that people watch as a recession signal",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "10-year, 2-year, Fed funds",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Neutral — higher rates are good for savers and bad for borrowers; picking a colour would be editorialising",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "A daily digest, if you want one",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Off until you turn it on, section by section. After the close on trading days, you get one message on the channels you connected, with any section that has nothing to say left out.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "54dae9c9d5f27346",
+              "blockName": "",
+              "blockType": "callout",
+              "kind": "note",
+              "title": "TraderBuddy · Thursday 8 October",
+              "body": {
+                "root": {
+                  "direction": "ltr",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "type": "root",
+                  "children": [
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 2,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "An example of how it arrives",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 1,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "Portfolios",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "Core · +$412 today, value $16,480 against $14,000 of cost.",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 1,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "Alerts",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "AAPL crossed above 230.00. The alert has re-armed.",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 1,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "Watchlist",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "MRNA +14.2% on 2.4× its usual volume.",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 1,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "News and earnings",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "Three headlines on symbols you follow, and who reports tomorrow.",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "It is sent at most once a day. A crash can make it skip a day; it can never send you the same day twice.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Opening movers",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "One hour after the US open, TraderBuddy looks for S&P 500 stocks running: up ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "5% or more",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " on yesterday's close and trading at least ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "twice their usual volume",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " for those first minutes, measured against the same minutes of the last ten sessions, because volume is always heaviest at the open.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "b13349facd223cd2",
+              "blockName": "",
+              "blockType": "callout",
+              "kind": "note",
+              "title": "Opening movers · 10:30 New York",
+              "body": {
+                "root": {
+                  "direction": "ltr",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "type": "root",
+                  "children": [
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 2,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "An example of how it arrives",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "Two S&P 500 names are running an hour into the session.",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 16,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "XYZ",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": " +6.4% on 3.1× its usual volume for this part of the morning.",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 16,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "ABC",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": " +5.2% on 2.2×.",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 1,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "Prices are 15 minutes delayed",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "This is the one thing in TraderBuddy that runs ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "during",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " the session, and it is a deliberate exception. It is off until you turn it on in Settings, next to the digest. It arrives on trading days only, at most once a day, and never on a quiet morning. The time is shown in your own time zone, and the message says plainly that its prices are the full-market feed, 15 minutes delayed.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Let a coding agent use it",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Claude Code, Cursor and other MCP clients can look symbols up and manage your alerts, watchlist and drawings on your behalf. Create a token in Settings, paste the URL into your client, and ask in words: ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "\"what is NVDA's RSI doing, and alert me if it crosses 70\"",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ".",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "534dbf9871d2af22",
+              "blockName": "",
+              "blockType": "code",
+              "language": "json",
+              "code": "{\n  \"mcpServers\": {\n    \"traderbuddy\": {\n      \"url\": \"https://trader.smkabir.com/api/mcp/\",\n      \"headers\": { \"Authorization\": \"Bearer tb_pat_…\" }\n    }\n  }\n}"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "A token is shown once, expires between 30 days and a year, and is revoked rather than deleted. It can be read-only or allowed to write alerts, your watchlist, drawings and digest settings. What it can never touch is fixed in the server, not in the client: your notification credentials, the admin area, your portfolio ledger, and minting more tokens. And since TraderBuddy has no order entry at all, no agent of yours can place a trade.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Where your data sits",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Your browser talks to one server.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Only TraderBuddy's own. No analytics, no third-party widgets, no market-data provider called from your machine. Every provider key stays server-side.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Searches are not recorded.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Nothing logs what you type into ⌘K or the symbol box. Not for you, not for an admin.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Holdings and alerts are private.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Every portfolio, alert and watchlist route is scoped to you; someone else's id simply does not exist. Notifications go to destinations you connected yourself, never a shared channel.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Credentials are write-only.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Slack and Telegram tokens and webhook secrets are encrypted at rest and never returned by any route, to you or to anyone. To change one you replace it.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "The admin exception, stated.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " An admin can read any user's watchlist, portfolios and alerts — read-only. Every such read is recorded in an audit log, and the app tells every user this is possible. Your searches still aren't logged, and your channel credentials stay out of reach.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Getting an account.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Anyone can register; nobody gets in until an admin approves them. Until then you see a waiting screen and nothing else.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 6
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "What it deliberately does not do",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "These are choices, not gaps, and they are not going to change:",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Place orders.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " No order entry, no broker positions, no depth of market, no paper trading.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Connect to a brokerage.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " The portfolio is typed in or imported from a CSV.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Track tax lots.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Average cost only, and it says so where it matters.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Fire alerts on ticks.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Once per trading day, after the close.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Calculate anything in your browser.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Indicators, crossings and signals are all server-side.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Give advice.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Analyst consensus is opinion data, an indicator crossing is not a prediction, and a financial score is a summary of past filings.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 6
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "Features as of version 0.7.0, 11 October 2026. Example figures are illustrations, not real data.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      }
+    }
+  }
+}

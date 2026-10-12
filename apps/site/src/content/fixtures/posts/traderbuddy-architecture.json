@@ -1,0 +1,5218 @@
+{
+  "id": "p-tb-arch",
+  "_status": "published",
+  "slug": "traderbuddy-architecture",
+  "pubDate": "2026-10-12T08:20:00.000Z",
+  "category": {
+    "id": "c1",
+    "slug": "tech",
+    "name": {
+      "en": "Tech",
+      "ja": "テック"
+    }
+  },
+  "tags": [
+    {
+      "id": "t-tb",
+      "slug": "traderbuddy",
+      "name": {
+        "en": "traderbuddy"
+      }
+    },
+    {
+      "id": "t-arch",
+      "slug": "architecture",
+      "name": {
+        "en": "architecture"
+      }
+    },
+    {
+      "id": "t1",
+      "slug": "homelab",
+      "name": {
+        "en": "homelab",
+        "ja": "ホームラボ"
+      }
+    },
+    {
+      "id": "t2",
+      "slug": "kubernetes",
+      "name": {
+        "en": "kubernetes",
+        "ja": "Kubernetes"
+      }
+    }
+  ],
+  "hero": {
+    "id": "cover-tech",
+    "url": "/images/covers/cover-tech.jpg",
+    "filename": "cover-tech.jpg",
+    "mimeType": "image/jpeg",
+    "width": 2400,
+    "height": 1920,
+    "alt": {
+      "en": "A monitor and a laptop showing code on a desk",
+      "ja": "デスクの上でコードを表示しているモニターとノートパソコン"
+    },
+    "credit": "Photo: Pakata Goh on Unsplash",
+    "sizes": {
+      "480": {
+        "url": "/images/covers/cover-tech-480.webp",
+        "width": 480,
+        "height": 384
+      },
+      "960": {
+        "url": "/images/covers/cover-tech-960.webp",
+        "width": 960,
+        "height": 768
+      },
+      "1600": {
+        "url": "/images/covers/cover-tech-1600.webp",
+        "width": 1600,
+        "height": 1280
+      }
+    }
+  },
+  "series": {
+    "name": "TraderBuddy",
+    "part": 3
+  },
+  "toc": true,
+  "publishedIn": {
+    "en": true,
+    "ja": false
+  },
+  "title": {
+    "en": "TraderBuddy architecture: the stack and the constraints behind it"
+  },
+  "description": {
+    "en": "What TraderBuddy is made of, and the constraints that shaped it: one WebSocket, thirty symbols, SIP versus IEX, and alerts that need previous state."
+  },
+  "content": {
+    "en": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "type": "root",
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "What the system is made of, and the handful of constraints that explain why it is shaped this way rather than some more obvious way.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "What TraderBuddy is",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "A self-hosted trading dashboard for about five people: live quotes, server-computed indicators, drawing tools, price alerts delivered to Slack, macro context, and a manual portfolio tracker. It runs on a three-node Talos cluster on Proxmox, behind Cloudflare.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "539df94752d32844",
+              "blockName": "",
+              "blockType": "callout",
+              "kind": "note",
+              "body": {
+                "root": {
+                  "direction": "ltr",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "type": "root",
+                  "children": [
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 1,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "It tracks and alerts. It never trades.",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": " There is no order entry, no broker connection, no paper trading — even though the charting frontend is forked from a project that had all three. The portfolio is a manual ledger you type into. This is a product decision, not a missing feature.",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "75acab0857d08ae7",
+              "blockName": "",
+              "blockType": "diagram",
+              "kind": "d2",
+              "source": "\nvars: {\n  d2-config: {\n    layout-engine: elk\n  }\n  red: \"#c0392b\"\n  amber: \"#c98a1e\"\n  blue: \"#2f6fb3\"\n}\n\ndirection: down\n\nuser: User's browser {\n  shape: person\n}\n\ncloudflare: Cloudflare edge {\n  tunnel: cloudflared {\n    shape: rectangle\n  }\n}\n\nuser -> cloudflare.tunnel: HTTPS / WSS\\ntrader.smkabir.com\n\nhomelab: homelab-terraform repo {\n  shape: rectangle\n  style.stroke-dash: 3\n  note: \"Deploy manifests + image tags.\\nThis repo (TraderBuddy) only builds\\nand pushes images to GHCR.\"\n}\n\ngateway: Cilium Gateway API {\n  gw: gateway/public\\n(sectionName: https-wildcard) {\n    shape: rectangle\n  }\n  route: HTTPRoute traderbuddy {\n    shape: rectangle\n  }\n  gw -> route\n}\n\ncloudflare.tunnel -> gateway.gw: split-horizon on LAN,\\ntunnel from WAN\n\ntraderbuddy: traderbuddy namespace {\n  web: tb-web {\n    tooltip: \"Vite 6 + React 19 + TS\\nlightweight-charts (OpenCharts fork)\\nstatic image, path: /\\nAlerts page: list, create, edit, renew, delete\"\n  }\n\n  api: tb-api (BFF) {\n    tooltip: \"FastAPI, 2 replicas\\nRoutes under /api and /ws\\nOwns OIDC token exchange + refresh\\nNever calls Zitadel per-request\\nPolls a snapshot every 15 s for chart\\nsymbols outside tb-stream's 30\"\n  }\n\n  stream: tb-stream {\n    style.stroke: \"${red}\"\n    tooltip: \"Singleton, strategy: Recreate\\nONE Alpaca WS connection, account-wide\\nLive charts only: top 30 symbols by open-chart interest\\nSPOF by design — heartbeat monitored\"\n  }\n\n  alerts: tb-alerts (CronJob) {\n    tooltip: \"Once a trading day, after the US close\\n(30 16-20 * * 1-5, America/New_York)\\nSIP 1-minute bars over REST — never ticks, never IEX\\nCrossings use previous state, counting only\\nbars after each alert's baseline\"\n  }\n\n  ingest: tb-ingest {\n    tooltip: \"CronJobs, one tb-ingest image:\\nsymbols · bars-retention · macro (FRED, CAPE)\\nportfolio-snapshots and digest, 17:00 America/New_York\"\n  }\n\n  image_note: same tb-api image,\\ndifferent command per workload {\n    shape: text\n    style.italic: true\n    style.font-size: 13\n  }\n}\n\ngateway.route -> traderbuddy.web: PathPrefix /\ngateway.route -> traderbuddy.api: PathPrefix /api, /ws\n\nplatform: platform namespace {\n  pg: pg-main (CNPG) {\n    shape: cylinder\n    tooltip: \"3 instances, Postgres WAL replication\\nDatabase per app: traderbuddy, zitadel\\nDurable state lives HERE, never in Valkey\"\n  }\n\n  pooler: PgBouncer Pooler {\n    shape: queue\n    tooltip: \"poolMode: transaction\\nFor apps only — NOT for Zitadel\"\n  }\n\n  valkey: Valkey {\n    shape: cylinder\n    style.stroke: \"${amber}\"\n    tooltip: \"Single instance, strategy: Recreate\\nPub/sub: ticks and 1-min bars per symbol, alerts per user\\nInterest sorted set + rate-limit buckets\\nNo durable state — not a queue, not sessions\"\n  }\n\n  zitadel: Zitadel {\n    tooltip: \"OIDC @ auth.smkabir.com\\n1 replica, stateless\\nBFF pattern: touched only at login\\n+ token refresh, never per-request\"\n  }\n\n  pooler -> pg: transaction pooling\n  zitadel -> pg: direct connection\\n(bypasses pooler — session features\\nbreak under transaction pooling)\n}\n\ntraderbuddy.api -> platform.pooler: asyncpg pool\\n(sessions, watchlists, alerts, users)\ntraderbuddy.api -> platform.valkey: rate limiter (Valkey-backed,\\nnever per-process)\ntraderbuddy.api -> platform.zitadel: login code exchange +\\ntoken refresh ONLY\ntraderbuddy.alerts -> platform.pooler: alerts, alert_events\ntraderbuddy.ingest -> platform.pooler\ntraderbuddy.stream -> platform.valkey: \"publish ticks:<symbol>\"\ntraderbuddy.alerts -> platform.valkey: \"publish alerts:<user_id>\\n(AlertTriggered)\"\ntraderbuddy.api -> platform.valkey: \"subscribe ticks:<symbol>, alerts:<user_id>\\n(fan out over /ws, per user)\"\n\nproviders: External providers {\n  alpaca: Alpaca (WS + REST) {\n    tooltip: \"Free plan: ONE WS connection, 30 symbols,\\nreal-time from IEX only; REST 200 calls/min;\\nSIP data allowed once it's 15 minutes old\"\n  }\n  finnhub: Finnhub {\n    tooltip: \"60 req/min, account-wide\\nRedis token bucket + caching\"\n  }\n  fred: FRED (macro series)\n  slack: Slack (bot token, DMs) {\n    tooltip: \"Each user's own DM channel only.\\nNever a webhook or a shared channel —\\nalerts and holdings are private.\"\n  }\n}\n\ntraderbuddy.stream -> providers.alpaca: single upstream WS\\n(30 symbols max)\ntraderbuddy.api -> providers.alpaca: REST (bars, symbols,\\nsnapshots beyond the 30)\ntraderbuddy.api -> providers.finnhub: REST, rate-limited\ntraderbuddy.alerts -> providers.alpaca: \"REST: calendar + SIP 1-min bars\\nafter the close\"\ntraderbuddy.ingest -> providers.fred: macro ingestion\ntraderbuddy.alerts -> providers.slack: one DM per user\\n(the day's triggers)\ntraderbuddy.ingest -> providers.slack: daily digest DM\n\nhomelab -> platform: deploy manifests\\n(Argo CD applies)\nhomelab -> traderbuddy: image tags\\n(tb-api / tb-web from GHCR)\n\nuser.style.fill: \"${blue}\"",
+              "alt": "Component architecture: the browser reaches Cloudflare, then a Cilium Gateway API route, which splits traffic between tb-web and tb-api. tb-api talks to Postgres, Valkey, Zitadel and market-data providers. tb-stream holds the single upstream Alpaca WebSocket; tb-alerts and tb-ingest run as scheduled jobs."
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "Components and the traffic between them.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The stack",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "table",
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Layer",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Choice",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Why this one",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Backend",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Python 3.12, FastAPI, SQLAlchemy 2.0 async, asyncpg",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Async throughout because most request time is provider I/O. ",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "mypy --strict",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": " over all of ",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "api/src",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": ".",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Frontend",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Vite 6, React 19, TypeScript, TanStack Query, zustand",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "A fork of OpenCharts (MIT), pruned to charting only.",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Charts",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "lightweight-charts, pinned at 4.2.3",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Pinned exactly, with ",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "attributionLogo",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": " on — Apache-2.0 attribution is a licence condition, not a preference.",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Tables",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "@tanstack/react-table 8.21.3",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Pinned to v8 on purpose; see \"Deliberate deviations\" below.",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Database",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "PostgreSQL via CloudNativePG",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Everything durable. Sessions and queues included.",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Cache",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Valkey",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Short-TTL caching and rate-limit buckets only. Nothing here is a source of truth.",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Identity",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Zitadel OIDC, BFF session pattern",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "The browser holds an opaque signed cookie. No JWT ever reaches it.",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Indicators",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "pandas-ta-classic, pinned exactly",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Computed in Python only. The frontend never calculates.",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Market data",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Alpaca (bars, quotes, news, corporate actions), Finnhub (fundamentals, earnings), FRED + Shiller (macro)",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "All free tiers. All keys server-side.",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Cluster",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Talos v1.14, Kubernetes v1.36, Cilium v1.20 Gateway API",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Gateway API, not Ingress and not Traefik.",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Delivery",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "GitHub Actions → GHCR → Argo CD",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Two repositories; see Deploy.",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Four workloads, one image",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The Python codebase ships as a single ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "tb-api",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " image with four entrypoints. Each Deployment runs a different ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "command",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ". There are deliberately not four backend images.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "table",
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Workload",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Entrypoint",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Shape",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Does",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "tb-api",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "entrypoints/api.py",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "2 replicas",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "The HTTP API and the ",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "/ws",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": " fan-out",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "tb-stream",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "entrypoints/stream.py",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 1,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "1 replica, ",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 17,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Recreate",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Holds the single upstream Alpaca WebSocket and republishes to Valkey pub/sub",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "tb-alerts",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "entrypoints/alerts.py",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "scheduled",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Evaluates price alerts after the close",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "tb-ingest",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "entrypoints/ingest.py",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "scheduled",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Symbols, bar retention, macro, portfolio snapshots, digest, scan",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The constraints that shaped everything",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "One WebSocket, thirty symbols",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Alpaca's free plan allows ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "one",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " WebSocket connection per account and 30 subscribed symbols. That single fact produces most of the streaming design:",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "tb-stream",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " is a singleton with ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "strategy: Recreate",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": ", because two pods briefly coexisting means a ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "406 connection limit exceeded",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " and no live prices for anyone.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Users express ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 2,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "interest",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " in symbols; a budget allocator picks which 30 get the live feed, holding a symbol for 60 seconds after interest drops so a tab switch doesn't thrash subscriptions.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Symbols outside the budget are polled from a cached snapshot about every 15 seconds and labelled ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "delayed",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " in the UI rather than silently shown as live.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "e958bfe8f58c6414",
+              "blockName": "",
+              "blockType": "diagram",
+              "kind": "d2",
+              "source": "#\n# The component diagram (architecture.d2) shows these services exist. This one shows\n# the two data paths, because they are deliberately separate: live ticks are for eyes\n# (a 30-symbol WebSocket budget, a singleton upstream, Cloudflare idling quiet\n# sockets), and alerts never touch them (REST SIP bars, once, after the close).\n\nvars: {\n  d2-config: {\n    layout-engine: elk\n  }\n  red: \"#c0392b\"\n  amber: \"#c98a1e\"\n}\n\ndirection: right\n\n# Live charts — market hours, at most 30 symbols streamed\n\nbrowsers: \"Browsers\\n(N users)\" {\n  style.multiple: true\n}\n\napi_ws: \"tb-api /ws handlers\\n(N connections, per browser)\" {\n  tooltip: \"Session-authenticated via BFF cookie —\\nno token in the WS query string.\\nFan-out is filtered to each connection's\\nown interest set.\"\n}\n\ninterest: \"Valkey sorted set\\ninterest:symbols\" {\n  shape: cylinder\n  style.stroke: \"${amber}\"\n  tooltip: \"ZADD with the current time as score, for every\\nsymbol a browser reports. tb-stream trims\\nentries older than 90 s.\"\n}\n\nalpaca_ws: Alpaca WS (IEX) {\n  tooltip: \"Free plan: ONE concurrent connection\\nand 30 symbols, per account — not per user.\"\n}\n\nstream: tb-stream {\n  style.stroke: \"${red}\"\n  style.stroke-width: 3\n  tooltip: \"replicas: 1, strategy: Recreate (not RollingUpdate).\\nA rolling update briefly runs two pods, both dial\\nAlpaca, and one connection gets rejected/evicted.\\nEvery 10 s: top 30 by interest, 60 s hysteresis,\\nthen subscribe/unsubscribe quotes and bars.\"\n}\n\nlive_set: \"Valkey\\nstream:subscribed\\nstream:heartbeat\" {\n  shape: cylinder\n  style.stroke: \"${amber}\"\n  tooltip: \"The live set, rewritten with a 30 s expiry,\\nand the heartbeat. A stale heartbeat is how\\nyou find out the singleton died.\"\n}\n\npubsub: \"Valkey pub/sub\\nticks, bars1m per symbol\\nalerts per user\" {\n  shape: cylinder\n  style.stroke: \"${amber}\"\n  tooltip: \"No durable state. If nothing is subscribed\\nwhen a message publishes, it is gone —\\na live feed, not a queue.\"\n}\n\nalpaca_rest: Alpaca REST {\n  tooltip: \"Free plan: 200 calls/min, no symbol cap.\\nOne multi-symbol request covers many symbols.\\nSIP data is allowed once it's 15 minutes old.\"\n}\n\nbrowsers -> api_ws: \"interest frame\\n(on change + every 30 s)\"\napi_ws -> interest: ZADD\ninterest -> stream: top 30,\\nevery 10 s\nalpaca_ws -> stream: single upstream WS,\\naccount-wide\nstream -> live_set: live set + heartbeat\nstream -> pubsub: PUBLISH ticks\\nand 1-min bars\npubsub -> api_ws: SUBSCRIBE, fan out\\nper connection\nlive_set -> api_ws: \"not in the live set →\\nSymbolDelayed\"\napi_ws -> alpaca_rest: \"snapshot every 15 s for\\ndelayed symbols (single-flight)\"\napi_ws -> browsers: \"WS push +\\napplication-level ping ~30s\" {\n  tooltip: \"Cloudflare idles quiet WebSockets.\\nA silently dead socket looks identical to\\na quiet market — the worst failure mode here.\\nServer pings, client pongs, to keep it honest.\"\n}\n\n# Alerts — once a trading day, after the close; never reads the tick stream\n\nalerts: \"tb-alerts\\n(CronJob, after the close)\" {\n  tooltip: \"30 16-20 * * 1-5, America/New_York.\\nThe 16:30 run evaluates; later runs only\\nretry undelivered DMs.\"\n}\n\npg: \"Postgres\\nalerts, alert_events\" {\n  shape: cylinder\n  tooltip: \"alert_events is unique per (alert, trading date),\\nso a rerun can never fire twice.\\nOnly bars after an alert's baseline count.\"\n}\n\nslack: \"Slack\\n(DMs only)\" {\n  shape: cloud\n  tooltip: \"Alerts and digests go to each user's own DM —\\nnever a webhook or a shared channel.\"\n}\n\nalerts -> alpaca_rest: \"calendar + the session's\\nSIP 1-min bars\"\nalerts -> pg: crossings vs\\nprevious state\nalerts -> slack: \"one DM per user\\n(the day's triggers)\"\nalerts -> pubsub: \"PUBLISH AlertTriggered\\n(toast for users online)\"\n\nmonitor: \"Heartbeat monitor\" {\n  style.stroke-dash: 3\n}\n\nlive_set -> monitor: poll for staleness\nmonitor -> slack: \"alert: tb-stream is down\" {\n  style.stroke: \"${red}\"\n}",
+              "alt": "Streaming dataflow: tb-stream holds one Alpaca WebSocket, publishes ticks and bars to Valkey pub/sub; each tb-api replica subscribes and fans out to browser WebSocket connections, with delayed symbols served from a polled snapshot cache."
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "One upstream connection, fanned out through Valkey to every browser.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Real-time is IEX; history is SIP",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Live quotes come from IEX, which is a few percent of US volume. Historical bars come from SIP, which is consolidated and authoritative — but the free plan ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "embargoes the last 15 minutes of SIP",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ", and rejects the ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "entire request",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " with a 403 if ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "end",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " falls inside that window rather than trimming it. ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "AlpacaClient.get_bars",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " clamps a SIP ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "end",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " clear of the window for that reason.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The consequence users see: an intraday chart can disagree with an alert until the close, because alerts evaluate SIP bars afterwards. The UI labels which feed a chart is showing instead of pretending they're the same.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Alerts need previous state",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "Condition alerts",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " (a moving-average cross, a new high, a volume spike, RSI, a percent move) answer a question about a whole session rather than watching 1-minute bars for a touch, so they take their own path: ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "alerts/conditions.py",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " is pure — daily bars in, a verdict out — and calls the same pandas-ta functions that draw the chart's indicators, so an alert cannot disagree with the line the user is looking at. Daily bars are fetched split-adjusted; level alerts stay on raw prices because a level is a raw price. A condition has no price, so ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "alerts.level",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " is nullable, held honest by CHECK constraints, and the chart never draws a line for one. A cross is two consecutive sessions on opposite sides of the line, which is where \"previous state\" comes from without storing any.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "An alert fires on a ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "crossing",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ", never on ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "value > threshold",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ". That distinction requires knowing the previous close, which is why alerts are evaluated once per trading day, server-side, on the session's SIP 1-minute bars — never on ticks, never in the browser. Dragging an alert line past the current price doesn't fire it: the baseline resets and only bars after the edit count.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Money is Decimal, and strings on the wire",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Money and share quantities are ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "Decimal",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " in Python and ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "strings",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " in JSON, never JSON numbers — ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "1234.56",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " is a float to every client. The frontend formats them and does no arithmetic on them.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "This is not pedantry. The portfolio ledger's property-based test caught a real bug this way: ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "quantity * (price − avg)",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " and ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "quantity * price − quantity * avg",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " round differently once average cost is a repeating decimal, and the books failed to balance by one ulp. Replay now quantizes to the column precisions, so what it computes is exactly what Postgres stores.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Privacy, and its one exception",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Portfolios, alerts and watchlists are scoped to the session user — someone else's id returns ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "404, not 403",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ", so the API never confirms which ids exist. Notifications go only to destinations that user connected themselves — their own Slack (a direct message, or a channel they choose), Telegram chat or webhook. The ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "shared",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " Slack bot is DM-only: its ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "post()",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " refuses anything but a DM, because a channel would show every user everyone else's holdings. A user-owned Slack token is different — workspace, app and destination are all theirs — so it may post to a channel they pick, and the UI says plainly that everyone in it can read the alerts.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "Accounts.",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " Zitadel authenticates; TraderBuddy authorizes. Registration is open, but every new user is ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "pending",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " and can read only ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "/api/me",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " until an admin approves them — over HTTP and over the WebSocket, which authenticates separately and needed its own check. ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "projectRoleCheck",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " is off in Zitadel precisely so a newcomer gets a waiting screen rather than an error page. The ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "admin",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " role still comes from Zitadel's project-role claim.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "Credentials users enter.",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " Slack and Telegram tokens and webhook URLs are encrypted at rest with Fernet (",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "CREDENTIAL_KEY",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "), as a whole blob rather than selected fields, because a webhook URL can carry a token in its path. The API is write-only for them — nothing returns a credential, so there is no \"show token\" — and no admin route touches the table. Webhooks are the one feature that lets a user aim the server at an address of their choosing, in a cluster that also runs Zitadel, Postgres and the Kubernetes API, and ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "egress is not restricted",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ", so the guard is the only defence: HTTPS only, every resolved address checked, then the connection made to the address that was checked rather than the name (a second DNS lookup would allow rebinding), no redirects.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "3d25eaa14d53889a",
+              "blockName": "",
+              "blockType": "callout",
+              "kind": "warn",
+              "body": {
+                "root": {
+                  "direction": "ltr",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "type": "root",
+                  "children": [
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "The one exception, decided 2026-10-03: a user holding the Zitadel ",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 16,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "admin",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": " role can read any user's watchlist and portfolios, and a ",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 2,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "count",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": " of their active alerts, through ",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 16,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "/api/admin/*",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": ". It is read-only, it 404s for everyone else, and it carries two conditions — every cross-user read writes an ",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 16,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "admin_audit",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": " row, and the settings dialog tells ",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 2,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "every",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": " user this is possible. Searches are not logged anywhere.",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Request paths",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "A normal API call",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Browser → Cloudflare → Cilium Gateway → ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "tb-api",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ". The session cookie resolves against a ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "sessions",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " row in Postgres. ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "Zitadel is never called on a normal request",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " — no introspection endpoint — because it runs a single replica and would be a hard dependency on every page load. Roles are a snapshot taken at login and refreshed on token refresh.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "A live price",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Alpaca → ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "tb-stream",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " → Valkey pub/sub → every ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "tb-api",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " replica → each browser's ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "/ws",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ". Fan-out through Valkey is what lets ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "tb-api",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " scale to two replicas while only one upstream connection exists.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "A chart",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "GET /api/bars",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " reads closed bars from the Postgres cache, backfills from Alpaca only when the newest cached bar could be stale, and appends one live forming bar from IEX in two narrow cases. Closed bars are immutable once written.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "An agent call",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "A coding agent speaks MCP to ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "/api/mcp/",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " with ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "Authorization: Bearer tb_pat_…",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ". A door in front of the mount checks the token (SHA-256 lookup in Postgres; Zitadel is never involved) and each tool then calls the app's own REST routes in-process, carrying the same token. So validation, the approval gate, per-user scoping and rate limits are the browser's, not a copy of them. A token user has no roles, and what a token may reach is a fail-closed method-and-path allowlist in ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "auth/tokens.py",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ". See Connect a coding agent.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The scanner snapshot",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "After each close, ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "tb-ingest scan",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " fetches split-adjusted SIP daily bars for the shared universe (S&P 500, a few Nasdaq-100 extras, ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "~",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "100 curated ETFs) plus every symbol anyone watches or holds, computes the moving averages, RSI, highs, volume and cross events once per symbol with the same pandas-ta calls the chart uses, joins cached Finnhub fundamentals, and writes one ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "scan_snapshot",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " row each. It is all-or-nothing: if a fetch fails the previous night's snapshot stands. Scans read that table and never a provider. Fundamentals are refreshed 150 symbols a night, paced under half the shared Finnhub budget, so they are up to a week old.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "A scan is a validated list of filters (",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "scanner/filters.py",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ") compiled to SQL from a field whitelist, so no string a user sends is ever an identifier. Each query is restricted to ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "is_core OR symbol IN (your watchlist and holdings)",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ": the snapshot contains rows that exist only because one person holds a symbol, and they must never appear for anyone else. \"New\" is computed by running the same filters on the previous session's snapshot, which is kept for two weeks, so there is no extra table.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Once the snapshot is committed the same job sends each user's notifying scanners (",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "scanner/notify.py",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "): every scanner of theirs with ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "notify",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " on is run through the same ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "query.run",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " as the page, so the privacy restriction is identical, and the matches go out as one message through ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "notify/dispatch.py",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " to that user's own channels. A ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "scanner_notifications",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " row is claimed per user per session before sending, as the digest does, so a rerun never posts twice; a send that fails everywhere releases the claim for the retry.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Company financials",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Statements come from SEC EDGAR, which is free and keyless and which the browser never calls. Every request carries a ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "User-Agent",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " naming a project contact address, and goes through a Valkey token bucket at 8 requests a second (the SEC allows 10) shared by both API replicas and the nightly job. For a symbol, ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "financials/service.py",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " serves a stored report younger than a day; otherwise it reads the company's small submissions list and recomputes only when a new filing accession has appeared or the scoring ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "VERSION",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " changed. A recompute parses the multi-megabyte ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "companyfacts",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " document down to the ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "~",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "30 concepts we map and drops the rest before the next company.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Companies tag the same line differently and change tags over time, so each field takes the first mapped tag that has a value for each period; annual figures are 345–385-day facts with the latest filing winning restatements, and trailing twelve months is the last fiscal year plus this year's year-to-date minus last year's. Indicators and the score are pure functions (",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "indicators.py",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ", ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "score.py",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "): a piecewise-linear table per indicator, a pillar is the mean of its indicators, and the overall score is the weighted mean of the pillars that could be scored. Unknown is never zero — a missing input is skipped, and fewer than three scored pillars is no score. The report is stored in ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "financial_reports",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " with a small ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "scan",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " block; the nightly scan reads only that block in SQL, never the whole report, which is the memory lesson from 0.4.3. If the SEC is unreachable the stored report is served marked stale.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Deliberate deviations from the plan",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Each of these is a place the implementation diverged from ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "TRADERBUDDY-IMPLEMENTATION-rev2.md",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " on purpose. They are recorded here because an undocumented deviation reads as a bug to the next person.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "table",
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Plan said",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Built instead",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Why",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "A ",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "symbol_profiles",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": " table",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "One ",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "symbol_facts",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": " table with a ",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "kind",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": " discriminator",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Profile, metrics and recommendations have identical shape and TTL. Three identical tables would be three places to change.",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Baseline mode \"swaps the candle series\"",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Hides the candles, adds a baseline series",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "The drawing manager, crosshair legend and bid/ask lines all hold a reference to the candle series. Removing it would leave them pointing at a disposed object.",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "@tanstack/react-table",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": ", version unspecified",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Pinned to 8.21.3, not the current 9.2.4",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "v9 is a ground-up redesign (atom stores, a ",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Subscribe",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": " HOC). A sortable positions table isn't worth guessing at an unfamiliar API.",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Fall back to the last regular-session 1-minute bar if the SIP daily close includes extended hours",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Use the daily close directly",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Measured: it ",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 2,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "excludes",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": " extended hours. AAPL printed above its regular high after the bell and the daily bar still matched the regular session exactly. The daily close is the official consolidated close — the fallback would have been a downgrade.",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Watchlist truncated when the Slack block budget runs short",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Capped at 15 rows regardless",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Slack's 50-block limit alone would allow ",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "~",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "1,600 rows. The cap exists because a DM listing forty symbols is unreadable.",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Standing risks",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 17,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "tb-stream",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " is a single point of failure.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " The free tier offers no fix. It is monitored, not solved.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Losing the ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 17,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "pve2",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " host takes everything",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " — etcd majority and two of three Postgres instances. The real fix is a third host, which doesn't exist.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Provider free tiers can change without notice.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " The provider layer is built so swapping one is a config change.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Five users share one quota.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " A sixth may need paid tiers, not more RAM.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Nothing here is investment infrastructure.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Analyst consensus is opinion data; indicator crossings are not predictions.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "Last updated 2026-10-06. The diagrams above are drawn from D2 source files kept with the project.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      }
+    }
+  }
+}
