@@ -73,7 +73,11 @@ describe('mapAll() on the captured response', () => {
     for (const name of readdirSync(new URL('posts/', fixtureDir))) {
       const mapped = files.get(`posts/${name}`);
       const expected = fixture(`posts/${name}`);
-      expect(mapped, name).toBeDefined();
+      expect(
+        mapped,
+        `${name} is a fixture but is missing from the captured CMS response. Re-capture it: seed the local CMS ` +
+          `(SEED_RESET=1 pnpm cms:seed), then in apps/site run  node scripts/pull-cms.mjs --raw tests/fixtures/payload-raw.json`,
+      ).toBeDefined();
       expect(mapped.slug).toBe(expected.slug);
       expect(mapped._status).toBe(expected._status);
       expect(mapped.title).toEqual(expected.title);
