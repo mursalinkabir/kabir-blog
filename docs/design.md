@@ -1,6 +1,8 @@
 # Design plan: Bookworm-inspired redesign
 
-Status: **built** (2026-10-08). Decisions are in section 6; what differs from the first plan is listed in section 8. Replaces the "hanging from the line" design, which was rejected on 2026-10-08.
+Status: **superseded by section 10 (2026-10-15): bento magazine, light and dark.** Sections 1 to 9 describe the Bookworm-style design it replaced; the content model, i18n and gates are unchanged.
+
+Original status: **built** (2026-10-08). Decisions are in section 6; what differs from the first plan is listed in section 8. Replaces the "hanging from the line" design, which was rejected on 2026-10-08.
 Reference: [Bookworm Light](https://bookworm-light-astro.vercel.app/) (Themefisher, Astro). The plan below takes its
 layout and visual language, but no code or assets. The content model, i18n, Pagefind, finance tables, code blocks,
 diagrams and the CSP rules from `docs/PLAN.md` stay as they are. Only the presentation layer changes.
@@ -216,3 +218,25 @@ link, `:focus-visible`, `text-wrap: balance`, reduced motion, image dimensions, 
 
 Not changed, on purpose: light only (no dark mode), the teal-as-decoration rule, the Mulish and system-CJK type
 stack, and the card and page layouts from section 4.
+
+## 10. Redesign: bento magazine, light and dark (2026-10-15)
+
+Chosen by the owner from three directions (bento magazine, dark terminal-editorial, index + feature split), with
+light and dark following the system. Only the presentation layer changed; routes, content access (`cms.ts`), i18n,
+Pagefind and every dist gate are as before.
+
+| Area        | Decision                                                                                                                                                                        |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Shape       | 24 px tiles, 14 px inner radius, pill buttons and nav. Container 1180 px, article column 808 px.                                                                                |
+| Header      | Floating frosted pill, sticky. Current page is a filled pill. Theme toggle (hidden until its script runs), search, language switch.                                             |
+| Home        | Hero (site name as the one h1 with a text gradient, tagline, a chip per topic with counts), then the bento grid.                                                                |
+| Bento       | Page 1: a 2x2 image-filled feature tile, four standard tiles, two wide tiles. Later pages and listings: even tiles. Each tile is one link (the title link stretched over it).   |
+| Topics      | A colour pair per topic (`--t-tech-*`, `--t-finance-*`, `--t-japan-*`), both themes, AA on their tinted backgrounds.                                                            |
+| Motion      | CSS only: tiles rise as they scroll into view (`animation-timeline: view()`), a reading-progress bar on posts (`scroll()`), a calm image zoom. All behind reduced motion.       |
+| Dark        | Tokens in `:root` with two overrides (media query and `data-theme`). `/theme-init.js` (external, CSP-safe) applies a saved choice before paint; `src/scripts/theme.ts` toggles. |
+| Code blocks | Expressive Code `github-light` and `github-dark`, switched by the same selectors.                                                                                               |
+| Diagrams    | D2 SVGs are drawn for white, so they sit on a white card in dark mode.                                                                                                          |
+| Type        | Mulish, unchanged (fast, and Japanese falls back to the system face). Tighter tracking on Latin display sizes only.                                                             |
+
+Rules kept: teal `#01ad9f` is decoration only; text and buttons use `--link` (`#007a6e` light, `#5eead4` dark);
+Japanese terms carry Romaji in English UI text; no inline scripts; a missing translation means no page.

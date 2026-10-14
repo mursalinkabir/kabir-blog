@@ -29,6 +29,8 @@
       "danger": "Danger"
     },
     "menu": "Menu",
+    "themeToDark": "Switch to dark mode",
+    "themeToLight": "Switch to light mode",
     "pagination": "Pagination",
     "share": "Share this post",
     "social": "Social links",

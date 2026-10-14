@@ -47,7 +47,11 @@ const alternateEntries = Object.entries(alternates) as [Locale, string][];
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0e14" media="(prefers-color-scheme: dark)" />
+    {/* Applies a saved light/dark choice before first paint. An external file, because the CSP allows no inline script. */}
+    <script is:inline src="/theme-init.js"></script>
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />

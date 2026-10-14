@@ -31,7 +31,7 @@ const { post, locale, readingTime = false } = Astro.props;
     >
     <time datetime={post.pubDate}>{formatDate(locale, post.pubDate, { month: locale === 'ja' ? 'long' : 'short' })}</time>
   </li>
-  <li>
+  <li class="meta-topic">
     <a href={localePath(locale, `/${categoryRoute[post.category.slug]}/`)}
       ><CategoryIcon category={post.category.slug} size={16} />{post.category.name}</a
     >

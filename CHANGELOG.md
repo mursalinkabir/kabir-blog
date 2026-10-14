@@ -4,6 +4,16 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## Unreleased
 
+### Changed (redesign: bento magazine, light and dark, 2026-10-15)
+
+- New presentation layer (`docs/design.md` section 10): floating frosted header, a hero on the home page, a bento
+  grid with an image-filled feature tile and wide tiles, a colour per topic, whole-tile links, scroll-in tiles and a
+  reading-progress bar (CSS only, reduced motion respected), larger post titles.
+- **Dark mode**: follows the system, with a toggle (hidden until its script runs) and a saved choice applied before
+  first paint by `/theme-init.js`. Code blocks switch between `github-light` and `github-dark`; diagrams sit on a white
+  card. New strings `a11y.themeToDark` and `a11y.themeToLight` (en, ja).
+- Replaces the "light only" rule in `CLAUDE.md` and `docs/design.md`.
+
 ### Changed (design refinement, 2026-10-15)
 
 - A refinement layer in `global.css` after the Web Interface Guidelines (details in `docs/design.md` section 9): softer

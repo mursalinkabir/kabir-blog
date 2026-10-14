@@ -29,6 +29,8 @@
       "danger": "警告"
     },
     "menu": "メニュー",
+    "themeToDark": "ダークモードに切り替える",
+    "themeToLight": "ライトモードに切り替える",
     "pagination": "ページ送り",
     "share": "この記事を共有",
     "social": "ソーシャルリンク",

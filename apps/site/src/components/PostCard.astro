@@ -7,6 +7,7 @@ import type { PostView } from '~/lib/cms';
 interface Props {
   post: PostView;
   locale: Locale;
+  /** Kept for callers; the bento grid decides which tile is the feature (first child of `.has-feature`). */
   featured?: boolean;
   /** The first image on the page is the LCP element. */
   eager?: boolean;
@@ -18,17 +19,21 @@ const H = `h${level}` as 'h2';
 const href = localePath(locale, `/posts/${post.slug}/`);
 ---
 
-<article class:list={['card', { 'card-featured': featured }]}>
+<!-- The title link is stretched over the whole tile (CSS), so the tile is one target; the cover link stays out of the
+     tab order and the accessibility tree because it only repeats it. -->
+<article class="card tile" data-topic={post.category.slug}>
   <a class="card-cover" href={href} tabindex="-1" aria-hidden="true">
     <Cover
       hero={post.hero}
       category={post.category.slug}
       locale={locale}
       eager={eager}
-      sizes={featured ? '(min-width: 64rem) 62rem, 100vw' : '(min-width: 48rem) 30rem, 100vw'}
+      sizes={featured ? '(min-width: 64rem) 40rem, 100vw' : '(min-width: 64rem) 20rem, (min-width: 40rem) 24rem, 100vw'}
     />
   </a>
-  <PostMeta post={post} locale={locale} />
-  <H class="card-title"><a href={href}>{post.title}</a></H>
-  <p class="card-excerpt">{post.description}</p>
+  <div class="tile-body">
+    <PostMeta post={post} locale={locale} />
+    <H class="card-title"><a href={href}>{post.title}</a></H>
+    <p class="card-excerpt">{post.description}</p>
+  </div>
 </article>

@@ -12,10 +12,10 @@ const { projects, locale, level = 2 } = Astro.props;
 const H = `h${level}` as 'h2';
 ---
 
-<div class="card-grid">
+<div class="bento">
   {
     projects.map((p) => (
-      <article class="card">
+      <article class="card tile" data-topic="tech">
         <a class="card-cover" href={localePath(locale, `/projects/${p.slug}/`)} tabindex="-1" aria-hidden="true">
           <div class:list={['cover', { 'cover-fallback': !p.hero }]}>
             {p.hero ? (
@@ -38,16 +38,18 @@ const H = `h${level}` as 'h2';
             )}
           </div>
         </a>
-        <ul class="meta" role="list">
-          <li>{t(locale, `projects.statuses.${p.status}` as StringKey)}</li>
-          {p.stack.slice(0, 3).map((s) => (
-            <li>{s}</li>
-          ))}
-        </ul>
-        <H class="card-title">
-          <a href={localePath(locale, `/projects/${p.slug}/`)}>{p.title}</a>
-        </H>
-        <p class="card-excerpt">{p.summary}</p>
+        <div class="tile-body">
+          <ul class="meta" role="list">
+            <li>{t(locale, `projects.statuses.${p.status}` as StringKey)}</li>
+            {p.stack.slice(0, 3).map((s) => (
+              <li>{s}</li>
+            ))}
+          </ul>
+          <H class="card-title">
+            <a href={localePath(locale, `/projects/${p.slug}/`)}>{p.title}</a>
+          </H>
+          <p class="card-excerpt">{p.summary}</p>
+        </div>
       </article>
     ))
   }

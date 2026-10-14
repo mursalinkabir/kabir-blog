@@ -2,9 +2,10 @@
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import PostCard from './PostCard.astro';
 import Pagination from './Pagination.astro';
-import { t, type Locale } from '~/i18n';
+import CategoryIcon from './CategoryIcon.astro';
+import { t, localePath, type Locale } from '~/i18n';
 import type { PostView } from '~/lib/cms';
-import { siteName } from '~/lib/cms';
+import { siteName, getSite, pick, categoryRoute } from '~/lib/cms';
 import { pageCount, pageItems, pagePath } from '~/lib/paginate';
 import type { Alternates } from '~/lib/routes';
 
@@ -31,6 +32,13 @@ const showFeatured = featured && page === 1 && items.length > 0;
 const path = pagePath(locale, base, page);
 const pageLabel = page > 1 ? ` (${t(locale, 'pagination.page', { n: page })})` : '';
 const heading = title ?? siteName(locale);
+// The home page opens with a hero: the site name as the page's one h1, the tagline, and a chip per topic.
+const hero = !title && page === 1;
+const tagline = pick(getSite().tagline, locale);
+const topics = [...new Map(posts.map((p) => [p.category.slug, p.category])).values()].map((c) => ({
+  ...c,
+  count: posts.filter((p) => p.category.slug === c.slug).length,
+}));
 // Home page 1 is titled with the site name alone; later pages get "Page n" (the layout appends the site name).
 const metaTitle = title ? `${title}${pageLabel}` : page > 1 ? t(locale, 'pagination.page', { n: page }) : heading;
 ---
@@ -52,6 +60,25 @@ const metaTitle = title ? `${title}${pageLabel}` : page > 1 ? t(locale, 'paginat
           <h1 class="page-title">{title}</h1>
           {description && <p class="page-lede">{description}</p>}
         </header>
+      ) : hero ? (
+        <header class="hero">
+          <p class="hero-eyebrow">{topics.map((c) => c.name).join(' · ') || t(locale, 'posts.description')}</p>
+          <h1 class="hero-title">{heading}</h1>
+          {tagline && <p class="hero-lead">{tagline}</p>}
+          {topics.length > 1 && (
+            <ul class="hero-topics" role="list">
+              {topics.map((c) => (
+                <li>
+                  <a class="topic-chip" data-topic={c.slug} href={localePath(locale, `/${categoryRoute[c.slug]}/`)}>
+                    <CategoryIcon category={c.slug} size={18} />
+                    {c.name}
+                    <span class="topic-chip-count">{c.count}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </header>
       ) : (
         <h1 class="visually-hidden">{heading}</h1>
       )
@@ -69,14 +96,11 @@ const metaTitle = title ? `${title}${pageLabel}` : page > 1 ? t(locale, 'paginat
           )}
         </div>
       ) : (
-        <>
-          {showFeatured && <PostCard post={items[0]!} locale={locale} featured eager />}
-          <div class="card-grid">
-            {items.slice(showFeatured ? 1 : 0).map((post, i) => (
-              <PostCard post={post} locale={locale} eager={!showFeatured && i < 2} />
-            ))}
-          </div>
-        </>
+        <div class:list={['bento', { 'has-feature': showFeatured, 'is-few': showFeatured && items.length < 5 }]}>
+          {items.map((post, i) => (
+            <PostCard post={post} locale={locale} featured={showFeatured && i === 0} eager={i < (showFeatured ? 1 : 2)} />
+          ))}
+        </div>
       )
     }
     <Pagination locale={locale} current={page} total={total} hrefFor={(n) => pagePath(locale, base, n)} />

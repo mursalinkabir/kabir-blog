@@ -1,37 +1,107 @@
 @import './fonts.css';
 
 /*
-  smkabir.com — clean, image-led magazine blog (layout and visual language after Bookworm Light).
-  White page, navy headings, grey body, one teal accent, 8px corners, navy footer. Light only.
-  Teal #01ad9f fails contrast as text on white (2.8:1), so it is decoration only; links and buttons use #007a6e.
+  smkabir.com: a bento-grid magazine. Large rounded tiles, big confident type, one teal accent plus a colour per topic,
+  light and dark. Teal #01ad9f fails contrast as text on white (2.8:1), so it is decoration only; links and buttons
+  use --link (#007a6e on light, #5eead4 on dark).
 */
 
 :root {
   --heading: #152035;
-  --text: #5c5e62;
-  --muted: #6a6b6e;
+  --text: #4f5560;
+  --muted: #646a75;
   --accent: #01ad9f;
   --link: #007a6e;
   --link-hover: #005c52;
-  --surface: #fafafa;
-  --border: #e9ebef;
+  --on-link: #ffffff; /* text on a --link background */
+  --surface: #f6f7f9;
+  --surface-2: #eef0f4;
+  --border: #e4e7ec;
   --field-border: #7b8089; /* 3.7:1 on white: a control's edge must be visible (WCAG 1.4.11) */
   --bg: #ffffff;
   --tint: #e3f5f3;
   --warn: #9a5000;
   --danger: #b3261e;
+  --footer-bg: #0f1829;
+  --ring: rgb(21 32 53 / 0.07);
+
+  /* One colour pair per topic: a tinted background and a foreground that passes AA on it. */
+  --t-tech-bg: #d8f1ed;
+  --t-tech-fg: #00675c;
+  --t-finance-bg: #fbebc6;
+  --t-finance-fg: #7a4b00;
+  --t-japan-bg: #fbdfe1;
+  --t-japan-fg: #9b2335;
 
   --font:
     'Mulish', system-ui, -apple-system, 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic UI', 'Yu Gothic',
     'Noto Sans JP', 'Noto Sans CJK JP', Meiryo, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
-  --radius-sm: 8px;
-  --radius: 12px;
-  --container: 1000px;
+  --radius-sm: 10px;
+  --radius: 14px;
+  --radius-lg: 24px;
+  --container: 1180px;
   --content: 808px;
   --gutter: clamp(1rem, 4vw, 1.5rem);
   color-scheme: light;
+}
+
+/* Dark: follows the system unless the visitor chose (data-theme on <html>, set by /theme-init.js and the toggle).
+   Both blocks below hold the same values; CSS cannot share one declaration list between a media query and a selector. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --heading: #f2f5f8;
+    --text: #b7bfcb;
+    --muted: #94a0b0;
+    --accent: #14b8a6;
+    --link: #5eead4;
+    --link-hover: #99f6e4;
+    --on-link: #04211d;
+    --surface: #111821;
+    --surface-2: #18212c;
+    --border: #232d39;
+    --field-border: #5f6b7a;
+    --bg: #0a0e14;
+    --tint: rgb(45 212 191 / 0.14);
+    --warn: #fbbf24;
+    --danger: #f87171;
+    --footer-bg: #06090d;
+    --ring: rgb(255 255 255 / 0.09);
+    --t-tech-bg: #0e2b28;
+    --t-tech-fg: #5eead4;
+    --t-finance-bg: #2f2309;
+    --t-finance-fg: #fcd34d;
+    --t-japan-bg: #38131a;
+    --t-japan-fg: #fda4af;
+    color-scheme: dark;
+  }
+}
+:root[data-theme='dark'] {
+  --heading: #f2f5f8;
+  --text: #b7bfcb;
+  --muted: #94a0b0;
+  --accent: #14b8a6;
+  --link: #5eead4;
+  --link-hover: #99f6e4;
+  --on-link: #04211d;
+  --surface: #111821;
+  --surface-2: #18212c;
+  --border: #232d39;
+  --field-border: #5f6b7a;
+  --bg: #0a0e14;
+  --tint: rgb(45 212 191 / 0.14);
+  --warn: #fbbf24;
+  --danger: #f87171;
+  --footer-bg: #06090d;
+  --ring: rgb(255 255 255 / 0.09);
+  --t-tech-bg: #0e2b28;
+  --t-tech-fg: #5eead4;
+  --t-finance-bg: #2f2309;
+  --t-finance-fg: #fcd34d;
+  --t-japan-bg: #38131a;
+  --t-japan-fg: #fda4af;
+  color-scheme: dark;
 }
 
 /* ---- base --------------------------------------------------------------------------------- */
@@ -142,7 +212,7 @@ h4 {
   z-index: 60; /* above the sticky header (40) so a focused skip link is never covered */
   padding: 0.6rem 1rem;
   background: var(--heading);
-  color: #fff;
+  color: var(--bg);
   border-radius: var(--radius-sm);
   font-weight: 700;
 }
@@ -228,7 +298,7 @@ h4 {
   display: inline-block;
   padding: 0.7rem 1.5rem;
   background: var(--link);
-  color: #fff;
+  color: var(--on-link);
   border: 0;
   border-radius: var(--radius-sm);
   font: inherit;
@@ -239,7 +309,7 @@ h4 {
 .btn:hover,
 .button:hover:not(:disabled) {
   background: var(--link-hover);
-  color: #fff;
+  color: var(--on-link);
 }
 .btn-ghost {
   background: transparent;
@@ -331,7 +401,7 @@ summary.icon-btn::-webkit-details-marker {
   border-radius: var(--radius);
   /* --link, not --accent: white on #01ad9f is only 2.8:1 */
   background: var(--link);
-  color: #fff;
+  color: var(--on-link);
   font-size: 0.9rem;
   font-weight: 800;
   letter-spacing: 0;
@@ -430,7 +500,7 @@ summary.icon-btn::-webkit-details-marker {
 }
 .lang-current {
   background: var(--link);
-  color: #fff;
+  color: var(--on-link);
 }
 .lang-switch a {
   color: var(--heading);
@@ -533,7 +603,7 @@ summary.icon-btn::-webkit-details-marker {
   height: 100%;
   border-radius: var(--radius);
   font-size: clamp(4rem, 12vw, 6rem);
-  background: #d8f1ed;
+  background: var(--tint);
 }
 .meta {
   display: flex;
@@ -603,16 +673,16 @@ summary.icon-btn::-webkit-details-marker {
 .cover-fallback {
   display: grid;
   place-items: center;
-  background: #d8f1ed;
-  color: #00675c;
+  background: var(--t-tech-bg);
+  color: var(--t-tech-fg);
 }
 .cover-finance {
-  background: #fbebc6;
-  color: #7a4b00;
+  background: var(--t-finance-bg);
+  color: var(--t-finance-fg);
 }
 .cover-japan-life {
-  background: #fbdfe1;
-  color: #9b2335;
+  background: var(--t-japan-bg);
+  color: var(--t-japan-fg);
 }
 .card-title {
   margin: 0.75rem 0 0.6rem;
@@ -676,7 +746,7 @@ a.page-link:hover {
 .page-link.is-current {
   background: var(--link);
   border-color: var(--link);
-  color: #fff;
+  color: var(--on-link);
 }
 .page-link.is-disabled {
   border-color: var(--border);
@@ -1088,7 +1158,7 @@ figure.embed figcaption,
   border-bottom: 0.4rem solid transparent;
   background: var(--heading);
   background-clip: padding-box;
-  color: #fff;
+  color: var(--bg);
   border-radius: var(--radius-sm);
   font-size: 0.875rem;
   font-style: normal;
@@ -1352,7 +1422,7 @@ figure.embed figcaption,
 /* ---- footer ------------------------------------------------------------------------------ */
 .site-footer {
   margin-top: clamp(4rem, 10vw, 6rem);
-  background: var(--heading);
+  background: var(--footer-bg);
   color: rgb(255 255 255 / 0.75);
   text-align: center;
 }
@@ -1391,19 +1461,31 @@ figure.embed figcaption,
   outline-color: #fff;
 }
 
-/* ---- refinement layer ---------------------------------------------------------------------
-   Applied last on purpose: it softens and tightens what the sections above define. Everything here follows
-   the Web Interface Guidelines: explicit transition properties (never `all`), transform and opacity only for
-   motion, visible focus kept, reduced motion honoured by the rule at the end of this file. */
+/* ---- bento layer -------------------------------------------------------------------------------------------
+   The redesign: floating pill header, a hero, a bento grid of tiles, colour per topic, light and dark. Placed last
+   so it overrides the base rules above. Motion is transform and opacity only, behind prefers-reduced-motion
+   (the rule at the end of this file), and never `transition: all`. */
 :root {
-  --shadow-sm: 0 1px 2px rgb(21 32 53 / 0.06);
-  --shadow-md: 0 8px 24px rgb(21 32 53 / 0.09);
+  --shadow-sm: 0 1px 2px rgb(15 24 41 / 0.06);
+  --shadow-md: 0 10px 28px rgb(15 24 41 / 0.1);
+  --shadow-lg: 0 22px 50px rgb(15 24 41 / 0.16);
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
-  --header-h: 4.5rem;
+  --header-h: 5.25rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+    --shadow-md: 0 10px 28px rgb(0 0 0 / 0.45);
+    --shadow-lg: 0 22px 50px rgb(0 0 0 / 0.55);
+  }
+}
+:root[data-theme='dark'] {
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+  --shadow-md: 0 10px 28px rgb(0 0 0 / 0.45);
+  --shadow-lg: 0 22px 50px rgb(0 0 0 / 0.55);
 }
 html {
-  /* the header is sticky now: anchors and focused elements must clear it */
-  scroll-padding-top: calc(var(--header-h) + 1.25rem);
+  scroll-padding-top: calc(var(--header-h) + 1rem);
   scroll-behavior: smooth;
 }
 body {
@@ -1420,24 +1502,84 @@ input,
 textarea {
   touch-action: manipulation;
 }
+::selection {
+  background: var(--tint);
+  color: var(--heading);
+}
 
-/* Header: stays in reach, frosted, one hairline. */
+/* Header: a floating pill that stays in reach. */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgb(255 255 255 / 0.88);
-  -webkit-backdrop-filter: saturate(180%) blur(14px);
-  backdrop-filter: saturate(180%) blur(14px);
-  border-bottom: 1px solid var(--border);
+  padding-block: 0.75rem;
+  background: transparent;
+  pointer-events: none; /* the gap beside the pill stays clickable */
+}
+.header-row {
+  pointer-events: auto;
+  min-height: 3.5rem;
+  padding: 0.35rem 0.5rem 0.35rem 0.75rem;
+  gap: 0.75rem 1.25rem;
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  backdrop-filter: saturate(180%) blur(16px);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .site-header {
+  .header-row {
     background: var(--bg);
   }
 }
-.header-row {
-  min-height: var(--header-h);
+.logo {
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+.logo-mark {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+}
+.nav-desktop > ul {
+  gap: 0.15rem;
+}
+.nav-desktop a,
+.nav-desktop summary {
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  font-weight: 650;
+}
+.nav-desktop a:hover,
+.nav-desktop summary:hover {
+  background: var(--surface-2);
+  color: var(--heading);
+}
+/* the current page is a filled pill, so it never relies on colour alone */
+.nav-desktop > ul > li > a[aria-current='page'],
+.nav-desktop details.is-active > summary {
+  box-shadow: none;
+  background: var(--tint);
+  color: var(--link);
+}
+.more > ul,
+.nav-mobile {
+  top: calc(100% + 0.75rem);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  overscroll-behavior: contain;
+}
+.nav-mobile {
+  max-height: calc(100dvh - var(--header-h) - 1.5rem);
+  overflow-y: auto;
+}
+.lang-switch {
+  border-radius: 999px;
+  margin-right: 0.15rem;
+}
+.icon-btn {
+  border-radius: 999px;
 }
 .nav-desktop a,
 .nav-desktop summary,
@@ -1447,24 +1589,34 @@ textarea {
 .nav-mobile a {
   transition:
     color 0.15s var(--ease),
-    background-color 0.15s var(--ease),
-    box-shadow 0.15s var(--ease);
+    background-color 0.15s var(--ease);
 }
-.nav-desktop > ul > li > a:hover:not([aria-current='page']) {
-  box-shadow: inset 0 -3px 0 var(--tint);
+
+/* Theme toggle: hidden until the script that makes it work is running. */
+.theme-toggle[hidden] {
+  display: none;
 }
-.nav-mobile {
-  max-height: calc(100dvh - var(--header-h) - 1.5rem);
-  overflow-y: auto;
-  overscroll-behavior: contain;
+.theme-toggle .icon-moon {
+  display: none;
 }
-.more > ul {
-  overscroll-behavior: contain;
+:root[data-theme='dark'] .theme-toggle .icon-sun {
+  display: none;
+}
+:root[data-theme='dark'] .theme-toggle .icon-moon {
+  display: block;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .theme-toggle .icon-sun {
+    display: none;
+  }
+  :root:not([data-theme='light']) .theme-toggle .icon-moon {
+    display: block;
+  }
 }
 
 /* Type: large sizes sit tighter, running text breaks without orphans. Japanese keeps its natural spacing. */
 h1 {
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
 }
 h2 {
   letter-spacing: -0.02em;
@@ -1472,9 +1624,6 @@ h2 {
 :lang(ja) :is(h1, h2, h3, h4),
 :lang(ja) .card-title {
   letter-spacing: 0;
-}
-.card-title {
-  letter-spacing: -0.015em;
 }
 .prose :is(p, li, blockquote),
 .card-excerpt,
@@ -1488,41 +1637,451 @@ h2 {
 }
 .meta {
   font-size: 0.875rem;
-  letter-spacing: 0.005em;
+}
+.page-title,
+.section-title {
+  letter-spacing: -0.03em;
 }
 
-/* Images: a hairline ring instead of a flat edge, a slower, calmer zoom. */
+/* Japanese labels and the longer name need more room: tighter pill, and the phone menu until 80rem. */
+:lang(ja) .nav-desktop a,
+:lang(ja) .nav-desktop summary {
+  padding-inline: 0.6rem;
+}
+:lang(ja) .logo {
+  font-size: 1.05rem;
+}
+@media (max-width: 79.99rem) {
+  :lang(ja) .nav-desktop {
+    display: none;
+  }
+  :lang(ja) .menu {
+    display: block;
+  }
+}
+
+/* Home: hero. */
+.hero {
+  position: relative;
+  padding-block: clamp(1.5rem, 5vw, 3.5rem) clamp(1.75rem, 4vw, 2.75rem);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: -2rem -10vw auto auto;
+  width: min(60rem, 90vw);
+  height: 26rem;
+  z-index: -1;
+  background:
+    radial-gradient(closest-side at 70% 35%, color-mix(in srgb, var(--accent) 26%, transparent), transparent),
+    radial-gradient(closest-side at 25% 70%, color-mix(in srgb, var(--t-japan-fg) 14%, transparent), transparent);
+  filter: blur(8px);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1.25rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  background: var(--tint);
+  color: var(--link);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.hero-title {
+  margin: 0;
+  max-width: 16ch;
+  font-size: clamp(2.5rem, 8.5vw, 5.25rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  background: linear-gradient(100deg, var(--heading) 35%, var(--link) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+:lang(ja) .hero-title {
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  max-width: 14em;
+}
+@media (forced-colors: active) {
+  .hero-title {
+    -webkit-text-fill-color: currentColor;
+    color: CanvasText;
+    background: none;
+  }
+}
+.hero-lead {
+  max-width: 38rem;
+  margin: 1.25rem 0 0;
+  font-size: clamp(1.0625rem, 2.2vw, 1.3125rem);
+  line-height: 1.55;
+  color: var(--text);
+  text-wrap: pretty;
+}
+.hero-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1.75rem 0 0;
+}
+.topic-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.95rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--heading);
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background-color 0.15s var(--ease),
+    border-color 0.15s var(--ease),
+    transform 0.2s var(--ease);
+}
+.topic-chip svg {
+  color: var(--topic-fg, var(--accent));
+}
+.topic-chip:hover {
+  background: var(--topic-bg, var(--tint));
+  border-color: transparent;
+  color: var(--topic-fg, var(--heading));
+  transform: translateY(-2px);
+}
+.topic-chip-count {
+  color: var(--muted);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+[data-topic='tech'] {
+  --topic-bg: var(--t-tech-bg);
+  --topic-fg: var(--t-tech-fg);
+}
+[data-topic='finance'] {
+  --topic-bg: var(--t-finance-bg);
+  --topic-fg: var(--t-finance-fg);
+}
+[data-topic='japan-life'] {
+  --topic-bg: var(--t-japan-bg);
+  --topic-fg: var(--t-japan-fg);
+}
+
+/* Bento grid. First tile of a first page is the large, image-filled feature. */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition:
+    transform 0.35s var(--ease),
+    box-shadow 0.35s var(--ease),
+    border-color 0.2s var(--ease);
+}
+.tile:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: color-mix(in srgb, var(--topic-fg, var(--accent)) 45%, var(--border));
+}
+.tile:has(:focus-visible) {
+  outline: 3px solid var(--link);
+  outline-offset: 3px;
+}
+.tile .card-cover {
+  margin: 0;
+}
+.tile .cover {
+  aspect-ratio: 16 / 10;
+  border-radius: 0;
+}
+.tile .cover::after {
+  box-shadow: none;
+}
+.tile-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+  padding: 1.1rem 1.35rem 1.4rem;
+}
+.tile .meta {
+  gap: 0.4rem 0.9rem;
+}
+.tile .meta-author {
+  display: none;
+}
+.tile .card-title {
+  margin: 0;
+  font-size: 1.3rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+/* the whole tile is the link: the title's link is stretched over it */
+.tile .card-title a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.tile .meta a {
+  position: relative;
+  z-index: 2;
+}
+.tile .card-excerpt {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+.meta-topic a,
+.meta-topic {
+  color: var(--topic-fg, var(--muted));
+}
+.tile .meta-topic {
+  font-weight: 700;
+}
+.tile .meta-topic svg {
+  color: currentColor;
+}
+.tile:hover .card-title a {
+  color: var(--link);
+}
+
+.bento.has-feature > .tile:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+  min-height: 32rem;
+  border: 0;
+  color: #fff;
+  justify-content: flex-end;
+}
+.bento.has-feature > .tile:first-child .card-cover {
+  position: absolute;
+  inset: 0;
+}
+.bento.has-feature > .tile:first-child .cover {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+}
+.bento.has-feature > .tile:first-child::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top, rgb(6 10 18 / 0.94) 0%, rgb(6 10 18 / 0.62) 42%, rgb(6 10 18 / 0.05) 78%);
+  pointer-events: none;
+}
+.bento.has-feature > .tile:first-child .tile-body {
+  position: relative;
+  z-index: 2;
+  flex: none;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  pointer-events: none;
+}
+.bento.has-feature > .tile:first-child .tile-body a {
+  pointer-events: auto;
+}
+.bento.has-feature > .tile:first-child .card-title {
+  font-size: clamp(1.75rem, 3.4vw, 2.6rem);
+  letter-spacing: -0.03em;
+}
+.bento.has-feature > .tile:first-child .card-title a,
+.bento.has-feature > .tile:first-child .card-title,
+.bento.has-feature > .tile:first-child:hover .card-title a {
+  color: #fff;
+}
+.bento.has-feature > .tile:first-child .card-excerpt,
+.bento.has-feature > .tile:first-child .meta,
+.bento.has-feature > .tile:first-child .meta a {
+  color: rgb(255 255 255 / 0.88);
+}
+.bento.has-feature > .tile:first-child .meta-topic,
+.bento.has-feature > .tile:first-child .meta-topic a {
+  color: #fff;
+}
+.bento.has-feature > .tile:first-child .meta svg {
+  color: rgb(255 255 255 / 0.8);
+}
+.bento.has-feature > .tile:first-child:hover {
+  border: 0;
+}
+/* the last two tiles of a first page are wide: image beside text */
+.bento.has-feature > .tile:nth-child(n + 6) {
+  grid-column: span 3;
+  flex-direction: row;
+}
+.bento.has-feature > .tile:nth-child(n + 6) .card-cover {
+  flex: 0 0 42%;
+}
+.bento.has-feature > .tile:nth-child(n + 6) .cover {
+  height: 100%;
+  aspect-ratio: auto;
+  min-height: 11rem;
+}
+.bento.has-feature > .tile:nth-child(n + 6) .tile-body {
+  justify-content: center;
+}
+
+@media (min-width: 64rem) {
+  .bento.has-feature {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .bento.has-feature > .tile:nth-child(n + 6) {
+    grid-column: span 2;
+  }
+}
+@media (max-width: 63.99rem) {
+  .bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .bento.has-feature > .tile:first-child {
+    grid-column: span 2;
+    grid-row: auto;
+    min-height: 28rem;
+  }
+  .bento.has-feature > .tile:nth-child(n + 6) {
+    grid-column: span 2;
+  }
+}
+@media (max-width: 39.99rem) {
+  .bento,
+  .bento.has-feature {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .bento.has-feature > .tile:first-child,
+  .bento.has-feature > .tile:nth-child(n + 6) {
+    grid-column: auto;
+  }
+  .bento.has-feature > .tile:first-child {
+    min-height: 26rem;
+  }
+  .bento.has-feature > .tile:nth-child(n + 6) {
+    flex-direction: column;
+  }
+  .bento.has-feature > .tile:nth-child(n + 6) .card-cover {
+    flex: none;
+  }
+  .bento.has-feature > .tile:nth-child(n + 6) .cover {
+    aspect-ratio: 16 / 10;
+    height: auto;
+    min-height: 0;
+  }
+}
+
+/* Few posts (a language with only two or three): the feature spans the row and the rest sit two to a row, so the
+   grid never leaves a hole beside the feature. */
+@media (min-width: 40rem) {
+  .bento.is-few > .tile:first-child {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    min-height: 26rem;
+  }
+  .bento.is-few > .tile:not(:first-child) {
+    grid-column: span 2;
+  }
+  .bento.is-few > .tile:nth-child(2):last-child {
+    grid-column: 1 / -1;
+    flex-direction: row;
+  }
+  .bento.is-few > .tile:nth-child(2):last-child .card-cover {
+    flex: 0 0 42%;
+  }
+  .bento.is-few > .tile:nth-child(2):last-child .cover {
+    height: 100%;
+    min-height: 11rem;
+    aspect-ratio: auto;
+  }
+  .bento.is-few > .tile:nth-child(2):last-child .tile-body {
+    justify-content: center;
+  }
+}
+
+/* Scroll reveal: a CSS-only entrance for tiles that scroll into view. Browsers without scroll-driven animations
+   just show the tiles. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .tile {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+  }
+}
+
+/* Images: a calm zoom, a hairline ring. */
 .cover {
   position: relative;
-  transition: box-shadow 0.3s var(--ease);
 }
 .cover::after {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  box-shadow: inset 0 0 0 1px rgb(21 32 53 / 0.07);
+  box-shadow: inset 0 0 0 1px var(--ring);
   pointer-events: none;
 }
 .cover img {
-  transition: transform 0.6s var(--ease);
+  transition: transform 0.7s var(--ease);
 }
-.card-cover:hover .cover {
-  box-shadow: var(--shadow-md);
-}
-.card-cover:hover .cover img {
-  transform: scale(1.03);
+.card-cover:hover .cover img,
+.tile:hover .cover img {
+  transform: scale(1.04);
 }
 .post-cover img {
-  outline: 1px solid rgb(21 32 53 / 0.07);
+  border-radius: var(--radius-lg);
+  outline: 1px solid var(--ring);
   outline-offset: -1px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
+}
+.diagram img {
+  background: #fff; /* the D2 diagrams are drawn for a white page */
+  border-radius: var(--radius);
 }
 
-/* Buttons and pills: a quiet lift, a pressed state, no layout shift. */
+/* Buttons and pills. */
 .btn:not(.btn-ghost),
 .button {
+  border-radius: 999px;
   box-shadow: var(--shadow-sm);
+}
+.btn-ghost {
+  border-radius: 999px;
 }
 .btn,
 .button,
@@ -1541,6 +2100,19 @@ h2 {
 .button:active:not(:disabled) {
   transform: translateY(1px);
 }
+.page-link {
+  border-radius: 999px;
+  border-color: var(--border);
+}
+a.page-link:hover {
+  border-color: var(--accent);
+}
+.pill,
+.tag {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
 .page-link,
 .pill,
 .tag,
@@ -1555,6 +2127,44 @@ h2 {
 }
 .card-title a {
   transition: color 0.15s var(--ease);
+}
+
+/* Post page: a bigger title and a reading-progress bar (CSS scroll timeline, no script). */
+.post-head h1 {
+  font-size: clamp(2rem, 5.5vw, 3.25rem);
+  line-height: 1.08;
+}
+.post-head {
+  max-width: 52rem;
+}
+.post-cover {
+  margin-bottom: 3rem;
+}
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .post::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 70;
+      width: 100%;
+      height: 3px;
+      background: var(--accent);
+      transform-origin: 0 50%;
+      transform: scaleX(0);
+      animation: progress linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
 }
 
 /* Prose links: a thin, soft underline that firms up on hover. */
@@ -1573,6 +2183,7 @@ h2 {
 }
 
 .site-footer {
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   padding-bottom: env(safe-area-inset-bottom);
 }
 
