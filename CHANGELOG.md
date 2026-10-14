@@ -4,6 +4,15 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## Unreleased
 
+### Changed (design refinement, 2026-10-15)
+
+- A refinement layer in `global.css` after the Web Interface Guidelines (details in `docs/design.md` section 9): softer
+  12 px radius, sticky frosted header with one hairline, tighter Latin heading tracking, hairline rings on images,
+  explicit transitions and a pressed state on buttons, tabular figures in meta rows, quieter prose links.
+- Guideline fixes: the heading anchor link is visible on keyboard focus (it was invisible until hover),
+  `theme-color`, `touch-action: manipulation`, `100dvh`, safe-area padding in the footer, `overscroll-behavior` on the
+  menu panels, `translate="no"` on the site name, `spellcheck="false"` on the contact email field.
+
 ## 0.2.1 - 2026-10-12
 
 ### Fixed

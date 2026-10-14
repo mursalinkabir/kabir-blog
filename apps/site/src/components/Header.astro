@@ -45,7 +45,7 @@ const short: Record<Locale, string> = { en: 'EN', ja: '日本語' };
   <div class="container header-row">
     <a class="logo" href={home}>
       <span class="logo-mark" aria-hidden="true">{initials(siteName('en'))}</span>
-      <span class="logo-text">{siteName(locale)}</span>
+      <span class="logo-text" translate="no">{siteName(locale)}</span>
     </a>
 
     <nav class="nav-desktop" aria-label={t(locale, 'a11y.mainNav')}>

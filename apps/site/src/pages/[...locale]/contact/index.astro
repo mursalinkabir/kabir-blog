@@ -26,7 +26,16 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY as string | undefined;
         <input type="hidden" name="lang" value={locale} />
         <div class="form-row">
           <label>{t(locale, 'contact.name')}<input name="name" autocomplete="name" required maxlength="200" /></label>
-          <label>{t(locale, 'contact.email')}<input name="email" type="email" autocomplete="email" required maxlength="320" /></label>
+          <label
+            >{t(locale, 'contact.email')}<input
+              name="email"
+              type="email"
+              autocomplete="email"
+              spellcheck="false"
+              required
+              maxlength="320"
+            /></label
+          >
         </div>
         <label>{t(locale, 'contact.message')}<textarea name="message" required maxlength="5000"></textarea></label>
         <label class="hp" aria-hidden="true">{t(locale, 'contact.honeypot')}<input name="website" tabindex="-1" autocomplete="off" /></label

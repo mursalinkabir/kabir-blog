@@ -26,8 +26,8 @@
     'Noto Sans JP', 'Noto Sans CJK JP', Meiryo, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
-  --radius-sm: 6px;
-  --radius: 8px;
+  --radius-sm: 8px;
+  --radius: 12px;
   --container: 1000px;
   --content: 808px;
   --gutter: clamp(1rem, 4vw, 1.5rem);
@@ -139,7 +139,7 @@ h4 {
   position: absolute;
   left: 1rem;
   top: -5rem;
-  z-index: 30;
+  z-index: 60; /* above the sticky header (40) so a focused skip link is never covered */
   padding: 0.6rem 1rem;
   background: var(--heading);
   color: #fff;
@@ -1389,6 +1389,191 @@ figure.embed figcaption,
 }
 .site-footer :focus-visible {
   outline-color: #fff;
+}
+
+/* ---- refinement layer ---------------------------------------------------------------------
+   Applied last on purpose: it softens and tightens what the sections above define. Everything here follows
+   the Web Interface Guidelines: explicit transition properties (never `all`), transform and opacity only for
+   motion, visible focus kept, reduced motion honoured by the rule at the end of this file. */
+:root {
+  --shadow-sm: 0 1px 2px rgb(21 32 53 / 0.06);
+  --shadow-md: 0 8px 24px rgb(21 32 53 / 0.09);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --header-h: 4.5rem;
+}
+html {
+  /* the header is sticky now: anchors and focused elements must clear it */
+  scroll-padding-top: calc(var(--header-h) + 1.25rem);
+  scroll-behavior: smooth;
+}
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent; /* every control has its own hover, active and focus state */
+}
+a,
+button,
+summary,
+label,
+input,
+textarea {
+  touch-action: manipulation;
+}
+
+/* Header: stays in reach, frosted, one hairline. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgb(255 255 255 / 0.88);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header {
+    background: var(--bg);
+  }
+}
+.header-row {
+  min-height: var(--header-h);
+}
+.nav-desktop a,
+.nav-desktop summary,
+.lang-switch a,
+.icon-btn,
+.more > ul a,
+.nav-mobile a {
+  transition:
+    color 0.15s var(--ease),
+    background-color 0.15s var(--ease),
+    box-shadow 0.15s var(--ease);
+}
+.nav-desktop > ul > li > a:hover:not([aria-current='page']) {
+  box-shadow: inset 0 -3px 0 var(--tint);
+}
+.nav-mobile {
+  max-height: calc(100dvh - var(--header-h) - 1.5rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.more > ul {
+  overscroll-behavior: contain;
+}
+
+/* Type: large sizes sit tighter, running text breaks without orphans. Japanese keeps its natural spacing. */
+h1 {
+  letter-spacing: -0.025em;
+}
+h2 {
+  letter-spacing: -0.02em;
+}
+:lang(ja) :is(h1, h2, h3, h4),
+:lang(ja) .card-title {
+  letter-spacing: 0;
+}
+.card-title {
+  letter-spacing: -0.015em;
+}
+.prose :is(p, li, blockquote),
+.card-excerpt,
+.page-lede {
+  text-wrap: pretty;
+}
+.meta,
+.page-link,
+.post-series {
+  font-variant-numeric: tabular-nums;
+}
+.meta {
+  font-size: 0.875rem;
+  letter-spacing: 0.005em;
+}
+
+/* Images: a hairline ring instead of a flat edge, a slower, calmer zoom. */
+.cover {
+  position: relative;
+  transition: box-shadow 0.3s var(--ease);
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgb(21 32 53 / 0.07);
+  pointer-events: none;
+}
+.cover img {
+  transition: transform 0.6s var(--ease);
+}
+.card-cover:hover .cover {
+  box-shadow: var(--shadow-md);
+}
+.card-cover:hover .cover img {
+  transform: scale(1.03);
+}
+.post-cover img {
+  outline: 1px solid rgb(21 32 53 / 0.07);
+  outline-offset: -1px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Buttons and pills: a quiet lift, a pressed state, no layout shift. */
+.btn:not(.btn-ghost),
+.button {
+  box-shadow: var(--shadow-sm);
+}
+.btn,
+.button,
+.btn-ghost {
+  transition:
+    background-color 0.15s var(--ease),
+    color 0.15s var(--ease),
+    box-shadow 0.2s var(--ease),
+    transform 0.15s var(--ease);
+}
+.btn:not(.btn-ghost):hover,
+.button:hover:not(:disabled) {
+  box-shadow: var(--shadow-md);
+}
+.btn:active,
+.button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+.page-link,
+.pill,
+.tag,
+.icon-btn-outline {
+  transition:
+    background-color 0.15s var(--ease),
+    border-color 0.15s var(--ease),
+    color 0.15s var(--ease);
+}
+.icon-btn-outline:hover {
+  border-color: #fff;
+}
+.card-title a {
+  transition: color 0.15s var(--ease);
+}
+
+/* Prose links: a thin, soft underline that firms up on hover. */
+.prose a:not(.btn):not(.anchor) {
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  transition: text-decoration-color 0.15s var(--ease);
+}
+.prose a:not(.btn):not(.anchor):hover {
+  text-decoration-thickness: 2px;
+  text-decoration-color: currentColor;
+}
+/* The heading-anchor link is hidden until hover; a keyboard user must see it on focus. */
+.prose .anchor:focus-visible {
+  opacity: 1;
+}
+
+.site-footer {
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* Pagefind default UI follows the site. */

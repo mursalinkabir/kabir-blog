@@ -192,3 +192,27 @@ Navy `#152035` band: centred links (About, Contact, Now, Uses, RSS), a row of 44
 
 Accessibility 100 on all 15 page types tested. Performance 95–100; layout shift 0. `/search/` scores 66 on SEO only
 because it is `noindex` on purpose. Post pages ship 1.6 KB of JavaScript (gzip) plus about 4 KB of share and menu scripts.
+
+## 9. Refinement pass against the Web Interface Guidelines (2026-10-15)
+
+Same design, quieter and more current. Source: Vercel's Web Interface Guidelines
+(`vercel-labs/web-interface-guidelines`, `command.md`, fetched 2026-10-15). The code already met most rules (skip
+link, `:focus-visible`, `text-wrap: balance`, reduced motion, image dimensions, `tabular-nums` in tables, light-only
+`color-scheme`). What changed is listed here; the CSS is the "refinement layer" at the end of `global.css`.
+
+| Change                                                            | Why                                                                                        |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Radius 8 to 12 px (buttons and pagination 6 to 8)                 | Softer, more current corners; tokens `--radius`, `--radius-sm`                             |
+| Sticky frosted header, one hairline, 72 px                        | Navigation stays in reach; `scroll-padding-top` and the skip link (z-index 60) clear it    |
+| Tighter heading tracking (Latin only), `text-wrap: pretty` prose  | Large type sits better; Japanese keeps its natural spacing                                 |
+| Hairline ring on covers and post image, calmer 0.6 s zoom         | Images read as objects, not flat rectangles; transform and opacity only                    |
+| Explicit transitions, pressed state on buttons                    | Guideline: never `transition: all`; every control has hover, active and focus states       |
+| Tabular figures in meta rows and pagination                       | Dates and counts align                                                                     |
+| Prose links: 1 px soft underline, 2 px on hover                   | Quieter running text; the colour still carries the link role                               |
+| Heading anchor visible on keyboard focus                          | It was `opacity: 0` until hover, so a focused anchor was invisible                         |
+| `theme-color`, `touch-action`, tap highlight, `100dvh`, safe area | Mobile chrome matches the page; no double-tap zoom delay; no layout jump under the URL bar |
+| `overscroll-behavior: contain` on the menu panels                 | A scrolled menu does not scroll the page behind it                                         |
+| `translate="no"` on the site name; `spellcheck="false"` on email  | Guideline: brand names and addresses are not machine-translated or spell-checked           |
+
+Not changed, on purpose: light only (no dark mode), the teal-as-decoration rule, the Mulish and system-CJK type
+stack, and the card and page layouts from section 4.
