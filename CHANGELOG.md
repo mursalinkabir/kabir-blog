@@ -2,7 +2,16 @@
 
 Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
-## Unreleased
+## 0.2.2 - 2026-10-17
+
+### Fixed (CMS media list failed once R2 was enabled, 2026-10-17)
+
+- With `S3_BUCKET` set, the `s3Storage` plugin adds an `_objectKey` field to Media, but no committed migration created
+  the column, so `/admin/collections/media` threw `column media._objectkey does not exist` and rendered blank. New
+  migration `20261017_150134_r2_media_object_key` adds `media._objectkey` (nullable `varchar`; safe on existing rows,
+  and unused when R2 is off). The four earlier migrations were generated with R2 unset, which is how it was missed.
+  Generate migrations with the four `S3_*` variables set (dummy values are enough) as well as unset, and compare.
+- Found on the first real use of the production CMS (the media bucket, its secret and the Access app all existed).
 
 ### Changed (redesign: bento magazine, light and dark, 2026-10-15)
 
