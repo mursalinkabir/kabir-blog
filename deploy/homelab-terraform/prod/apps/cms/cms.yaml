@@ -74,7 +74,7 @@ spec:
                   - { key: kubernetes.io/hostname, operator: NotIn, values: ['prod-1'] }
       containers:
         - name: cms
-          image: ghcr.io/mursalinkabir/kabir-blog-cms:0.2.1 # bump with each CMS release
+          image: ghcr.io/mursalinkabir/kabir-blog-cms:0.2.2 # bump with each CMS release
           ports:
             - { name: http, containerPort: 3100 }
           envFrom:
