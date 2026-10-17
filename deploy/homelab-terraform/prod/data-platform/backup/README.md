@@ -34,7 +34,16 @@ Files here are drafts; nothing in this repo reads them. Snippets are marked prod
 | 4    | `10` ScheduledBackup (`immediate: true`)         | first base backup now, then daily; read load only      |
 
 Step 3 is the only disruptive one: Zitadel and TraderBuddy see their connections drop once, for the length of a
-switchover. Do it at a quiet time and watch `kubectl cnpg status pg-main -n platform` (illustrative).
+switchover. Do it at a quiet time and watch the pods and the `ContinuousArchiving` condition (illustrative; the
+`kubectl cnpg` plugin is optional and was not needed):
+
+```
+kubectl -n platform get pods -l cnpg.io/cluster=pg-main,cnpg.io/podRole=instance -o wide -w
+kubectl -n platform get cluster pg-main -o jsonpath='{range .status.conditions[*]}{.type}={.status} ({.reason}){"\n"}{end}'
+```
+
+If a replica stays `Pending`, read `kubectl describe pod` first: the spread selectors in `03` must match instance pods
+only (`cnpg.io/podRole: instance`), because the pooler pods carry `cnpg.io/cluster` as well.
 
 ## Done means restored
 

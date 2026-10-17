@@ -35,10 +35,10 @@ data:
   # The kill switch for agent publishing. Anything but exactly "1" means an agent can write drafts, not publish.
   AGENT_AUTO_PUBLISH: '0'
   # The Access application. Empty = the CMS answers 503 to everything but the probes (fails closed).
-  # TODO: team domain, e.g. your-team.cloudflareaccess.com
-  CF_ACCESS_TEAM_DOMAIN: ''
-  # TODO: the "cms" application's AUD tag (Zero Trust -> Access -> Applications -> cms -> Overview).
-  CF_ACCESS_AUD: ''
+  # Zero Trust team domain, and the AUD tag of the "cms" application (covers cms.smkabir.com only; add preview.smkabir.com to the app when it has DNS and a route).
+  # Neither is a secret. Created 2026-10-17.
+  CF_ACCESS_TEAM_DOMAIN: 'kabirlab.cloudflareaccess.com'
+  CF_ACCESS_AUD: '418f571b27ba6ffe19a262a72a9eb823f03a75b52fa1c58c2bc37a36afba65ef'
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -55,7 +55,7 @@ spec:
       labels: { app: cms }
       annotations:
         # Bump when cms-media or cms-github change (pods do not restart on a Secret change).
-        kabir-blog/secrets-rev: '1'
+        kabir-blog/secrets-rev: '2' # cms-media sealed 2026-10-17
     spec:
       automountServiceAccountToken: false
       securityContext:
