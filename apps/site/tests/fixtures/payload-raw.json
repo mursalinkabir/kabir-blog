@@ -1,7 +1,7 @@
 {
   "media": [
     {
-      "id": 41,
+      "id": 46,
       "alt": {
         "en": "A monitor and a laptop showing code on a desk",
         "ja": "デスクの上でコードを表示しているモニターとノートパソコン"
@@ -11,8 +11,8 @@
         "ja": null
       },
       "credit": "Photo: Pakata Goh on Unsplash",
-      "updatedAt": "2026-10-17T16:10:59.975Z",
-      "createdAt": "2026-10-17T16:10:59.925Z",
+      "updatedAt": "2026-10-17T16:20:39.943Z",
+      "createdAt": "2026-10-17T16:20:39.895Z",
       "url": "/api/media/file/cover-tech.jpg",
       "thumbnailURL": "/api/media/file/cover-tech-480x384.webp",
       "filename": "cover-tech.jpg",
@@ -50,7 +50,7 @@
       }
     },
     {
-      "id": 42,
+      "id": 47,
       "alt": {
         "en": "A narrow alley at night lit by red paper lanterns",
         "ja": "赤い提灯に照らされた夜の細い路地"
@@ -60,8 +60,8 @@
         "ja": null
       },
       "credit": "Photo: Denys Nevozhai on Unsplash",
-      "updatedAt": "2026-10-17T16:11:00.674Z",
-      "createdAt": "2026-10-17T16:11:00.632Z",
+      "updatedAt": "2026-10-17T16:20:40.532Z",
+      "createdAt": "2026-10-17T16:20:40.518Z",
       "url": "/api/media/file/cover-japan.jpg",
       "thumbnailURL": "/api/media/file/cover-japan-480x332.webp",
       "filename": "cover-japan.jpg",
@@ -99,7 +99,7 @@
       }
     },
     {
-      "id": 43,
+      "id": 48,
       "alt": {
         "en": "A placeholder landscape illustration",
         "ja": "サンプルの風景イラスト"
@@ -109,8 +109,8 @@
         "ja": null
       },
       "credit": null,
-      "updatedAt": "2026-10-17T16:11:01.146Z",
-      "createdAt": "2026-10-17T16:11:01.132Z",
+      "updatedAt": "2026-10-17T16:20:40.959Z",
+      "createdAt": "2026-10-17T16:20:40.927Z",
       "url": "/api/media/file/sample-landscape.webp",
       "thumbnailURL": "/api/media/file/sample-landscape-480x300.webp",
       "filename": "sample-landscape.webp",
@@ -148,7 +148,7 @@
       }
     },
     {
-      "id": 44,
+      "id": 49,
       "alt": {
         "en": "A placeholder portrait illustration",
         "ja": "サンプルの人物イラスト"
@@ -158,8 +158,8 @@
         "ja": null
       },
       "credit": null,
-      "updatedAt": "2026-10-17T16:11:01.552Z",
-      "createdAt": "2026-10-17T16:11:01.520Z",
+      "updatedAt": "2026-10-17T16:20:41.363Z",
+      "createdAt": "2026-10-17T16:20:41.325Z",
       "url": "/api/media/file/sample-portrait.webp",
       "thumbnailURL": "/api/media/file/sample-portrait-480x672.webp",
       "filename": "sample-portrait.webp",
@@ -197,7 +197,7 @@
       }
     },
     {
-      "id": 45,
+      "id": 50,
       "alt": {
         "en": "Price charts on a dark trading screen",
         "ja": "暗いトレード画面に映る値動きのチャート"
@@ -207,8 +207,8 @@
         "ja": null
       },
       "credit": "Photo: Nicholas Cappello on Unsplash",
-      "updatedAt": "2026-10-17T16:11:01.996Z",
-      "createdAt": "2026-10-17T16:11:01.974Z",
+      "updatedAt": "2026-10-17T16:20:41.890Z",
+      "createdAt": "2026-10-17T16:20:41.820Z",
       "url": "/api/media/file/cover-finance.jpg",
       "thumbnailURL": "/api/media/file/cover-finance-480x319.webp",
       "filename": "cover-finance.jpg",
@@ -244,168 +244,497 @@
           "filename": "cover-finance-1600x1063.webp"
         }
       }
+    },
+    {
+      "id": 51,
+      "alt": {
+        "en": "The watchlist with a small chart and the day's move for each stock, beside the page for one stock."
+      },
+      "caption": {
+        "en": null
+      },
+      "credit": "Screenshot: TraderBuddy 0.18.0",
+      "updatedAt": "2026-10-17T16:20:42.262Z",
+      "createdAt": "2026-10-17T16:20:42.262Z",
+      "url": "/api/media/file/watchlist-1600.webp",
+      "thumbnailURL": "/api/media/file/watchlist-1600-480x228.webp",
+      "filename": "watchlist-1600.webp",
+      "mimeType": "image/webp",
+      "filesize": 49532,
+      "width": 1600,
+      "height": 760,
+      "focalX": 50,
+      "focalY": 50,
+      "sizes": {
+        "w480": {
+          "url": "/api/media/file/watchlist-1600-480x228.webp",
+          "width": 480,
+          "height": 228,
+          "mimeType": "image/webp",
+          "filesize": 6592,
+          "filename": "watchlist-1600-480x228.webp"
+        },
+        "w960": {
+          "url": "/api/media/file/watchlist-1600-960x456.webp",
+          "width": 960,
+          "height": 456,
+          "mimeType": "image/webp",
+          "filesize": 21292,
+          "filename": "watchlist-1600-960x456.webp"
+        },
+        "w1600": {
+          "url": "/api/media/file/watchlist-1600-1600x760.webp",
+          "width": 1600,
+          "height": 760,
+          "mimeType": "image/webp",
+          "filesize": 44812,
+          "filename": "watchlist-1600-1600x760.webp"
+        }
+      }
+    },
+    {
+      "id": 52,
+      "alt": {
+        "en": "The chart page with NVDA candles, drawing tools and a watchlist panel."
+      },
+      "caption": {
+        "en": null
+      },
+      "credit": "Screenshot: TraderBuddy 0.18.0",
+      "updatedAt": "2026-10-17T16:20:42.532Z",
+      "createdAt": "2026-10-17T16:20:42.532Z",
+      "url": "/api/media/file/chart-1600.webp",
+      "thumbnailURL": "/api/media/file/chart-1600-480x200.webp",
+      "filename": "chart-1600.webp",
+      "mimeType": "image/webp",
+      "filesize": 45022,
+      "width": 1600,
+      "height": 667,
+      "focalX": 50,
+      "focalY": 50,
+      "sizes": {
+        "w480": {
+          "url": "/api/media/file/chart-1600-480x200.webp",
+          "width": 480,
+          "height": 200,
+          "mimeType": "image/webp",
+          "filesize": 6088,
+          "filename": "chart-1600-480x200.webp"
+        },
+        "w960": {
+          "url": "/api/media/file/chart-1600-960x400.webp",
+          "width": 960,
+          "height": 400,
+          "mimeType": "image/webp",
+          "filesize": 19362,
+          "filename": "chart-1600-960x400.webp"
+        },
+        "w1600": {
+          "url": "/api/media/file/chart-1600-1600x667.webp",
+          "width": 1600,
+          "height": 667,
+          "mimeType": "image/webp",
+          "filesize": 40272,
+          "filename": "chart-1600-1600x667.webp"
+        }
+      }
+    },
+    {
+      "id": 53,
+      "alt": {
+        "en": "The Alerts page: a table of active alerts with their conditions and notes."
+      },
+      "caption": {
+        "en": null
+      },
+      "credit": "Screenshot: TraderBuddy 0.18.0",
+      "updatedAt": "2026-10-17T16:20:42.809Z",
+      "createdAt": "2026-10-17T16:20:42.809Z",
+      "url": "/api/media/file/alerts-1600.webp",
+      "thumbnailURL": "/api/media/file/alerts-1600-480x209.webp",
+      "filename": "alerts-1600.webp",
+      "mimeType": "image/webp",
+      "filesize": 58764,
+      "width": 1600,
+      "height": 696,
+      "focalX": 50,
+      "focalY": 50,
+      "sizes": {
+        "w480": {
+          "url": "/api/media/file/alerts-1600-480x209.webp",
+          "width": 480,
+          "height": 209,
+          "mimeType": "image/webp",
+          "filesize": 7198,
+          "filename": "alerts-1600-480x209.webp"
+        },
+        "w960": {
+          "url": "/api/media/file/alerts-1600-960x418.webp",
+          "width": 960,
+          "height": 418,
+          "mimeType": "image/webp",
+          "filesize": 23868,
+          "filename": "alerts-1600-960x418.webp"
+        },
+        "w1600": {
+          "url": "/api/media/file/alerts-1600-1600x696.webp",
+          "width": 1600,
+          "height": 696,
+          "mimeType": "image/webp",
+          "filesize": 52994,
+          "filename": "alerts-1600-1600x696.webp"
+        }
+      }
+    },
+    {
+      "id": 54,
+      "alt": {
+        "en": "The scanner page showing the Oversold scanner's description and its matching stocks."
+      },
+      "caption": {
+        "en": null
+      },
+      "credit": "Screenshot: TraderBuddy 0.18.0",
+      "updatedAt": "2026-10-17T16:20:43.072Z",
+      "createdAt": "2026-10-17T16:20:43.072Z",
+      "url": "/api/media/file/scanner-1600.webp",
+      "thumbnailURL": "/api/media/file/scanner-1600-480x207.webp",
+      "filename": "scanner-1600.webp",
+      "mimeType": "image/webp",
+      "filesize": 48696,
+      "width": 1600,
+      "height": 690,
+      "focalX": 50,
+      "focalY": 50,
+      "sizes": {
+        "w480": {
+          "url": "/api/media/file/scanner-1600-480x207.webp",
+          "width": 480,
+          "height": 207,
+          "mimeType": "image/webp",
+          "filesize": 5582,
+          "filename": "scanner-1600-480x207.webp"
+        },
+        "w960": {
+          "url": "/api/media/file/scanner-1600-960x414.webp",
+          "width": 960,
+          "height": 414,
+          "mimeType": "image/webp",
+          "filesize": 19490,
+          "filename": "scanner-1600-960x414.webp"
+        },
+        "w1600": {
+          "url": "/api/media/file/scanner-1600-1600x690.webp",
+          "width": 1600,
+          "height": 690,
+          "mimeType": "image/webp",
+          "filesize": 43900,
+          "filename": "scanner-1600-1600x690.webp"
+        }
+      }
+    },
+    {
+      "id": 55,
+      "alt": {
+        "en": "The financial-health report for NVIDIA: a score of 92 out of 100 and five pillar scores."
+      },
+      "caption": {
+        "en": null
+      },
+      "credit": "Screenshot: TraderBuddy 0.18.0",
+      "updatedAt": "2026-10-17T16:20:43.356Z",
+      "createdAt": "2026-10-17T16:20:43.356Z",
+      "url": "/api/media/file/financials-1600.webp",
+      "thumbnailURL": "/api/media/file/financials-1600-480x229.webp",
+      "filename": "financials-1600.webp",
+      "mimeType": "image/webp",
+      "filesize": 37760,
+      "width": 1600,
+      "height": 764,
+      "focalX": 50,
+      "focalY": 50,
+      "sizes": {
+        "w480": {
+          "url": "/api/media/file/financials-1600-480x229.webp",
+          "width": 480,
+          "height": 229,
+          "mimeType": "image/webp",
+          "filesize": 4992,
+          "filename": "financials-1600-480x229.webp"
+        },
+        "w960": {
+          "url": "/api/media/file/financials-1600-960x458.webp",
+          "width": 960,
+          "height": 458,
+          "mimeType": "image/webp",
+          "filesize": 16536,
+          "filename": "financials-1600-960x458.webp"
+        },
+        "w1600": {
+          "url": "/api/media/file/financials-1600-1600x764.webp",
+          "width": 1600,
+          "height": 764,
+          "mimeType": "image/webp",
+          "filesize": 33954,
+          "filename": "financials-1600-1600x764.webp"
+        }
+      }
+    },
+    {
+      "id": 56,
+      "alt": {
+        "en": "The News page with headlines and an AI read of one item."
+      },
+      "caption": {
+        "en": null
+      },
+      "credit": "Screenshot: TraderBuddy 0.18.0",
+      "updatedAt": "2026-10-17T16:20:43.651Z",
+      "createdAt": "2026-10-17T16:20:43.651Z",
+      "url": "/api/media/file/news-1600.webp",
+      "thumbnailURL": "/api/media/file/news-1600-480x245.webp",
+      "filename": "news-1600.webp",
+      "mimeType": "image/webp",
+      "filesize": 48234,
+      "width": 1600,
+      "height": 818,
+      "focalX": 50,
+      "focalY": 50,
+      "sizes": {
+        "w480": {
+          "url": "/api/media/file/news-1600-480x245.webp",
+          "width": 480,
+          "height": 245,
+          "mimeType": "image/webp",
+          "filesize": 5864,
+          "filename": "news-1600-480x245.webp"
+        },
+        "w960": {
+          "url": "/api/media/file/news-1600-960x491.webp",
+          "width": 960,
+          "height": 491,
+          "mimeType": "image/webp",
+          "filesize": 21446,
+          "filename": "news-1600-960x491.webp"
+        },
+        "w1600": {
+          "url": "/api/media/file/news-1600-1600x818.webp",
+          "width": 1600,
+          "height": 818,
+          "mimeType": "image/webp",
+          "filesize": 43676,
+          "filename": "news-1600-1600x818.webp"
+        }
+      }
+    },
+    {
+      "id": 57,
+      "alt": {
+        "en": "The AI research page with suggested questions and a list of past conversations."
+      },
+      "caption": {
+        "en": null
+      },
+      "credit": "Screenshot: TraderBuddy 0.18.0",
+      "updatedAt": "2026-10-17T16:20:43.903Z",
+      "createdAt": "2026-10-17T16:20:43.903Z",
+      "url": "/api/media/file/ai-research-1600.webp",
+      "thumbnailURL": "/api/media/file/ai-research-1600-480x220.webp",
+      "filename": "ai-research-1600.webp",
+      "mimeType": "image/webp",
+      "filesize": 33598,
+      "width": 1600,
+      "height": 734,
+      "focalX": 50,
+      "focalY": 50,
+      "sizes": {
+        "w480": {
+          "url": "/api/media/file/ai-research-1600-480x220.webp",
+          "width": 480,
+          "height": 220,
+          "mimeType": "image/webp",
+          "filesize": 4218,
+          "filename": "ai-research-1600-480x220.webp"
+        },
+        "w960": {
+          "url": "/api/media/file/ai-research-1600-960x440.webp",
+          "width": 960,
+          "height": 440,
+          "mimeType": "image/webp",
+          "filesize": 14318,
+          "filename": "ai-research-1600-960x440.webp"
+        },
+        "w1600": {
+          "url": "/api/media/file/ai-research-1600-1600x734.webp",
+          "width": 1600,
+          "height": 734,
+          "mimeType": "image/webp",
+          "filesize": 30668,
+          "filename": "ai-research-1600-1600x734.webp"
+        }
+      }
     }
   ],
   "categories": [
     {
-      "id": 22,
+      "id": 25,
       "slug": "tech",
       "name": {
         "en": "Tech",
         "ja": "テック"
       },
-      "updatedAt": "2026-10-17T16:11:02.038Z",
-      "createdAt": "2026-10-17T16:11:02.014Z"
+      "updatedAt": "2026-10-17T16:20:43.921Z",
+      "createdAt": "2026-10-17T16:20:43.910Z"
     },
     {
-      "id": 23,
+      "id": 26,
       "slug": "japan-life",
       "name": {
         "en": "Japan life",
         "ja": "日本の暮らし"
       },
-      "updatedAt": "2026-10-17T16:11:02.050Z",
-      "createdAt": "2026-10-17T16:11:02.043Z"
+      "updatedAt": "2026-10-17T16:20:43.933Z",
+      "createdAt": "2026-10-17T16:20:43.926Z"
     },
     {
-      "id": 24,
+      "id": 27,
       "slug": "finance",
       "name": {
         "en": "Finance",
         "ja": "お金"
       },
-      "updatedAt": "2026-10-17T16:11:02.061Z",
-      "createdAt": "2026-10-17T16:11:02.055Z"
+      "updatedAt": "2026-10-17T16:20:43.958Z",
+      "createdAt": "2026-10-17T16:20:43.946Z"
     }
   ],
   "tags": [
     {
-      "id": 54,
+      "id": 67,
       "slug": "homelab",
       "name": {
         "en": "homelab",
         "ja": "ホームラボ"
       },
-      "updatedAt": "2026-10-17T16:11:02.082Z",
-      "createdAt": "2026-10-17T16:11:02.065Z"
+      "updatedAt": "2026-10-17T16:20:43.977Z",
+      "createdAt": "2026-10-17T16:20:43.964Z"
     },
     {
-      "id": 55,
+      "id": 68,
       "slug": "kubernetes",
       "name": {
         "en": "kubernetes",
         "ja": "Kubernetes"
       },
-      "updatedAt": "2026-10-17T16:11:02.093Z",
-      "createdAt": "2026-10-17T16:11:02.087Z"
+      "updatedAt": "2026-10-17T16:20:43.992Z",
+      "createdAt": "2026-10-17T16:20:43.983Z"
     },
     {
-      "id": 56,
+      "id": 69,
       "slug": "cloudflare",
       "name": {
         "en": "cloudflare"
       },
-      "updatedAt": "2026-10-17T16:11:02.097Z",
-      "createdAt": "2026-10-17T16:11:02.097Z"
+      "updatedAt": "2026-10-17T16:20:43.996Z",
+      "createdAt": "2026-10-17T16:20:43.996Z"
     },
     {
-      "id": 57,
+      "id": 70,
       "slug": "resilience",
       "name": {
         "en": "resilience"
       },
-      "updatedAt": "2026-10-17T16:11:02.100Z",
-      "createdAt": "2026-10-17T16:11:02.100Z"
+      "updatedAt": "2026-10-17T16:20:44.000Z",
+      "createdAt": "2026-10-17T16:20:44.000Z"
     },
     {
-      "id": 58,
+      "id": 71,
       "slug": "astro",
       "name": {
         "en": "astro",
         "ja": "Astro"
       },
-      "updatedAt": "2026-10-17T16:11:02.109Z",
-      "createdAt": "2026-10-17T16:11:02.103Z"
+      "updatedAt": "2026-10-17T16:20:44.018Z",
+      "createdAt": "2026-10-17T16:20:44.003Z"
     },
     {
-      "id": 59,
+      "id": 72,
       "slug": "language",
       "name": {
         "en": "language",
         "ja": "言葉"
       },
-      "updatedAt": "2026-10-17T16:11:02.126Z",
-      "createdAt": "2026-10-17T16:11:02.115Z"
+      "updatedAt": "2026-10-17T16:20:44.047Z",
+      "createdAt": "2026-10-17T16:20:44.032Z"
     },
     {
-      "id": 60,
+      "id": 73,
       "slug": "paperwork",
       "name": {
         "en": "paperwork",
         "ja": "書類"
       },
-      "updatedAt": "2026-10-17T16:11:02.139Z",
-      "createdAt": "2026-10-17T16:11:02.130Z"
+      "updatedAt": "2026-10-17T16:20:44.057Z",
+      "createdAt": "2026-10-17T16:20:44.052Z"
     },
     {
-      "id": 61,
+      "id": 74,
       "slug": "traderbuddy",
       "name": {
         "en": "traderbuddy"
       },
-      "updatedAt": "2026-10-17T16:11:02.147Z",
-      "createdAt": "2026-10-17T16:11:02.147Z"
+      "updatedAt": "2026-10-17T16:20:44.065Z",
+      "createdAt": "2026-10-17T16:20:44.065Z"
     },
     {
-      "id": 62,
+      "id": 75,
       "slug": "architecture",
       "name": {
         "en": "architecture"
       },
-      "updatedAt": "2026-10-17T16:11:02.151Z",
-      "createdAt": "2026-10-17T16:11:02.151Z"
+      "updatedAt": "2026-10-17T16:20:44.068Z",
+      "createdAt": "2026-10-17T16:20:44.068Z"
     },
     {
-      "id": 63,
+      "id": 76,
       "slug": "trading",
       "name": {
         "en": "trading"
       },
-      "updatedAt": "2026-10-17T16:11:02.155Z",
-      "createdAt": "2026-10-17T16:11:02.155Z"
+      "updatedAt": "2026-10-17T16:20:44.071Z",
+      "createdAt": "2026-10-17T16:20:44.071Z"
     },
     {
-      "id": 64,
+      "id": 77,
       "slug": "animation",
       "name": {
         "en": "animation"
       },
-      "updatedAt": "2026-10-17T16:11:02.159Z",
-      "createdAt": "2026-10-17T16:11:02.159Z"
+      "updatedAt": "2026-10-17T16:20:44.074Z",
+      "createdAt": "2026-10-17T16:20:44.074Z"
     },
     {
-      "id": 65,
+      "id": 78,
       "slug": "mcp",
       "name": {
         "en": "mcp"
       },
-      "updatedAt": "2026-10-17T16:11:02.169Z",
-      "createdAt": "2026-10-17T16:11:02.169Z"
+      "updatedAt": "2026-10-17T16:20:44.076Z",
+      "createdAt": "2026-10-17T16:20:44.076Z"
     },
     {
-      "id": 66,
+      "id": 79,
       "slug": "budgeting",
       "name": {
         "en": "budgeting",
         "ja": "家計"
       },
-      "updatedAt": "2026-10-17T16:11:02.184Z",
-      "createdAt": "2026-10-17T16:11:02.175Z"
+      "updatedAt": "2026-10-17T16:20:44.085Z",
+      "createdAt": "2026-10-17T16:20:44.079Z"
     }
   ],
   "posts": [
     {
-      "id": 89,
+      "id": 99,
       "title": {
         "en": null,
         "ja": "ホームラボでブログを運用する：理由と方法"
@@ -415,9 +744,9 @@
         "ja": "自宅のサーバーで静的ブログを運用する理由、工夫、そして限界についての短いメモ。"
       },
       "slug": "homelab-de-blog-wo-unyo-suru",
-      "category": 22,
+      "category": 25,
       "tags": [
-        54
+        67
       ],
       "pubDate": "2026-10-01T09:00:00.000Z",
       "updatedDate": null,
@@ -658,12 +987,12 @@
           }
         }
       },
-      "updatedAt": "2026-10-17T16:11:02.270Z",
-      "createdAt": "2026-10-17T16:11:02.192Z",
+      "updatedAt": "2026-10-17T16:20:44.131Z",
+      "createdAt": "2026-10-17T16:20:44.090Z",
       "_status": "published"
     },
     {
-      "id": 90,
+      "id": 100,
       "title": {
         "en": "How smkabir.com stays up: releases, pointers and a failover that is still on paper",
         "ja": null
@@ -673,16 +1002,16 @@
         "ja": null
       },
       "slug": "how-smkabir-com-stays-up",
-      "category": 22,
+      "category": 25,
       "tags": [
-        54,
-        55,
-        56,
-        57
+        67,
+        68,
+        69,
+        70
       ],
       "pubDate": "2026-10-12T09:00:00.000Z",
       "updatedDate": null,
-      "hero": 41,
+      "hero": 46,
       "series": {
         "name": "Building smkabir.com",
         "part": 2
@@ -3397,12 +3726,12 @@
         },
         "ja": null
       },
-      "updatedAt": "2026-10-17T16:11:02.442Z",
-      "createdAt": "2026-10-17T16:11:02.340Z",
+      "updatedAt": "2026-10-17T16:20:44.210Z",
+      "createdAt": "2026-10-17T16:20:44.160Z",
       "_status": "published"
     },
     {
-      "id": 91,
+      "id": 101,
       "title": {
         "en": "How this site is built: a static blog on a homelab",
         "ja": null
@@ -3412,15 +3741,15 @@
         "ja": null
       },
       "slug": "how-this-site-is-built",
-      "category": 22,
+      "category": 25,
       "tags": [
-        54,
-        55,
-        58
+        67,
+        68,
+        71
       ],
       "pubDate": "2026-09-28T09:00:00.000Z",
       "updatedDate": "2026-10-03T09:00:00.000Z",
-      "hero": 41,
+      "hero": 46,
       "series": {
         "name": "Building smkabir.com",
         "part": 1
@@ -4158,12 +4487,12 @@
         },
         "ja": null
       },
-      "updatedAt": "2026-10-17T16:11:02.674Z",
-      "createdAt": "2026-10-17T16:11:02.590Z",
+      "updatedAt": "2026-10-17T16:20:44.277Z",
+      "createdAt": "2026-10-17T16:20:44.250Z",
       "_status": "published"
     },
     {
-      "id": 92,
+      "id": 102,
       "title": {
         "en": "The Japanese words that paperwork actually uses",
         "ja": "役所の書類で本当によく使う日本語"
@@ -4173,14 +4502,14 @@
         "ja": "書類や窓口で何度も出てくる用語の短い用語集です。読み方も添えています。"
       },
       "slug": "japanese-paperwork-vocabulary",
-      "category": 23,
+      "category": 26,
       "tags": [
-        59,
-        60
+        72,
+        73
       ],
       "pubDate": "2026-09-15T09:00:00.000Z",
       "updatedDate": null,
-      "hero": 42,
+      "hero": 47,
       "series": {
         "name": null,
         "part": null
@@ -4265,7 +4594,7 @@
                 "type": "block",
                 "fields": {
                   "id": "fx0007",
-                  "media": 43,
+                  "media": 48,
                   "credit": "Illustration: placeholder",
                   "caption": "A placeholder figure with a caption.",
                   "blockName": "",
@@ -4319,9 +4648,9 @@
                 "fields": {
                   "id": "fx0009",
                   "media": [
-                    43,
-                    44,
-                    43
+                    48,
+                    49,
+                    48
                   ],
                   "blockName": "",
                   "blockType": "gallery-strip"
@@ -4577,12 +4906,12 @@
           }
         }
       },
-      "updatedAt": "2026-10-17T16:11:02.735Z",
-      "createdAt": "2026-10-17T16:11:02.706Z",
+      "updatedAt": "2026-10-17T16:20:44.315Z",
+      "createdAt": "2026-10-17T16:20:44.298Z",
       "_status": "published"
     },
     {
-      "id": 93,
+      "id": 103,
       "title": {
         "en": "TraderBuddy architecture: the stack and the constraints behind it",
         "ja": null
@@ -4592,16 +4921,16 @@
         "ja": null
       },
       "slug": "traderbuddy-architecture",
-      "category": 22,
+      "category": 25,
       "tags": [
-        61,
-        62,
-        54,
-        55
+        74,
+        75,
+        67,
+        68
       ],
       "pubDate": "2026-10-12T08:20:00.000Z",
       "updatedDate": null,
-      "hero": 41,
+      "hero": 46,
       "series": {
         "name": "TraderBuddy",
         "part": 3
@@ -9740,12 +10069,12 @@
         },
         "ja": null
       },
-      "updatedAt": "2026-10-17T16:11:02.842Z",
-      "createdAt": "2026-10-17T16:11:02.768Z",
+      "updatedAt": "2026-10-17T16:20:44.382Z",
+      "createdAt": "2026-10-17T16:20:44.338Z",
       "_status": "published"
     },
     {
-      "id": 94,
+      "id": 104,
       "title": {
         "en": "Everything TraderBuddy does",
         "ja": null
@@ -9755,14 +10084,14 @@
         "ja": null
       },
       "slug": "traderbuddy-features",
-      "category": 22,
+      "category": 25,
       "tags": [
-        61,
-        63
+        74,
+        76
       ],
       "pubDate": "2026-10-12T08:10:00.000Z",
       "updatedDate": "2026-10-17T16:10:10.000Z",
-      "hero": 45,
+      "hero": 50,
       "series": {
         "name": "TraderBuddy",
         "part": 2
@@ -9885,6 +10214,19 @@
                   }
                 ],
                 "direction": "ltr"
+              },
+              {
+                "type": "block",
+                "fields": {
+                  "id": "tbshot-watchlist",
+                  "media": 51,
+                  "credit": "Screenshot: TraderBuddy 0.18.0",
+                  "caption": "The watchlist beside the page for one stock (META): its alerts, key stats, analyst ratings and financial-health summary. Each row shows the day's move and a small chart of the session.",
+                  "blockName": "",
+                  "blockType": "figure"
+                },
+                "format": "",
+                "version": 2
               },
               {
                 "tag": "ul",
@@ -10136,6 +10478,19 @@
                   }
                 ],
                 "direction": "ltr"
+              },
+              {
+                "type": "block",
+                "fields": {
+                  "id": "tbshot-chart",
+                  "media": 52,
+                  "credit": "Screenshot: TraderBuddy 0.18.0",
+                  "caption": "The Chart tab: NVDA on 15-minute candles, the drawing tools on the left and the watchlist panel on the right.",
+                  "blockName": "",
+                  "blockType": "figure"
+                },
+                "format": "",
+                "version": 2
               },
               {
                 "tag": "ul",
@@ -10561,6 +10916,19 @@
                 "direction": "ltr"
               },
               {
+                "type": "block",
+                "fields": {
+                  "id": "tbshot-alerts",
+                  "media": 53,
+                  "credit": "Screenshot: TraderBuddy 0.18.0",
+                  "caption": "The Alerts page: each alert with its condition, your note, whether it repeats, when it last fired and when it expires.",
+                  "blockName": "",
+                  "blockType": "figure"
+                },
+                "format": "",
+                "version": 2
+              },
+              {
                 "tag": "ul",
                 "type": "list",
                 "start": 1,
@@ -10794,6 +11162,19 @@
                   }
                 ],
                 "direction": "ltr"
+              },
+              {
+                "type": "block",
+                "fields": {
+                  "id": "tbshot-scanner",
+                  "media": 54,
+                  "credit": "Screenshot: TraderBuddy 0.18.0",
+                  "caption": "The built-in Oversold scanner: what it looks for in plain words, then its matches as of the last close, with the new ones counted.",
+                  "blockName": "",
+                  "blockType": "figure"
+                },
+                "format": "",
+                "version": 2
               },
               {
                 "type": "block",
@@ -11501,6 +11882,19 @@
                 "direction": "ltr"
               },
               {
+                "type": "block",
+                "fields": {
+                  "id": "tbshot-financials",
+                  "media": 55,
+                  "credit": "Screenshot: TraderBuddy 0.18.0",
+                  "caption": "The financial-health report for NVIDIA, worked out from its latest 10-Q, with the filing it used named and linked.",
+                  "blockName": "",
+                  "blockType": "figure"
+                },
+                "format": "",
+                "version": 2
+              },
+              {
                 "tag": "h2",
                 "type": "heading",
                 "format": "",
@@ -11536,6 +11930,19 @@
                   }
                 ],
                 "direction": "ltr"
+              },
+              {
+                "type": "block",
+                "fields": {
+                  "id": "tbshot-news",
+                  "media": 56,
+                  "credit": "Screenshot: TraderBuddy 0.18.0",
+                  "caption": "The News page: company headlines, and under one of them the AI's read, labelled as opinion, not advice. The month's AI spend is shown at the top.",
+                  "blockName": "",
+                  "blockType": "figure"
+                },
+                "format": "",
+                "version": 2
               },
               {
                 "tag": "ul",
@@ -11797,6 +12204,19 @@
                   }
                 ],
                 "direction": "ltr"
+              },
+              {
+                "type": "block",
+                "fields": {
+                  "id": "tbshot-ai-research",
+                  "media": 57,
+                  "credit": "Screenshot: TraderBuddy 0.18.0",
+                  "caption": "The AI research page: past conversations on the left, suggested questions, and the model picker under the question box.",
+                  "blockName": "",
+                  "blockType": "figure"
+                },
+                "format": "",
+                "version": 2
               },
               {
                 "tag": "ul",
@@ -13564,12 +13984,12 @@
         },
         "ja": null
       },
-      "updatedAt": "2026-10-17T16:11:02.937Z",
-      "createdAt": "2026-10-17T16:11:02.888Z",
+      "updatedAt": "2026-10-17T16:20:44.477Z",
+      "createdAt": "2026-10-17T16:20:44.430Z",
       "_status": "published"
     },
     {
-      "id": 95,
+      "id": 105,
       "title": {
         "en": "TraderBuddy in thirty seconds",
         "ja": null
@@ -13579,15 +13999,15 @@
         "ja": null
       },
       "slug": "traderbuddy-in-thirty-seconds",
-      "category": 22,
+      "category": 25,
       "tags": [
-        61,
-        64,
-        63
+        74,
+        77,
+        76
       ],
       "pubDate": "2026-10-12T08:00:00.000Z",
       "updatedDate": null,
-      "hero": 45,
+      "hero": 50,
       "series": {
         "name": "TraderBuddy",
         "part": 1
@@ -14027,12 +14447,12 @@
         },
         "ja": null
       },
-      "updatedAt": "2026-10-17T16:11:03.006Z",
-      "createdAt": "2026-10-17T16:11:02.982Z",
+      "updatedAt": "2026-10-17T16:20:44.548Z",
+      "createdAt": "2026-10-17T16:20:44.522Z",
       "_status": "published"
     },
     {
-      "id": 96,
+      "id": 106,
       "title": {
         "en": "How to connect an AI agent to TraderBuddy over MCP",
         "ja": null
@@ -14042,14 +14462,14 @@
         "ja": null
       },
       "slug": "traderbuddy-mcp",
-      "category": 22,
+      "category": 25,
       "tags": [
-        61,
-        65
+        74,
+        78
       ],
       "pubDate": "2026-10-17T16:10:10.000Z",
       "updatedDate": null,
-      "hero": 41,
+      "hero": 46,
       "series": {
         "name": "TraderBuddy",
         "part": 4
@@ -18008,12 +18428,12 @@
         },
         "ja": null
       },
-      "updatedAt": "2026-10-17T16:11:03.073Z",
-      "createdAt": "2026-10-17T16:11:03.037Z",
+      "updatedAt": "2026-10-17T16:20:44.616Z",
+      "createdAt": "2026-10-17T16:20:44.582Z",
       "_status": "published"
     },
     {
-      "id": 97,
+      "id": 107,
       "title": {
         "en": "An unfinished draft that must never ship"
       },
@@ -18021,7 +18441,7 @@
         "en": "Used to prove that drafts never reach dist/."
       },
       "slug": "unfinished-draft",
-      "category": 22,
+      "category": 25,
       "tags": [],
       "pubDate": "2026-10-05T09:00:00.000Z",
       "updatedDate": null,
@@ -18079,12 +18499,12 @@
           }
         }
       },
-      "updatedAt": "2026-10-17T16:11:03.112Z",
-      "createdAt": "2026-10-17T16:11:03.112Z",
+      "updatedAt": "2026-10-17T16:20:44.649Z",
+      "createdAt": "2026-10-17T16:20:44.649Z",
       "_status": "draft"
     },
     {
-      "id": 98,
+      "id": 108,
       "title": {
         "en": "What the homelab costs to run, in yen",
         "ja": null
@@ -18094,14 +18514,14 @@
         "ja": null
       },
       "slug": "what-the-homelab-costs",
-      "category": 24,
+      "category": 27,
       "tags": [
-        66,
-        54
+        79,
+        67
       ],
       "pubDate": "2026-10-04T09:00:00.000Z",
       "updatedDate": null,
-      "hero": 45,
+      "hero": 50,
       "series": {
         "name": null,
         "part": null
@@ -19346,14 +19766,14 @@
         },
         "ja": null
       },
-      "updatedAt": "2026-10-17T16:11:03.212Z",
-      "createdAt": "2026-10-17T16:11:03.150Z",
+      "updatedAt": "2026-10-17T16:20:44.690Z",
+      "createdAt": "2026-10-17T16:20:44.670Z",
       "_status": "published"
     }
   ],
   "projects": [
     {
-      "id": 15,
+      "id": 17,
       "title": {
         "en": "Homelab",
         "ja": "ホームラボ"
@@ -19366,27 +19786,27 @@
       "status": "maintained",
       "stack": [
         {
-          "id": "6ad39e175a3adf77609a11b9",
+          "id": "6ad3a05cba40a410d09277f4",
           "label": "Talos Linux"
         },
         {
-          "id": "6ad39e175a3adf77609a11ba",
+          "id": "6ad3a05cba40a410d09277f5",
           "label": "Kubernetes"
         },
         {
-          "id": "6ad39e175a3adf77609a11bb",
+          "id": "6ad3a05cba40a410d09277f6",
           "label": "Cilium"
         },
         {
-          "id": "6ad39e175a3adf77609a11bc",
+          "id": "6ad3a05cba40a410d09277f7",
           "label": "Argo CD"
         },
         {
-          "id": "6ad39e175a3adf77609a11bd",
+          "id": "6ad3a05cba40a410d09277f8",
           "label": "CloudNativePG"
         },
         {
-          "id": "6ad39e175a3adf77609a11be",
+          "id": "6ad3a05cba40a410d09277f9",
           "label": "Proxmox"
         }
       ],
@@ -19581,12 +20001,12 @@
           }
         }
       },
-      "updatedAt": "2026-10-17T16:11:03.279Z",
-      "createdAt": "2026-10-17T16:11:03.239Z",
+      "updatedAt": "2026-10-17T16:20:44.733Z",
+      "createdAt": "2026-10-17T16:20:44.709Z",
       "_status": "published"
     },
     {
-      "id": 16,
+      "id": 18,
       "title": {
         "en": "TraderBuddy"
       },
@@ -19597,15 +20017,15 @@
       "status": "active",
       "stack": [
         {
-          "id": "6ad39e175a3adf77609a11bf",
+          "id": "6ad3a05cba40a410d09277fa",
           "label": "TypeScript"
         },
         {
-          "id": "6ad39e175a3adf77609a11c0",
+          "id": "6ad3a05cba40a410d09277fb",
           "label": "PostgreSQL"
         },
         {
-          "id": "6ad39e175a3adf77609a11c1",
+          "id": "6ad3a05cba40a410d09277fc",
           "label": "Kubernetes"
         }
       ],
@@ -19752,14 +20172,14 @@
           }
         }
       },
-      "updatedAt": "2026-10-17T16:11:03.295Z",
-      "createdAt": "2026-10-17T16:11:03.295Z",
+      "updatedAt": "2026-10-17T16:20:44.747Z",
+      "createdAt": "2026-10-17T16:20:44.747Z",
       "_status": "published"
     }
   ],
   "pages": [
     {
-      "id": 8,
+      "id": 9,
       "title": {
         "en": "About",
         "ja": "このサイトについて"
@@ -19861,8 +20281,8 @@
           }
         }
       },
-      "updatedAt": "2026-10-17T16:11:03.326Z",
-      "createdAt": "2026-10-17T16:11:03.304Z",
+      "updatedAt": "2026-10-17T16:20:44.771Z",
+      "createdAt": "2026-10-17T16:20:44.758Z",
       "_status": "published"
     }
   ],
@@ -19895,7 +20315,7 @@
         "categories",
         "tags"
       ],
-      "updatedAt": "2026-10-17T16:11:03.373Z",
+      "updatedAt": "2026-10-17T16:20:44.806Z",
       "createdAt": "2026-10-11T14:36:37.167Z",
       "globalType": "site"
     },
@@ -20105,11 +20525,11 @@
           "endDate": "2026-03",
           "highlights": [
             {
-              "id": "6ad39e175a3adf77609a11c2",
+              "id": "6ad3a05cba40a410d09277fd",
               "text": "Placeholder highlight one."
             },
             {
-              "id": "6ad39e175a3adf77609a11c3",
+              "id": "6ad3a05cba40a410d09277fe",
               "text": "Placeholder highlight two."
             }
           ]
@@ -20122,7 +20542,7 @@
           "endDate": "2022-03",
           "highlights": [
             {
-              "id": "6ad39e175a3adf77609a11c4",
+              "id": "6ad3a05cba40a410d09277ff",
               "text": "Placeholder highlight."
             }
           ]
@@ -20144,15 +20564,15 @@
           "name": "Languages",
           "keywords": [
             {
-              "id": "6ad39e175a3adf77609a11c5",
+              "id": "6ad3a05cba40a410d0927800",
               "text": "TypeScript"
             },
             {
-              "id": "6ad39e175a3adf77609a11c6",
+              "id": "6ad3a05cba40a410d0927801",
               "text": "Go"
             },
             {
-              "id": "6ad39e175a3adf77609a11c7",
+              "id": "6ad3a05cba40a410d0927802",
               "text": "SQL"
             }
           ]
@@ -20162,15 +20582,15 @@
           "name": "Platform",
           "keywords": [
             {
-              "id": "6ad39e175a3adf77609a11c8",
+              "id": "6ad3a05cba40a410d0927803",
               "text": "Kubernetes"
             },
             {
-              "id": "6ad39e175a3adf77609a11c9",
+              "id": "6ad3a05cba40a410d0927804",
               "text": "PostgreSQL"
             },
             {
-              "id": "6ad39e175a3adf77609a11ca",
+              "id": "6ad3a05cba40a410d0927805",
               "text": "Terraform"
             }
           ]
@@ -20205,7 +20625,7 @@
         }
       ],
       "certificates": [],
-      "updatedAt": "2026-10-17T16:11:03.479Z",
+      "updatedAt": "2026-10-17T16:20:44.868Z",
       "createdAt": "2026-10-11T14:36:39.104Z",
       "globalType": "resume"
     }

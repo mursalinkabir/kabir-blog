@@ -5,6 +5,9 @@
 - Photos come from [Unsplash](https://unsplash.com/) under the Unsplash License (free for commercial use, no
   permission needed; credit is appreciated, so the site prints it under the post cover).
 - **Unsplash+ photos are paid and not covered by that licence.** The grid marks them as premium; do not use them.
+- Screenshots of your own software (for example TraderBuddy) are your own work and need no licence. Before publishing,
+  remove anything personal: holdings, account names or emails, private conversations. The TraderBuddy screenshots in
+  `apps/site/public/images/traderbuddy/` had the "you hold this" dots painted out.
 - Photos you take yourself must not show a recognisable person, a number plate, a house or a street sign (see the privacy rules in `docs/PLAN.md`). Stock photos from Unsplash may show public signage and distant passers-by; the Japan sample cover has readable shop signs, which is accepted because it is a public commercial street.
 - In production, images are uploaded to Payload's `media` collection (alt text required, credit in the `credit`
   field). Payload generates the 480 / 960 / 1600 px sizes; the site builds `srcset` from them.

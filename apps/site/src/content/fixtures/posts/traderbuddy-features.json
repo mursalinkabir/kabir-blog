@@ -187,6 +187,47 @@
             "type": "paragraph"
           },
           {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "tbshot-watchlist",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "tb-shot-watchlist",
+                "url": "/images/traderbuddy/watchlist-1600.webp",
+                "filename": "watchlist-1600.webp",
+                "mimeType": "image/webp",
+                "width": 1600,
+                "height": 760,
+                "alt": {
+                  "en": "The watchlist with a small chart and the day's move for each stock, beside the page for one stock."
+                },
+                "credit": "Screenshot: TraderBuddy 0.18.0",
+                "sizes": {
+                  "480": {
+                    "url": "/images/traderbuddy/watchlist-480.webp",
+                    "width": 480,
+                    "height": 228
+                  },
+                  "960": {
+                    "url": "/images/traderbuddy/watchlist-960.webp",
+                    "width": 960,
+                    "height": 456
+                  },
+                  "1600": {
+                    "url": "/images/traderbuddy/watchlist-1600.webp",
+                    "width": 1600,
+                    "height": 760
+                  }
+                }
+              },
+              "caption": "The watchlist beside the page for one stock (META): its alerts, key stats, analyst ratings and financial-health summary. Each row shows the day's move and a small chart of the session.",
+              "credit": "Screenshot: TraderBuddy 0.18.0"
+            }
+          },
+          {
             "direction": "ltr",
             "format": "",
             "indent": 0,
@@ -436,6 +477,47 @@
               }
             ],
             "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "tbshot-chart",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "tb-shot-chart",
+                "url": "/images/traderbuddy/chart-1600.webp",
+                "filename": "chart-1600.webp",
+                "mimeType": "image/webp",
+                "width": 1600,
+                "height": 667,
+                "alt": {
+                  "en": "The chart page with NVDA candles, drawing tools and a watchlist panel."
+                },
+                "credit": "Screenshot: TraderBuddy 0.18.0",
+                "sizes": {
+                  "480": {
+                    "url": "/images/traderbuddy/chart-480.webp",
+                    "width": 480,
+                    "height": 200
+                  },
+                  "960": {
+                    "url": "/images/traderbuddy/chart-960.webp",
+                    "width": 960,
+                    "height": 400
+                  },
+                  "1600": {
+                    "url": "/images/traderbuddy/chart-1600.webp",
+                    "width": 1600,
+                    "height": 667
+                  }
+                }
+              },
+              "caption": "The Chart tab: NVDA on 15-minute candles, the drawing tools on the left and the watchlist panel on the right.",
+              "credit": "Screenshot: TraderBuddy 0.18.0"
+            }
           },
           {
             "direction": "ltr",
@@ -861,6 +943,47 @@
             "type": "paragraph"
           },
           {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "tbshot-alerts",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "tb-shot-alerts",
+                "url": "/images/traderbuddy/alerts-1600.webp",
+                "filename": "alerts-1600.webp",
+                "mimeType": "image/webp",
+                "width": 1600,
+                "height": 696,
+                "alt": {
+                  "en": "The Alerts page: a table of active alerts with their conditions and notes."
+                },
+                "credit": "Screenshot: TraderBuddy 0.18.0",
+                "sizes": {
+                  "480": {
+                    "url": "/images/traderbuddy/alerts-480.webp",
+                    "width": 480,
+                    "height": 209
+                  },
+                  "960": {
+                    "url": "/images/traderbuddy/alerts-960.webp",
+                    "width": 960,
+                    "height": 418
+                  },
+                  "1600": {
+                    "url": "/images/traderbuddy/alerts-1600.webp",
+                    "width": 1600,
+                    "height": 696
+                  }
+                }
+              },
+              "caption": "The Alerts page: each alert with its condition, your note, whether it repeats, when it last fired and when it expires.",
+              "credit": "Screenshot: TraderBuddy 0.18.0"
+            }
+          },
+          {
             "direction": "ltr",
             "format": "",
             "indent": 0,
@@ -1094,6 +1217,47 @@
               }
             ],
             "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "tbshot-scanner",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "tb-shot-scanner",
+                "url": "/images/traderbuddy/scanner-1600.webp",
+                "filename": "scanner-1600.webp",
+                "mimeType": "image/webp",
+                "width": 1600,
+                "height": 690,
+                "alt": {
+                  "en": "The scanner page showing the Oversold scanner's description and its matching stocks."
+                },
+                "credit": "Screenshot: TraderBuddy 0.18.0",
+                "sizes": {
+                  "480": {
+                    "url": "/images/traderbuddy/scanner-480.webp",
+                    "width": 480,
+                    "height": 207
+                  },
+                  "960": {
+                    "url": "/images/traderbuddy/scanner-960.webp",
+                    "width": 960,
+                    "height": 414
+                  },
+                  "1600": {
+                    "url": "/images/traderbuddy/scanner-1600.webp",
+                    "width": 1600,
+                    "height": 690
+                  }
+                }
+              },
+              "caption": "The built-in Oversold scanner: what it looks for in plain words, then its matches as of the last close, with the new ones counted.",
+              "credit": "Screenshot: TraderBuddy 0.18.0"
+            }
           },
           {
             "type": "block",
@@ -1801,6 +1965,47 @@
             "tag": "ul"
           },
           {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "tbshot-financials",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "tb-shot-financials",
+                "url": "/images/traderbuddy/financials-1600.webp",
+                "filename": "financials-1600.webp",
+                "mimeType": "image/webp",
+                "width": 1600,
+                "height": 764,
+                "alt": {
+                  "en": "The financial-health report for NVIDIA: a score of 92 out of 100 and five pillar scores."
+                },
+                "credit": "Screenshot: TraderBuddy 0.18.0",
+                "sizes": {
+                  "480": {
+                    "url": "/images/traderbuddy/financials-480.webp",
+                    "width": 480,
+                    "height": 229
+                  },
+                  "960": {
+                    "url": "/images/traderbuddy/financials-960.webp",
+                    "width": 960,
+                    "height": 458
+                  },
+                  "1600": {
+                    "url": "/images/traderbuddy/financials-1600.webp",
+                    "width": 1600,
+                    "height": 764
+                  }
+                }
+              },
+              "caption": "The financial-health report for NVIDIA, worked out from its latest 10-Q, with the filing it used named and linked.",
+              "credit": "Screenshot: TraderBuddy 0.18.0"
+            }
+          },
+          {
             "direction": "ltr",
             "format": "",
             "indent": 0,
@@ -1836,6 +2041,47 @@
               }
             ],
             "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "tbshot-news",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "tb-shot-news",
+                "url": "/images/traderbuddy/news-1600.webp",
+                "filename": "news-1600.webp",
+                "mimeType": "image/webp",
+                "width": 1600,
+                "height": 818,
+                "alt": {
+                  "en": "The News page with headlines and an AI read of one item."
+                },
+                "credit": "Screenshot: TraderBuddy 0.18.0",
+                "sizes": {
+                  "480": {
+                    "url": "/images/traderbuddy/news-480.webp",
+                    "width": 480,
+                    "height": 245
+                  },
+                  "960": {
+                    "url": "/images/traderbuddy/news-960.webp",
+                    "width": 960,
+                    "height": 491
+                  },
+                  "1600": {
+                    "url": "/images/traderbuddy/news-1600.webp",
+                    "width": 1600,
+                    "height": 818
+                  }
+                }
+              },
+              "caption": "The News page: company headlines, and under one of them the AI's read, labelled as opinion, not advice. The month's AI spend is shown at the top.",
+              "credit": "Screenshot: TraderBuddy 0.18.0"
+            }
           },
           {
             "direction": "ltr",
@@ -2097,6 +2343,47 @@
               }
             ],
             "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "tbshot-ai-research",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "tb-shot-ai-research",
+                "url": "/images/traderbuddy/ai-research-1600.webp",
+                "filename": "ai-research-1600.webp",
+                "mimeType": "image/webp",
+                "width": 1600,
+                "height": 734,
+                "alt": {
+                  "en": "The AI research page with suggested questions and a list of past conversations."
+                },
+                "credit": "Screenshot: TraderBuddy 0.18.0",
+                "sizes": {
+                  "480": {
+                    "url": "/images/traderbuddy/ai-research-480.webp",
+                    "width": 480,
+                    "height": 220
+                  },
+                  "960": {
+                    "url": "/images/traderbuddy/ai-research-960.webp",
+                    "width": 960,
+                    "height": 440
+                  },
+                  "1600": {
+                    "url": "/images/traderbuddy/ai-research-1600.webp",
+                    "width": 1600,
+                    "height": 734
+                  }
+                }
+              },
+              "caption": "The AI research page: past conversations on the left, suggested questions, and the model picker under the question box.",
+              "credit": "Screenshot: TraderBuddy 0.18.0"
+            }
           },
           {
             "direction": "ltr",
