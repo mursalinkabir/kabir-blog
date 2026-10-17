@@ -70,7 +70,7 @@
     "en": "Everything TraderBuddy does"
   },
   "description": {
-    "en": "A self-hosted terminal for the US market: server-side indicators, after-close alerts, a screener, SEC financials and a manual portfolio. It never trades."
+    "en": "A self-hosted terminal for the US market: a watchlist home, server-side indicators, after-close alerts, a screener, SEC financials, news with an AI read, an AI research assistant and a manual portfolio. It never trades."
   },
   "content": {
     "en": {
@@ -110,7 +110,7 @@
                 "format": 0,
                 "mode": "normal",
                 "style": "",
-                "text": "A self-hosted terminal for the US market: charts with every indicator computed on the server, alerts that reach your own Slack or Telegram after the close, a screener over ",
+                "text": "A self-hosted terminal for the US market: a watchlist that opens on the day's moves, charts with every indicator computed on the server, alerts that reach your own Slack or Telegram after the close, a screener over ",
                 "type": "text",
                 "version": 1
               },
@@ -128,7 +128,7 @@
                 "format": 0,
                 "mode": "normal",
                 "style": "",
-                "text": "600 symbols, company financials read straight from SEC filings, and a portfolio you keep by hand. No broker connection, no order entry, and nothing about you sold to anyone.",
+                "text": "600 symbols, company financials read straight from SEC filings, market-moving news with an AI's read of each item, an AI research assistant on your own key, and a portfolio you keep by hand. No broker connection, no order entry, and nothing about you sold to anyone.",
                 "type": "text",
                 "version": 1
               }
@@ -162,6 +162,239 @@
                 "format": 0,
                 "mode": "normal",
                 "style": "",
+                "text": "Your watchlist, and a page for every stock",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "TraderBuddy opens on your watchlist. Each stock shows its price, the day's move and a small chart of the last session, with SPY, QQQ, DIA and IWM above the list for the market's mood. Sort by your own order, % change or A–Z.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "It knows what is yours.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " A dot marks what you hold and a bell marks stocks with active alerts.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Fresh while it matters.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Prices refresh every 15 seconds while the market is open. When it is closed, the list says it is showing the last close.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "A page for every stock",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " (",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "/stock/NVDA",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "): the price and day change, a chart with 1D to 5Y ranges, what you hold in it and your alerts on it, market cap, P/E, dividend yield, beta, the 52-week range, analyst ratings, a financial-health summary and its latest news. ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Watch",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": ", ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Add alert",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " and ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Ask AI",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " are one tap from the top.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Made for a thumb.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Swipe a row left to remove it, and Edit reorders with arrows. An empty list offers SPY, QQQ, AAPL, MSFT and NVDA in one tap each.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
                 "text": "The chart",
                 "type": "text",
                 "version": 1
@@ -179,7 +412,25 @@
                 "format": 0,
                 "mode": "normal",
                 "style": "",
-                "text": "Open a symbol and you get candles from one minute to one week, drawn from closed bars cached on the server with one live forming bar on top. Scroll back and deeper history loads.",
+                "text": "The full drawing chart is the ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "Chart",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " tab. Open a symbol and you get candles from one minute to one week, drawn from closed bars cached on the server with one live forming bar on top. Scroll back and deeper history loads.",
                 "type": "text",
                 "version": 1
               }
@@ -434,7 +685,7 @@
                     "format": 0,
                     "mode": "normal",
                     "style": "",
-                    "text": " opens its chart, ",
+                    "text": " opens its page, ",
                     "type": "text",
                     "version": 1
                   },
@@ -480,13 +731,41 @@
                     "format": 0,
                     "mode": "normal",
                     "style": "",
-                    "text": " The chart keeps the screen. Indicators, Draw, Watchlist, News and Info are named buttons underneath, and the page tabs sit along the bottom.",
+                    "text": " The chart keeps the screen: the toolbar is two rows, with Watchlist, News and Info together under one Panels button. Watchlist, Chart, Alerts and Portfolio are tabs along the bottom, and the rest, Scanner included, are under More.",
                     "type": "text",
                     "version": 1
                   }
                 ],
                 "type": "listitem",
                 "value": 8
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Dark, light, or your device's choice.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Pick the palette in Settings; it stays on that device. A market clock in the top bar says whether the market is open and when that changes.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 9
               }
             ],
             "type": "list",
@@ -821,7 +1100,7 @@
             "version": 2,
             "format": "",
             "fields": {
-              "id": "839dc7c2cfe91acd",
+              "id": "6c221e1989ad14f3",
               "blockName": "",
               "blockType": "callout",
               "kind": "note",
@@ -1534,7 +1813,7 @@
                 "format": 0,
                 "mode": "normal",
                 "style": "",
-                "text": "Portfolio",
+                "text": "News, and what it probably means",
                 "type": "text",
                 "version": 1
               }
@@ -1551,26 +1830,12 @@
                 "format": 0,
                 "mode": "normal",
                 "style": "",
-                "text": "A ledger you keep yourself: buys, sells, dividends, splits and fees, typed in or imported from CSV with a preview and per-row errors first. There is no broker connection, by choice. Positions, profit and loss, and history are all derived by replaying what you entered.",
+                "text": "One page for the posts, filings and headlines that move markets, read from free public sources every five minutes and listed newest first, each with who published it and a link to the original.",
                 "type": "text",
                 "version": 1
               }
             ],
             "type": "paragraph"
-          },
-          {
-            "type": "block",
-            "version": 2,
-            "format": "",
-            "fields": {
-              "id": "tbembed4",
-              "blockName": "",
-              "blockType": "html-embed",
-              "title": "An example portfolio chart with two lines from nightly snapshots: market value rising to 16,480 dollars and cost basis stepping from 10,000 to 14,000 dollars in the month money was added, so a deposit cannot be mistaken for a return.",
-              "html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>An example portfolio chart with two lines from nightly snapshots: market value r</title><style>:root{color-scheme:dark;--bg:#0e1116;--panel:#151a21;--border:#272d36;--text:#dfe3e8;--muted:#949cab;--accent:#2dd4a7;--warn:#f0b90b;--danger:#f6465d;--up:#4ade80;--down:#f6465d;--grid:#272d36}\n*{box-sizing:border-box}\nbody{margin:0;padding:1rem;background:var(--panel);color:var(--text);font:15px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",system-ui,sans-serif}\n.figscroll{overflow-x:auto}\n.fig svg{display:block;width:100%;height:auto;overflow:visible}\n@media (max-width:620px){.fig svg{min-width:560px}}\n/* Shared SVG type and structure. */\n.fig svg text { font-family: inherit; fill: var(--text); }\n.grid { stroke: var(--grid); stroke-width: 1; }\n.ax, .ann-m { font-size: 11px; fill: var(--muted); }\n.ax-l { font-size: 12px; }\n.ann { font-size: 11.5px; fill: var(--muted); }\n.val { font-size: 12px; font-variant-numeric: tabular-nums; }\n.band { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }\n.band.good { fill: var(--up); }\n.band.fair { fill: var(--warn); }\n\n/* Chart figure. */\n.wick { stroke-width: 1.2; }\n.body { stroke-width: 1; }\n.up { stroke: var(--up); fill: var(--up); }\n.down { stroke: var(--down); fill: var(--down); }\n.sma { stroke: #7aa2f7; stroke-width: 1.6; }\n.alert-line { stroke: var(--warn); stroke-width: 1.4; stroke-dasharray: 1 0; }\n.pill rect { fill: var(--warn); }\n.pill-t { font-size: 10.5px; font-weight: 600; fill: #1a1d23; }\n.cost-line { stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 5 4; }\n.sym { font-size: 15px; font-weight: 650; }\n.leg { font-size: 11.5px; fill: var(--muted); }\n.leg-live { font-size: 11.5px; fill: var(--up); }\n\n/* Financial health figure. */\n.score-n { font-size: 34px; font-weight: 680; }\n.score-u { font-size: 14px; fill: var(--muted); }\n.track { fill: var(--grid); }\n.fill-good { fill: var(--up); }\n.fill-fair { fill: var(--warn); }\n.fill-weak { fill: var(--down); }\n\n/* Portfolio figure. */\n.value-series { stroke: var(--up); stroke-width: 2; }\n.cost-series { stroke: var(--muted); stroke-width: 1.6; stroke-dasharray: 5 4; }\n.endpoint { fill: var(--up); }\n.marker { stroke: var(--border); stroke-width: 1; }\n.leg-v { font-size: 11.5px; fill: var(--up); }\n.leg-c { font-size: 11.5px; fill: var(--muted); }\n\n/* Alert flow figure. */\n.node, .check { fill: var(--bg); stroke: var(--border); stroke-width: 1; }\n.check { stroke-dasharray: 4 3; }\n.node-t, .check-t { font-size: 13px; font-weight: 640; }\n.node-b { font-size: 12px; fill: var(--muted); }\n.edge, .edge-d { stroke: currentColor; stroke-width: 1.3; color: var(--muted); fill: none; }\n.edge-d { stroke-dasharray: 4 3; }\n.edge-l { font-size: 10.5px; fill: var(--muted); text-anchor: middle; }\n\n</style></head><body><div class=\"fig\"><div class=\"figscroll\"><svg viewBox=\"0 0 760 290\" role=\"img\" aria-label=\"An example portfolio chart with two lines from nightly snapshots: market value rising to 16,480 dollars and cost basis stepping from 10,000 to 14,000 dollars in the month money was added, so a deposit cannot be mistaken for a return.\"><line class=\"grid\" x1=\"8\" y1=\"208.7\" x2=\"648\" y2=\"208.7\" /><text class=\"ax\" x=\"656\" y=\"212.2\">$10,000</text><line class=\"grid\" x1=\"8\" y1=\"150.5\" x2=\"648\" y2=\"150.5\" /><text class=\"ax\" x=\"656\" y=\"154.0\">$12,500</text><line class=\"grid\" x1=\"8\" y1=\"92.2\" x2=\"648\" y2=\"92.2\" /><text class=\"ax\" x=\"656\" y=\"95.7\">$15,000</text><line class=\"grid\" x1=\"8\" y1=\"34.0\" x2=\"648\" y2=\"34.0\" /><text class=\"ax\" x=\"656\" y=\"37.5\">$17,500</text><polyline class=\"cost-series\" fill=\"none\" points=\"8.0,208.7 66.2,208.7 124.4,208.7 182.5,208.7 240.7,208.7 298.9,115.5 357.1,115.5 415.3,115.5 473.5,115.5 531.6,115.5 589.8,115.5 648.0,115.5\" /><polyline class=\"value-series\" fill=\"none\" points=\"8.0,208.7 66.2,198.9 124.4,204.5 182.5,187.5 240.7,179.8 298.9,88.0 357.1,77.3 415.3,91.8 473.5,71.7 531.6,64.0 589.8,70.3 648.0,57.8\" /><circle class=\"endpoint\" cx=\"648.0\" cy=\"57.8\" r=\"4\" /><line class=\"marker\" x1=\"298.9\" y1=\"28\" x2=\"298.9\" y2=\"232\" /><text class=\"ann\" x=\"306.9\" y=\"40\">You add $4,000 here</text><text class=\"ann-m\" x=\"306.9\" y=\"56\">cost rises with it, so the deposit cannot read as a gain</text><text class=\"leg-v\" x=\"8\" y=\"24\">— Value 16,480</text><text class=\"leg-c\" x=\"136\" y=\"24\">— Cost 14,000</text><line class=\"grid\" x1=\"8\" y1=\"233\" x2=\"648\" y2=\"233\" /><text class=\"ax\" x=\"8.0\" y=\"252\" text-anchor=\"middle\">Nov</text><text class=\"ax\" x=\"124.4\" y=\"252\" text-anchor=\"middle\">Jan</text><text class=\"ax\" x=\"240.7\" y=\"252\" text-anchor=\"middle\">Mar</text><text class=\"ax\" x=\"357.1\" y=\"252\" text-anchor=\"middle\">May</text><text class=\"ax\" x=\"473.5\" y=\"252\" text-anchor=\"middle\">Jul</text><text class=\"ax\" x=\"589.8\" y=\"252\" text-anchor=\"middle\">Sep</text></svg></div></div></body></html>",
-              "height": 320,
-              "caption": "Value against cost from nightly snapshots. Example figures."
-            }
           },
           {
             "direction": "ltr",
@@ -1589,7 +1854,7 @@
                     "format": 1,
                     "mode": "normal",
                     "style": "",
-                    "text": "Arithmetic you can trust.",
+                    "text": "Who it reads.",
                     "type": "text",
                     "version": 1
                   },
@@ -1598,7 +1863,7 @@
                     "format": 0,
                     "mode": "normal",
                     "style": "",
-                    "text": " Money and quantities are exact decimals end to end, never floating point. Every edit replays the whole ledger, so a backdated sell that would oversell is refused and names the transaction it conflicts with.",
+                    "text": " Federal Reserve press releases and speeches, White House news, Donald Trump's Truth Social posts (through the independent archive trumpstruth.org), SEC 8-K filings of S&P 500 companies and the symbols you follow, and Finnhub market and company headlines.",
                     "type": "text",
                     "version": 1
                   }
@@ -1617,7 +1882,7 @@
                     "format": 1,
                     "mode": "normal",
                     "style": "",
-                    "text": "Average cost, stated as such.",
+                    "text": "An AI's read of each item.",
                     "type": "text",
                     "version": 1
                   },
@@ -1626,7 +1891,25 @@
                     "format": 0,
                     "mode": "normal",
                     "style": "",
-                    "text": " Positions use average cost rather than tax lots, and the interface tells you that instead of letting you assume otherwise.",
+                    "text": " A model (Claude Haiku) says how much an item matters (low, medium or high), sums it up in a line, and names the companies or sectors it is likely to push up or down, and why, even when the item names no company. It is labelled as ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "an AI's opinion, not advice",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": ", with the direction in words as well as colour.",
                     "type": "text",
                     "version": 1
                   }
@@ -1645,7 +1928,7 @@
                     "format": 1,
                     "mode": "normal",
                     "style": "",
-                    "text": "Allocation.",
+                    "text": "Read once, for everyone.",
                     "type": "text",
                     "version": 1
                   },
@@ -1654,16 +1937,16 @@
                     "format": 0,
                     "mode": "normal",
                     "style": "",
-                    "text": " By symbol or by sector, with ",
+                    "text": " The request contains only the item. Nothing about what you hold or watch leaves TraderBuddy; which items matter to ",
                     "type": "text",
                     "version": 1
                   },
                   {
                     "detail": 0,
-                    "format": 16,
+                    "format": 2,
                     "mode": "normal",
                     "style": "",
-                    "text": "Unknown",
+                    "text": "you",
                     "type": "text",
                     "version": 1
                   },
@@ -1672,7 +1955,7 @@
                     "format": 0,
                     "mode": "normal",
                     "style": "",
-                    "text": " shown rather than hidden when a sector isn't available.",
+                    "text": " is worked out afterwards, on the server.",
                     "type": "text",
                     "version": 1
                   }
@@ -1691,7 +1974,7 @@
                     "format": 1,
                     "mode": "normal",
                     "style": "",
-                    "text": "Corporate actions flagged.",
+                    "text": "A hard cap.",
                     "type": "text",
                     "version": 1
                   },
@@ -1700,7 +1983,250 @@
                     "format": 0,
                     "mode": "normal",
                     "style": "",
-                    "text": " Splits and dividends that look unrecorded are pointed out, and \"Record it\" pre-fills the transaction. Nothing is ever applied to your ledger automatically.",
+                    "text": " AI reading stops at $10 a month, checked before every call, and the page shows how much of it is used.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Honest about its sources.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " A source that stops answering is named at the top of the page with when it was last read.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "An AI research assistant",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Pick a model and ask about one stock or a handful: ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "\"Compare AMD and NVDA\"",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ", ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "\"What do AAPL's financials say?\"",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " It looks things up as it goes, and you see each lookup as it happens. It reads prices and indicators, SEC financials, news, macro series, the scanner and your own watchlist, alerts and portfolio, then answers with the evidence, the bull and bear case, what would change its mind, and how confident it is.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "It drafts; you decide.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " When it suggests an alert or a watchlist addition it shows a card. Nothing exists until you press ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Create",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": ", and then it goes through the same checks as the Alerts page. It cannot change anything by itself.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Your own OpenRouter key.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Paste it once; it is encrypted and never shown again. You pay OpenRouter directly for what you use, with a spending meter and an optional monthly cap in Settings. There is no shared key.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Private conversations.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " They are kept and listed so you can return to them or delete them. Not even an admin can read them.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Web search",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " is off by default and turned on per message.",
                     "type": "text",
                     "version": 1
                   }
@@ -2093,6 +2619,199 @@
                 "format": 0,
                 "mode": "normal",
                 "style": "",
+                "text": "Portfolio",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "A ledger you keep yourself: buys, sells, dividends, splits and fees, typed in or imported from CSV with a preview and per-row errors first. There is no broker connection, by choice. Positions, profit and loss, and history are all derived by replaying what you entered. The page leads with market value, with today's change under it.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "tbembed4",
+              "blockName": "",
+              "blockType": "html-embed",
+              "title": "An example portfolio chart with two lines from nightly snapshots: market value rising to 16,480 dollars and cost basis stepping from 10,000 to 14,000 dollars in the month money was added, so a deposit cannot be mistaken for a return.",
+              "html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>An example portfolio chart with two lines from nightly snapshots: market value r</title><style>:root{color-scheme:dark;--bg:#0e1116;--panel:#151a21;--border:#272d36;--text:#dfe3e8;--muted:#949cab;--accent:#2dd4a7;--warn:#f0b90b;--danger:#f6465d;--up:#4ade80;--down:#f6465d;--grid:#272d36}\n*{box-sizing:border-box}\nbody{margin:0;padding:1rem;background:var(--panel);color:var(--text);font:15px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",system-ui,sans-serif}\n.figscroll{overflow-x:auto}\n.fig svg{display:block;width:100%;height:auto;overflow:visible}\n@media (max-width:620px){.fig svg{min-width:560px}}\n/* Shared SVG type and structure. */\n.fig svg text { font-family: inherit; fill: var(--text); }\n.grid { stroke: var(--grid); stroke-width: 1; }\n.ax, .ann-m { font-size: 11px; fill: var(--muted); }\n.ax-l { font-size: 12px; }\n.ann { font-size: 11.5px; fill: var(--muted); }\n.val { font-size: 12px; font-variant-numeric: tabular-nums; }\n.band { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }\n.band.good { fill: var(--up); }\n.band.fair { fill: var(--warn); }\n\n/* Chart figure. */\n.wick { stroke-width: 1.2; }\n.body { stroke-width: 1; }\n.up { stroke: var(--up); fill: var(--up); }\n.down { stroke: var(--down); fill: var(--down); }\n.sma { stroke: #7aa2f7; stroke-width: 1.6; }\n.alert-line { stroke: var(--warn); stroke-width: 1.4; stroke-dasharray: 1 0; }\n.pill rect { fill: var(--warn); }\n.pill-t { font-size: 10.5px; font-weight: 600; fill: #1a1d23; }\n.cost-line { stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 5 4; }\n.sym { font-size: 15px; font-weight: 650; }\n.leg { font-size: 11.5px; fill: var(--muted); }\n.leg-live { font-size: 11.5px; fill: var(--up); }\n\n/* Financial health figure. */\n.score-n { font-size: 34px; font-weight: 680; }\n.score-u { font-size: 14px; fill: var(--muted); }\n.track { fill: var(--grid); }\n.fill-good { fill: var(--up); }\n.fill-fair { fill: var(--warn); }\n.fill-weak { fill: var(--down); }\n\n/* Portfolio figure. */\n.value-series { stroke: var(--up); stroke-width: 2; }\n.cost-series { stroke: var(--muted); stroke-width: 1.6; stroke-dasharray: 5 4; }\n.endpoint { fill: var(--up); }\n.marker { stroke: var(--border); stroke-width: 1; }\n.leg-v { font-size: 11.5px; fill: var(--up); }\n.leg-c { font-size: 11.5px; fill: var(--muted); }\n\n/* Alert flow figure. */\n.node, .check { fill: var(--bg); stroke: var(--border); stroke-width: 1; }\n.check { stroke-dasharray: 4 3; }\n.node-t, .check-t { font-size: 13px; font-weight: 640; }\n.node-b { font-size: 12px; fill: var(--muted); }\n.edge, .edge-d { stroke: currentColor; stroke-width: 1.3; color: var(--muted); fill: none; }\n.edge-d { stroke-dasharray: 4 3; }\n.edge-l { font-size: 10.5px; fill: var(--muted); text-anchor: middle; }\n\n</style></head><body><div class=\"fig\"><div class=\"figscroll\"><svg viewBox=\"0 0 760 290\" role=\"img\" aria-label=\"An example portfolio chart with two lines from nightly snapshots: market value rising to 16,480 dollars and cost basis stepping from 10,000 to 14,000 dollars in the month money was added, so a deposit cannot be mistaken for a return.\"><line class=\"grid\" x1=\"8\" y1=\"208.7\" x2=\"648\" y2=\"208.7\" /><text class=\"ax\" x=\"656\" y=\"212.2\">$10,000</text><line class=\"grid\" x1=\"8\" y1=\"150.5\" x2=\"648\" y2=\"150.5\" /><text class=\"ax\" x=\"656\" y=\"154.0\">$12,500</text><line class=\"grid\" x1=\"8\" y1=\"92.2\" x2=\"648\" y2=\"92.2\" /><text class=\"ax\" x=\"656\" y=\"95.7\">$15,000</text><line class=\"grid\" x1=\"8\" y1=\"34.0\" x2=\"648\" y2=\"34.0\" /><text class=\"ax\" x=\"656\" y=\"37.5\">$17,500</text><polyline class=\"cost-series\" fill=\"none\" points=\"8.0,208.7 66.2,208.7 124.4,208.7 182.5,208.7 240.7,208.7 298.9,115.5 357.1,115.5 415.3,115.5 473.5,115.5 531.6,115.5 589.8,115.5 648.0,115.5\" /><polyline class=\"value-series\" fill=\"none\" points=\"8.0,208.7 66.2,198.9 124.4,204.5 182.5,187.5 240.7,179.8 298.9,88.0 357.1,77.3 415.3,91.8 473.5,71.7 531.6,64.0 589.8,70.3 648.0,57.8\" /><circle class=\"endpoint\" cx=\"648.0\" cy=\"57.8\" r=\"4\" /><line class=\"marker\" x1=\"298.9\" y1=\"28\" x2=\"298.9\" y2=\"232\" /><text class=\"ann\" x=\"306.9\" y=\"40\">You add $4,000 here</text><text class=\"ann-m\" x=\"306.9\" y=\"56\">cost rises with it, so the deposit cannot read as a gain</text><text class=\"leg-v\" x=\"8\" y=\"24\">— Value 16,480</text><text class=\"leg-c\" x=\"136\" y=\"24\">— Cost 14,000</text><line class=\"grid\" x1=\"8\" y1=\"233\" x2=\"648\" y2=\"233\" /><text class=\"ax\" x=\"8.0\" y=\"252\" text-anchor=\"middle\">Nov</text><text class=\"ax\" x=\"124.4\" y=\"252\" text-anchor=\"middle\">Jan</text><text class=\"ax\" x=\"240.7\" y=\"252\" text-anchor=\"middle\">Mar</text><text class=\"ax\" x=\"357.1\" y=\"252\" text-anchor=\"middle\">May</text><text class=\"ax\" x=\"473.5\" y=\"252\" text-anchor=\"middle\">Jul</text><text class=\"ax\" x=\"589.8\" y=\"252\" text-anchor=\"middle\">Sep</text></svg></div></div></body></html>",
+              "height": 320,
+              "caption": "Value against cost from nightly snapshots. Example figures."
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Arithmetic you can trust.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Money and quantities are exact decimals end to end, never floating point. Every edit replays the whole ledger, so a backdated sell that would oversell is refused and names the transaction it conflicts with.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Average cost, stated as such.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Positions use average cost rather than tax lots, and the interface tells you that instead of letting you assume otherwise.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Allocation.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " By symbol or by sector, with ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Unknown",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " shown rather than hidden when a sector isn't available.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Corporate actions flagged.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Splits and dividends that look unrecorded are pointed out, and \"Record it\" pre-fills the transaction. Nothing is ever applied to your ledger automatically.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
                 "text": "A daily digest, if you want one",
                 "type": "text",
                 "version": 1
@@ -2122,7 +2841,7 @@
             "version": 2,
             "format": "",
             "fields": {
-              "id": "54dae9c9d5f27346",
+              "id": "db10a690c4e0194b",
               "blockName": "",
               "blockType": "callout",
               "kind": "note",
@@ -2398,7 +3117,7 @@
             "version": 2,
             "format": "",
             "fields": {
-              "id": "b13349facd223cd2",
+              "id": "7b2c0f4a27582876",
               "blockName": "",
               "blockType": "callout",
               "kind": "note",
@@ -2590,7 +3309,7 @@
                 "format": 0,
                 "mode": "normal",
                 "style": "",
-                "text": "Claude Code, Cursor and other MCP clients can look symbols up and manage your alerts, watchlist and drawings on your behalf. Create a token in Settings, paste the URL into your client, and ask in words: ",
+                "text": "Claude Code, Cursor and other MCP clients can look symbols up, read your alerts and portfolios, and manage alerts, your watchlist, drawings, saved scanners, the digest and your portfolio transactions on your behalf. Create a token in Settings, paste the URL into your client, and ask in words: ",
                 "type": "text",
                 "version": 1
               },
@@ -2602,6 +3321,38 @@
                 "text": "\"what is NVDA's RSI doing, and alert me if it crosses 70\"",
                 "type": "text",
                 "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ". The step-by-step setup is in ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 3,
+                "type": "link",
+                "fields": {
+                  "linkType": "custom",
+                  "newTab": false,
+                  "url": "/posts/traderbuddy-mcp/"
+                },
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "How to connect an AI agent to TraderBuddy over MCP",
+                    "type": "text",
+                    "version": 1
+                  }
+                ]
               },
               {
                 "detail": 0,
@@ -2620,7 +3371,7 @@
             "version": 2,
             "format": "",
             "fields": {
-              "id": "534dbf9871d2af22",
+              "id": "08aef0b8d5cff260",
               "blockName": "",
               "blockType": "code",
               "language": "json",
@@ -2638,7 +3389,7 @@
                 "format": 0,
                 "mode": "normal",
                 "style": "",
-                "text": "A token is shown once, expires between 30 days and a year, and is revoked rather than deleted. It can be read-only or allowed to write alerts, your watchlist, drawings and digest settings. What it can never touch is fixed in the server, not in the client: your notification credentials, the admin area, your portfolio ledger, and minting more tokens. And since TraderBuddy has no order entry at all, no agent of yours can place a trade.",
+                "text": "A token is shown once, expires between 30 days and a year, and is revoked rather than deleted. It can be read-only or read-and-write. A write token can add and correct portfolio transactions, but never delete one. What it can never touch is fixed in the server, not in the client: your notification credentials, the admin area, deleting from your portfolio, and minting more tokens. And since TraderBuddy has no order entry at all, no agent of yours can place a trade.",
                 "type": "text",
                 "version": 1
               }
@@ -2774,13 +3525,41 @@
                     "format": 0,
                     "mode": "normal",
                     "style": "",
-                    "text": " Slack and Telegram tokens and webhook secrets are encrypted at rest and never returned by any route, to you or to anyone. To change one you replace it.",
+                    "text": " Slack and Telegram tokens, webhook secrets and your OpenRouter key are encrypted at rest and never returned by any route, to you or to anyone. To change one you replace it.",
                     "type": "text",
                     "version": 1
                   }
                 ],
                 "type": "listitem",
                 "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "What the AI sees, stated.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " The news reader is sent only the news item. The research assistant, when you use it, sends market data and, when relevant, your watchlist, alerts and portfolio to OpenRouter and the company running the model you chose. TraderBuddy asks for providers that do not keep or train on it, and the AI page says all of this before you paste a key.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
               },
               {
                 "direction": "ltr",
@@ -2802,13 +3581,13 @@
                     "format": 0,
                     "mode": "normal",
                     "style": "",
-                    "text": " An admin can read any user's watchlist, portfolios and alerts — read-only. Every such read is recorded in an audit log, and the app tells every user this is possible. Your searches still aren't logged, and your channel credentials stay out of reach.",
+                    "text": " An admin can read any user's watchlist, portfolios and alerts — read-only. Every such read is recorded in an audit log, and the app tells every user this is possible. Your searches, AI conversations and channel credentials stay out of reach.",
                     "type": "text",
                     "version": 1
                   }
                 ],
                 "type": "listitem",
-                "value": 5
+                "value": 6
               },
               {
                 "direction": "ltr",
@@ -2836,7 +3615,7 @@
                   }
                 ],
                 "type": "listitem",
-                "value": 6
+                "value": 7
               }
             ],
             "type": "list",
@@ -3047,7 +3826,7 @@
                     "format": 0,
                     "mode": "normal",
                     "style": "",
-                    "text": " Analyst consensus is opinion data, an indicator crossing is not a prediction, and a financial score is a summary of past filings.",
+                    "text": " Analyst consensus is opinion data, an indicator crossing is not a prediction, a financial score is a summary of past filings, and an AI's read is an analysis, not a recommendation.",
                     "type": "text",
                     "version": 1
                   }
@@ -3072,7 +3851,7 @@
                 "format": 2,
                 "mode": "normal",
                 "style": "",
-                "text": "Features as of version 0.7.0, 11 October 2026. Example figures are illustrations, not real data.",
+                "text": "Features as of version 0.18.0, 18 October 2026. Example figures are illustrations, not real data.",
                 "type": "text",
                 "version": 1
               }
@@ -3082,5 +3861,6 @@
         ]
       }
     }
-  }
+  },
+  "updatedDate": "2026-10-17T16:10:10.000Z"
 }
