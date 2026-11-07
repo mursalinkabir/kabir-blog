@@ -75,13 +75,15 @@
   "toc": true,
   "publishedIn": {
     "en": true,
-    "ja": false
+    "ja": true
   },
   "title": {
-    "en": "How this site is built: a static blog on a homelab"
+    "en": "How this site is built: a static blog on a homelab",
+    "ja": "このサイトの作り方：ホームラボで動く静的ブログ"
   },
   "description": {
-    "en": "A headless CMS, a static Astro build, and nginx pods that keep serving even when the CMS is down. The reasoning and the trade-offs."
+    "en": "A headless CMS, a static Astro build, and nginx pods that keep serving even when the CMS is down. The reasoning and the trade-offs.",
+    "ja": "ヘッドレスCMS、Astroによる静的ビルド、そしてCMSが止まっても配信を続けるnginxのPod。その考え方とトレードオフ。"
   },
   "content": {
     "en": {
@@ -806,6 +808,730 @@
           }
         ],
         "type": "root"
+      }
+    },
+    "ja": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "type": "root",
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "このサイトは",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "静的",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "なAstroのビルドです。文章はヘッドレスCMSに置いてありますが、読者がCMSに触れることはありません。届くのは、",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "nginx",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "（ホームラボが落ちているときは、オブジェクトストレージのミラー）が返す、ただのファイルです。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "全体像",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "CMSで公開すると、ビルドが動きます。ビルドは ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "dist/",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " フォルダーを作り、番号つきのリリースとしてアップロードし、ポインターを動かします。Podは新しいポインターに気づき、ロールアウトなしでコンテンツを入れ替えます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "626677233e791fe7",
+              "blockName": "",
+              "blockType": "diagram",
+              "kind": "d2",
+              "source": "direction: right\nauthor: You { shape: person }\ncms: Payload CMS\nci: GitHub Actions\nr2: Object storage { shape: cylinder }\npods: nginx pods\nauthor -> cms: publish\ncms -> ci: dispatch\nci -> r2: upload release\npods -> r2: poll LATEST"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "リリースの構成：",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "静的な出力。リリースごとに1つのフォルダー",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "ポインターファイルが、配信中のリリースを指す",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "listitem",
+                        "value": 1
+                      },
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "ロールバックは、ポインターを書き換えるだけ",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "listitem",
+                        "value": 2
+                      }
+                    ],
+                    "type": "list",
+                    "listType": "number",
+                    "start": 1,
+                    "tag": "ol"
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "content-syncサイドカーが新しいリリースを取得する",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "サイトのビルドの現状：",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "型チェックはクリーン",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1,
+                "checked": true
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "小さなページサイズでページネーションを試した",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2,
+                "checked": true
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "最初の本物の記事を書く",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3,
+                "checked": false
+              }
+            ],
+            "type": "list",
+            "listType": "check",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "CMSからページを描画すればいいのでは？",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "可用性",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "：静的なファイルは、データベースが止まっていても動き続けます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "コスト",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "：読み取りの経路に、アプリケーションのランタイムがありません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "セキュリティ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "：CMSには、アクセスゲートの内側からしか届きません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "664b21706ae9b113",
+              "blockName": "",
+              "blockType": "callout",
+              "kind": "note",
+              "body": {
+                "root": {
+                  "direction": "ltr",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "type": "root",
+                  "children": [
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "1軒の家のホームラボで動く静的サイトは、ホスティングされた静的プラットフォームより、可用性が厳密に低くなります。ここで動かす目的は学ぶことで、だからこそフェイルオーバー用のミラーを用意しています。",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "型のついたコンテンツを端から端まで",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "スキーマはコードです。そこから生成した型をサイトがインポートするので、ページを壊すスキーマ変更は、読者より先に型チェックで失敗します。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "8360a507e7ec3597",
+              "blockName": "",
+              "blockType": "code",
+              "language": "ts",
+              "code": "import type { Post } from '~/lib/types';\n\nexport function hasPage(post: Post, locale: Locale): boolean {\n  return post._status === 'published' && post.publishedIn[locale] === true;\n}",
+              "filename": "src/lib/posts.ts",
+              "highlightLines": "4"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ビルドする",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ローカルでのビルドは、コマンド2つです。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "83f65b2fc323f81a",
+              "blockName": "",
+              "blockType": "terminal",
+              "command": "pnpm install --frozen-lockfile\npnpm build",
+              "output": "i18n: 96 keys present in all locales\n[build] 24 page(s) built in 3.1s\n[build] Complete!"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "quote",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "公開したURLは永続です。リダイレクトなしにスラッグを変えるのは、バグです。",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "続きは次のパートで、CMSがクラスターに入ります。プラットフォームについては",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 3,
+                "type": "link",
+                "fields": {
+                  "linkType": "custom",
+                  "newTab": false,
+                  "url": "/ja/projects/homelab/"
+                },
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "ホームラボの記事",
+                    "type": "text",
+                    "version": 1
+                  }
+                ]
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "をご覧ください。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "インタラクティブなデモ",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "記事には、素のHTMLとJavaScriptで書いた小さなインタラクティブ要素を入れられます。サンドボックス化されたフレームの中で動くので、周りのサイトに触れることも、何かを外に送ることもできません。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "fx-embed-1",
+              "blockName": "",
+              "blockType": "html-embed",
+              "title": "ボタンを押すたびに伸びる線",
+              "html": "<!doctype html>\n<html lang=\"ja\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<style>\n  body { margin: 0; padding: 1rem; font: 15px/1.5 system-ui, sans-serif; color: #152035; background: #fff; }\n  svg { display: block; width: 100%; height: auto; background: #f4f7f9; border-radius: 8px; }\n  .row { display: flex; gap: .75rem; align-items: center; margin-top: .75rem; flex-wrap: wrap; }\n  button { font: inherit; font-weight: 600; padding: .4rem .9rem; border: 0; border-radius: 6px; background: #007a6e; color: #fff; cursor: pointer; }\n  output { font-variant-numeric: tabular-nums; color: #5b6573; }\n</style>\n</head>\n<body>\n<svg viewBox=\"0 0 600 160\" role=\"img\" aria-label=\"ボタンを1回押すごとに1点ずつ伸びる線\">\n  <polyline id=\"line\" fill=\"none\" stroke=\"#01ad9f\" stroke-width=\"3\" stroke-linejoin=\"round\" points=\"\"/>\n</svg>\n<div class=\"row\">\n  <button id=\"add\" type=\"button\">点を追加</button>\n  <button id=\"reset\" type=\"button\">リセット</button>\n  <output id=\"count\" aria-live=\"polite\">0点</output>\n</div>\n<script>\n  (function () {\n    var pts = [];\n    var line = document.getElementById(\"line\");\n    var count = document.getElementById(\"count\");\n    function draw() {\n      var step = pts.length > 1 ? 580 / (pts.length - 1) : 0;\n      line.setAttribute(\"points\", pts.map(function (y, i) { return (10 + i * step).toFixed(1) + \",\" + y.toFixed(1); }).join(\" \"));\n      count.textContent = pts.length + \"点\";\n    }\n    document.getElementById(\"add\").addEventListener(\"click\", function () {\n      var last = pts.length ? pts[pts.length - 1] : 80;\n      pts.push(Math.min(145, Math.max(15, last + (Math.random() - 0.5) * 50)));\n      draw();\n    });\n    document.getElementById(\"reset\").addEventListener(\"click\", function () { pts = []; draw(); });\n    draw();\n  }());\n</script>\n</body>\n</html>\n",
+              "height": 260,
+              "caption": "このフレームは、筆者が書いたHTMLと専用のスクリプトで、隔離されたフレームの中に表示されています。"
+            }
+          }
+        ]
       }
     }
   }

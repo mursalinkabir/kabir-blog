@@ -80,13 +80,15 @@
   "toc": true,
   "publishedIn": {
     "en": true,
-    "ja": false
+    "ja": true
   },
   "title": {
-    "en": "TraderBuddy architecture: the stack and the constraints behind it"
+    "en": "TraderBuddy architecture: the stack and the constraints behind it",
+    "ja": "TraderBuddyのアーキテクチャ：構成要素と、それを形づくった制約"
   },
   "description": {
-    "en": "What TraderBuddy is made of, and the constraints that shaped it: one WebSocket, thirty symbols, SIP versus IEX, and alerts that need previous state."
+    "en": "What TraderBuddy is made of, and the constraints that shaped it: one WebSocket, thirty symbols, SIP versus IEX, and alerts that need previous state.",
+    "ja": "TraderBuddyが何でできているか、そして構成を決めた制約について。WebSocketは1本だけ、監視できる銘柄は30、SIPとIEXの違い、そして前回の状態が必要になるアラート。"
   },
   "content": {
     "en": {
@@ -5205,6 +5207,5059 @@
                 "mode": "normal",
                 "style": "",
                 "text": "Last updated 2026-10-06. The diagrams above are drawn from D2 source files kept with the project.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      }
+    },
+    "ja": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "type": "root",
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "システムが何でできているか。そして、なぜもっと分かりやすい形ではなく、この形になったのかを説明する、いくつかの制約について書きます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "TraderBuddyとは",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "約5人で使うための、セルフホストのトレーディングダッシュボードです。リアルタイムの株価、サーバーで計算したインジケーター、描画ツール、Slackに届く価格アラート、マクロの背景情報、手入力のポートフォリオ管理ができます。Proxmox上の3ノードのTalosクラスターで動き、Cloudflareの背後にあります。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "98d058e816280e12",
+              "blockName": "",
+              "blockType": "callout",
+              "kind": "note",
+              "body": {
+                "root": {
+                  "direction": "ltr",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "type": "root",
+                  "children": [
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 1,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "追跡して知らせるだけで、売買はしません",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "。注文入力も、証券会社との接続も、ペーパートレードもありません。チャートのフロントエンドは、その3つをすべて備えたプロジェクトからのフォークなのにです。ポートフォリオは自分で入力する手動の台帳です。これは機能の不足ではなく、製品としての判断です。",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "3fb7dc6465d2ef44",
+              "blockName": "",
+              "blockType": "diagram",
+              "kind": "d2",
+              "source": "\nvars: {\n  d2-config: {\n    layout-engine: elk\n  }\n  red: \"#c0392b\"\n  amber: \"#c98a1e\"\n  blue: \"#2f6fb3\"\n}\n\ndirection: down\n\nuser: User's browser {\n  shape: person\n}\n\ncloudflare: Cloudflare edge {\n  tunnel: cloudflared {\n    shape: rectangle\n  }\n}\n\nuser -> cloudflare.tunnel: HTTPS / WSS\\ntrader.smkabir.com\n\nhomelab: homelab-terraform repo {\n  shape: rectangle\n  style.stroke-dash: 3\n  note: \"Deploy manifests + image tags.\\nThis repo (TraderBuddy) only builds\\nand pushes images to GHCR.\"\n}\n\ngateway: Cilium Gateway API {\n  gw: gateway/public\\n(sectionName: https-wildcard) {\n    shape: rectangle\n  }\n  route: HTTPRoute traderbuddy {\n    shape: rectangle\n  }\n  gw -> route\n}\n\ncloudflare.tunnel -> gateway.gw: split-horizon on LAN,\\ntunnel from WAN\n\ntraderbuddy: traderbuddy namespace {\n  web: tb-web {\n    tooltip: \"Vite 6 + React 19 + TS\\nlightweight-charts (OpenCharts fork)\\nstatic image, path: /\\nAlerts page: list, create, edit, renew, delete\"\n  }\n\n  api: tb-api (BFF) {\n    tooltip: \"FastAPI, 2 replicas\\nRoutes under /api and /ws\\nOwns OIDC token exchange + refresh\\nNever calls Zitadel per-request\\nPolls a snapshot every 15 s for chart\\nsymbols outside tb-stream's 30\"\n  }\n\n  stream: tb-stream {\n    style.stroke: \"${red}\"\n    tooltip: \"Singleton, strategy: Recreate\\nONE Alpaca WS connection, account-wide\\nLive charts only: top 30 symbols by open-chart interest\\nSPOF by design — heartbeat monitored\"\n  }\n\n  alerts: tb-alerts (CronJob) {\n    tooltip: \"Once a trading day, after the US close\\n(30 16-20 * * 1-5, America/New_York)\\nSIP 1-minute bars over REST — never ticks, never IEX\\nCrossings use previous state, counting only\\nbars after each alert's baseline\"\n  }\n\n  ingest: tb-ingest {\n    tooltip: \"CronJobs, one tb-ingest image:\\nsymbols · bars-retention · macro (FRED, CAPE)\\nportfolio-snapshots and digest, 17:00 America/New_York\"\n  }\n\n  image_note: same tb-api image,\\ndifferent command per workload {\n    shape: text\n    style.italic: true\n    style.font-size: 13\n  }\n}\n\ngateway.route -> traderbuddy.web: PathPrefix /\ngateway.route -> traderbuddy.api: PathPrefix /api, /ws\n\nplatform: platform namespace {\n  pg: pg-main (CNPG) {\n    shape: cylinder\n    tooltip: \"3 instances, Postgres WAL replication\\nDatabase per app: traderbuddy, zitadel\\nDurable state lives HERE, never in Valkey\"\n  }\n\n  pooler: PgBouncer Pooler {\n    shape: queue\n    tooltip: \"poolMode: transaction\\nFor apps only — NOT for Zitadel\"\n  }\n\n  valkey: Valkey {\n    shape: cylinder\n    style.stroke: \"${amber}\"\n    tooltip: \"Single instance, strategy: Recreate\\nPub/sub: ticks and 1-min bars per symbol, alerts per user\\nInterest sorted set + rate-limit buckets\\nNo durable state — not a queue, not sessions\"\n  }\n\n  zitadel: Zitadel {\n    tooltip: \"OIDC @ auth.smkabir.com\\n1 replica, stateless\\nBFF pattern: touched only at login\\n+ token refresh, never per-request\"\n  }\n\n  pooler -> pg: transaction pooling\n  zitadel -> pg: direct connection\\n(bypasses pooler — session features\\nbreak under transaction pooling)\n}\n\ntraderbuddy.api -> platform.pooler: asyncpg pool\\n(sessions, watchlists, alerts, users)\ntraderbuddy.api -> platform.valkey: rate limiter (Valkey-backed,\\nnever per-process)\ntraderbuddy.api -> platform.zitadel: login code exchange +\\ntoken refresh ONLY\ntraderbuddy.alerts -> platform.pooler: alerts, alert_events\ntraderbuddy.ingest -> platform.pooler\ntraderbuddy.stream -> platform.valkey: \"publish ticks:<symbol>\"\ntraderbuddy.alerts -> platform.valkey: \"publish alerts:<user_id>\\n(AlertTriggered)\"\ntraderbuddy.api -> platform.valkey: \"subscribe ticks:<symbol>, alerts:<user_id>\\n(fan out over /ws, per user)\"\n\nproviders: External providers {\n  alpaca: Alpaca (WS + REST) {\n    tooltip: \"Free plan: ONE WS connection, 30 symbols,\\nreal-time from IEX only; REST 200 calls/min;\\nSIP data allowed once it's 15 minutes old\"\n  }\n  finnhub: Finnhub {\n    tooltip: \"60 req/min, account-wide\\nRedis token bucket + caching\"\n  }\n  fred: FRED (macro series)\n  slack: Slack (bot token, DMs) {\n    tooltip: \"Each user's own DM channel only.\\nNever a webhook or a shared channel —\\nalerts and holdings are private.\"\n  }\n}\n\ntraderbuddy.stream -> providers.alpaca: single upstream WS\\n(30 symbols max)\ntraderbuddy.api -> providers.alpaca: REST (bars, symbols,\\nsnapshots beyond the 30)\ntraderbuddy.api -> providers.finnhub: REST, rate-limited\ntraderbuddy.alerts -> providers.alpaca: \"REST: calendar + SIP 1-min bars\\nafter the close\"\ntraderbuddy.ingest -> providers.fred: macro ingestion\ntraderbuddy.alerts -> providers.slack: one DM per user\\n(the day's triggers)\ntraderbuddy.ingest -> providers.slack: daily digest DM\n\nhomelab -> platform: deploy manifests\\n(Argo CD applies)\nhomelab -> traderbuddy: image tags\\n(tb-api / tb-web from GHCR)\n\nuser.style.fill: \"${blue}\"",
+              "alt": "コンポーネント構成：ブラウザはCloudflareを経由してCilium Gateway APIのルートに届き、トラフィックはtb-webとtb-apiに振り分けられる。tb-apiはPostgres、Valkey、Zitadel、マーケットデータのプロバイダーと通信する。tb-streamは上流のAlpaca WebSocketを1本だけ保持し、tb-alertsとtb-ingestはスケジュールされたジョブとして動く。"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "コンポーネントと、その間を流れるトラフィック。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "技術スタック",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "table",
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "レイヤー",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "選択",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "選んだ理由",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "バックエンド",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Python 3.12、FastAPI、SQLAlchemy 2.0 async、asyncpg",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "リクエスト時間の大半はプロバイダーとのI/Oなので、全面的に非同期にしている。",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "api/src",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": " 全体を ",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "mypy --strict",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": " で検査。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "フロントエンド",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Vite 6、React 19、TypeScript、TanStack Query、zustand",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "OpenCharts（MIT）のフォークで、チャート機能だけに絞った。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "チャート",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "lightweight-charts、4.2.3に固定",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "厳密に固定し、",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "attributionLogo",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": " を有効にしている。Apache-2.0の帰属表示は好みではなくライセンス条件。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "テーブル",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "@tanstack/react-table 8.21.3",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "意図的にv8に固定。下の「意図的な計画からの逸脱」を参照。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "データベース",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "CloudNativePG経由のPostgreSQL",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "永続するものはすべてここ。セッションやキューも含む。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "キャッシュ",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Valkey",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "短いTTLのキャッシュとレート制限のバケットだけ。ここにあるものは、どれも正本ではない。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "認証",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Zitadel OIDC、BFFセッション方式",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "ブラウザが持つのは署名つきの不透明なCookieだけ。JWTがブラウザに届くことはない。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "インジケーター",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "pandas-ta-classic、厳密に固定",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "計算はPythonだけで行う。フロントエンドは計算しない。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "マーケットデータ",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Alpaca（バー、気配値、ニュース、コーポレートアクション）、Finnhub（ファンダメンタルズ、決算）、FRED＋Shiller（マクロ）",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "すべて無料枠。キーはすべてサーバー側。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "クラスター",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Talos v1.14、Kubernetes v1.36、Cilium v1.20 Gateway API",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Gateway APIを使う。IngressでもTraefikでもない。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "デリバリー",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "GitHub Actions → GHCR → Argo CD",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "リポジトリは2つ。デプロイの項を参照。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "4つのワークロード、1つのイメージ",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Pythonのコードベースは、エントリーポイントが4つある1つの ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "tb-api",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " イメージとして配布されます。Deploymentごとに ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "command",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " が違います。バックエンドのイメージを4つに分けることは、意図的にしていません。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "table",
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "ワークロード",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "エントリーポイント",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "形態",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "役割",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "tb-api",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "entrypoints/api.py",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "レプリカ2",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "HTTP APIと ",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "/ws",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": " のファンアウト",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "tb-stream",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "entrypoints/stream.py",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 1,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "レプリカ1",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "、",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Recreate",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "上流のAlpaca WebSocketを1本だけ保持し、Valkeyのpub/subに再配信する",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "tb-alerts",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "entrypoints/alerts.py",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "スケジュール",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "引け後に価格アラートを評価する",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "tb-ingest",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "entrypoints/ingest.py",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "スケジュール",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "銘柄、バーの保持期間、マクロ、ポートフォリオのスナップショット、ダイジェスト、スキャン",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "すべてを形づくった制約",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "WebSocketは1本、銘柄は30",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "AlpacaのFreeプランで使えるWebSocket接続は、アカウントにつき",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "1本",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "、購読できる銘柄は30です。この1つの事実が、ストリーミング設計のほとんどを決めています。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "tb-stream",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " は ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "strategy: Recreate",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " のシングルトンです。2つのPodが一時的にでも共存すると ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "406 connection limit exceeded",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " となり、全員のライブ価格が止まってしまうからです。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "ユーザーは銘柄への",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 2,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "関心",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "を示し、予算アロケーターがライブフィードを受ける30銘柄を選びます。タブを切り替えただけで購読が揺れ動かないよう、関心がなくなった銘柄も60秒は保持します。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "予算の外にある銘柄は、キャッシュしたスナップショットを約15秒ごとにポーリングして取得し、UIでは黙ってライブのように見せず、",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "遅延",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "と表示します。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "59bab27abbae8945",
+              "blockName": "",
+              "blockType": "diagram",
+              "kind": "d2",
+              "source": "#\n# The component diagram (architecture.d2) shows these services exist. This one shows\n# the two data paths, because they are deliberately separate: live ticks are for eyes\n# (a 30-symbol WebSocket budget, a singleton upstream, Cloudflare idling quiet\n# sockets), and alerts never touch them (REST SIP bars, once, after the close).\n\nvars: {\n  d2-config: {\n    layout-engine: elk\n  }\n  red: \"#c0392b\"\n  amber: \"#c98a1e\"\n}\n\ndirection: right\n\n# Live charts — market hours, at most 30 symbols streamed\n\nbrowsers: \"Browsers\\n(N users)\" {\n  style.multiple: true\n}\n\napi_ws: \"tb-api /ws handlers\\n(N connections, per browser)\" {\n  tooltip: \"Session-authenticated via BFF cookie —\\nno token in the WS query string.\\nFan-out is filtered to each connection's\\nown interest set.\"\n}\n\ninterest: \"Valkey sorted set\\ninterest:symbols\" {\n  shape: cylinder\n  style.stroke: \"${amber}\"\n  tooltip: \"ZADD with the current time as score, for every\\nsymbol a browser reports. tb-stream trims\\nentries older than 90 s.\"\n}\n\nalpaca_ws: Alpaca WS (IEX) {\n  tooltip: \"Free plan: ONE concurrent connection\\nand 30 symbols, per account — not per user.\"\n}\n\nstream: tb-stream {\n  style.stroke: \"${red}\"\n  style.stroke-width: 3\n  tooltip: \"replicas: 1, strategy: Recreate (not RollingUpdate).\\nA rolling update briefly runs two pods, both dial\\nAlpaca, and one connection gets rejected/evicted.\\nEvery 10 s: top 30 by interest, 60 s hysteresis,\\nthen subscribe/unsubscribe quotes and bars.\"\n}\n\nlive_set: \"Valkey\\nstream:subscribed\\nstream:heartbeat\" {\n  shape: cylinder\n  style.stroke: \"${amber}\"\n  tooltip: \"The live set, rewritten with a 30 s expiry,\\nand the heartbeat. A stale heartbeat is how\\nyou find out the singleton died.\"\n}\n\npubsub: \"Valkey pub/sub\\nticks, bars1m per symbol\\nalerts per user\" {\n  shape: cylinder\n  style.stroke: \"${amber}\"\n  tooltip: \"No durable state. If nothing is subscribed\\nwhen a message publishes, it is gone —\\na live feed, not a queue.\"\n}\n\nalpaca_rest: Alpaca REST {\n  tooltip: \"Free plan: 200 calls/min, no symbol cap.\\nOne multi-symbol request covers many symbols.\\nSIP data is allowed once it's 15 minutes old.\"\n}\n\nbrowsers -> api_ws: \"interest frame\\n(on change + every 30 s)\"\napi_ws -> interest: ZADD\ninterest -> stream: top 30,\\nevery 10 s\nalpaca_ws -> stream: single upstream WS,\\naccount-wide\nstream -> live_set: live set + heartbeat\nstream -> pubsub: PUBLISH ticks\\nand 1-min bars\npubsub -> api_ws: SUBSCRIBE, fan out\\nper connection\nlive_set -> api_ws: \"not in the live set →\\nSymbolDelayed\"\napi_ws -> alpaca_rest: \"snapshot every 15 s for\\ndelayed symbols (single-flight)\"\napi_ws -> browsers: \"WS push +\\napplication-level ping ~30s\" {\n  tooltip: \"Cloudflare idles quiet WebSockets.\\nA silently dead socket looks identical to\\na quiet market — the worst failure mode here.\\nServer pings, client pongs, to keep it honest.\"\n}\n\n# Alerts — once a trading day, after the close; never reads the tick stream\n\nalerts: \"tb-alerts\\n(CronJob, after the close)\" {\n  tooltip: \"30 16-20 * * 1-5, America/New_York.\\nThe 16:30 run evaluates; later runs only\\nretry undelivered DMs.\"\n}\n\npg: \"Postgres\\nalerts, alert_events\" {\n  shape: cylinder\n  tooltip: \"alert_events is unique per (alert, trading date),\\nso a rerun can never fire twice.\\nOnly bars after an alert's baseline count.\"\n}\n\nslack: \"Slack\\n(DMs only)\" {\n  shape: cloud\n  tooltip: \"Alerts and digests go to each user's own DM —\\nnever a webhook or a shared channel.\"\n}\n\nalerts -> alpaca_rest: \"calendar + the session's\\nSIP 1-min bars\"\nalerts -> pg: crossings vs\\nprevious state\nalerts -> slack: \"one DM per user\\n(the day's triggers)\"\nalerts -> pubsub: \"PUBLISH AlertTriggered\\n(toast for users online)\"\n\nmonitor: \"Heartbeat monitor\" {\n  style.stroke-dash: 3\n}\n\nlive_set -> monitor: poll for staleness\nmonitor -> slack: \"alert: tb-stream is down\" {\n  style.stroke: \"${red}\"\n}",
+              "alt": "ストリーミングのデータフロー：tb-streamがAlpaca WebSocketを1本保持し、ティックとバーをValkeyのpub/subに配信する。各tb-apiレプリカはそれを購読してブラウザのWebSocket接続にファンアウトし、遅延銘柄はポーリングしたスナップショットのキャッシュから提供する。"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "上流の接続は1本。Valkeyを通じて、すべてのブラウザにファンアウトする。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "リアルタイムはIEX、履歴はSIP",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ライブの気配値はIEXから来ますが、IEXは米国の出来高の数%にすぎません。履歴のバーはSIPから来ます。SIPは統合された権威あるデータですが、Freeプランでは",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "直近15分のSIPは利用できず",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "されていて、",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "end",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " がその範囲に入っていると、切り詰めてくれるのではなく、リクエスト",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "全体",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "を403で拒否します。そのため ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "AlpacaClient.get_bars",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " は、SIPの ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "end",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " をその範囲から外れるように補正しています。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ユーザーに見える影響は、日中のチャートがアラートと食い違うことがあり、それが引けまで続くという点です。アラートは引け後にSIPのバーで評価されるからです。UIは、両者が同じものであるかのように見せかけず、チャートがどちらのフィードを表示しているかを明示します。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "アラートには前回の状態が必要",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "条件アラート",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "（移動平均のクロス、新高値、出来高の急増、RSI、値動きの%）は、1分足でタッチを見張るのではなく、セッション全体についての問いに答えるものなので、専用の経路を通ります。",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "alerts/conditions.py",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " は純粋関数で、日足を受け取って判定を返します。チャートのインジケーターを描くのと同じpandas-taの関数を呼ぶので、アラートがユーザーの見ている線と食い違うことはありえません。日足は分割調整済みで取得しますが、価格水準のアラートは生の価格のままです。水準は生の価格だからです。条件には価格がないため ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "alerts.level",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " はnull許容で、CHECK制約で整合性を保ち、チャートにその線は描きません。クロスとは、連続する2セッションが線の反対側にあることで、何も保存しなくても「前回の状態」が得られます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "アラートが発火するのは",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "クロス",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "したときで、",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "value > threshold",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " では決して発火しません。この区別には前日の終値を知っている必要があります。アラートが取引日に1回、サーバー側で、そのセッションのSIP 1分足を使って評価されるのはそのためで、ティックでも、ブラウザ上でも評価しません。アラートの線を現在価格の向こう側までドラッグしても発火しません。基準がリセットされ、編集後のバーだけが数えられます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "金額はDecimal、通信上は文字列",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "金額と株数はPythonでは ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "Decimal",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "、JSONでは",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "文字列",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "で、JSONの数値にはしません。",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "1234.56",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " は、どのクライアントにとってもfloatだからです。フロントエンドは整形するだけで、計算はしません。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "これは細かいこだわりではありません。ポートフォリオ台帳のプロパティベーステストが、この方法で実際のバグを見つけました。平均取得単価が循環小数になると、",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "quantity * (price − avg)",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " と ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "quantity * price − quantity * avg",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " は丸めが違い、帳簿が1ulpだけ合わなくなったのです。いまのリプレイは列の精度に量子化するので、計算結果がPostgresに保存される値と完全に一致します。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "プライバシーと、そのひとつの例外",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ポートフォリオ、アラート、ウォッチリストは、セッションのユーザーにスコープされています。他人のIDには403ではなく",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "404",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "を返すので、どのIDが存在するかをAPIが明かすことはありません。通知が届くのは、そのユーザー自身が接続した宛先だけです。自分のSlack（ダイレクトメッセージ、または自分で選んだチャンネル）、Telegramのチャット、Webhookです。",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "共有",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "のSlackボットはDM専用で、",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "post()",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " はDM以外を拒否します。チャンネルに投稿すると、全員に他の全員の保有銘柄が見えてしまうからです。ユーザー自身のSlackトークンは別で、ワークスペース、アプリ、宛先がすべて本人のものなので、本人が選んだチャンネルに投稿できます。UIはそのチャンネルの全員がアラートを読めることをはっきり伝えます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "アカウント",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "。認証はZitadel、認可はTraderBuddyが行います。登録は誰でもできますが、新しいユーザーはすべて ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "pending",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " で、管理者が承認するまで読めるのは ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "/api/me",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " だけです。これはHTTPでも、別に認証を行うWebSocketでも同じで、WebSocket用にも専用のチェックが必要でした。Zitadelで ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "projectRoleCheck",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " をオフにしているのは、新しく来た人にエラーページではなく待機画面を見せるためです。",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "admin",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " ロールは、これまでどおりZitadelのプロジェクトロールのクレームから来ます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "ユーザーが入力する認証情報",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "。SlackやTelegramのトークン、WebhookのURLは、Fernet（",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "CREDENTIAL_KEY",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "）で保存時に暗号化します。項目ごとではなくまとめて暗号化するのは、WebhookのURLのパスにトークンが含まれることがあるからです。APIはこれらに対して書き込み専用で、認証情報を返すものは何もないため「トークンを表示」もなく、管理者用のルートもそのテーブルには触れません。Webhookは、ユーザーがサーバーを任意のアドレスに向けられる唯一の機能です。しかもこのクラスターではZitadel、Postgres、Kubernetes APIも動いており、",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "エグレスは制限していない",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ため、防御はガードだけです。HTTPSのみ、名前解決したすべてのアドレスを検査し、接続は名前ではなく検査したアドレスに対して行い（2回目のDNS解決を許すとリバインディングが可能になる）、リダイレクトは行いません。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "4a9f28737e53cea1",
+              "blockName": "",
+              "blockType": "callout",
+              "kind": "warn",
+              "body": {
+                "root": {
+                  "direction": "ltr",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "type": "root",
+                  "children": [
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "ひとつだけ例外があります（2026年10月3日に決定）。Zitadelの ",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 16,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "admin",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": " ロールを持つユーザーは、",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 16,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "/api/admin/*",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": " を通じて、任意のユーザーのウォッチリストとポートフォリオ、そして有効なアラートの",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 2,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "件数",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "を読めます。読み取り専用で、他の人には404を返します。条件は2つ。ユーザーをまたぐ読み取りは、すべて ",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 16,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "admin_audit",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": " に行を書くこと。そして設定ダイアログで、",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 2,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "すべての",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "ユーザーにこれが可能であることを伝えること。検索はどこにも記録されません。",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "リクエストの経路",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "通常のAPI呼び出し",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ブラウザ → Cloudflare → Cilium Gateway → ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "tb-api",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "。セッションCookieは、Postgresの ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "sessions",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " の行で解決されます。",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "通常のリクエストでZitadelが呼ばれることはありません",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "。イントロスペクションのエンドポイントはありません。Zitadelはレプリカ1つで動いており、呼ぶようにすると、ページを開くたびに必須の依存先になってしまうからです。ロールはログイン時のスナップショットで、トークンの更新時に更新されます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ライブ価格",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Alpaca → ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "tb-stream",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " → Valkey pub/sub → すべての ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "tb-api",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " レプリカ → 各ブラウザの ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "/ws",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "。Valkeyを通じたファンアウトのおかげで、上流の接続が1本だけでも ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "tb-api",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " を2レプリカにスケールできます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "チャート",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "GET /api/bars",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " はPostgresのキャッシュから確定済みのバーを読み、最新のキャッシュ済みバーが古い可能性があるときだけAlpacaから埋め直し、限られた2つのケースで、IEXから形成中のバーを1本だけ追加します。確定済みのバーは、一度書き込まれたら不変です。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "エージェントの呼び出し",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "コーディングエージェントが ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "Authorization: Bearer tb_pat_…",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " をつけて、MCPで ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "/api/mcp/",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " に話しかけます。マウントの手前にある関所がトークンを検査し（PostgresでのSHA-256照合で、Zitadelは関与しない）、各ツールは同じトークンを持たせたまま、アプリ自身のRESTルートをプロセス内で呼び出します。そのため、バリデーション、承認ゲート、ユーザーごとのスコープ、レート制限は、コピーではなくブラウザのものそのものです。トークンのユーザーにロールはなく、トークンが到達できる範囲は、",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "auth/tokens.py",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " にあるフェイルクローズドの、メソッドとパスの許可リストで決まります。「コーディングエージェントをつなぐ」を参照してください。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "スキャナーのスナップショット",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "毎回の引け後に、",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "tb-ingest scan",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " が共有ユニバース（S&P 500、いくつかのNasdaq-100の追加分、厳選した約100のETF）と、誰かがウォッチ・保有しているすべての銘柄について、分割調整済みのSIP日足を取得します。移動平均、RSI、高値、出来高、クロスのイベントを、チャートと同じpandas-taの呼び出しで銘柄ごとに1回だけ計算し、キャッシュ済みのFinnhubのファンダメンタルズを結合して、銘柄ごとに ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "scan_snapshot",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " の行を1つ書き込みます。全件成功か全件失敗のどちらかで、取得に1つでも失敗すれば前夜のスナップショットがそのまま残ります。スキャンはこのテーブルを読み、プロバイダーを直接読むことはありません。ファンダメンタルズは1晩に150銘柄ずつ、共有のFinnhubの予算の半分未満のペースで更新するため、最大1週間古くなります。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "スキャンは、検証されたフィルターの一覧（",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "scanner/filters.py",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "）で、許可リストにあるフィールドからSQLにコンパイルされるので、ユーザーが送った文字列が識別子になることはありません。各クエリは ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "is_core OR symbol IN (自分のウォッチリストと保有銘柄)",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " に制限されます。スナップショットには、ある1人が保有しているというだけの理由で存在する行があり、それが他の誰かに見えてはならないからです。「新規」は、前のセッションのスナップショット（2週間保持）に同じフィルターを適用して求めるので、追加のテーブルは要りません。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "スナップショットがコミットされると、同じジョブが各ユーザーの通知つきスキャナーを送ります（",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "scanner/notify.py",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "）。",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "notify",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " がオンのスキャナーは、ページと同じ ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "query.run",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " で実行されるため、プライバシーの制限も同一です。該当銘柄は、",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "notify/dispatch.py",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " を通じて、そのユーザー自身のチャンネルへ1通のメッセージとして届きます。送信の前に、ダイジェストと同様、ユーザーごと・セッションごとに ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "scanner_notifications",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " の行を確保するので、再実行しても二重に投稿されません。どこにも送れなかった場合は、再試行のために確保を解除します。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h3",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "企業の財務データ",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "財務諸表はSEC EDGARから取得します。無料でキーも不要で、ブラウザが直接呼ぶことはありません。リクエストにはすべて、プロジェクトの連絡先アドレスを入れた ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "User-Agent",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " をつけ、Valkeyのトークンバケットで毎秒8リクエスト（SECの上限は10）に制限します。このバケットは、2つのAPIレプリカと夜間ジョブで共有されます。ある銘柄について ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "financials/service.py",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " は、1日以内の保存済みレポートがあればそれを返し、なければその企業の小さな提出一覧を読み、新しい提出のアクセッションが現れたか、スコアリングの ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "VERSION",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " が変わったときだけ再計算します。再計算では、数MBある ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "companyfacts",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " のドキュメントを、対応づけている約30の概念まで絞り込み、残りは次の企業に移る前に捨てます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "企業は同じ項目でも異なるタグを付けますし、時間とともにタグを変えるので、各フィールドは、期間ごとに値があるタグのうち、最初に対応づけたものを採用します。年次の数字は345〜385日のファクトで、修正は最新の提出が優先されます。直近12か月は、直近の会計年度に今年の年初来を足し、昨年の年初来を引いたものです。インジケーターとスコアは純粋関数（",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "indicators.py",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "、",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "score.py",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "）です。インジケーターごとに区分線形のテーブルがあり、柱はインジケーターの平均、総合スコアはスコアを付けられた柱の加重平均です。不明はゼロではありません。入力がなければ飛ばし、スコアを付けられた柱が3つ未満なら、スコアなしです。レポートは小さな ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "scan",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " ブロックとともに ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "financial_reports",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " に保存されます。夜間のスキャンはSQLでそのブロックだけを読み、レポート全体は読みません。これは0.4.3でメモリについて得た教訓です。SECに届かないときは、保存済みのレポートに「古い」と表示して返します。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "意図的な計画からの逸脱",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "次のどれも、実装が ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "TRADERBUDDY-IMPLEMENTATION-rev2.md",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " から意図的に外れた箇所です。記録がない逸脱は、次の人にはバグに見えるので、ここに残しています。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "table",
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "計画",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "実際に作ったもの",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "理由",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "symbol_profiles",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": " テーブル",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "kind",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": " で区別する1つの ",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "symbol_facts",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": " テーブル",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "プロフィール、指標、推奨は形もTTLも同じ。同じテーブルが3つあれば、変更箇所も3つになる。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "ベースラインモードで「ローソク足のシリーズを入れ替える」",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "ローソク足を非表示にし、ベースラインのシリーズを追加する",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "描画マネージャー、クロスヘアの凡例、売値・買値の線は、すべてローソク足のシリーズへの参照を持っている。取り除くと、破棄済みのオブジェクトを指したままになる。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "@tanstack/react-table",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "、バージョン指定なし",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "現行の9.2.4ではなく8.21.3に固定",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "v9は一から設計し直されたもの（アトムストア、",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Subscribe",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": " HOC）。ソート可能なポジション表のために、不慣れなAPIを手探りするほどの価値はない。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "SIPの日足の終値が時間外を含む場合は、最後の通常セッションの1分足にフォールバックする",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "日足の終値をそのまま使う",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "実測した結果、時間外は",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 2,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "含まれていなかった",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "。AAPLはベルの後に通常セッションの高値を超えたが、日足は通常セッションと完全に一致していた。日足の終値が公式の統合終値であり、フォールバックはむしろ改悪だった。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Slackのブロック数の予算が足りなくなったらウォッチリストを切り詰める",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "常に15行までに制限",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Slackの50ブロックの制限だけなら約1,600行まで入る。上限があるのは、40銘柄が並んだDMは読めないから。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "残っているリスク",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 17,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "tb-stream",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " は単一障害点です",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。Freeプランでは解決できません。監視はしていますが、解決はしていません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 17,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "pve2",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " のホストを失うと、すべてが止まります",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。etcdの過半数とPostgresの3つのうち2つが失われます。本当の解決策は3台目のホストですが、まだありません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "プロバイダーの無料枠は予告なく変わることがあります",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。プロバイダーの層は、差し替えが設定の変更で済むように作ってあります。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "5人で1つのクォータを共有しています",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。6人目からは、RAMを増やすのではなく有料プランが必要かもしれません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "ここにあるものは、投資のインフラではありません",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。アナリストのコンセンサスは意見のデータであり、インジケーターのクロスは予測ではありません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "最終更新は2026年10月6日。上の図は、プロジェクトと一緒に管理しているD2のソースファイルから描いています。",
                 "type": "text",
                 "version": 1
               }

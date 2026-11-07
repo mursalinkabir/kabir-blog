@@ -80,13 +80,15 @@
   "toc": true,
   "publishedIn": {
     "en": true,
-    "ja": false
+    "ja": true
   },
   "title": {
-    "en": "How smkabir.com stays up: releases, pointers and a failover that is still on paper"
+    "en": "How smkabir.com stays up: releases, pointers and a failover that is still on paper",
+    "ja": "smkabir.comを落とさない仕組み：リリース、ポインター、そしてまだ紙の上にあるフェイルオーバー"
   },
   "description": {
-    "en": "How the site is served from a homelab: R2 releases, two pointers, what happens when things fail, and the failover Worker that is designed but not built yet."
+    "en": "How the site is served from a homelab: R2 releases, two pointers, what happens when things fail, and the failover Worker that is designed but not built yet.",
+    "ja": "ホームラボでサイトを配信する仕組み。R2のリリース、2つのポインター、障害時の挙動、そして設計済みでまだ作っていないフェイルオーバーWorkerについて。"
   },
   "content": {
     "en": {
@@ -2774,6 +2776,2662 @@
                     "mode": "normal",
                     "style": "",
                     "text": " Today every page view reaches the homelab; the cache purge on publish is already in place.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              }
+            ],
+            "type": "list",
+            "listType": "number",
+            "start": 1,
+            "tag": "ol"
+          }
+        ]
+      }
+    },
+    "ja": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "type": "root",
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "このサイトは静的ファイルで、ホームラボの小さなnginx Podが2つで配信しています。あえて退屈な設計にしてあり、そのおかげで面白い問いをひとことで言えます。何かが壊れたとき、サイトを落とさないものは何か。この記事はその正直な答えです。まだ存在しない部分も含めて書きます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "83f6a590aa753f23",
+              "blockName": "",
+              "blockType": "callout",
+              "kind": "warn",
+              "title": "作ったものと、計画だけのもの",
+              "body": {
+                "root": {
+                  "direction": "ltr",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "type": "root",
+                  "children": [
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 1,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "作って動いているもの",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "：コンテナイメージの外にあるコンテンツ、オブジェクトストレージでのリリースとポインターの管理、ポインターに追従するPod、検証つきの公開、ロールバック、別々のホストで動く2つのレプリカ。",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 1,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "設計済み、未実装",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "：ホームラボ全体に届かなくなったときに、オブジェクトストレージにあるサイトのコピーを返すフェイルオーバーWorker。これができるまでは、停電やインターネット障害でサイトは落ちます。以下の各項目は、この線のどちら側にあるかを明記しています。",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "全体像",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "e8a362881dc60691",
+              "blockName": "",
+              "blockType": "diagram",
+              "kind": "d2",
+              "source": "direction: right\n\nvisitor: \"Visitor\" { shape: person }\ncf: \"Cloudflare edge\"\ntunnel: \"Tunnel (cloudflared)\"\ngw: \"Gateway (Cilium)\"\npods: \"Two blog pods\" {\n  nginx: \"nginx\"\n  sync: \"content-sync sidecar\"\n}\nr2: \"R2 bucket\" { shape: cylinder }\nci: \"GitHub Actions\"\n\nvisitor -> cf: \"HTTPS\"\ncf -> tunnel\ntunnel -> gw\ngw -> pods.nginx\npods.sync -> r2: \"reads LATEST every 60 s\"\nci -> r2: \"uploads release,\\nthen LATEST, then VERIFIED\"",
+              "alt": "訪問者はCloudflare、トンネル、クラスター内のゲートウェイを通り、2つのnginx Podに届く。各Podのサイドカーは、R2バケットのLATESTポインターを定期的に確認する。GitHub Actionsは各リリースを同じバケットにアップロードし、LATEST、次にVERIFIEDを動かす。"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "訪問者のリクエストが、データベースやCMSに触れることはありません。ページはファイルだからです。だから障害のパターンは少なく、復旧は多くの場合「前のファイルを配信する」だけで済みます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "コンテンツはイメージの中にない",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "コンテナイメージに入っているのはnginxと小さな同期プログラムだけで、",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "サイトのコンテンツは一切入っていません",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "。サイト本体は「リリース」で、オブジェクトストレージのバケットにあるビルド名のフォルダです。たとえば ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "releases/c280dba-38211385696/",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " のようになります。そこを指す小さなテキストファイルが2つあります。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "LATEST",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " は、Podが配信すべきリリースを指します。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "VERIFIED",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " は、本番のサイトで実際に正しく配信されているのを確認できたリリースを指します。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "つまり新しい記事の公開はデプロイではありません。クラスターのリポジトリへのコミットも、イメージのビルドも、ロールアウトもありません。公開とは、フォルダをアップロードしてポインターを動かすことです。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Podがポインターに追従する仕組み",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "各Podにはサイドカーがあり、60秒ごとに同じ小さなループを回します。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "LATEST",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " を読む。空、読めない、単純なIDでない、のいずれかなら何もせず、配信を続ける。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "すでに配信中のリリースなら、そこで終わる。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "リリースを、配信中のものの上ではなく隣にダウンロードする。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "index.html",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " が存在し、かつ ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "version.json",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " のIDがフォルダ名と一致する場合にだけ受け入れ、それ以外は拒否する。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "リリースのリダイレクト一覧を、厳格な文字の許可リストを使ってnginxのmapに変換する。不正な項目が設定に混入することはない。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "current",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " シンボリックリンクを1回のアトミックなrenameで入れ替え、nginxにリロードを依頼し、配信中のリリースと1つ前のもの以外をすべて削除する。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 6
+              }
+            ],
+            "type": "list",
+            "listType": "number",
+            "start": 1,
+            "tag": "ol"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "どこかの手順が失敗しても、前のリリースが配信を続けます。訪問者が書きかけのサイトを見ることはなく、R2が落ちていても「いまあるものを保つ」だけです。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "プッシュから公開まで、1回のリリース",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "公開ジョブは1本のパイプラインで、重要なのは順番です。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "ビルドとゲート",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。フォーマット、型チェック、テスト、プライバシースキャン（画像にGPSなし、住所や電話番号なし）、ビルド、そして出力のチェック。インラインスクリプトなし、全ページで言語が正しい、下書きがどこにもない、すべてのリンクが解決できる。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "releases/<id>/",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " に",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "アップロード",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "し、アップロードを再検証する。リリースは不変で、同じIDで内容が違うものは拒否され、再実行しても安全に何も起きない。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 17,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "LATEST",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " を動かす",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。Podは1分以内に同期を始める。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "公開サイトが新しいIDを返すまで待つ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。本物のURLを最長10分間ポーリングする。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 17,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "VERIFIED",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " を動かし",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "、Cloudflareのキャッシュをパージし、直近20件より古いリリースを削除する。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              }
+            ],
+            "type": "list",
+            "listType": "number",
+            "start": 1,
+            "tag": "ol"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "手順4が成功しなければ、実行は大きく失敗し、",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "VERIFIED",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " は動かず、本番サイトには触れません。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "なぜポインターが2つあるのか",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "LATEST",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " は何を配信するかを示します。",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "VERIFIED",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " は",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "動作が確認されているもの",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "を示します。分けてあるのは、戻り先が、誰も見ていないリリースであってはならないからです。壊れたビルドが1分間 ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "LATEST",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " になることはあっても、",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "VERIFIED",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " にはなりません。",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "VERIFIED",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " は、本番サイトがそのIDを実際に返したあとでしか動かないからです。フォールバックは必ず ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 16,
+                "mode": "normal",
+                "style": "",
+                "text": "VERIFIED",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": " を読むので、賭けにはなりません。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "何かが壊れたとき",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "table",
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "壊れるもの",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "起きること",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "状態",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "不正な、またはアップロードが途中のリリース",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "サイドカーが拒否し、前のリリースが配信を続ける。",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "LATEST",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": " はアップロードの検証後にしか動かない。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "実装済み、テスト済み",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "R2に届かない",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "動いているPodは、持っているものを配信し続ける。ゼロから起動するPodは、取得できるまで準備未完了のままで、トラフィックを受けない。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "実装済み、テスト済み",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Podが1つ落ちる",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "もう1つが配信する。レプリカは別々のホストに2つあり、常に最低1つは使え、ローリングアップデートでもそれを下回らない。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "実装済み、稼働中",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "ノードが失われる",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Podが再スケジュールされる。分散は意図的にソフトにしてあるので、ホストが1つ失われてもレプリカがPendingのまま止まることはない。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "実装済み",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "CIのチェックがサイトに届かない",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "ジョブが失敗し、",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 16,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "VERIFIED",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": " は動かず、本番サイトには触れない。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "実装済み、本番で確認",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "ホームラボ全体に届かない（停電、プロバイダー障害）",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 1,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "サイトは落ちる",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "。公開も止まる。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "まだ対応していない",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Cloudflare自体の障害",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "サイトに届かない。ここでできることはない。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "対象外",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "まだ作っていないフェイルオーバー",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "トンネルに正常なコネクターがなくなると、Cloudflareはエラーページを返し、エッジのキャッシュが効くのは、たまたまキャッシュが温まっているPoPだけです。設計は、サイトの前に置く小さなWorkerです。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "4e0d896aa2cf51aa",
+              "blockName": "",
+              "blockType": "diagram",
+              "kind": "d2",
+              "source": "direction: right\n\nvisitor: \"Visitor\" { shape: person }\nworker: \"Failover Worker (planned)\"\norigin: \"Homelab origin\"\nr2: \"R2: VERIFIED release\" { shape: cylinder }\n\nvisitor -> worker\nworker -> origin: \"try first, 4 s timeout\"\nworker -> r2: \"only on 5xx, tunnel error or timeout\"",
+              "alt": "計画中の設計：Cloudflare Workerがすべてのリクエストを受ける。オリジンが正常に応答すれば、そのまま返す。オリジンがサーバーエラーやトンネルエラーを返すか、4秒でタイムアウトした場合、WorkerはR2からVERIFIEDを読み、そのリリースをX-Served-Fromヘッダー付きで返す。"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "読み取り専用",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "GET",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " と ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "HEAD",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " 以外は、そのままオリジンに送る。Workerが書き込みを作り出すことはない。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "ミラーは ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 17,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "VERIFIED",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。Podが読むのと同じバケットなので、同期すべきコピーがもう1つ増えることはなく、未検証のビルドを返すこともない。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "同じヘッダー",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。セキュリティヘッダーは1つのソースファイルから生成され、nginxの設定とWorkerの両方に反映される。ミラーからの応答にも、オリジンの応答と同じポリシーがつく。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "見える化",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。ミラーの応答には ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "X-Served-From: mirror",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " がつき、外部の死活監視プローブがこれを検出したらアラートを出す想定。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "ホームラボが落ちているときも失敗するもの",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "：公開とプレビュー。閲覧、履歴書、検索、フィードは、ファイルなので動き続ける。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "訓練",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "：クラスターのリポジトリ経由でデプロイメントをゼロにスケールし（手動の変更はArgo CDが数秒で元に戻す）、主要なページとヘッダーを確認してから、コミットをrevertする。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 6
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "紙の上にあるのは、サイトが公開されたのが今日で、フェイルオーバーが次の作業だからです。難しいからではありません。リリースの構成は、これを第二のシステムではなく小さなWorkerで済ませられるように選んであります。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ロールバック",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "コンテンツ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "：手動のワークフローがビルドIDを受け取り、そのリリースが存在して整合していることを確認してから、",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "LATEST",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " と ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "VERIFIED",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " をそのIDに書き換えます。Podは1分以内に追従します。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "コード",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "（イメージ）：タグは決して動かしません。修正は次のパッチで出し、ロールバックはクラスターのリポジトリでタグを上げたコミットをrevertすることです。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "証明できたことと、できていないこと",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "この1日で本番で確認できたこと：",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "オブジェクトストレージ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "：アップロード、ポインターの移動、削除、読み取り専用トークンでPodが読み取ること。書き込めるトークンは別のもので、CIだけが持っています。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "GitHub Actions",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "：コンテンツのパイプラインとイメージのリリース。イメージに不要なライブラリのHIGHの指摘で、リリースを止めた脆弱性スキャンも含みます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "クラスターの経路",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "：Argo CDの同期、別々のホストで動く準備完了のPod 2つ、ゲートウェイのルート、apexへのトンネル。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "存在するテスト",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "：イメージのチェック61件（サイドカー、クラスターの制約下のnginx、リダイレクト）、リリーススクリプトのチェック35件、nginx経由で本物のサイトを通すエンドツーエンドの実行、そしてユニットテスト。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "証明できていないこと：フェイルオーバーWorker（存在しません）、実際の停電、オブジェクトストアの長時間の障害。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "初日にCIがぶつかった壁",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "上の手順4のチェックが、「last saw nothing（何も見えなかった）」で10分間失敗しました。サイトは正しいリリースを配信していました。CIランナーに渡されていたのは、Cloudflareの「",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "Just a moment…",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "」というチャレンジページです。Bot Fight Modeがデータセンターのアドレスをボットとみなしたためでした。直したのはスイッチ1つです。もっと役に立ったのはスクリプトの変更で、チャレンジページも404も死んだトンネルも同じ言葉にまとめてしまうのをやめ、HTTPステータスと受け取った最初のバイト列を報告するようにしました。原因を区別できない失敗メッセージは、失敗メッセージのバグです。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "これから直したいこと",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "フェイルオーバーWorkerを作る",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。上の表に残っている唯一の穴です。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "家の外からアラートを出す",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。クラスター内の監視はクラスターと一緒に止まります。Workerのcronからのプローブなら止まりません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "コンテンツの執筆をCMSに移し、CMSから公開する",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。上のパイプラインが、コミットではなく公開操作で動き出すようにします。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "HTMLをエッジでキャッシュする",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。いまはすべてのページ表示がホームラボに届きます。公開時のキャッシュパージはすでにあります。",
                     "type": "text",
                     "version": 1
                   }

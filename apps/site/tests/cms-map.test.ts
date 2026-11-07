@@ -96,8 +96,12 @@ describe('mapAll() on the captured response', () => {
   });
 
   it('keeps an English-only post English-only, even though Japanese text exists in its fields', () => {
-    const post = files.get('posts/how-this-site-is-built.json') as Post;
+    // Every captured post now has a Japanese version, so switch Japanese off on one of them.
+    const source = raw.posts.find((p: { slug: string }) => p.slug === 'how-this-site-is-built');
+    const post = mapPost(createContext(raw), { ...source, publishedIn: { en: true, ja: false } }) as Post;
+    expect(post.title.ja).toBeTruthy();
     expect(post.publishedIn).toEqual({ en: true, ja: false });
+    expect(hasPage(post, 'en')).toBe(true);
     expect(hasPage(post, 'ja')).toBe(false);
   });
 

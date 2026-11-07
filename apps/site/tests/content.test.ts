@@ -44,9 +44,8 @@ describe('the locale rule (no page without every required field, never another l
 });
 
 describe('fixture site', () => {
-  it('has no draft in any locale and no Japanese page for English-only posts', () => {
+  it('has no draft in any locale', () => {
     for (const l of ['en', 'ja'] as const) expect(getPosts(l).some((p) => p.slug === 'unfinished-draft')).toBe(false);
-    expect(getPosts('ja').some((p) => p.slug === 'how-this-site-is-built')).toBe(false);
   });
   it('lists posts newest first and memoises the result', () => {
     const en = getPosts('en');

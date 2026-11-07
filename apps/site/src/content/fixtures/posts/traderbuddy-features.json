@@ -64,13 +64,15 @@
   "toc": true,
   "publishedIn": {
     "en": true,
-    "ja": false
+    "ja": true
   },
   "title": {
-    "en": "Everything TraderBuddy does"
+    "en": "Everything TraderBuddy does",
+    "ja": "TraderBuddyができることのすべて"
   },
   "description": {
-    "en": "A self-hosted terminal for the US market: a watchlist home, server-side indicators, after-close alerts, a screener, SEC financials, news with an AI read, an AI research assistant and a manual portfolio. It never trades."
+    "en": "A self-hosted terminal for the US market: a watchlist home, server-side indicators, after-close alerts, a screener, SEC financials, news with an AI read, an AI research assistant and a manual portfolio. It never trades.",
+    "ja": "米国市場のためのセルフホスト型ターミナル。ウォッチリストのホーム画面、サーバー側のインジケーター、引け後のアラート、スクリーナー、SECの財務データ、AIの解説つきニュース、AIリサーチアシスタント、手入力のポートフォリオ。売買はしません。"
   },
   "content": {
     "en": {
@@ -4139,6 +4141,4000 @@
                 "mode": "normal",
                 "style": "",
                 "text": "Features as of version 0.18.0, 18 October 2026. Example figures are illustrations, not real data.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      }
+    },
+    "ja": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "type": "root",
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "追跡して知らせるだけで、売買はしません",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "米国市場のためのセルフホスト型ターミナルです。その日の値動きから始まるウォッチリスト、すべてのインジケーターをサーバーで計算するチャート、引け後に自分のSlackやTelegramに届くアラート、約600銘柄を対象にしたスクリーナー、SECの提出書類から直接読み取った企業の財務データ、1件ずつAIの解説がつく相場を動かすニュース、自分のキーで使えるAIリサーチアシスタント、そして手で付けるポートフォリオ。証券会社との接続も、注文入力もなく、あなたの情報を誰かに売ることもありません。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "tbembed1",
+              "blockName": "",
+              "blockType": "html-embed",
+              "title": "TraderBuddyのチャートの例：サーバーで計算した移動平均つきの日足ローソク足、ベルを有効にして230に引いた価格アラートの水準、ポートフォリオで保有している銘柄の平均取得単価214を示す破線。",
+              "html": "<!doctype html><html lang=\"ja\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>TraderBuddyのチャートの例：サーバーで計算した移動平均つきの日足ローソク足、ベルを有効にして230に引いた価格アラートの水準、ポートフォリオで保有している銘柄の平均取得単価214を示す破線。</title><style>:root{color-scheme:dark;--bg:#0e1116;--panel:#151a21;--border:#272d36;--text:#dfe3e8;--muted:#949cab;--accent:#2dd4a7;--warn:#f0b90b;--danger:#f6465d;--up:#4ade80;--down:#f6465d;--grid:#272d36}\n*{box-sizing:border-box}\nbody{margin:0;padding:1rem;background:var(--panel);color:var(--text);font:15px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",system-ui,sans-serif}\n.figscroll{overflow-x:auto}\n.fig svg{display:block;width:100%;height:auto;overflow:visible}\n@media (max-width:620px){.fig svg{min-width:560px}}\n/* Shared SVG type and structure. */\n.fig svg text { font-family: inherit; fill: var(--text); }\n.grid { stroke: var(--grid); stroke-width: 1; }\n.ax, .ann-m { font-size: 11px; fill: var(--muted); }\n.ax-l { font-size: 12px; }\n.ann { font-size: 11.5px; fill: var(--muted); }\n.val { font-size: 12px; font-variant-numeric: tabular-nums; }\n.band { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }\n.band.good { fill: var(--up); }\n.band.fair { fill: var(--warn); }\n\n/* Chart figure. */\n.wick { stroke-width: 1.2; }\n.body { stroke-width: 1; }\n.up { stroke: var(--up); fill: var(--up); }\n.down { stroke: var(--down); fill: var(--down); }\n.sma { stroke: #7aa2f7; stroke-width: 1.6; }\n.alert-line { stroke: var(--warn); stroke-width: 1.4; stroke-dasharray: 1 0; }\n.pill rect { fill: var(--warn); }\n.pill-t { font-size: 10.5px; font-weight: 600; fill: #1a1d23; }\n.cost-line { stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 5 4; }\n.sym { font-size: 15px; font-weight: 650; }\n.leg { font-size: 11.5px; fill: var(--muted); }\n.leg-live { font-size: 11.5px; fill: var(--up); }\n\n/* Financial health figure. */\n.score-n { font-size: 34px; font-weight: 680; }\n.score-u { font-size: 14px; fill: var(--muted); }\n.track { fill: var(--grid); }\n.fill-good { fill: var(--up); }\n.fill-fair { fill: var(--warn); }\n.fill-weak { fill: var(--down); }\n\n/* Portfolio figure. */\n.value-series { stroke: var(--up); stroke-width: 2; }\n.cost-series { stroke: var(--muted); stroke-width: 1.6; stroke-dasharray: 5 4; }\n.endpoint { fill: var(--up); }\n.marker { stroke: var(--border); stroke-width: 1; }\n.leg-v { font-size: 11.5px; fill: var(--up); }\n.leg-c { font-size: 11.5px; fill: var(--muted); }\n\n/* Alert flow figure. */\n.node, .check { fill: var(--bg); stroke: var(--border); stroke-width: 1; }\n.check { stroke-dasharray: 4 3; }\n.node-t, .check-t { font-size: 13px; font-weight: 640; }\n.node-b { font-size: 12px; fill: var(--muted); }\n.edge, .edge-d { stroke: currentColor; stroke-width: 1.3; color: var(--muted); fill: none; }\n.edge-d { stroke-dasharray: 4 3; }\n.edge-l { font-size: 10.5px; fill: var(--muted); text-anchor: middle; }\n\n</style></head><body><div class=\"fig\"><div class=\"figscroll\"><svg viewBox=\"0 0 760 330\" role=\"img\" aria-label=\"TraderBuddyのチャートの例：サーバーで計算した移動平均つきの日足ローソク足、ベルを有効にして230に引いた価格アラートの水準、ポートフォリオで保有している銘柄の平均取得単価214を示す破線。\"><line class=\"grid\" x1=\"8\" y1=\"255.1\" x2=\"672\" y2=\"255.1\" /><text class=\"ax\" x=\"680\" y=\"258.6\">210.00</text><line class=\"grid\" x1=\"8\" y1=\"212.8\" x2=\"672\" y2=\"212.8\" /><text class=\"ax\" x=\"680\" y=\"216.3\">215.00</text><line class=\"grid\" x1=\"8\" y1=\"170.5\" x2=\"672\" y2=\"170.5\" /><text class=\"ax\" x=\"680\" y=\"174.0\">220.00</text><line class=\"grid\" x1=\"8\" y1=\"128.2\" x2=\"672\" y2=\"128.2\" /><text class=\"ax\" x=\"680\" y=\"131.7\">225.00</text><line class=\"grid\" x1=\"8\" y1=\"85.8\" x2=\"672\" y2=\"85.8\" /><text class=\"ax\" x=\"680\" y=\"89.3\">230.00</text><line class=\"wick up\" x1=\"21.8\" y1=\"229.7\" x2=\"21.8\" y2=\"253.4\" /><rect class=\"body up\" x=\"14.1\" y=\"233.1\" width=\"15.5\" height=\"10.1\" /><line class=\"wick up\" x1=\"49.5\" y1=\"214.5\" x2=\"49.5\" y2=\"237.3\" /><rect class=\"body up\" x=\"41.8\" y=\"219.5\" width=\"15.5\" height=\"13.6\" /><line class=\"wick down\" x1=\"77.2\" y1=\"212.8\" x2=\"77.2\" y2=\"234.8\" /><rect class=\"body down\" x=\"69.5\" y=\"220.4\" width=\"15.5\" height=\"10.1\" /><line class=\"wick down\" x1=\"104.8\" y1=\"224.6\" x2=\"104.8\" y2=\"247.5\" /><rect class=\"body down\" x=\"97.1\" y=\"231.4\" width=\"15.5\" height=\"11.0\" /><line class=\"wick up\" x1=\"132.5\" y1=\"217.8\" x2=\"132.5\" y2=\"244.9\" /><rect class=\"body up\" x=\"124.8\" y=\"221.2\" width=\"15.5\" height=\"20.3\" /><line class=\"wick up\" x1=\"160.2\" y1=\"195.0\" x2=\"160.2\" y2=\"222.9\" /><rect class=\"body up\" x=\"152.5\" y=\"197.5\" width=\"15.5\" height=\"22.0\" /><line class=\"wick down\" x1=\"187.8\" y1=\"185.7\" x2=\"187.8\" y2=\"207.7\" /><rect class=\"body down\" x=\"180.1\" y=\"198.4\" width=\"15.5\" height=\"5.1\" /><line class=\"wick down\" x1=\"215.5\" y1=\"196.7\" x2=\"215.5\" y2=\"228.8\" /><rect class=\"body down\" x=\"207.8\" y=\"204.3\" width=\"15.5\" height=\"19.5\" /><line class=\"wick up\" x1=\"243.2\" y1=\"202.6\" x2=\"243.2\" y2=\"227.2\" /><rect class=\"body up\" x=\"235.5\" y=\"205.2\" width=\"15.5\" height=\"17.7\" /><line class=\"wick up\" x1=\"270.8\" y1=\"175.5\" x2=\"270.8\" y2=\"206.8\" /><rect class=\"body up\" x=\"263.1\" y=\"178.9\" width=\"15.5\" height=\"25.4\" /><line class=\"wick up\" x1=\"298.5\" y1=\"156.9\" x2=\"298.5\" y2=\"184.0\" /><rect class=\"body up\" x=\"290.8\" y=\"160.3\" width=\"15.5\" height=\"17.8\" /><line class=\"wick down\" x1=\"326.2\" y1=\"153.5\" x2=\"326.2\" y2=\"179.8\" /><rect class=\"body down\" x=\"318.5\" y=\"161.2\" width=\"15.5\" height=\"12.6\" /><line class=\"wick down\" x1=\"353.8\" y1=\"167.1\" x2=\"353.8\" y2=\"197.5\" /><rect class=\"body down\" x=\"346.1\" y=\"174.7\" width=\"15.5\" height=\"18.6\" /><line class=\"wick up\" x1=\"381.5\" y1=\"169.6\" x2=\"381.5\" y2=\"195.8\" /><rect class=\"body up\" x=\"373.8\" y=\"172.2\" width=\"15.5\" height=\"20.3\" /><line class=\"wick up\" x1=\"409.2\" y1=\"143.4\" x2=\"409.2\" y2=\"174.7\" /><rect class=\"body up\" x=\"401.5\" y=\"145.9\" width=\"15.5\" height=\"25.4\" /><line class=\"wick up\" x1=\"436.8\" y1=\"127.3\" x2=\"436.8\" y2=\"151.8\" /><rect class=\"body up\" x=\"429.1\" y=\"131.5\" width=\"15.5\" height=\"15.3\" /><line class=\"wick down\" x1=\"464.5\" y1=\"119.7\" x2=\"464.5\" y2=\"144.2\" /><rect class=\"body down\" x=\"456.8\" y=\"130.7\" width=\"15.5\" height=\"10.1\" /><line class=\"wick down\" x1=\"492.2\" y1=\"134.9\" x2=\"492.2\" y2=\"165.4\" /><rect class=\"body down\" x=\"484.5\" y=\"141.7\" width=\"15.5\" height=\"19.5\" /><line class=\"wick up\" x1=\"519.8\" y1=\"131.5\" x2=\"519.8\" y2=\"162.8\" /><rect class=\"body up\" x=\"512.1\" y=\"134.1\" width=\"15.5\" height=\"26.2\" /><line class=\"wick up\" x1=\"547.5\" y1=\"104.5\" x2=\"547.5\" y2=\"136.6\" /><rect class=\"body up\" x=\"539.8\" y=\"107.8\" width=\"15.5\" height=\"25.4\" /><line class=\"wick up\" x1=\"575.2\" y1=\"93.5\" x2=\"575.2\" y2=\"117.2\" /><rect class=\"body up\" x=\"567.5\" y=\"97.7\" width=\"15.5\" height=\"9.3\" /><line class=\"wick down\" x1=\"602.8\" y1=\"90.9\" x2=\"602.8\" y2=\"112.1\" /><rect class=\"body down\" x=\"595.1\" y=\"98.5\" width=\"15.5\" height=\"11.0\" /><line class=\"wick up\" x1=\"630.5\" y1=\"80.8\" x2=\"630.5\" y2=\"111.2\" /><rect class=\"body up\" x=\"622.8\" y=\"84.2\" width=\"15.5\" height=\"24.5\" /><line class=\"wick up\" x1=\"658.2\" y1=\"65.5\" x2=\"658.2\" y2=\"89.2\" /><rect class=\"body up\" x=\"650.5\" y=\"70.6\" width=\"15.5\" height=\"12.7\" /><polyline class=\"sma\" fill=\"none\" points=\"132.5,229.4 160.2,222.2 187.8,219.0 215.5,217.7 243.2,210.2 270.8,201.8 298.5,194.3 326.2,188.4 353.8,182.3 381.5,175.7 409.2,169.1 436.8,163.4 464.5,156.8 492.2,150.3 519.8,142.7 547.5,135.1 575.2,128.3 602.8,122.1 630.5,106.7 658.2,94.0\" /><line class=\"alert-line\" x1=\"8\" y1=\"85.8\" x2=\"672\" y2=\"85.8\" /><g class=\"pill\"><rect x=\"12\" y=\"66.8\" width=\"176\" height=\"16\" rx=\"3\" /><text class=\"pill-t\" x=\"19\" y=\"78.8\">▲ アラート · 230を上抜け</text></g><line class=\"cost-line\" x1=\"8\" y1=\"221.2\" x2=\"672\" y2=\"221.2\" /><text class=\"ann\" x=\"668\" y=\"236.2\" text-anchor=\"end\">平均取得単価 214.00 · 保有銘柄</text><text class=\"sym\" x=\"8\" y=\"24\">AAPL</text><text class=\"leg\" x=\"70\" y=\"24\">1D · SMA 20 · RSI 14</text><text class=\"leg-live\" x=\"8\" y=\"42\">● IEXからライブ</text><text class=\"leg\" x=\"104\" y=\"42\">直近の終値 231.80</text><line class=\"grid\" x1=\"8\" y1=\"273\" x2=\"672\" y2=\"273\" /><text class=\"ax\" x=\"8\" y=\"292\">24セッション</text><text class=\"ax\" x=\"672\" y=\"292\" text-anchor=\"end\">本日</text></svg></div></div></body></html>",
+              "height": 320,
+              "caption": "1銘柄をチャートで見るとこうなる。ローソク足、サーバーで計算した移動平均、230に設定したアラート、そして買値を示す破線。例の価格を使ったイラスト。"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ウォッチリストと、すべての銘柄のページ",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "TraderBuddyは、ウォッチリストから始まります。各銘柄には価格、その日の値動き、直近のセッションの小さなチャートが表示され、リストの上にはSPY、QQQ、DIA、IWMが並んで相場の雰囲気を伝えます。並び順は、自分で決めた順、騰落率、A〜Zから選べます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "6c0974ae87a5143c",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "tb-shot-watchlist",
+                "url": "/images/traderbuddy/watchlist-1600.webp",
+                "filename": "watchlist-1600.webp",
+                "mimeType": "image/webp",
+                "width": 1600,
+                "height": 760,
+                "alt": {
+                  "en": "The watchlist with a small chart and the day's move for each stock, beside the page for one stock.",
+                  "ja": "各銘柄の小さなチャートとその日の値動きを表示したウォッチリストと、1銘柄のページ。"
+                },
+                "credit": "Screenshot: TraderBuddy 0.18.0",
+                "sizes": {
+                  "480": {
+                    "url": "/images/traderbuddy/watchlist-480.webp",
+                    "width": 480,
+                    "height": 228
+                  },
+                  "960": {
+                    "url": "/images/traderbuddy/watchlist-960.webp",
+                    "width": 960,
+                    "height": 456
+                  },
+                  "1600": {
+                    "url": "/images/traderbuddy/watchlist-1600.webp",
+                    "width": 1600,
+                    "height": 760
+                  }
+                }
+              },
+              "caption": "ウォッチリストと、1銘柄（META）のページ。その銘柄のアラート、主要な指標、アナリスト評価、財務の健全性のまとめが見える。各行にはその日の値動きと、セッションの小さなチャートが表示される。"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "自分のものが分かる",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。保有している銘柄にはドット、有効なアラートがある銘柄にはベルの印が付きます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "大事な間は新鮮に",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。市場が開いている間は、15秒ごとに価格を更新します。閉じているときは、リストが直近の終値を表示していると伝えます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "すべての銘柄に専用ページ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "（",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "/stock/NVDA",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "）。価格と日次の変化、1日から5年までの範囲を選べるチャート、その銘柄の保有状況とアラート、時価総額、PER、配当利回り、ベータ、52週レンジ、アナリスト評価、財務の健全性のまとめ、最新のニュース。",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Watch",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "、",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Add alert",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "、",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Ask AI",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " は、上からワンタップです。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "親指で操作できる",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。行を左にスワイプすれば削除、Editを押せば矢印で並べ替えられます。リストが空のときは、SPY、QQQ、AAPL、MSFT、NVDAを、それぞれワンタップで追加できます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "チャート",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "フル機能の描画チャートは",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "Chart",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "タブです。銘柄を開くと、1分足から週足までのローソク足が表示されます。サーバーにキャッシュした確定済みのバーに、形成中のバーを1本だけライブで重ねています。スクロールして過去へさかのぼると、さらに古い履歴を読み込みます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "5efb7c6a092bcf1c",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "tb-shot-chart",
+                "url": "/images/traderbuddy/chart-1600.webp",
+                "filename": "chart-1600.webp",
+                "mimeType": "image/webp",
+                "width": 1600,
+                "height": 667,
+                "alt": {
+                  "en": "The chart page with NVDA candles, drawing tools and a watchlist panel.",
+                  "ja": "NVDAのローソク足、描画ツール、ウォッチリストのパネルが並ぶチャートのページ。"
+                },
+                "credit": "Screenshot: TraderBuddy 0.18.0",
+                "sizes": {
+                  "480": {
+                    "url": "/images/traderbuddy/chart-480.webp",
+                    "width": 480,
+                    "height": 200
+                  },
+                  "960": {
+                    "url": "/images/traderbuddy/chart-960.webp",
+                    "width": 960,
+                    "height": 400
+                  },
+                  "1600": {
+                    "url": "/images/traderbuddy/chart-1600.webp",
+                    "width": 1600,
+                    "height": 667
+                  }
+                }
+              },
+              "caption": "Chartタブ。15分足のNVDA、左に描画ツール、右にウォッチリストのパネル。"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "インジケーターはサーバーで計算",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。SMA、EMA、RSI、ATR、VWAP、MACD、ボリンジャーバンド、ストキャスティクス。ブラウザは描画するだけで計算はしないので、チャートとアラートが食い違うことはありません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "描画ツール",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。トレンドライン、水平線、長方形、テキスト。マグネットスナップ、元に戻す・やり直し、オブジェクトツリーもあります。すべて銘柄ごとに保存され、戻ってきたときにそのまま残っています。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "必要なところはライブ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。開いている銘柄のリアルタイム価格はストリーミングで届きます。それ以外はポーリングで取得し、",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "遅延",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "と表示するので、いま見ている数字がどちらなのかが常に分かります。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "ベースラインモード",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。絶対値ではなく、基準に対する終値を表示します。銘柄を追加してから、1週間、1か月、3か月、年初来、1年を選べます。凡例に、基準の価格とその日付が示されます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "チャートの横に情報とニュース",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。プロフィール、PER、PBR、配当利回り、ベータ、52週レンジのバー、そして意見として明示したアナリスト評価。ニュースはウォッチリストに沿ったものが出て、空のときは市場ニュースに切り替わります。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "保有銘柄には印",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。チャートには平均取得単価の破線、ウォッチリストにはドットが付き、ページを移っても、ポジションを見失いません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 6
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "どこからでも検索",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "⌘K",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " で任意の銘柄を探せます。",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "↵",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " でそのページを開き、",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "⌘↵",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " でウォッチリストに追加します。入力した内容が記録されることはありません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 7
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "スマートフォンでも使える",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。チャートが画面を占めます。ツールバーは2段で、ウォッチリスト、ニュース、情報は1つのPanelsボタンにまとまっています。Watchlist、Chart、Alerts、Portfolioは下部のタブで、スキャナーを含むそれ以外はMoreの中です。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 8
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "ダーク、ライト、または端末の設定に合わせる",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。Settingsで配色を選べ、選択はその端末に保存されます。上部バーの市場時計が、市場が開いているかどうかと、次にそれが切り替わる時刻を示します。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 9
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "アラート",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "価格が気になる場所に線を引き、そのベルをオンにすれば、TraderBuddyがその水準を見張ります。Alertsページから作ることもでき、そこには自分のアラートがすべて並び、編集、更新、削除ができます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "tbembed2",
+              "blockName": "",
+              "blockType": "html-embed",
+              "title": "アラートの流れ：あなたのアラートがあり、米国市場の引け後に、そのセッションの1分足を1日1回読み、前回の終値が水準の反対側にあったときだけ、接続したチャンネルにメッセージが届く。",
+              "html": "<!doctype html><html lang=\"ja\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>アラートの流れ：あなたのアラートがあり、米国市場の引け後に、そのセッションの1分足を1日1回読み、前回の終値が水準の反対側にあったときだけ、接続したチャンネルにメッセージが届く。</title><style>:root{color-scheme:dark;--bg:#0e1116;--panel:#151a21;--border:#272d36;--text:#dfe3e8;--muted:#949cab;--accent:#2dd4a7;--warn:#f0b90b;--danger:#f6465d;--up:#4ade80;--down:#f6465d;--grid:#272d36}\n*{box-sizing:border-box}\nbody{margin:0;padding:1rem;background:var(--panel);color:var(--text);font:15px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",system-ui,sans-serif}\n.figscroll{overflow-x:auto}\n.fig svg{display:block;width:100%;height:auto;overflow:visible}\n@media (max-width:620px){.fig svg{min-width:560px}}\n/* Shared SVG type and structure. */\n.fig svg text { font-family: inherit; fill: var(--text); }\n.grid { stroke: var(--grid); stroke-width: 1; }\n.ax, .ann-m { font-size: 11px; fill: var(--muted); }\n.ax-l { font-size: 12px; }\n.ann { font-size: 11.5px; fill: var(--muted); }\n.val { font-size: 12px; font-variant-numeric: tabular-nums; }\n.band { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }\n.band.good { fill: var(--up); }\n.band.fair { fill: var(--warn); }\n\n/* Chart figure. */\n.wick { stroke-width: 1.2; }\n.body { stroke-width: 1; }\n.up { stroke: var(--up); fill: var(--up); }\n.down { stroke: var(--down); fill: var(--down); }\n.sma { stroke: #7aa2f7; stroke-width: 1.6; }\n.alert-line { stroke: var(--warn); stroke-width: 1.4; stroke-dasharray: 1 0; }\n.pill rect { fill: var(--warn); }\n.pill-t { font-size: 10.5px; font-weight: 600; fill: #1a1d23; }\n.cost-line { stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 5 4; }\n.sym { font-size: 15px; font-weight: 650; }\n.leg { font-size: 11.5px; fill: var(--muted); }\n.leg-live { font-size: 11.5px; fill: var(--up); }\n\n/* Financial health figure. */\n.score-n { font-size: 34px; font-weight: 680; }\n.score-u { font-size: 14px; fill: var(--muted); }\n.track { fill: var(--grid); }\n.fill-good { fill: var(--up); }\n.fill-fair { fill: var(--warn); }\n.fill-weak { fill: var(--down); }\n\n/* Portfolio figure. */\n.value-series { stroke: var(--up); stroke-width: 2; }\n.cost-series { stroke: var(--muted); stroke-width: 1.6; stroke-dasharray: 5 4; }\n.endpoint { fill: var(--up); }\n.marker { stroke: var(--border); stroke-width: 1; }\n.leg-v { font-size: 11.5px; fill: var(--up); }\n.leg-c { font-size: 11.5px; fill: var(--muted); }\n\n/* Alert flow figure. */\n.node, .check { fill: var(--bg); stroke: var(--border); stroke-width: 1; }\n.check { stroke-dasharray: 4 3; }\n.node-t, .check-t { font-size: 13px; font-weight: 640; }\n.node-b { font-size: 12px; fill: var(--muted); }\n.edge, .edge-d { stroke: currentColor; stroke-width: 1.3; color: var(--muted); fill: none; }\n.edge-d { stroke-dasharray: 4 3; }\n.edge-l { font-size: 10.5px; fill: var(--muted); text-anchor: middle; }\n\n</style></head><body><div class=\"fig\"><div class=\"figscroll\"><svg viewBox=\"0 0 760 300\" role=\"img\" aria-label=\"アラートの流れ：あなたのアラートがあり、米国市場の引け後に、そのセッションの1分足を1日1回読み、前回の終値が水準の反対側にあったときだけ、接続したチャンネルにメッセージが届く。\"><defs><marker id=\"ah\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0,1 L9,5 L0,9 z\" fill=\"currentColor\" /></marker></defs><rect class=\"node\" x=\"8\" y=\"64\" width=\"224\" height=\"92\" rx=\"6\" /><text class=\"node-t\" x=\"24\" y=\"90\">あなたのアラート</text><text class=\"node-b\" x=\"24\" y=\"112\">チャートに引いた線、</text><text class=\"node-b\" x=\"24\" y=\"129\">またはAlertsページの1行。</text><rect class=\"node\" x=\"268\" y=\"64\" width=\"224\" height=\"92\" rx=\"6\" /><text class=\"node-t\" x=\"284\" y=\"90\">米国市場の引け後</text><text class=\"node-b\" x=\"284\" y=\"112\">そのセッションの1分足を、</text><text class=\"node-b\" x=\"284\" y=\"129\">1回だけ取得。ティックは使わない。</text><rect class=\"node\" x=\"528\" y=\"64\" width=\"224\" height=\"92\" rx=\"6\" /><text class=\"node-t\" x=\"544\" y=\"90\">あなたのチャンネル</text><text class=\"node-b\" x=\"544\" y=\"112\">SlackのDM、Telegramのチャット</text><text class=\"node-b\" x=\"544\" y=\"129\">または署名つきWebhook。</text><line class=\"edge\" x1=\"232\" y1=\"110\" x2=\"264\" y2=\"110\" marker-end=\"url(#ah)\" /><line class=\"edge\" x1=\"492\" y1=\"110\" x2=\"524\" y2=\"110\" marker-end=\"url(#ah)\" /><text class=\"edge-l\" x=\"248\" y=\"56\">1日1回</text><text class=\"edge-l\" x=\"508\" y=\"56\">クロスしたときだけ</text><rect class=\"check\" x=\"268\" y=\"186\" width=\"224\" height=\"80\" rx=\"6\" /><text class=\"check-t\" x=\"284\" y=\"210\">クロスの判定</text><text class=\"node-b\" x=\"284\" y=\"232\">前回の終値が、水準の</text><text class=\"node-b\" x=\"284\" y=\"249\">反対側にある必要がある。</text><line class=\"edge-d\" x1=\"380\" y1=\"156\" x2=\"380\" y2=\"186\" marker-end=\"url(#ah)\" /><text class=\"ann-m\" x=\"8\" y=\"286\">すでに通り過ぎた水準では発火しません。ブラウザでは何も評価しません。アラートは90日間有効で、その後は更新します。</text></svg></div></div></body></html>",
+              "height": 320,
+              "caption": "アラートがあなたに届くまでの流れと、発火するかどうかを決める唯一のルール。"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "頼りにする前に知っておいてほしいのがタイミングです。アラートは",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "1取引日に1回、米国市場の引け後",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "に、そのセッションの1分足で確認されます。これは意図的な割り切りです。リアルタイムの枠は、開いているチャートのためのものだからです。つまりアラートが知らせるのは、何かが起きたその日の夜であって、起きた瞬間ではありません。唯一の例外が、後述する寄り付きの値動きです。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "5cbc5a7cd4624ef0",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "tb-shot-alerts",
+                "url": "/images/traderbuddy/alerts-1600.webp",
+                "filename": "alerts-1600.webp",
+                "mimeType": "image/webp",
+                "width": 1600,
+                "height": 696,
+                "alt": {
+                  "en": "The Alerts page: a table of active alerts with their conditions and notes.",
+                  "ja": "有効なアラートの表と、その条件やメモを表示したAlertsページ。"
+                },
+                "credit": "Screenshot: TraderBuddy 0.18.0",
+                "sizes": {
+                  "480": {
+                    "url": "/images/traderbuddy/alerts-480.webp",
+                    "width": 480,
+                    "height": 209
+                  },
+                  "960": {
+                    "url": "/images/traderbuddy/alerts-960.webp",
+                    "width": 960,
+                    "height": 418
+                  },
+                  "1600": {
+                    "url": "/images/traderbuddy/alerts-1600.webp",
+                    "width": 1600,
+                    "height": 696
+                  }
+                }
+              },
+              "caption": "Alertsページ。各アラートの条件、メモ、繰り返すかどうか、最後に発火した日時、有効期限。"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "価格水準",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。上抜け、下抜け、またはどちらでも。トレンドラインの場合は、確認する時点でその線上の値が水準になるので、傾いた水準も時間が経っても正確です。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "水準だけでなく、条件も",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。終値がSMAやEMAを抜ける、ゴールデンクロスやデッドクロス、1日にX%動く、52週や上場来の新高値・新安値、出来高の急増、RSIが水準を抜ける。ユニバース内のどの銘柄でも、ETFでも使えます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "何が起きたかを伝える",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。条件アラートは数字を引用するのではなく、起きたことを伝えます。「value ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": ">",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " threshold」ではなく、「50日線が200日線を上抜けた」と。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "あなたのチャンネル、あなたの認証情報",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。SlackのDM、自分で選んだSlackチャンネル、Telegramのチャット、または署名つきWebhook。有効なチャンネルすべてにすべてのアラートが届き、どれかが失敗しても、他のチャンネルへの配信は妨げられません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "墓場ではなく、ライフサイクル",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。アラートの有効期間は90日で、その後は更新を待ちます。発火後は再び武装し、アラートごとに、何がいつ起きたかの履歴が残ります。更新も削除も一括でできます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "チャートとサーバーが一致している",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。チャート上のベルは、サーバー上に本物のアラートがあることを意味します。実際には武装していないアラートが表示されることはありません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 6
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "スキャナー",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "約600銘柄を絞り込めます。S&P 500、Nasdaq-100の銘柄、約100のETF、そして自分のウォッチリストやポートフォリオにある銘柄が対象です。条件は、値動き、52週レンジ、平均に対する出来高、SMA 20/50/200、RSI、ゴールデンクロスとデッドクロス、新高値・新安値、PER、時価総額、財務の健全性です。13のスキャンが組み込まれていて、複製して編集することも、自分用に最大25件まで保存することもできます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "33e891e1052ba5c2",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "tb-shot-scanner",
+                "url": "/images/traderbuddy/scanner-1600.webp",
+                "filename": "scanner-1600.webp",
+                "mimeType": "image/webp",
+                "width": 1600,
+                "height": 690,
+                "alt": {
+                  "en": "The scanner page showing the Oversold scanner's description and its matching stocks.",
+                  "ja": "Oversoldスキャナーの説明と、該当する銘柄を表示したスキャナーのページ。"
+                },
+                "credit": "Screenshot: TraderBuddy 0.18.0",
+                "sizes": {
+                  "480": {
+                    "url": "/images/traderbuddy/scanner-480.webp",
+                    "width": 480,
+                    "height": 207
+                  },
+                  "960": {
+                    "url": "/images/traderbuddy/scanner-960.webp",
+                    "width": 960,
+                    "height": 414
+                  },
+                  "1600": {
+                    "url": "/images/traderbuddy/scanner-1600.webp",
+                    "width": 1600,
+                    "height": 690
+                  }
+                }
+              },
+              "caption": "組み込みのOversoldスキャナー。何を探しているかを平易な言葉で説明し、直近の終値時点の該当銘柄と、新規の件数が表示される。"
+            }
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "1614944dd0f774a3",
+              "blockName": "",
+              "blockType": "callout",
+              "kind": "note",
+              "title": "大きな日次の値動き · S&P 500",
+              "body": {
+                "root": {
+                  "direction": "ltr",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "type": "root",
+                  "children": [
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 2,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "終値時点、2026年10月9日（金）",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 1,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "このスキャナーが探すもの",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "direction": "ltr",
+                          "format": "",
+                          "indent": 0,
+                          "version": 1,
+                          "children": [
+                            {
+                              "detail": 0,
+                              "format": 1,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "指数",
+                              "type": "text",
+                              "version": 1
+                            },
+                            {
+                              "detail": 0,
+                              "format": 0,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "：S&P 500。米国上場企業の時価総額上位500社。",
+                              "type": "text",
+                              "version": 1
+                            }
+                          ],
+                          "type": "listitem",
+                          "value": 1
+                        },
+                        {
+                          "direction": "ltr",
+                          "format": "",
+                          "indent": 0,
+                          "version": 1,
+                          "children": [
+                            {
+                              "detail": 0,
+                              "format": 1,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "本日の変化",
+                              "type": "text",
+                              "version": 1
+                            },
+                            {
+                              "detail": 0,
+                              "format": 0,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "：7%超または−7%未満。通常のセッションからは大きく外れた動き。",
+                              "type": "text",
+                              "version": 1
+                            }
+                          ],
+                          "type": "listitem",
+                          "value": 2
+                        },
+                        {
+                          "direction": "ltr",
+                          "format": "",
+                          "indent": 0,
+                          "version": 1,
+                          "children": [
+                            {
+                              "detail": 0,
+                              "format": 1,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "出来高",
+                              "type": "text",
+                              "version": 1
+                            },
+                            {
+                              "detail": 0,
+                              "format": 0,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "：20日平均の2倍超。静かな漂いではなく、異例の参加。",
+                              "type": "text",
+                              "version": 1
+                            }
+                          ],
+                          "type": "listitem",
+                          "value": 3
+                        }
+                      ],
+                      "type": "list",
+                      "listType": "bullet",
+                      "start": 1,
+                      "tag": "ul"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 1,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "該当銘柄",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "direction": "ltr",
+                          "format": "",
+                          "indent": 0,
+                          "version": 1,
+                          "children": [
+                            {
+                              "detail": 0,
+                              "format": 0,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "10月8日（木）：",
+                              "type": "text",
+                              "version": 1
+                            },
+                            {
+                              "detail": 0,
+                              "format": 16,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "MRNA",
+                              "type": "text",
+                              "version": 1
+                            },
+                            {
+                              "detail": 0,
+                              "format": 0,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "。出来高が20日平均の",
+                              "type": "text",
+                              "version": 1
+                            },
+                            {
+                              "detail": 0,
+                              "format": 1,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "2.4倍",
+                              "type": "text",
+                              "version": 1
+                            },
+                            {
+                              "detail": 0,
+                              "format": 0,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "（新規）",
+                              "type": "text",
+                              "version": 1
+                            }
+                          ],
+                          "type": "listitem",
+                          "value": 1
+                        },
+                        {
+                          "direction": "ltr",
+                          "format": "",
+                          "indent": 0,
+                          "version": 1,
+                          "children": [
+                            {
+                              "detail": 0,
+                              "format": 0,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "10月9日（金）：",
+                              "type": "text",
+                              "version": 1
+                            },
+                            {
+                              "detail": 0,
+                              "format": 16,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "MRNA",
+                              "type": "text",
+                              "version": 1
+                            },
+                            {
+                              "detail": 0,
+                              "format": 0,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "。この日+14.2%",
+                              "type": "text",
+                              "version": 1
+                            }
+                          ],
+                          "type": "listitem",
+                          "value": 2
+                        },
+                        {
+                          "direction": "ltr",
+                          "format": "",
+                          "indent": 0,
+                          "version": 1,
+                          "children": [
+                            {
+                              "detail": 0,
+                              "format": 0,
+                              "mode": "normal",
+                              "style": "",
+                              "text": "ほかにS&P 500の12銘柄が、そのセッションで7%以上動いた",
+                              "type": "text",
+                              "version": 1
+                            }
+                          ],
+                          "type": "listitem",
+                          "value": 3
+                        }
+                      ],
+                      "type": "list",
+                      "listType": "bullet",
+                      "start": 1,
+                      "tag": "ul"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "実際に該当した例。Moderna（モデルナ）の10月8〜9日の急騰を、7%の値動きスキャンと2倍の出来高スキャンが捉えた。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "平易な言葉で書かれる",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。スキャナーを組み立てるたびに、それ自身が説明を出します。「Debt / equity: below 1×。有利子負債÷自己資本。1未満なら貸借対照表が軽い。」自分の言葉で説明を付け足すこともできます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "時間について正直",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。結果は毎回の引け後に取ったスナップショットで、ページにはどの引けのものかが表示されます。その前のセッションでは該当していなかった銘柄には、",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "New",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "と印が付きます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "向こうから届く",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。Send matches to my channelsをオンにすると（新規の該当のみ、または全件）、毎晩1通のメッセージで、各スキャナーが見つけたものが一覧で届き、すべての銘柄からそのチャートへ飛べます。該当がなかった日は、何も送られません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "偽の精密さがない",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。値が不明な銘柄（200日平均がまだない、PERがない、など）は、黙ってゼロとして数えられるのではなく、その条件には決して該当しません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "財務データ",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "企業を検索すると、TraderBuddyがSECから最新の10-Kまたは10-Qを読み込み、使った提出書類の名前とリンクを示して、5つの要素とともに1つのスコアにまとめます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "tbembed3",
+              "blockName": "",
+              "blockType": "html-embed",
+              "title": "財務健全性スコアの例：100点満点で78点。同じ尺度で描いた5つの柱の内訳は、収益性86、キャッシュフロー81、貸借対照表74、株主68、成長性52。",
+              "html": "<!doctype html><html lang=\"ja\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>財務健全性スコアの例：100点満点で78点。同じ尺度で描いた5つの柱の内訳は、収益性86、キャッシュフロー81、貸借対照表74、株主68、成長性52。</title><style>:root{color-scheme:dark;--bg:#0e1116;--panel:#151a21;--border:#272d36;--text:#dfe3e8;--muted:#949cab;--accent:#2dd4a7;--warn:#f0b90b;--danger:#f6465d;--up:#4ade80;--down:#f6465d;--grid:#272d36}\n*{box-sizing:border-box}\nbody{margin:0;padding:1rem;background:var(--panel);color:var(--text);font:15px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",system-ui,sans-serif}\n.figscroll{overflow-x:auto}\n.fig svg{display:block;width:100%;height:auto;overflow:visible}\n@media (max-width:620px){.fig svg{min-width:560px}}\n/* Shared SVG type and structure. */\n.fig svg text { font-family: inherit; fill: var(--text); }\n.grid { stroke: var(--grid); stroke-width: 1; }\n.ax, .ann-m { font-size: 11px; fill: var(--muted); }\n.ax-l { font-size: 12px; }\n.ann { font-size: 11.5px; fill: var(--muted); }\n.val { font-size: 12px; font-variant-numeric: tabular-nums; }\n.band { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }\n.band.good { fill: var(--up); }\n.band.fair { fill: var(--warn); }\n\n/* Chart figure. */\n.wick { stroke-width: 1.2; }\n.body { stroke-width: 1; }\n.up { stroke: var(--up); fill: var(--up); }\n.down { stroke: var(--down); fill: var(--down); }\n.sma { stroke: #7aa2f7; stroke-width: 1.6; }\n.alert-line { stroke: var(--warn); stroke-width: 1.4; stroke-dasharray: 1 0; }\n.pill rect { fill: var(--warn); }\n.pill-t { font-size: 10.5px; font-weight: 600; fill: #1a1d23; }\n.cost-line { stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 5 4; }\n.sym { font-size: 15px; font-weight: 650; }\n.leg { font-size: 11.5px; fill: var(--muted); }\n.leg-live { font-size: 11.5px; fill: var(--up); }\n\n/* Financial health figure. */\n.score-n { font-size: 34px; font-weight: 680; }\n.score-u { font-size: 14px; fill: var(--muted); }\n.track { fill: var(--grid); }\n.fill-good { fill: var(--up); }\n.fill-fair { fill: var(--warn); }\n.fill-weak { fill: var(--down); }\n\n/* Portfolio figure. */\n.value-series { stroke: var(--up); stroke-width: 2; }\n.cost-series { stroke: var(--muted); stroke-width: 1.6; stroke-dasharray: 5 4; }\n.endpoint { fill: var(--up); }\n.marker { stroke: var(--border); stroke-width: 1; }\n.leg-v { font-size: 11.5px; fill: var(--up); }\n.leg-c { font-size: 11.5px; fill: var(--muted); }\n\n/* Alert flow figure. */\n.node, .check { fill: var(--bg); stroke: var(--border); stroke-width: 1; }\n.check { stroke-dasharray: 4 3; }\n.node-t, .check-t { font-size: 13px; font-weight: 640; }\n.node-b { font-size: 12px; fill: var(--muted); }\n.edge, .edge-d { stroke: currentColor; stroke-width: 1.3; color: var(--muted); fill: none; }\n.edge-d { stroke-dasharray: 4 3; }\n.edge-l { font-size: 10.5px; fill: var(--muted); text-anchor: middle; }\n\n</style></head><body><div class=\"fig\"><div class=\"figscroll\"><svg viewBox=\"0 0 760 250\" role=\"img\" aria-label=\"財務健全性スコアの例：100点満点で78点。同じ尺度で描いた5つの柱の内訳は、収益性86、キャッシュフロー81、貸借対照表74、株主68、成長性52。\"><text class=\"score-n\" x=\"8\" y=\"42\">78</text><text class=\"score-u\" x=\"62\" y=\"42\">/ 100</text><text class=\"ann\" x=\"8\" y=\"64\">財務は健全。最も強いのは収益性、最も弱いのは成長性。</text><line class=\"grid\" x1=\"150\" y1=\"86\" x2=\"570\" y2=\"86\" /><text class=\"ax-l\" x=\"8\" y=\"112\">収益性</text><rect class=\"track\" x=\"150\" y=\"101\" width=\"420\" height=\"11\" rx=\"2\" /><rect class=\"fill-good\" x=\"150\" y=\"101\" width=\"361.2\" height=\"11\" rx=\"2\" /><text class=\"val\" x=\"582\" y=\"112\">86</text><text class=\"band good\" x=\"618\" y=\"112\">良い</text><text class=\"ax-l\" x=\"8\" y=\"140\">貸借対照表</text><rect class=\"track\" x=\"150\" y=\"129\" width=\"420\" height=\"11\" rx=\"2\" /><rect class=\"fill-good\" x=\"150\" y=\"129\" width=\"310.8\" height=\"11\" rx=\"2\" /><text class=\"val\" x=\"582\" y=\"140\">74</text><text class=\"band good\" x=\"618\" y=\"140\">良い</text><text class=\"ax-l\" x=\"8\" y=\"168\">キャッシュフロー</text><rect class=\"track\" x=\"150\" y=\"157\" width=\"420\" height=\"11\" rx=\"2\" /><rect class=\"fill-good\" x=\"150\" y=\"157\" width=\"340.2\" height=\"11\" rx=\"2\" /><text class=\"val\" x=\"582\" y=\"168\">81</text><text class=\"band good\" x=\"618\" y=\"168\">良い</text><text class=\"ax-l\" x=\"8\" y=\"196\">成長性</text><rect class=\"track\" x=\"150\" y=\"185\" width=\"420\" height=\"11\" rx=\"2\" /><rect class=\"fill-fair\" x=\"150\" y=\"185\" width=\"218.4\" height=\"11\" rx=\"2\" /><text class=\"val\" x=\"582\" y=\"196\">52</text><text class=\"band fair\" x=\"618\" y=\"196\">普通</text><text class=\"ax-l\" x=\"8\" y=\"224\">株主</text><rect class=\"track\" x=\"150\" y=\"213\" width=\"420\" height=\"11\" rx=\"2\" /><rect class=\"fill-fair\" x=\"150\" y=\"213\" width=\"285.6\" height=\"11\" rx=\"2\" /><text class=\"val\" x=\"582\" y=\"224\">68</text><text class=\"band fair\" x=\"618\" y=\"224\">普通</text><text class=\"ax\" x=\"150\" y=\"250\">0</text><text class=\"ax\" x=\"570\" y=\"250\" text-anchor=\"end\">100</text></svg></div></div></body></html>",
+              "height": 320,
+              "caption": "財務健全性スコアと、その背後にある5つの要素。すべて同じ0〜100の尺度。数字は例。"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "すべての数字に一文の説明",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。各インジケーターには、値、5年間のトレンド、良い／普通／弱いのマーカー、そして平易な説明が付きます。「売上100ドルのうち、直接の費用を引いて23ドルが残る。」",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "2つのチェックをテスト単位で表示",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。Piotroski F-scoreの9つの合否テストと、Altman Z-scoreの安全・グレー・危険ゾーンを、それぞれ全部見せるので、スコアがブラックボックスになりません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "財務諸表そのもの",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。5年分の損益計算書、貸借対照表、キャッシュフロー計算書を、人が見慣れた科目名で。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "不明はゼロではない",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。提出書類に報告されていない数字は、除外します。データが足りない要素はその旨を表示し、材料があまりに乏しい企業にはスコアを付けません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "銀行は銀行として評価する",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。銀行や保険会社には当てはまらない指標を、でっち上げず、外します。どれを、なぜ外したかはページに書かれます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "助言ではない",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。スコアは、企業が過去について報告したことをまとめたものです。株価を予測するものではなく、ページにもはっきりそう書いてあります。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 6
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "d4843a9e85c4b4d2",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "tb-shot-financials",
+                "url": "/images/traderbuddy/financials-1600.webp",
+                "filename": "financials-1600.webp",
+                "mimeType": "image/webp",
+                "width": 1600,
+                "height": 764,
+                "alt": {
+                  "en": "The financial-health report for NVIDIA: a score of 92 out of 100 and five pillar scores.",
+                  "ja": "NVIDIAの財務健全性レポート。100点満点で92点と、5つの柱のスコア。"
+                },
+                "credit": "Screenshot: TraderBuddy 0.18.0",
+                "sizes": {
+                  "480": {
+                    "url": "/images/traderbuddy/financials-480.webp",
+                    "width": 480,
+                    "height": 229
+                  },
+                  "960": {
+                    "url": "/images/traderbuddy/financials-960.webp",
+                    "width": 960,
+                    "height": 458
+                  },
+                  "1600": {
+                    "url": "/images/traderbuddy/financials-1600.webp",
+                    "width": 1600,
+                    "height": 764
+                  }
+                }
+              },
+              "caption": "NVIDIAの財務健全性レポート。最新の10-Qから算出し、使った提出書類の名前とリンクを示している。"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ニュースと、それが意味しそうなこと",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "相場を動かす投稿、提出書類、見出しを1ページに集めました。無料の公開ソースから5分ごとに読み込み、新しい順に並べ、それぞれに発信元と元記事へのリンクが付きます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "eb07d96353da5b13",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "tb-shot-news",
+                "url": "/images/traderbuddy/news-1600.webp",
+                "filename": "news-1600.webp",
+                "mimeType": "image/webp",
+                "width": 1600,
+                "height": 818,
+                "alt": {
+                  "en": "The News page with headlines and an AI read of one item.",
+                  "ja": "見出しと、そのうちひとつに対するAIの解説を表示したNewsページ。"
+                },
+                "credit": "Screenshot: TraderBuddy 0.18.0",
+                "sizes": {
+                  "480": {
+                    "url": "/images/traderbuddy/news-480.webp",
+                    "width": 480,
+                    "height": 245
+                  },
+                  "960": {
+                    "url": "/images/traderbuddy/news-960.webp",
+                    "width": 960,
+                    "height": 491
+                  },
+                  "1600": {
+                    "url": "/images/traderbuddy/news-1600.webp",
+                    "width": 1600,
+                    "height": 818
+                  }
+                }
+              },
+              "caption": "Newsページ。企業の見出しと、そのひとつの下に表示されたAIの解説。助言ではなく意見だと明記されている。上部には今月のAI利用額。"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "何を読むか",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。FRB（連邦準備制度理事会）のプレスリリースと講演、ホワイトハウスのニュース、ドナルド・トランプ氏のTruth Social投稿（独立アーカイブのtrumpstruth.org経由）、S&P 500企業とフォロー中の銘柄のSEC 8-K提出書類、そしてFinnhubの市場・企業の見出しです。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "各項目へのAIの解説",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。モデル（Claude Haiku）が、その項目がどれだけ重要か（低・中・高）を示し、1行で要約し、どの企業やセクターを押し上げたり押し下げたりしそうか、その理由とともに挙げます。項目に企業名が出てこない場合でも同様です。",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "AIの意見であり、助言ではない",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "と明記され、方向は色だけでなく言葉でも示されます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "全員のために一度だけ読む",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。リクエストに含まれるのは、その項目だけです。あなたが何を保有し、何をウォッチしているかは、TraderBuddyの外に出ません。どの項目が",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 2,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "あなた",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "にとって重要かは、あとからサーバー上で判断されます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "厳格な上限",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。AIによる読み取りは月10ドルで止まります。毎回の呼び出しの前に確認され、ページにはどれだけ使ったかが表示されます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "情報源について正直",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。応答しなくなったソースは、最後に読み込めた日時とともに、ページの上部に名前が出ます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "AIリサーチアシスタント",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "モデルを選んで、1銘柄または数銘柄について質問します。「AMDとNVDAを比較して」「AAPLの財務は何を語っている？」と。調べながら答えを出し、ひとつひとつの検索が行われる様子が見えます。価格とインジケーター、SECの財務、ニュース、マクロ系列、スキャナー、そしてあなた自身のウォッチリスト・アラート・ポートフォリオを読み、根拠、強気と弱気のシナリオ、何があれば考えを変えるか、どの程度の確信かを添えて答えます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "7e44cff4220eb10a",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "tb-shot-ai-research",
+                "url": "/images/traderbuddy/ai-research-1600.webp",
+                "filename": "ai-research-1600.webp",
+                "mimeType": "image/webp",
+                "width": 1600,
+                "height": 734,
+                "alt": {
+                  "en": "The AI research page with suggested questions and a list of past conversations.",
+                  "ja": "おすすめの質問と過去の会話の一覧を表示したAIリサーチのページ。"
+                },
+                "credit": "Screenshot: TraderBuddy 0.18.0",
+                "sizes": {
+                  "480": {
+                    "url": "/images/traderbuddy/ai-research-480.webp",
+                    "width": 480,
+                    "height": 220
+                  },
+                  "960": {
+                    "url": "/images/traderbuddy/ai-research-960.webp",
+                    "width": 960,
+                    "height": 440
+                  },
+                  "1600": {
+                    "url": "/images/traderbuddy/ai-research-1600.webp",
+                    "width": 1600,
+                    "height": 734
+                  }
+                }
+              },
+              "caption": "AIリサーチのページ。左に過去の会話、おすすめの質問、質問欄の下にモデル選択。"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "下書きは任せ、決めるのはあなた",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。アラートやウォッチリストへの追加を提案するときは、カードを表示します。",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Create",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "を押すまで何も作られず、押したあとはAlertsページと同じチェックを通ります。自分だけで何かを変更することはできません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "自分のOpenRouterキーを使う",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。一度貼り付ければ暗号化され、二度と表示されません。使った分はOpenRouterに直接支払い、Settingsには利用額のメーターと、任意の月間上限があります。共有のキーはありません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "会話は非公開",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。会話は保存され、一覧から戻ることも、削除することもできます。管理者でも読めません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Web検索",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "はデフォルトでオフで、メッセージごとにオンにします。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "マクロの背景情報",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "1ページに8つの系列があります。米国債の10年と2年の利回り、10年−2年のスプレッド、FF金利、CPI、失業率、VIX、ShillerのCAPE。すべての数字に、それが属する観測日が表示されます。日付のないマクロの数字は、数か月前のものでも今日のものに見えてしまうからです。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "色は方向ではなく意味に従い、意味が終わるところで止まります。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "table",
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "系列",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "上昇したとき",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "失業率、CPI、VIX、Shiller CAPE",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "悪化。失業の増加、インフレの加速、ストレスの増大、割高な出発点",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "10年−2年スプレッド",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "改善。景気後退のシグナルとして見られるのは、ゼロを割る",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 2,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "下落",
+                            "type": "text",
+                            "version": 1
+                          },
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "のほう",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "10年債、2年債、FF金利",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "中立。金利の上昇は預金者には良く、借り手には悪い。色を選ぶことは主観を持ち込むことになる",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ポートフォリオ",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "自分で付ける台帳です。購入、売却、配当、株式分割、手数料を、手入力するか、プレビューと行ごとのエラー表示を経てCSVから取り込みます。証券会社との接続は、あえて作っていません。ポジション、損益、履歴は、入力した内容をすべて再生して導き出します。ページの先頭は時価総額で、その下に本日の変化が出ます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "tbembed4",
+              "blockName": "",
+              "blockType": "html-embed",
+              "title": "ポートフォリオのチャートの例：毎晩のスナップショットから描いた2本の線。評価額は16,480ドルまで上昇し、取得額は資金を追加した月に10,000ドルから14,000ドルへ階段状に上がるので、入金が運用益と間違われることはない。",
+              "html": "<!doctype html><html lang=\"ja\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>ポートフォリオのチャートの例：毎晩のスナップショットから描いた2本の線。評価額は16,480ドルまで上昇し、取得額は資金を追加した月に10,000ドルから14,000ドルへ階段状に上がるので、入金が運用益と間違われることはない。</title><style>:root{color-scheme:dark;--bg:#0e1116;--panel:#151a21;--border:#272d36;--text:#dfe3e8;--muted:#949cab;--accent:#2dd4a7;--warn:#f0b90b;--danger:#f6465d;--up:#4ade80;--down:#f6465d;--grid:#272d36}\n*{box-sizing:border-box}\nbody{margin:0;padding:1rem;background:var(--panel);color:var(--text);font:15px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",system-ui,sans-serif}\n.figscroll{overflow-x:auto}\n.fig svg{display:block;width:100%;height:auto;overflow:visible}\n@media (max-width:620px){.fig svg{min-width:560px}}\n/* Shared SVG type and structure. */\n.fig svg text { font-family: inherit; fill: var(--text); }\n.grid { stroke: var(--grid); stroke-width: 1; }\n.ax, .ann-m { font-size: 11px; fill: var(--muted); }\n.ax-l { font-size: 12px; }\n.ann { font-size: 11.5px; fill: var(--muted); }\n.val { font-size: 12px; font-variant-numeric: tabular-nums; }\n.band { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }\n.band.good { fill: var(--up); }\n.band.fair { fill: var(--warn); }\n\n/* Chart figure. */\n.wick { stroke-width: 1.2; }\n.body { stroke-width: 1; }\n.up { stroke: var(--up); fill: var(--up); }\n.down { stroke: var(--down); fill: var(--down); }\n.sma { stroke: #7aa2f7; stroke-width: 1.6; }\n.alert-line { stroke: var(--warn); stroke-width: 1.4; stroke-dasharray: 1 0; }\n.pill rect { fill: var(--warn); }\n.pill-t { font-size: 10.5px; font-weight: 600; fill: #1a1d23; }\n.cost-line { stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 5 4; }\n.sym { font-size: 15px; font-weight: 650; }\n.leg { font-size: 11.5px; fill: var(--muted); }\n.leg-live { font-size: 11.5px; fill: var(--up); }\n\n/* Financial health figure. */\n.score-n { font-size: 34px; font-weight: 680; }\n.score-u { font-size: 14px; fill: var(--muted); }\n.track { fill: var(--grid); }\n.fill-good { fill: var(--up); }\n.fill-fair { fill: var(--warn); }\n.fill-weak { fill: var(--down); }\n\n/* Portfolio figure. */\n.value-series { stroke: var(--up); stroke-width: 2; }\n.cost-series { stroke: var(--muted); stroke-width: 1.6; stroke-dasharray: 5 4; }\n.endpoint { fill: var(--up); }\n.marker { stroke: var(--border); stroke-width: 1; }\n.leg-v { font-size: 11.5px; fill: var(--up); }\n.leg-c { font-size: 11.5px; fill: var(--muted); }\n\n/* Alert flow figure. */\n.node, .check { fill: var(--bg); stroke: var(--border); stroke-width: 1; }\n.check { stroke-dasharray: 4 3; }\n.node-t, .check-t { font-size: 13px; font-weight: 640; }\n.node-b { font-size: 12px; fill: var(--muted); }\n.edge, .edge-d { stroke: currentColor; stroke-width: 1.3; color: var(--muted); fill: none; }\n.edge-d { stroke-dasharray: 4 3; }\n.edge-l { font-size: 10.5px; fill: var(--muted); text-anchor: middle; }\n\n</style></head><body><div class=\"fig\"><div class=\"figscroll\"><svg viewBox=\"0 0 760 290\" role=\"img\" aria-label=\"ポートフォリオのチャートの例：毎晩のスナップショットから描いた2本の線。評価額は16,480ドルまで上昇し、取得額は資金を追加した月に10,000ドルから14,000ドルへ階段状に上がるので、入金が運用益と間違われることはない。\"><line class=\"grid\" x1=\"8\" y1=\"208.7\" x2=\"648\" y2=\"208.7\" /><text class=\"ax\" x=\"656\" y=\"212.2\">$10,000</text><line class=\"grid\" x1=\"8\" y1=\"150.5\" x2=\"648\" y2=\"150.5\" /><text class=\"ax\" x=\"656\" y=\"154.0\">$12,500</text><line class=\"grid\" x1=\"8\" y1=\"92.2\" x2=\"648\" y2=\"92.2\" /><text class=\"ax\" x=\"656\" y=\"95.7\">$15,000</text><line class=\"grid\" x1=\"8\" y1=\"34.0\" x2=\"648\" y2=\"34.0\" /><text class=\"ax\" x=\"656\" y=\"37.5\">$17,500</text><polyline class=\"cost-series\" fill=\"none\" points=\"8.0,208.7 66.2,208.7 124.4,208.7 182.5,208.7 240.7,208.7 298.9,115.5 357.1,115.5 415.3,115.5 473.5,115.5 531.6,115.5 589.8,115.5 648.0,115.5\" /><polyline class=\"value-series\" fill=\"none\" points=\"8.0,208.7 66.2,198.9 124.4,204.5 182.5,187.5 240.7,179.8 298.9,88.0 357.1,77.3 415.3,91.8 473.5,71.7 531.6,64.0 589.8,70.3 648.0,57.8\" /><circle class=\"endpoint\" cx=\"648.0\" cy=\"57.8\" r=\"4\" /><line class=\"marker\" x1=\"298.9\" y1=\"28\" x2=\"298.9\" y2=\"232\" /><text class=\"ann\" x=\"306.9\" y=\"40\">ここで4,000ドルを入金</text><text class=\"ann-m\" x=\"306.9\" y=\"56\">取得額も一緒に上がるので、入金が利益に見えることはない</text><text class=\"leg-v\" x=\"8\" y=\"24\">— 評価額 16,480</text><text class=\"leg-c\" x=\"156\" y=\"24\">— 取得額 14,000</text><line class=\"grid\" x1=\"8\" y1=\"233\" x2=\"648\" y2=\"233\" /><text class=\"ax\" x=\"8.0\" y=\"252\" text-anchor=\"start\">11月</text><text class=\"ax\" x=\"124.4\" y=\"252\" text-anchor=\"middle\">1月</text><text class=\"ax\" x=\"240.7\" y=\"252\" text-anchor=\"middle\">3月</text><text class=\"ax\" x=\"357.1\" y=\"252\" text-anchor=\"middle\">5月</text><text class=\"ax\" x=\"473.5\" y=\"252\" text-anchor=\"middle\">7月</text><text class=\"ax\" x=\"589.8\" y=\"252\" text-anchor=\"middle\">9月</text></svg></div></div></body></html>",
+              "height": 320,
+              "caption": "毎晩のスナップショットによる評価額と取得額。数字は例。"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "信頼できる計算",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。金額と数量は、最初から最後まで正確な小数で、浮動小数点は使いません。編集のたびに台帳全体を再生するので、過去の日付で売りすぎになる売却は拒否され、矛盾する取引が示されます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "平均取得単価であることを明記",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。ポジションは税ロットではなく平均取得単価を使い、そうでないと思い込ませず、画面でもそう伝えます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "配分",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。銘柄別またはセクター別。セクターが分からない場合は、隠さずに ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 16,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Unknown",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " と表示します。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "コーポレートアクションの指摘",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。記録されていないように見える分割や配当を指摘し、「Record it」でその取引が事前入力されます。台帳に自動で何かが適用されることはありません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "必要なら、毎日のダイジェスト",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ユーザーがオンにするまでオフで、セクションごとに選べます。取引日の引け後に、接続したチャンネルへ1通のメッセージが届き、伝えることがないセクションは省かれます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "3c37936c1c11cfa4",
+              "blockName": "",
+              "blockType": "callout",
+              "kind": "note",
+              "title": "TraderBuddy · 10月8日（木）",
+              "body": {
+                "root": {
+                  "direction": "ltr",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "type": "root",
+                  "children": [
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 2,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "届き方の例",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 1,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "ポートフォリオ",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "Core · 本日+412ドル、評価額16,480ドル（取得額14,000ドル）。",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 1,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "アラート",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "AAPLが230.00を上抜けました。アラートは再び武装しています。",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 1,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "ウォッチリスト",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "MRNA +14.2%、出来高は通常の2.4倍。",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 1,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "ニュースと決算",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "フォロー中の銘柄の見出しが3件、そして明日決算を発表する銘柄。",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "送信は1日に最大1回です。障害で1日飛ぶことはあっても、同じ日に2回届くことはありません。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "寄り付きの値動き",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "米国市場の寄り付きから1時間後に、TraderBuddyは動いているS&P 500の銘柄を探します。前日の終値から",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "5%以上",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "上昇していて、最初の数分間の出来高が",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 1,
+                "mode": "normal",
+                "style": "",
+                "text": "通常の2倍以上",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "であることが条件です。出来高は寄り付きが常にいちばん多いため、直近10セッションの同じ時間帯と比べて測ります。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "73d699a4a5e4be2a",
+              "blockName": "",
+              "blockType": "callout",
+              "kind": "note",
+              "title": "寄り付きの値動き · ニューヨーク10:30",
+              "body": {
+                "root": {
+                  "direction": "ltr",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "type": "root",
+                  "children": [
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 2,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "届き方の例",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "寄り付きから1時間、S&P 500の2銘柄が動いています。",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 16,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "XYZ",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": " +6.4%、午前のこの時間帯としては通常の3.1倍の出来高。",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 16,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "ABC",
+                          "type": "text",
+                          "version": 1
+                        },
+                        {
+                          "detail": 0,
+                          "format": 0,
+                          "mode": "normal",
+                          "style": "",
+                          "text": " +5.2%、2.2倍。",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    },
+                    {
+                      "direction": "ltr",
+                      "format": "",
+                      "indent": 0,
+                      "version": 1,
+                      "children": [
+                        {
+                          "detail": 0,
+                          "format": 1,
+                          "mode": "normal",
+                          "style": "",
+                          "text": "価格は15分遅れです",
+                          "type": "text",
+                          "version": 1
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "これは、TraderBuddyの中でセッションの",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "最中",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "に動く唯一のもので、意図的な例外です。ダイジェストの隣にあるSettingsでオンにするまではオフです。届くのは取引日だけで、1日に最大1回、静かな朝には届きません。時刻は自分のタイムゾーンで表示され、メッセージには、価格が全市場フィードの15分遅れであることがはっきり書かれます。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "コーディングエージェントに使わせる",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Claude CodeやCursorなどのMCPクライアントが、あなたに代わって銘柄の検索、アラートやポートフォリオの閲覧、アラート・ウォッチリスト・描画・保存したスキャナー・ダイジェスト・ポートフォリオの取引の管理ができます。Settingsでトークンを作り、URLをクライアントに貼り付けて、言葉で頼みます。「NVDAのRSIはいまどう動いている？ 70を超えたら知らせて」と。手順は",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 3,
+                "type": "link",
+                "fields": {
+                  "linkType": "custom",
+                  "newTab": false,
+                  "url": "/ja/posts/traderbuddy-mcp/"
+                },
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "AIエージェントをMCPでTraderBuddyにつなぐ方法",
+                    "type": "text",
+                    "version": 1
+                  }
+                ]
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "にあります。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "4f9ac3caf6256148",
+              "blockName": "",
+              "blockType": "code",
+              "language": "json",
+              "code": "{\n  \"mcpServers\": {\n    \"traderbuddy\": {\n      \"url\": \"https://trader.smkabir.com/api/mcp/\",\n      \"headers\": { \"Authorization\": \"Bearer tb_pat_…\" }\n    }\n  }\n}"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "トークンは一度だけ表示され、有効期限は30日から1年の間で、削除ではなく失効させます。読み取り専用にも、読み取りと書き込みにもできます。書き込みトークンは、ポートフォリオの取引を追加・訂正できますが、削除はできません。決して触れられないものは、クライアントではなくサーバー側で固定されています。通知の認証情報、管理画面、ポートフォリオからの削除、そして追加のトークンの発行です。しかもTraderBuddyには注文入力がまったくないので、あなたのどのエージェントも、売買はできません。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "データはどこにあるか",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "ブラウザが話すサーバーは1つ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。TraderBuddy自身のサーバーだけです。アナリティクスも、サードパーティのウィジェットも、手元のマシンから呼ばれるマーケットデータのプロバイダーもありません。プロバイダーのキーはすべてサーバー側にあります。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "検索は記録されない",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。⌘Kや銘柄ボックスに入力した内容は、どこにも記録されません。あなたにも、管理者にも見えません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "保有銘柄とアラートは非公開",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。ポートフォリオ、アラート、ウォッチリストのルートはすべて自分にスコープされており、他人のIDは単に存在しません。通知は自分で接続した宛先にだけ届き、共有チャンネルには決して届きません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "認証情報は書き込み専用",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。SlackやTelegramのトークン、Webhookのシークレット、OpenRouterのキーは保存時に暗号化され、どのルートからも、誰にも返されません。変更したいときは、置き換えます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "AIが見るものを明示",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。ニュースの読み取りに送られるのは、そのニュース項目だけです。リサーチアシスタントを使うときは、マーケットデータと、関係する場合はウォッチリスト、アラート、ポートフォリオが、OpenRouterと、選んだモデルを運営する会社に送られます。TraderBuddyは、データを保存せず学習にも使わないプロバイダーを指定しており、AIのページには、キーを貼り付ける前にこのことがすべて書かれています。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "管理者の例外を明示",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。管理者は、任意のユーザーのウォッチリスト、ポートフォリオ、アラートを読めます。ただし読み取り専用です。そうした読み取りはすべて監査ログに記録され、アプリはすべてのユーザーにそれが可能であることを伝えています。検索、AIとの会話、チャンネルの認証情報には、手が届きません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 6
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "アカウントの取得",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。誰でも登録できますが、管理者が承認するまで、誰も入れません。それまでは待機画面が表示されるだけです。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 7
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "あえてやらないこと",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "これらは欠落ではなく選択であり、変わることはありません。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "注文を出すこと",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。注文入力、証券会社のポジション、板情報、ペーパートレードはありません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "証券会社への接続",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。ポートフォリオは手入力か、CSVからの取り込みです。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "税ロットの追跡",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。平均取得単価のみで、重要な場面ではそう明記します。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "ティックでのアラート発火",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。1取引日に1回、引け後です。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "ブラウザでの計算",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。インジケーター、クロス、シグナルはすべてサーバー側です。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "助言",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "。アナリストのコンセンサスは意見のデータであり、インジケーターのクロスは予測ではなく、財務スコアは過去の提出書類のまとめで、AIの解説は分析であって推奨ではありません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 6
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 2,
+                "mode": "normal",
+                "style": "",
+                "text": "バージョン0.18.0（2026年10月18日）時点の機能。例の数字は説明用のもので、実際のデータではありません。",
                 "type": "text",
                 "version": 1
               }
