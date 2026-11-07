@@ -730,6 +730,26 @@
       },
       "updatedAt": "2026-10-17T16:20:44.085Z",
       "createdAt": "2026-10-17T16:20:44.079Z"
+    },
+    {
+      "id": 80,
+      "slug": "hachioji",
+      "name": {
+        "en": "Hachiōji",
+        "ja": "八王子"
+      },
+      "updatedAt": "2026-11-08T09:00:00.000Z",
+      "createdAt": "2026-11-08T09:00:00.000Z"
+    },
+    {
+      "id": 81,
+      "slug": "history",
+      "name": {
+        "en": "history",
+        "ja": "歴史"
+      },
+      "updatedAt": "2026-11-08T09:00:00.000Z",
+      "createdAt": "2026-11-08T09:00:00.000Z"
     }
   ],
   "posts": [
@@ -23163,6 +23183,933 @@
       },
       "updatedAt": "2026-10-17T16:20:44.690Z",
       "createdAt": "2026-10-17T16:20:44.670Z",
+      "_status": "published"
+    },
+    {
+      "id": 109,
+      "title": {
+        "en": "Hachiōji Minamino: a 1997 new town on very old hills",
+        "ja": "八王子みなみ野 — 古い丘陵に生まれた1997年のニュータウン"
+      },
+      "description": {
+        "en": "How a stretch of the Tama Hills south of Hachiōji became Minamino City, and what was there long before the station opened.",
+        "ja": "八王子の南、多摩丘陵の一角がどのように「みなみ野シティ」になったのか。駅ができるずっと前、そこに何があったのか。"
+      },
+      "slug": "hachioji-minamino-history",
+      "category": 26,
+      "tags": [
+        80,
+        81
+      ],
+      "pubDate": "2026-11-08T09:00:00.000Z",
+      "updatedDate": null,
+      "hero": null,
+      "series": {
+        "name": null,
+        "part": null
+      },
+      "createdByAgent": false,
+      "toc": true,
+      "publishedIn": {
+        "en": true,
+        "ja": true
+      },
+      "content": {
+        "en": {
+          "root": {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "root",
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Hachiōji Minamino City (",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "type": "inlineBlock",
+                    "version": 1,
+                    "format": "",
+                    "fields": {
+                      "id": "674f54691aab5cab",
+                      "blockName": "",
+                      "blockType": "jp",
+                      "t": "八王子みなみ野シティ",
+                      "r": "Hachiōji Minamino Shiti",
+                      "en": "Hachiōji Minamino City"
+                    }
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": ") is one of the youngest neighbourhoods in Hachiōji. It sits about 40 km west of central Tokyo, two to five kilometres south of Hachiōji's centre, on the northern edge of the Tama Hills (",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "type": "inlineBlock",
+                    "version": 1,
+                    "format": "",
+                    "fields": {
+                      "id": "0d635ad16ff68cfb",
+                      "blockName": "",
+                      "blockType": "jp",
+                      "t": "多摩丘陵",
+                      "r": "Tama kyūryō",
+                      "en": "the Tama Hills"
+                    }
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "). The town officially opened in March 1997. The hills it was built on have a much longer story.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "heading",
+                "tag": "h2",
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Before the new town",
+                    "type": "text",
+                    "version": 1
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Long before the housing went up, this was hill country, with woodland and paddies in the valleys. Two places nearby still show its older history.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Katakura Castle.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " On the eastern tip of the Kohiki Hills, between the Yudono River and its tributary the Hyōe River, are the remains of Katakura Castle (",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "type": "inlineBlock",
+                    "version": 1,
+                    "format": "",
+                    "fields": {
+                      "id": "9ac5cda56e4c572b",
+                      "blockName": "",
+                      "blockType": "jp",
+                      "t": "片倉城",
+                      "r": "Katakura-jō",
+                      "en": "Katakura Castle"
+                    }
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "). According to the usual account, the Yokoyama clan held the land from the middle of the Heian period. After the Wada Battle of 1213 it passed to Ōe no Hiromoto. The castle itself is a Muromachi-period hill castle. Who built it is uncertain: some accounts name Ōe Moroakira, others the Nagai family, retainers of the Ōgigayatsu Uesugi. It probably served the Later Hōjō as a fort, and it is said to have fallen with Hachiōji Castle in 1590. Hachiōji City turned the site into Katakura Castle Ruins Park in 1971, and Tokyo designated it a historic site on 3 March 1999. The dry moats and earthworks are still there. In spring the park is known for its wild dogtooth violets (",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "type": "inlineBlock",
+                    "version": 1,
+                    "format": "",
+                    "fields": {
+                      "id": "b45f39493e1c3100",
+                      "blockName": "",
+                      "blockType": "jp",
+                      "t": "カタクリ",
+                      "r": "katakuri",
+                      "en": "dogtooth violet"
+                    }
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": ").",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Nanakuni Pass.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " One of Minamino City's districts, Nanakuni (",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "type": "inlineBlock",
+                    "version": 1,
+                    "format": "",
+                    "fields": {
+                      "id": "cead5dfc9ffadae4",
+                      "blockName": "",
+                      "blockType": "jp",
+                      "t": "七国",
+                      "r": "Nanakuni",
+                      "en": "\"seven provinces\""
+                    }
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "), takes its name from Nanakuni Pass (",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "type": "inlineBlock",
+                    "version": 1,
+                    "format": "",
+                    "fields": {
+                      "id": "a6bfa8608a643eb6",
+                      "blockName": "",
+                      "blockType": "jp",
+                      "t": "七国峠",
+                      "r": "Nanakuni-tōge",
+                      "en": "Nanakuni Pass"
+                    }
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "), on a ridge of the southern Tama Hills. A stretch of the old Kamakura road (",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "type": "inlineBlock",
+                    "version": 1,
+                    "format": "",
+                    "fields": {
+                      "id": "7fc8e245b6f56442",
+                      "blockName": "",
+                      "blockType": "jp",
+                      "t": "鎌倉古道",
+                      "r": "Kamakura kodō",
+                      "en": "old Kamakura road"
+                    }
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": ") runs through it, and it was once a route people walked every day.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "heading",
+                "tag": "h2",
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Silk and the railway",
+                    "type": "text",
+                    "version": 1
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Hachiōji grew rich on silk. In the Edo period its markets traded silk cloth and raw silk, and the town was called \"the mulberry capital\" (",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "type": "inlineBlock",
+                    "version": 1,
+                    "format": "",
+                    "fields": {
+                      "id": "cffd80dfa3dc0911",
+                      "blockName": "",
+                      "blockType": "jp",
+                      "t": "桑都",
+                      "r": "sōto",
+                      "en": "mulberry capital"
+                    }
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "). After Yokohama opened to foreign trade, the road that carried raw silk from Hachiōji to the port later came to be called the Silk Road (",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "type": "inlineBlock",
+                    "version": 1,
+                    "format": "",
+                    "fields": {
+                      "id": "45fbdeef342d8b95",
+                      "blockName": "",
+                      "blockType": "jp",
+                      "t": "絹の道",
+                      "r": "kinu no michi",
+                      "en": "Silk Road"
+                    }
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": ").",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "The railway that runs through Minamino today was built for the same trade. The Yokohama Line began in 1908 as the private Yokohama Railway, and its purpose was to carry raw silk produced around Hachiōji and in the Kōshin region to the port of Yokohama. The government leased it in 1910.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "heading",
+                "tag": "h2",
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Building Minamino City",
+                    "type": "text",
+                    "version": 1
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "The new town was built through the South Hachiōji land readjustment project (",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "type": "inlineBlock",
+                    "version": 1,
+                    "format": "",
+                    "fields": {
+                      "id": "753fdc075c938c2d",
+                      "blockName": "",
+                      "blockType": "jp",
+                      "t": "南八王子土地区画整理事業",
+                      "r": "Minami-Hachiōji tochi kukaku seiri jigyō",
+                      "en": "South Hachiōji land readjustment project"
+                    }
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "). The Housing and Urban Development Corporation, now the Urban Renaissance Agency (UR), carried it out. It covers five districts: Minamino, Nanakuni, Utsunuki-machi, Hyōe and Nishi-Katakura. It was also part of the plan to make Hachiōji and Tachikawa business centres for the Tama area.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "The idea was a town that lives with the landscape (",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "type": "inlineBlock",
+                    "version": 1,
+                    "format": "",
+                    "fields": {
+                      "id": "c94685ef0ba525b1",
+                      "blockName": "",
+                      "blockType": "jp",
+                      "t": "環境共生都市",
+                      "r": "kankyō kyōsei toshi",
+                      "en": "a town that lives with its environment"
+                    }
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "). It keeps the satoyama woodland (",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "type": "inlineBlock",
+                    "version": 1,
+                    "format": "",
+                    "fields": {
+                      "id": "00adf8d54afb7bfa",
+                      "blockName": "",
+                      "blockType": "jp",
+                      "t": "里山",
+                      "r": "satoyama",
+                      "en": "managed village woodland"
+                    }
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": ") and the waterways of the hills, and the slopes are gentle and step-free. Pavements are wide, and most utility lines run underground. Shops and homes sit in separate zones, and businesses and warehouses face National Route 16 on the east side.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "The station opened on 1 April 1997, at the same time as the town. Hachiōji-Minamino Station is on the JR Yokohama Line, 4.0 km from Hachiōji. Before it opened it was going to be called Utsunuki (",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "type": "inlineBlock",
+                    "version": 1,
+                    "format": "",
+                    "fields": {
+                      "id": "276597f07460b8bc",
+                      "blockName": "",
+                      "blockType": "jp",
+                      "t": "宇津貫",
+                      "r": "Utsunuki",
+                      "en": "the old place name"
+                    }
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "), after the old place name. In fiscal 2024 an average of 17,187 people a day boarded there, and smart platform doors came into use in November 2025.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "The shops arrived over the next decade: MiO Minamino in 2003, Fresupo Hachiōji Minamino in 2005 and Across Mall Hachiōji Minamino in 2006. Construction of the Hachiōji South Bypass along the town's northern edge began in 2008. Tokyo University of Technology and Nihon Kogakuin Hachiōji College, in neighbouring Katakura, run school buses from the station.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "heading",
+                "tag": "h2",
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Today",
+                    "type": "text",
+                    "version": 1
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "The town was planned for 28,000 people. At the end of March 2022 about 26,893 lived there, so it is close to full. Walk from the station toward Katakura Castle Ruins Park and you pass from 1990s streets with no overhead wires to earthworks some five centuries old.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ]
+          }
+        },
+        "ja": {
+          "root": {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "root",
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "八王子みなみ野シティは、八王子市の中でも新しい街のひとつです。都心から西へ約40km、八王子の中心部から南へ2〜5kmほど、多摩丘陵の北の縁にあります。街びらきは1997年3月。ただ、街が築かれた丘陵そのものには、ずっと長い歴史があります。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "heading",
+                "tag": "h2",
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "ニュータウン以前",
+                    "type": "text",
+                    "version": 1
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "宅地になる前、このあたりは林と谷戸の田んぼが続く丘陵地でした。近くには、古い歴史を伝える場所が今も二つ残っています。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "片倉城跡。",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " 小比企丘陵の東の先端、湯殿川と支流の兵衛川にはさまれた場所に、片倉城の跡があります。一般には、平安時代中期からこの地を横山党が治め、1213年(建保元年)の和田合戦の後に大江広元の手に渡ったと伝えられています。城は室町時代の平山城です。築いたのは大江備中守師親とも、扇谷上杉氏の家臣・長井氏ともいわれ、はっきりしません。後北条氏の砦として使われ、1590年(天正18年)に八王子城とともに落城したとされます。1971年(昭和46年)に八王子市が片倉城跡公園として整備し、1999年(平成11年)3月3日に東京都の史跡に指定されました。空堀や土塁が今も残り、春にはカタクリの群生地として知られています。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "七国峠。",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " みなみ野シティの地区のひとつ「七国」は、多摩丘陵南部の尾根にある七国峠に由来します。峠には鎌倉古道の一部が通り、かつては人々が日々行き来する道でした。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "heading",
+                "tag": "h2",
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "絹と鉄道",
+                    "type": "text",
+                    "version": 1
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "八王子は絹で栄えた町です。江戸時代には絹織物や生糸を取引する市が立ち、「桑都」と呼ばれました。横浜が開港して外国との貿易が始まると、八王子から港へ生糸を運んだ街道は、のちに「絹の道」と呼ばれるようになります。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "今みなみ野を走る鉄道も、同じ生糸のために生まれました。横浜線の始まりは1908年(明治41年)に開業した私鉄「横浜鉄道」で、八王子や甲信地方の生糸を横浜港へ運ぶことが目的でした。1910年に国が借り上げています。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "heading",
+                "tag": "h2",
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "みなみ野シティができるまで",
+                    "type": "text",
+                    "version": 1
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "ニュータウンは「南八王子土地区画整理事業」によって整備されました。事業を担ったのは住宅・都市整備公団(現在の都市再生機構、UR)です。みなみ野・七国・宇津貫町・兵衛・西片倉の5地区からなり、「八王子・立川・多摩業務核都市構想」の一部でもありました。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "コンセプトは「環境共生都市」。丘陵の里山や水路を残し、坂はゆるやかで段差がありません。歩道は広く、電線の多くは地中に埋められています。商業地と住宅地は分けられ、東側の国道16号沿いには事業所や物流施設が並びます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "八王子みなみ野駅は、街びらきと同じ1997年4月1日に開業しました。JR横浜線の駅で、八王子駅から4.0km。開業前の仮称は、地名にちなんだ「宇津貫」でした。2024年度の1日平均乗車人員は17,187人で、2025年11月にはスマートホームドアの使用が始まっています。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "商業施設はその後の10年で揃いました。2003年にMiOみなみ野、2005年にフレスポ八王子みなみ野、2006年にアクロスモール八王子みなみ野が開業しています。2008年には街の北側で八王子南バイパスの工事が始まりました。隣の片倉にある東京工科大学と日本工学院八王子専門学校は、駅からスクールバスを運行しています。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "heading",
+                "tag": "h2",
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "いまのみなみ野",
+                    "type": "text",
+                    "version": 1
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "計画人口は28,000人。2022年3月末時点で約26,893人が暮らしており、街はほぼ計画どおりの規模になりました。駅から片倉城跡公園まで歩くと、電柱のない1990年代の街並みから、およそ500年前の土塁まで一続きにたどれます。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ]
+          }
+        }
+      },
+      "updatedAt": "2026-11-08T09:00:00.000Z",
+      "createdAt": "2026-11-08T09:00:00.000Z",
       "_status": "published"
     }
   ],
