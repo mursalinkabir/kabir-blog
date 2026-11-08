@@ -47,7 +47,7 @@
   path has its own CSP (`security-headers.json` > `embeds`, rendered to `embed-headers.conf`). Never add
   `unsafe-inline` to the page CSP, `allow-same-origin` to an embed frame, or `connect-src` to the embed CSP.
 - A missing localized field means no page in that locale. Never fall back to another language.
-- Images: Unsplash License photos only (never Unsplash+), credit in the media `credit` field, WebP at 480/960/1600 px. See docs/images.md.
+- Images: any public source whose licence allows commercial reuse (Unsplash License, Wikimedia Commons, CC0/public domain, CC BY, CC BY-SA, and the other sources in docs/images.md); never Unsplash+, NC or ND licences. Credit (author, licence, source) in the media `credit` field, WebP at 480/960/1600 px, EXIF stripped. See docs/images.md.
 - Design: follow docs/design.md section 10 (bento magazine, light and dark). Teal `#01ad9f` is decoration; text and buttons use `--link` (`#007a6e` light, `#5eead4` dark). Never use a raw colour in components: tokens only.
 - Deployment: follow docs/deploy.md. This repo never holds cluster or homelab-terraform credentials; a code release is a tag here plus a hand-made bump in homelab-terraform. `deploy/` holds drafts to copy there, not files Argo CD reads.
 - Pin every GitHub Action by commit SHA (annotated tags: use the peeled commit, see docs/versions.md) and every downloaded tool by SHA-256.

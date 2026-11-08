@@ -188,7 +188,7 @@ Navy `#152035` band: centred links (About, Contact, Now, Uses, RSS), a row of 44
 - **Icons are inline SVG**, including the share buttons (letter glyphs failed the label-matches-text check).
 - **Social buttons** in the footer render only for accounts set in the `site` global (none yet) plus RSS and email.
 - **Fonts:** Mulish (variable, Latin 32 KB). No Japanese webfont: the system stack is used.
-- **Real photos** from Unsplash for the three sample covers (see `docs/images.md`), served as WebP at 480 / 960 / 1600 px.
+- **Real photos** from free sources (Unsplash for the three sample covers; see `docs/images.md` for the allowed sources), served as WebP at 480 / 960 / 1600 px.
 
 ## 9. Measured (Lighthouse mobile, production build, local preview)
 
