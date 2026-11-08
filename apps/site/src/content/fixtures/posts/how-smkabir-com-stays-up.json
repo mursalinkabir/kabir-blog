@@ -44,32 +44,32 @@
     }
   ],
   "hero": {
-    "id": "cover-tech",
-    "url": "/images/covers/cover-tech.jpg",
-    "filename": "cover-tech.jpg",
-    "mimeType": "image/jpeg",
-    "width": 2400,
-    "height": 1920,
+    "id": "cover-network",
+    "url": "/images/covers/cover-network-1600.webp",
+    "filename": "cover-network-1600.webp",
+    "mimeType": "image/webp",
+    "width": 1600,
+    "height": 1064,
     "alt": {
-      "en": "A monitor and a laptop showing code on a desk",
-      "ja": "デスクの上でコードを表示しているモニターとノートパソコン"
+      "en": "Network cables plugged into two stacked switches",
+      "ja": "積み重ねた2台のネットワークスイッチにつながれたLANケーブル"
     },
-    "credit": "Photo: Pakata Goh on Unsplash",
+    "credit": "Photo: ShakataGaNai, CC BY-SA 3.0 (Wikimedia Commons)",
     "sizes": {
       "480": {
-        "url": "/images/covers/cover-tech-480.webp",
+        "url": "/images/covers/cover-network-480.webp",
         "width": 480,
-        "height": 384
+        "height": 319
       },
       "960": {
-        "url": "/images/covers/cover-tech-960.webp",
+        "url": "/images/covers/cover-network-960.webp",
         "width": 960,
-        "height": 768
+        "height": 639
       },
       "1600": {
-        "url": "/images/covers/cover-tech-1600.webp",
+        "url": "/images/covers/cover-network-1600.webp",
         "width": 1600,
-        "height": 1280
+        "height": 1064
       }
     }
   },

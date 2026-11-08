@@ -727,6 +727,200 @@
           "filename": "minamino-moat-1600.webp"
         }
       }
+    },
+    {
+      "id": 61,
+      "alt": {
+        "en": "Network cables plugged into two stacked switches",
+        "ja": "積み重ねた2台のネットワークスイッチにつながれたLANケーブル"
+      },
+      "caption": {
+        "en": null,
+        "ja": null
+      },
+      "credit": "Photo: ShakataGaNai, CC BY-SA 3.0 (Wikimedia Commons)",
+      "updatedAt": "2026-11-09T10:00:00.000Z",
+      "createdAt": "2026-11-09T10:00:00.000Z",
+      "url": "/api/media/file/cover-network-1600.webp",
+      "thumbnailURL": "/api/media/file/cover-network-480.webp",
+      "filename": "cover-network-1600.webp",
+      "mimeType": "image/webp",
+      "filesize": 0,
+      "width": 1600,
+      "height": 1064,
+      "focalX": 50,
+      "focalY": 50,
+      "sizes": {
+        "w480": {
+          "url": "/api/media/file/cover-network-480.webp",
+          "width": 480,
+          "height": 319,
+          "mimeType": "image/webp",
+          "filesize": 0,
+          "filename": "cover-network-480.webp"
+        },
+        "w960": {
+          "url": "/api/media/file/cover-network-960.webp",
+          "width": 960,
+          "height": 639,
+          "mimeType": "image/webp",
+          "filesize": 0,
+          "filename": "cover-network-960.webp"
+        },
+        "w1600": {
+          "url": "/api/media/file/cover-network-1600.webp",
+          "width": 1600,
+          "height": 1064,
+          "mimeType": "image/webp",
+          "filesize": 0,
+          "filename": "cover-network-1600.webp"
+        }
+      }
+    },
+    {
+      "id": 62,
+      "alt": {
+        "en": "Rack-mounted servers seen at an angle, with their status lights on",
+        "ja": "ステータスランプが点灯した、ラックに並ぶサーバーを斜めから見たところ"
+      },
+      "caption": {
+        "en": null,
+        "ja": null
+      },
+      "credit": "Photo: Victorgrigas, CC BY-SA 3.0 (Wikimedia Commons)",
+      "updatedAt": "2026-11-09T10:00:00.000Z",
+      "createdAt": "2026-11-09T10:00:00.000Z",
+      "url": "/api/media/file/cover-servers-1600.webp",
+      "thumbnailURL": "/api/media/file/cover-servers-480.webp",
+      "filename": "cover-servers-1600.webp",
+      "mimeType": "image/webp",
+      "filesize": 0,
+      "width": 1600,
+      "height": 1067,
+      "focalX": 50,
+      "focalY": 50,
+      "sizes": {
+        "w480": {
+          "url": "/api/media/file/cover-servers-480.webp",
+          "width": 480,
+          "height": 320,
+          "mimeType": "image/webp",
+          "filesize": 0,
+          "filename": "cover-servers-480.webp"
+        },
+        "w960": {
+          "url": "/api/media/file/cover-servers-960.webp",
+          "width": 960,
+          "height": 640,
+          "mimeType": "image/webp",
+          "filesize": 0,
+          "filename": "cover-servers-960.webp"
+        },
+        "w1600": {
+          "url": "/api/media/file/cover-servers-1600.webp",
+          "width": 1600,
+          "height": 1067,
+          "mimeType": "image/webp",
+          "filesize": 0,
+          "filename": "cover-servers-1600.webp"
+        }
+      }
+    },
+    {
+      "id": 63,
+      "alt": {
+        "en": "An analogue electricity meter in a clear case, reading 3728 kWh",
+        "ja": "透明なカバー越しに見える、3728kWhを示すアナログの電力量計"
+      },
+      "caption": {
+        "en": null,
+        "ja": null
+      },
+      "credit": "Photo: OiMax, CC BY 2.0 (Wikimedia Commons)",
+      "updatedAt": "2026-11-09T10:00:00.000Z",
+      "createdAt": "2026-11-09T10:00:00.000Z",
+      "url": "/api/media/file/cover-meter-1600.webp",
+      "thumbnailURL": "/api/media/file/cover-meter-480.webp",
+      "filename": "cover-meter-1600.webp",
+      "mimeType": "image/webp",
+      "filesize": 0,
+      "width": 1600,
+      "height": 1067,
+      "focalX": 50,
+      "focalY": 50,
+      "sizes": {
+        "w480": {
+          "url": "/api/media/file/cover-meter-480.webp",
+          "width": 480,
+          "height": 320,
+          "mimeType": "image/webp",
+          "filesize": 0,
+          "filename": "cover-meter-480.webp"
+        },
+        "w960": {
+          "url": "/api/media/file/cover-meter-960.webp",
+          "width": 960,
+          "height": 640,
+          "mimeType": "image/webp",
+          "filesize": 0,
+          "filename": "cover-meter-960.webp"
+        },
+        "w1600": {
+          "url": "/api/media/file/cover-meter-1600.webp",
+          "width": 1600,
+          "height": 1067,
+          "mimeType": "image/webp",
+          "filesize": 0,
+          "filename": "cover-meter-1600.webp"
+        }
+      }
+    },
+    {
+      "id": 64,
+      "alt": {
+        "ja": "ネットワークスイッチの上に置かれた、ヒートシンクつきのRaspberry Pi"
+      },
+      "caption": {
+        "ja": null
+      },
+      "credit": "Photo: RAIL P (rail.photography), CC0 (Wikimedia Commons)",
+      "updatedAt": "2026-11-09T10:00:00.000Z",
+      "createdAt": "2026-11-09T10:00:00.000Z",
+      "url": "/api/media/file/cover-pi-1600.webp",
+      "thumbnailURL": "/api/media/file/cover-pi-480.webp",
+      "filename": "cover-pi-1600.webp",
+      "mimeType": "image/webp",
+      "filesize": 0,
+      "width": 1600,
+      "height": 1064,
+      "focalX": 50,
+      "focalY": 50,
+      "sizes": {
+        "w480": {
+          "url": "/api/media/file/cover-pi-480.webp",
+          "width": 480,
+          "height": 319,
+          "mimeType": "image/webp",
+          "filesize": 0,
+          "filename": "cover-pi-480.webp"
+        },
+        "w960": {
+          "url": "/api/media/file/cover-pi-960.webp",
+          "width": 960,
+          "height": 639,
+          "mimeType": "image/webp",
+          "filesize": 0,
+          "filename": "cover-pi-960.webp"
+        },
+        "w1600": {
+          "url": "/api/media/file/cover-pi-1600.webp",
+          "width": 1600,
+          "height": 1064,
+          "mimeType": "image/webp",
+          "filesize": 0,
+          "filename": "cover-pi-1600.webp"
+        }
+      }
     }
   ],
   "categories": [
@@ -924,7 +1118,7 @@
       ],
       "pubDate": "2026-10-01T09:00:00.000Z",
       "updatedDate": null,
-      "hero": null,
+      "hero": 64,
       "series": {
         "name": null,
         "part": null
@@ -1185,7 +1379,7 @@
       ],
       "pubDate": "2026-10-12T09:00:00.000Z",
       "updatedDate": null,
-      "hero": 46,
+      "hero": 61,
       "series": {
         "name": "Building smkabir.com",
         "part": 2
@@ -8482,7 +8676,7 @@
       ],
       "pubDate": "2026-10-12T08:20:00.000Z",
       "updatedDate": null,
-      "hero": 46,
+      "hero": 62,
       "series": {
         "name": "TraderBuddy",
         "part": 3
@@ -35257,7 +35451,7 @@
       ],
       "pubDate": "2026-10-04T09:00:00.000Z",
       "updatedDate": "2026-11-04T09:00:00.000Z",
-      "hero": 50,
+      "hero": 63,
       "series": {
         "name": null,
         "part": null

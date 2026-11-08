@@ -256,5 +256,34 @@
         "type": "root"
       }
     }
+  },
+  "hero": {
+    "id": "cover-pi",
+    "url": "/images/covers/cover-pi-1600.webp",
+    "filename": "cover-pi-1600.webp",
+    "mimeType": "image/webp",
+    "width": 1600,
+    "height": 1064,
+    "alt": {
+      "ja": "ネットワークスイッチの上に置かれた、ヒートシンクつきのRaspberry Pi"
+    },
+    "credit": "Photo: RAIL P (rail.photography), CC0 (Wikimedia Commons)",
+    "sizes": {
+      "480": {
+        "url": "/images/covers/cover-pi-480.webp",
+        "width": 480,
+        "height": 319
+      },
+      "960": {
+        "url": "/images/covers/cover-pi-960.webp",
+        "width": 960,
+        "height": 639
+      },
+      "1600": {
+        "url": "/images/covers/cover-pi-1600.webp",
+        "width": 1600,
+        "height": 1064
+      }
+    }
   }
 }

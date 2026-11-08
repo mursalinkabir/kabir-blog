@@ -44,32 +44,32 @@
     }
   ],
   "hero": {
-    "id": "cover-tech",
-    "url": "/images/covers/cover-tech.jpg",
-    "filename": "cover-tech.jpg",
-    "mimeType": "image/jpeg",
-    "width": 2400,
-    "height": 1920,
+    "id": "cover-servers",
+    "url": "/images/covers/cover-servers-1600.webp",
+    "filename": "cover-servers-1600.webp",
+    "mimeType": "image/webp",
+    "width": 1600,
+    "height": 1067,
     "alt": {
-      "en": "A monitor and a laptop showing code on a desk",
-      "ja": "デスクの上でコードを表示しているモニターとノートパソコン"
+      "en": "Rack-mounted servers seen at an angle, with their status lights on",
+      "ja": "ステータスランプが点灯した、ラックに並ぶサーバーを斜めから見たところ"
     },
-    "credit": "Photo: Pakata Goh on Unsplash",
+    "credit": "Photo: Victorgrigas, CC BY-SA 3.0 (Wikimedia Commons)",
     "sizes": {
       "480": {
-        "url": "/images/covers/cover-tech-480.webp",
+        "url": "/images/covers/cover-servers-480.webp",
         "width": 480,
-        "height": 384
+        "height": 320
       },
       "960": {
-        "url": "/images/covers/cover-tech-960.webp",
+        "url": "/images/covers/cover-servers-960.webp",
         "width": 960,
-        "height": 768
+        "height": 640
       },
       "1600": {
-        "url": "/images/covers/cover-tech-1600.webp",
+        "url": "/images/covers/cover-servers-1600.webp",
         "width": 1600,
-        "height": 1280
+        "height": 1067
       }
     }
   },

@@ -31,32 +31,32 @@
     }
   ],
   "hero": {
-    "id": "cover-finance",
-    "url": "/images/covers/cover-finance.jpg",
-    "filename": "cover-finance.jpg",
-    "mimeType": "image/jpeg",
-    "width": 2400,
-    "height": 1594,
+    "id": "cover-meter",
+    "url": "/images/covers/cover-meter-1600.webp",
+    "filename": "cover-meter-1600.webp",
+    "mimeType": "image/webp",
+    "width": 1600,
+    "height": 1067,
     "alt": {
-      "en": "Price charts on a dark trading screen",
-      "ja": "暗いトレード画面に映る値動きのチャート"
+      "en": "An analogue electricity meter in a clear case, reading 3728 kWh",
+      "ja": "透明なカバー越しに見える、3728kWhを示すアナログの電力量計"
     },
-    "credit": "Photo: Nicholas Cappello on Unsplash",
+    "credit": "Photo: OiMax, CC BY 2.0 (Wikimedia Commons)",
     "sizes": {
       "480": {
-        "url": "/images/covers/cover-finance-480.webp",
+        "url": "/images/covers/cover-meter-480.webp",
         "width": 480,
-        "height": 319
+        "height": 320
       },
       "960": {
-        "url": "/images/covers/cover-finance-960.webp",
+        "url": "/images/covers/cover-meter-960.webp",
         "width": 960,
-        "height": 638
+        "height": 640
       },
       "1600": {
-        "url": "/images/covers/cover-finance-1600.webp",
+        "url": "/images/covers/cover-meter-1600.webp",
         "width": 1600,
-        "height": 1063
+        "height": 1067
       }
     }
   },
