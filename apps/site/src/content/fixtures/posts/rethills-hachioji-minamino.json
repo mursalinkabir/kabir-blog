@@ -1,0 +1,3135 @@
+{
+  "id": "p-rethills",
+  "_status": "published",
+  "slug": "rethills-hachioji-minamino",
+  "pubDate": "2026-11-10T09:00:00.000Z",
+  "toc": true,
+  "publishedIn": {
+    "en": true,
+    "ja": true
+  },
+  "title": {
+    "en": "Hachiōji Minamino Ret Hills: a 170-home ZEH neighbourhood from Toyota Home and Panasonic Homes",
+    "ja": "八王子みなみ野リトヒルズ：トヨタホームとパナソニック ホームズが手がけた170区画のZEHの街"
+  },
+  "description": {
+    "en": "What Ret Hills is, who built it and how the town is laid out, read from the developers' own releases and trade-press reports in Japanese, with photos of the gate, the clubhouse and the streets.",
+    "ja": "リトヒルズとはどんな街か、誰が手がけ、どう設計されているのか。事業者の発表と専門紙の報道を日本語で読み解き、ゲート、クラブハウス、街路の写真とともに紹介します。"
+  },
+  "content": {
+    "en": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "type": "root",
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Hachiōji Minamino Ret Hills (",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "type": "inlineBlock",
+                "version": 1,
+                "format": "",
+                "fields": {
+                  "id": "bfefd0c209a98c17",
+                  "blockName": "",
+                  "blockType": "jp",
+                  "t": "八王子みなみ野リトヒルズ",
+                  "r": "Hachiōji Minamino Ritohiruzu",
+                  "en": "Hachiōji Minamino Ret Hills"
+                }
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ") is a neighbourhood of 170 detached-house lots in Minamino, Hachiōji, on the Tama Hills (",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "type": "inlineBlock",
+                "version": 1,
+                "format": "",
+                "fields": {
+                  "id": "5becf78d2726e106",
+                  "blockName": "",
+                  "blockType": "jp",
+                  "t": "多摩丘陵",
+                  "r": "Tama kyūryō",
+                  "en": "the Tama Hills"
+                }
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "). Toyota Home and Panasonic Homes developed it together. The town opened (",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "type": "inlineBlock",
+                "version": 1,
+                "format": "",
+                "fields": {
+                  "id": "e833f365490424d3",
+                  "blockName": "",
+                  "blockType": "jp",
+                  "t": "街びらき",
+                  "r": "machibiraki",
+                  "en": "town opening"
+                }
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ") on 15 October 2022 and the first lots went on sale a week later. The plaques on the gate pillars spell the name \"RetHills\"; in katakana it is リトヒルズ.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "This post is based on the developers' press releases and on trade-press reports, all in Japanese. The links are at the end. Most figures come from reports written between October 2022 and March 2023, so treat them as a snapshot of that time.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "At a glance",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "table",
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Developers",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Toyota Home Co., Ltd. (Nagoya) and Panasonic Homes Co., Ltd. (Toyonaka, Osaka). Both are group companies of Prime Life Technologies (Minato-ku, Tokyo).",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Size",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "170 lots. The site is reported as over 38,000 m².",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Dates",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Town opening 15 October 2022. Sales from 22 October 2022.",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Homes",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Every home is ZEH, and every home has a solar power system.",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Shared",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "A clubhouse, pedestrian-only avenues and an olive tree as the symbol tree.",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "Getting there",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "18 to 20 minutes on foot from Hachiōji-Minamino Station (JR Yokohama Line). Elementary and junior high schools are within about 10 minutes on foot.",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Two builders, one town",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Toyota Home and Panasonic Homes sit in the same group and have worked together before, on a town in Miyoshi, Aichi Prefecture. At Ret Hills they present it as a joint town-building project (",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "type": "inlineBlock",
+                "version": 1,
+                "format": "",
+                "fields": {
+                  "id": "c379e3462faeb3a7",
+                  "blockName": "",
+                  "blockType": "jp",
+                  "t": "街づくり共同事業",
+                  "r": "machizukuri kyōdō jigyō",
+                  "en": "joint town-development business"
+                }
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ") that combines what each company has learned about building neighbourhoods.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The first phase had 31 homes: 15 by Toyota Home and 16 by Panasonic Homes. By February 2023, 29 of the 31 had been sold, all 15 of Toyota Home's and 14 of Panasonic Homes' 16. The lots in that phase ranged from 165.06 to 175.57 m². The most common price band was the 60 million yen range, and most buyers were first-time home buyers in their thirties with families.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "What \"Ret\" means",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The releases do not explain the name. Reports on the project describe five concepts that begin with R, for a town designed for the post-pandemic \"new normal\": retreat, reset, relaxation, recreation and remote. A March 2023 report sums up the concept as a town design that lets residents reset body and mind and retreat (",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "type": "inlineBlock",
+                "version": 1,
+                "format": "",
+                "fields": {
+                  "id": "8faef80fb3485150",
+                  "blockName": "",
+                  "blockType": "jp",
+                  "t": "リトリート",
+                  "r": "ritorīto",
+                  "en": "retreat"
+                }
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "). It is tempting to read \"Ret\" as short for retreat, but I have not found the companies saying so.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "How the town is laid out",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The town has four streets and three pedestrian-only avenues (",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "type": "inlineBlock",
+                "version": 1,
+                "format": "",
+                "fields": {
+                  "id": "307547ae3872b732",
+                  "blockName": "",
+                  "blockType": "jp",
+                  "t": "歩行者専用道路",
+                  "r": "hokōsha senyō dōro",
+                  "en": "pedestrian-only roads"
+                }
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "). The idea is that residents meet on foot. Cars enter through only two entrances, which keeps through traffic out, and many lots face both a road and a walkway, which the developers say gives openness and privacy together. An olive tree is the symbol tree. The Town Gate marks the entrance, and the clubhouse stands near it.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "e854c8ea4b91135b",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "rethills-gate-night",
+                "url": "/images/rethills/rethills-gate-night-1512.webp",
+                "filename": "rethills-gate-night-1512.webp",
+                "mimeType": "image/webp",
+                "width": 1512,
+                "height": 2016,
+                "alt": {
+                  "en": "The RetHills gate at night, with lit stone pillars and a gabled building behind",
+                  "ja": "夜のRetHillsのゲート。灯りがともる石積みの柱と、奥に切妻屋根の建物"
+                },
+                "credit": "Photo: Mursalin Kabir",
+                "sizes": {
+                  "480": {
+                    "url": "/images/rethills/rethills-gate-night-480.webp",
+                    "width": 480,
+                    "height": 640
+                  },
+                  "960": {
+                    "url": "/images/rethills/rethills-gate-night-960.webp",
+                    "width": 960,
+                    "height": 1280
+                  },
+                  "1512": {
+                    "url": "/images/rethills/rethills-gate-night-1512.webp",
+                    "width": 1512,
+                    "height": 2016
+                  }
+                }
+              },
+              "caption": "A gate at night: stone pillars with the RetHills plaques, lantern lights and a gabled building behind.",
+              "credit": "Photo: Mursalin Kabir"
+            }
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "bccae51bfaa7370a",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "rethills-avenue",
+                "url": "/images/rethills/rethills-avenue-1512.webp",
+                "filename": "rethills-avenue-1512.webp",
+                "mimeType": "image/webp",
+                "width": 1512,
+                "height": 2016,
+                "alt": {
+                  "en": "A brick-paved pedestrian avenue at dusk between two rows of houses, lit along both edges",
+                  "ja": "夕暮れの、両側に住宅が並ぶレンガ敷きの歩行者専用道路。両端が照らされている"
+                },
+                "credit": "Photo: Mursalin Kabir",
+                "sizes": {
+                  "480": {
+                    "url": "/images/rethills/rethills-avenue-480.webp",
+                    "width": 480,
+                    "height": 640
+                  },
+                  "960": {
+                    "url": "/images/rethills/rethills-avenue-960.webp",
+                    "width": 960,
+                    "height": 1280
+                  },
+                  "1512": {
+                    "url": "/images/rethills/rethills-avenue-1512.webp",
+                    "width": 1512,
+                    "height": 2016
+                  }
+                }
+              },
+              "caption": "A pedestrian avenue at dusk, paved in brick and lit along both edges, with small stone markers among the planting.",
+              "credit": "Photo: Mursalin Kabir"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The clubhouse",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The clubhouse is a single-storey building with an exchange space, a lounge, a workspace and a community deck. There is also a place to eat outdoors. Residents get in with the card key of their own home. The developers also describe it as a base for disaster prevention. At a press tour on 28 February 2023 the companies presented the finished clubhouse, and the trade press headlined its link to sport as a way to meet neighbours and retreat.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "9e5d922eddfc49ac",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "rethills-clubhouse",
+                "url": "/images/rethills/rethills-clubhouse-1450.webp",
+                "filename": "rethills-clubhouse-1450.webp",
+                "mimeType": "image/webp",
+                "width": 1450,
+                "height": 2576,
+                "alt": {
+                  "en": "The clubhouse entrance at night under a gabled porch, with a lamp in the planting in front",
+                  "ja": "切妻の玄関ポーチの下にある夜のクラブハウスの入口と、手前の植え込みの灯り"
+                },
+                "credit": "Photo: Mursalin Kabir",
+                "sizes": {
+                  "480": {
+                    "url": "/images/rethills/rethills-clubhouse-480.webp",
+                    "width": 480,
+                    "height": 853
+                  },
+                  "960": {
+                    "url": "/images/rethills/rethills-clubhouse-960.webp",
+                    "width": 960,
+                    "height": 1705
+                  },
+                  "1450": {
+                    "url": "/images/rethills/rethills-clubhouse-1450.webp",
+                    "width": 1450,
+                    "height": 2576
+                  }
+                }
+              },
+              "caption": "The clubhouse entrance at night. The sign reads Hachiōji Minamino RetHills Clubhouse.",
+              "credit": "Photo: Mursalin Kabir"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ZEH and solar",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ZEH stands for net-zero-energy house (",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "type": "inlineBlock",
+                "version": 1,
+                "format": "",
+                "fields": {
+                  "id": "5283447c694088d8",
+                  "blockName": "",
+                  "blockType": "jp",
+                  "t": "ネット・ゼロ・エネルギー・ハウス",
+                  "r": "netto zero enerugī hausu",
+                  "en": "net-zero-energy house"
+                }
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "): a home designed to produce about as much energy over a year as it uses, through insulation, efficient equipment and its own generation. At Ret Hills every home is ZEH and every home carries a solar power system. The companies describe the aim as a streetscape where natural scenery and ZEH homes with the latest equipment fit together.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Hills and a park",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Ret Hills sits on the Tama Hills, surrounded by parks and forest, and listings and reports place it next to Tochiyato Park (",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "type": "inlineBlock",
+                "version": 1,
+                "format": "",
+                "fields": {
+                  "id": "997b0fabd74f03a4",
+                  "blockName": "",
+                  "blockType": "jp",
+                  "t": "栃谷戸公園",
+                  "r": "Tochiyato Kōen",
+                  "en": "Tochiyato Park"
+                }
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "). A local guide describes that park as a satoyama (",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "type": "inlineBlock",
+                "version": 1,
+                "format": "",
+                "fields": {
+                  "id": "486542ad47b7835e",
+                  "blockName": "",
+                  "blockType": "jp",
+                  "t": "里山",
+                  "r": "satoyama",
+                  "en": "managed woodland and farmland at the edge of a village"
+                }
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ") with terraced fields, a woodland path, a hilltop lawn and an observation deck with a view of Mount Fuji. The guide's page was last updated in 2010, so the details may have changed.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "This is the other side of the story in ",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 3,
+                "type": "link",
+                "fields": {
+                  "linkType": "custom",
+                  "newTab": false,
+                  "url": "/posts/hachioji-minamino-history/"
+                },
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "the Minamino history post",
+                    "type": "text",
+                    "version": 1
+                  }
+                ]
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": ". The land was hill country before the 1997 new town, and Ret Hills arrived 25 years after the station opened.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "bb1b78173b230e6e",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "rethills-dusk",
+                "url": "/images/rethills/rethills-dusk-1512.webp",
+                "filename": "rethills-dusk-1512.webp",
+                "mimeType": "image/webp",
+                "width": 1512,
+                "height": 2016,
+                "alt": {
+                  "en": "Houses lit from below under a deep blue night sky, with the planting in silhouette",
+                  "ja": "深い青の夜空の下、下から照らされた住宅と、シルエットになった植え込み"
+                },
+                "credit": "Photo: Mursalin Kabir",
+                "sizes": {
+                  "480": {
+                    "url": "/images/rethills/rethills-dusk-480.webp",
+                    "width": 480,
+                    "height": 640
+                  },
+                  "960": {
+                    "url": "/images/rethills/rethills-dusk-960.webp",
+                    "width": 960,
+                    "height": 1280
+                  },
+                  "1512": {
+                    "url": "/images/rethills/rethills-dusk-1512.webp",
+                    "width": 1512,
+                    "height": 2016
+                  }
+                }
+              },
+              "caption": "Houses lit from below under a night sky, with the shadows of the planting on the walls.",
+              "credit": "Photo: Mursalin Kabir"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Security",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The developers describe their own three-layer security system, without publishing the details. Every home has ALSOK home security, and cameras are set at all of the town's entrances.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Notes",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Sales status and prices change, and the figures above are from 2022 and early 2023. Check the developers' official pages for today's information.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "This is a description of a public development, not advice on buying a home.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "The meaning of the name is not stated in the sources. The reading above is mine.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Sources",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "type": "link",
+                    "fields": {
+                      "linkType": "custom",
+                      "newTab": false,
+                      "url": "https://homes.panasonic.com/company/news/release/2022/101402.html"
+                    },
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Panasonic Homes press release, 14 October 2022",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ]
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "type": "link",
+                    "fields": {
+                      "linkType": "custom",
+                      "newTab": false,
+                      "url": "https://www.toyotahome.co.jp/corporate/pdf/p221014.pdf"
+                    },
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Toyota Home press release, 14 October 2022 (PDF)",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ]
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "type": "link",
+                    "fields": {
+                      "linkType": "custom",
+                      "newTab": false,
+                      "url": "https://prtimes.jp/main/html/rd/p/000000096.000022927.html"
+                    },
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "PR TIMES: the town opening",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ]
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "type": "link",
+                    "fields": {
+                      "linkType": "custom",
+                      "newTab": false,
+                      "url": "https://prime-life-tec.com/news/2022/1014_2/index.html"
+                    },
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Prime Life Technologies news, 14 October 2022",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ]
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "type": "link",
+                    "fields": {
+                      "linkType": "custom",
+                      "newTab": false,
+                      "url": "https://www.housenews.jp/house/22668"
+                    },
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Housing News: 170 lots, ZEH as standard, \"relaxation\" and \"healing\"",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ]
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "type": "link",
+                    "fields": {
+                      "linkType": "custom",
+                      "newTab": false,
+                      "url": "https://www.housenews.jp/house/23793"
+                    },
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Housing News: clubhouse completed, sport and retreat",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ]
+                  }
+                ],
+                "type": "listitem",
+                "value": 6
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "type": "link",
+                    "fields": {
+                      "linkType": "custom",
+                      "newTab": false,
+                      "url": "https://htonline.sohjusha.co.jp/658-040/"
+                    },
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Jūtaku Sangyō Shimbun, 13 March 2023: first-phase sales, lots, clubhouse and security",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ]
+                  }
+                ],
+                "type": "listitem",
+                "value": 7
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "type": "link",
+                    "fields": {
+                      "linkType": "custom",
+                      "newTab": false,
+                      "url": "https://8park.jp/hachi-tochiyato.html"
+                    },
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "8park.jp: Tochiyato Park",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ]
+                  }
+                ],
+                "type": "listitem",
+                "value": 8
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          }
+        ]
+      }
+    },
+    "ja": {
+      "root": {
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "type": "root",
+        "children": [
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "八王子みなみ野リトヒルズは、八王子市みなみ野の多摩丘陵にある、170区画の戸建住宅地です。トヨタホームとパナソニック ホームズが共同で開発しました。街びらきは2022年10月15日、販売開始はその1週間後の10月22日です。ゲートの柱のプレートには「RetHills」と書かれています。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "この記事は、事業者のプレスリリースと専門紙の報道をもとに書きました。リンクは記事の最後にあります。数字の多くは2022年10月から2023年3月までの報道によるもので、その時点のものとしてご覧ください。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ひと目でわかる概要",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "table",
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 1,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "事業者",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "トヨタホーム株式会社（名古屋市）とパナソニック ホームズ株式会社（大阪府豊中市）。どちらもプライム ライフ テクノロジーズ（東京都港区）のグループ会社です。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "規模",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "170区画。街区の敷地面積は3万8000㎡超と報じられています。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "時期",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "街びらきは2022年10月15日、販売開始は2022年10月22日です。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "住まい",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "全棟がZEHで、全住戸に太陽光発電システムを搭載しています。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "共用部",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "クラブハウス、歩行者専用道路、シンボルツリーのオリーブです。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "tablerow",
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "アクセス",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "type": "tablecell",
+                    "headerState": 0,
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "backgroundColor": null,
+                    "children": [
+                      {
+                        "direction": "ltr",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "detail": 0,
+                            "format": 0,
+                            "mode": "normal",
+                            "style": "",
+                            "text": "JR横浜線「八王子みなみ野」駅から徒歩18〜20分。小・中学校は徒歩約10分圏内です。",
+                            "type": "text",
+                            "version": 1
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "2社でつくる1つの街",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "トヨタホームとパナソニック ホームズは同じグループの会社で、愛知県みよし市の街づくりでも協力した実績があります。リトヒルズは「街づくり共同事業」として、両社の街づくりのノウハウを集めた取り組みです。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "第一期は31棟で、トヨタホームが15棟、パナソニック ホームズが16棟でした。2023年2月時点で29棟が成約済みで、トヨタホームは15棟すべて、パナソニック ホームズは16棟のうち14棟です。この期の敷地面積は165.06〜175.57㎡で、最も多い価格帯は6000万円台、購入者の多くは30代のファミリー世代の初めての住宅取得者でした。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "「リト」の意味",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "名称の意味は、リリースには書かれていません。報道では、コロナ禍後のニューノーマルの街づくりとして、リトリート、リセット、リラクゼーション、レクリエーション、リモートという「R」で始まる5つのコンセプトが紹介されています。2023年3月の報道は、コンセプトを「心身をリセットする、リトリートを実現するタウンデザイン」と説明しています。「リト」はリトリートの略と読みたくなりますが、事業者がそう述べているのは確認できていません。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "街の構成",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "街には4つのストリートと3つの歩行者専用道路（アベニュー）があります。住民同士が歩いて出会えることが狙いです。車の出入口は2カ所に限られ、通過する車を抑えています。道路と遊歩道の両方に面した区画も多く、開放感とプライバシーを両立させたと事業者は説明しています。シンボルツリーはオリーブです。入口にはタウンゲートがあり、その近くにクラブハウスが建っています。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "a8f0180250c2f5a4",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "rethills-gate-night",
+                "url": "/images/rethills/rethills-gate-night-1512.webp",
+                "filename": "rethills-gate-night-1512.webp",
+                "mimeType": "image/webp",
+                "width": 1512,
+                "height": 2016,
+                "alt": {
+                  "en": "The RetHills gate at night, with lit stone pillars and a gabled building behind",
+                  "ja": "夜のRetHillsのゲート。灯りがともる石積みの柱と、奥に切妻屋根の建物"
+                },
+                "credit": "Photo: Mursalin Kabir",
+                "sizes": {
+                  "480": {
+                    "url": "/images/rethills/rethills-gate-night-480.webp",
+                    "width": 480,
+                    "height": 640
+                  },
+                  "960": {
+                    "url": "/images/rethills/rethills-gate-night-960.webp",
+                    "width": 960,
+                    "height": 1280
+                  },
+                  "1512": {
+                    "url": "/images/rethills/rethills-gate-night-1512.webp",
+                    "width": 1512,
+                    "height": 2016
+                  }
+                }
+              },
+              "caption": "夜のゲート。RetHillsのプレートがついた石積みの柱、灯り、奥に切妻屋根の建物が見えます。",
+              "credit": "Photo: Mursalin Kabir"
+            }
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "ee60206923e52260",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "rethills-avenue",
+                "url": "/images/rethills/rethills-avenue-1512.webp",
+                "filename": "rethills-avenue-1512.webp",
+                "mimeType": "image/webp",
+                "width": 1512,
+                "height": 2016,
+                "alt": {
+                  "en": "A brick-paved pedestrian avenue at dusk between two rows of houses, lit along both edges",
+                  "ja": "夕暮れの、両側に住宅が並ぶレンガ敷きの歩行者専用道路。両端が照らされている"
+                },
+                "credit": "Photo: Mursalin Kabir",
+                "sizes": {
+                  "480": {
+                    "url": "/images/rethills/rethills-avenue-480.webp",
+                    "width": 480,
+                    "height": 640
+                  },
+                  "960": {
+                    "url": "/images/rethills/rethills-avenue-960.webp",
+                    "width": 960,
+                    "height": 1280
+                  },
+                  "1512": {
+                    "url": "/images/rethills/rethills-avenue-1512.webp",
+                    "width": 1512,
+                    "height": 2016
+                  }
+                }
+              },
+              "caption": "夕暮れの歩行者専用道路。レンガ敷きの道の両側が照らされ、植え込みの間に小さな石のマーカーが並びます。",
+              "credit": "Photo: Mursalin Kabir"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "クラブハウス",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "クラブハウスは平屋建てで、交流スペース、ラウンジ、ワークスペース、コミュニティデッキがあります。屋外で食事を楽しめる場所もあります。利用には各住戸のカードキーを使います。災害時の防災拠点としても位置づけられています。2023年2月28日の報道陣向け見学会で完成したクラブハウスが紹介され、専門紙は「スポーツ」を通じた交流とリトリートの提案として報じました。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "95a007f0f8b2bd51",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "rethills-clubhouse",
+                "url": "/images/rethills/rethills-clubhouse-1450.webp",
+                "filename": "rethills-clubhouse-1450.webp",
+                "mimeType": "image/webp",
+                "width": 1450,
+                "height": 2576,
+                "alt": {
+                  "en": "The clubhouse entrance at night under a gabled porch, with a lamp in the planting in front",
+                  "ja": "切妻の玄関ポーチの下にある夜のクラブハウスの入口と、手前の植え込みの灯り"
+                },
+                "credit": "Photo: Mursalin Kabir",
+                "sizes": {
+                  "480": {
+                    "url": "/images/rethills/rethills-clubhouse-480.webp",
+                    "width": 480,
+                    "height": 853
+                  },
+                  "960": {
+                    "url": "/images/rethills/rethills-clubhouse-960.webp",
+                    "width": 960,
+                    "height": 1705
+                  },
+                  "1450": {
+                    "url": "/images/rethills/rethills-clubhouse-1450.webp",
+                    "width": 1450,
+                    "height": 2576
+                  }
+                }
+              },
+              "caption": "夜のクラブハウスの入口。看板には「HACHIOJI MINAMINO RetHills CLUBHOUSE」とあります。",
+              "credit": "Photo: Mursalin Kabir"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ZEHと太陽光",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ZEH（ゼッチ）は「ネット・ゼロ・エネルギー・ハウス」の略で、断熱や高効率の設備、自家発電によって、1年間に使うエネルギーとつくるエネルギーがおおむね同じになるよう設計した住宅のことです。リトヒルズでは全棟がZEHで、全住戸に太陽光発電システムがあります。両社は、自然の景観と最新設備のZEHが調和する街並みを目指すとしています。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "丘と公園",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "リトヒルズは、公園と森に囲まれた多摩丘陵にあり、物件情報や報道では、みなみ野の栃谷戸公園（とちやとこうえん）に隣接するとされています。地域の公園情報サイトによると、この公園は里山を再現した公園で、段々畑、雑木林の散策路、丘の上の広場、富士山を望む展望台があります。このページの最終更新は2010年なので、現在は変わっている可能性があります。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "これは、",
+                "type": "text",
+                "version": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 3,
+                "type": "link",
+                "fields": {
+                  "linkType": "custom",
+                  "newTab": false,
+                  "url": "/ja/posts/hachioji-minamino-history/"
+                },
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "みなみ野の歴史の記事",
+                    "type": "text",
+                    "version": 1
+                  }
+                ]
+              },
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "の続きでもあります。1997年のニュータウンができる前、このあたりは丘陵地でした。リトヒルズは、駅の開業から25年後に生まれた街です。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "block",
+            "version": 2,
+            "format": "",
+            "fields": {
+              "id": "f7d8bb313b338162",
+              "blockName": "",
+              "blockType": "figure",
+              "media": {
+                "id": "rethills-dusk",
+                "url": "/images/rethills/rethills-dusk-1512.webp",
+                "filename": "rethills-dusk-1512.webp",
+                "mimeType": "image/webp",
+                "width": 1512,
+                "height": 2016,
+                "alt": {
+                  "en": "Houses lit from below under a deep blue night sky, with the planting in silhouette",
+                  "ja": "深い青の夜空の下、下から照らされた住宅と、シルエットになった植え込み"
+                },
+                "credit": "Photo: Mursalin Kabir",
+                "sizes": {
+                  "480": {
+                    "url": "/images/rethills/rethills-dusk-480.webp",
+                    "width": 480,
+                    "height": 640
+                  },
+                  "960": {
+                    "url": "/images/rethills/rethills-dusk-960.webp",
+                    "width": 960,
+                    "height": 1280
+                  },
+                  "1512": {
+                    "url": "/images/rethills/rethills-dusk-1512.webp",
+                    "width": 1512,
+                    "height": 2016
+                  }
+                }
+              },
+              "caption": "下から照らされた住宅と夜空。壁に植え込みの影が映っています。",
+              "credit": "Photo: Mursalin Kabir"
+            }
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "防犯",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "事業者は独自の3重のセキュリティシステムを導入していると説明していますが、内容は公表されていません。各住戸にはALSOKのホームセキュリティがあり、街のすべての入口に防犯カメラが設置されています。",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "注意点",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "販売状況や価格は変わります。上の数字は2022年と2023年初めのものです。現在の情報は事業者の公式ページでご確認ください。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "この記事は公開されている街の紹介であり、住宅購入のアドバイスではありません。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "名称の意味は資料には書かれていません。上の読み方は筆者の推測です。",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "heading",
+            "tag": "h2",
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "出典",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "type": "link",
+                    "fields": {
+                      "linkType": "custom",
+                      "newTab": false,
+                      "url": "https://homes.panasonic.com/company/news/release/2022/101402.html"
+                    },
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "パナソニック ホームズ プレスリリース（2022年10月14日）",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ]
+                  }
+                ],
+                "type": "listitem",
+                "value": 1
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "type": "link",
+                    "fields": {
+                      "linkType": "custom",
+                      "newTab": false,
+                      "url": "https://www.toyotahome.co.jp/corporate/pdf/p221014.pdf"
+                    },
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "トヨタホーム プレスリリース（2022年10月14日、PDF）",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ]
+                  }
+                ],
+                "type": "listitem",
+                "value": 2
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "type": "link",
+                    "fields": {
+                      "linkType": "custom",
+                      "newTab": false,
+                      "url": "https://prtimes.jp/main/html/rd/p/000000096.000022927.html"
+                    },
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "PR TIMES：街びらき",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ]
+                  }
+                ],
+                "type": "listitem",
+                "value": 3
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "type": "link",
+                    "fields": {
+                      "linkType": "custom",
+                      "newTab": false,
+                      "url": "https://prime-life-tec.com/news/2022/1014_2/index.html"
+                    },
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "プライム ライフ テクノロジーズ ニュース（2022年10月14日）",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ]
+                  }
+                ],
+                "type": "listitem",
+                "value": 4
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "type": "link",
+                    "fields": {
+                      "linkType": "custom",
+                      "newTab": false,
+                      "url": "https://www.housenews.jp/house/22668"
+                    },
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "ハウジングニュース：170区画、ZEH標準、「くつろぎ」「癒し」",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ]
+                  }
+                ],
+                "type": "listitem",
+                "value": 5
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "type": "link",
+                    "fields": {
+                      "linkType": "custom",
+                      "newTab": false,
+                      "url": "https://www.housenews.jp/house/23793"
+                    },
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "ハウジングニュース：クラブハウス完成、スポーツとリトリート",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ]
+                  }
+                ],
+                "type": "listitem",
+                "value": 6
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "type": "link",
+                    "fields": {
+                      "linkType": "custom",
+                      "newTab": false,
+                      "url": "https://htonline.sohjusha.co.jp/658-040/"
+                    },
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "住宅産業新聞（2023年3月13日）：第一期の販売、区画、クラブハウス、防犯",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ]
+                  }
+                ],
+                "type": "listitem",
+                "value": 7
+              },
+              {
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "direction": "ltr",
+                    "format": "",
+                    "indent": 0,
+                    "version": 3,
+                    "type": "link",
+                    "fields": {
+                      "linkType": "custom",
+                      "newTab": false,
+                      "url": "https://8park.jp/hachi-tochiyato.html"
+                    },
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "8park.jp：栃谷戸公園",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ]
+                  }
+                ],
+                "type": "listitem",
+                "value": 8
+              }
+            ],
+            "type": "list",
+            "listType": "bullet",
+            "start": 1,
+            "tag": "ul"
+          }
+        ]
+      }
+    }
+  },
+  "category": {
+    "id": "c2",
+    "slug": "japan-life",
+    "name": {
+      "en": "Japan life",
+      "ja": "日本の暮らし"
+    }
+  },
+  "tags": [
+    {
+      "id": "t-hachioji",
+      "slug": "hachioji",
+      "name": {
+        "en": "Hachiōji",
+        "ja": "八王子"
+      }
+    },
+    {
+      "id": "t-housing",
+      "slug": "housing",
+      "name": {
+        "en": "housing",
+        "ja": "住宅"
+      }
+    }
+  ],
+  "hero": {
+    "id": "rethills-gate-snow",
+    "url": "/images/rethills/rethills-gate-snow-1600.webp",
+    "filename": "rethills-gate-snow-1600.webp",
+    "mimeType": "image/webp",
+    "width": 1600,
+    "height": 901,
+    "alt": {
+      "en": "The stone-pillared RetHills gate in falling snow, with a gabled building behind",
+      "ja": "雪が降る中のRetHillsの石積みの柱のゲートと、奥の切妻屋根の建物"
+    },
+    "credit": "Photo: Mursalin Kabir",
+    "sizes": {
+      "480": {
+        "url": "/images/rethills/rethills-gate-snow-480.webp",
+        "width": 480,
+        "height": 270
+      },
+      "960": {
+        "url": "/images/rethills/rethills-gate-snow-960.webp",
+        "width": 960,
+        "height": 540
+      },
+      "1600": {
+        "url": "/images/rethills/rethills-gate-snow-1600.webp",
+        "width": 1600,
+        "height": 901
+      }
+    }
+  }
+}
