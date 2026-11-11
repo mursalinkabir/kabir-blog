@@ -4,7 +4,7 @@ import { slashRedirect } from './site/canonical';
 import { pageHeaders } from './site/headers';
 
 /** Paths that are the CMS itself, not public pages: no page policy, no nonce. */
-const APP_PREFIXES = ['/admin', '/api', '/_next', '/healthz', '/readyz'];
+const APP_PREFIXES = ['/admin', '/api', '/_next', '/healthz', '/readyz', '/embeds'];
 
 /**
  * Every request is checked here (see lib/accessGate): the public hostname serves pages only, any other hostname needs a

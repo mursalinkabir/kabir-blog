@@ -105,6 +105,7 @@ export interface PageView {
 export function createSite(data: SiteData, opts: SiteOptions) {
   const preview = opts.preview === true;
   const postViews = new Map<Locale, PostView[]>();
+  let embedMap: Map<string, FoundEmbed> | undefined;
 
   const visible = (status: string) => preview || status === 'published';
   const postHas = (p: Post, l: Locale) => hasPage(p, l, preview);
@@ -240,7 +241,7 @@ export function createSite(data: SiteData, opts: SiteOptions) {
     /** Why `post` has no page in `locale`; empty means it has one. */
     pageBlockers: (post: Post, locale: Locale): string[] => postBlockers(post, locale, preview),
     /** The HTML embeds of everything the site renders, by id. */
-    embeds: (): Map<string, FoundEmbed> => new Map(collectEmbeds(site).map((e) => [e.id, e])),
+    embeds: (): Map<string, FoundEmbed> => (embedMap ??= new Map(collectEmbeds(site).map((e) => [e.id, e]))),
   };
   return site;
 }
