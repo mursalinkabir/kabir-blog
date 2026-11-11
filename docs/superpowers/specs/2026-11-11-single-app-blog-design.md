@@ -1,6 +1,6 @@
 # Single-app blog: design
 
-Date: 2026-11-11. Status: waiting for the owner's review. Plan: `docs/superpowers/plans/2026-11-11-single-app-blog.md`.
+Date: 2026-11-11. Status: implemented except the retirement step (plan Task 15); the owner chose React for the pages. Plan: `docs/superpowers/plans/2026-11-11-single-app-blog.md`.
 
 ## Why
 

@@ -10,6 +10,21 @@
 
 **Spec:** `docs/superpowers/specs/2026-11-11-single-app-blog-design.md`. Read it before Task 0.
 
+## Status (2026-11-11)
+
+Tasks 0 to 14 are implemented on branch `feat/single-app` (one commit per task or group of tasks). **Task 15 (retire the
+Astro site, the nginx image and the content pipeline) is deliberately not done**: it starts only when the owner says the new
+site has been live and healthy. Deviations from this plan, with the reason:
+
+- React server components instead of string templates (owner's choice, see Revision 1). No `html.ts`, `handle.ts`, `serve.ts`
+  or page cache; no ETag or 304 on pages (HTML is `public, max-age=0, must-revalidate`).
+- A cold start with the database down answers a 500 error page, not a 503 with `Retry-After` (a page cannot set its status
+  after it started rendering). A later outage keeps serving the last good snapshot.
+- `AGENT_AUTO_PUBLISH` stays `'0'` in the deploy draft with a comment that setting `'1'` is the owner's decision.
+- Next moved from 16.4.0 to 16.4.6 (advisories on 16.4.0; see docs/versions.md).
+- The image smoke test and the trivy scan were not run locally (Docker Hub pulls hang on this machine); the release workflow runs both.
+- `d2` renders in-process caches only; the `ec.css`/`ec.js` highlighter assets are served by routes, not built by the asset script.
+
 ## Global Constraints
 
 Every task's requirements include these. They come from the spec and from the repository's `CLAUDE.md`.
