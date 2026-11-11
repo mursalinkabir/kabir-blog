@@ -17,6 +17,8 @@ import { Pages } from './collections/Pages';
 import { AgentLog } from './collections/AgentLog';
 import { agentTools } from './mcp/tools';
 import { migrations } from './migrations';
+import { previewPath, type PreviewKind } from './site/preview';
+import type { Locale } from './site/i18n';
 import { NowGlobal, ResumeGlobal, SiteGlobal, UsesGlobal } from './globals';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -27,6 +29,15 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     importMap: { baseDir: path.resolve(dirname) },
+    // The editor sees unpublished changes next to the form. The preview lives on the CMS hostname only (see site/preview.ts).
+    livePreview: {
+      collections: ['posts', 'pages', 'projects'],
+      globals: ['now', 'uses', 'resume'],
+      url: ({ data, collectionConfig, globalConfig, locale }) => {
+        const kind = (collectionConfig?.slug ?? globalConfig?.slug) as PreviewKind;
+        return previewPath(kind, typeof data?.slug === 'string' ? data.slug : undefined, (locale?.code === 'ja' ? 'ja' : 'en') as Locale);
+      },
+    },
     meta: { titleSuffix: ' · smkabir.com CMS' },
   },
   collections: [Users, Media, Categories, Tags, Posts, Projects, Pages, AgentLog],

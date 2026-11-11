@@ -40,7 +40,8 @@ export async function proxy(request: NextRequest) {
   const headers = pageHeaders({ nonce, preview: isPreview, noStore: /^\/(ja\/)?search\/?$/.test(pathname) });
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-nonce', nonce);
-  requestHeaders.set('x-locale', pathname === '/ja' || pathname.startsWith('/ja/') ? 'ja' : 'en');
+  const shown = isPreview ? pathname.replace(/^\/preview/i, '') || '/' : pathname;
+  requestHeaders.set('x-locale', shown === '/ja' || shown.startsWith('/ja/') ? 'ja' : 'en');
   requestHeaders.set('Content-Security-Policy', headers['Content-Security-Policy']!);
   const response = NextResponse.next({ request: { headers: requestHeaders } });
   for (const [k, v] of Object.entries(headers)) response.headers.set(k, v);

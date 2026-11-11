@@ -172,5 +172,8 @@
   },
   "embed": {
     "needsScript": "This interactive element needs JavaScript."
+  },
+  "preview": {
+    "banner": "Preview of unpublished changes. This page is not public."
   }
 }
