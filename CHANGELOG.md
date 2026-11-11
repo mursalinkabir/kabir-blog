@@ -2,7 +2,13 @@
 
 Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
-## 0.3.0 - 2026-11-11
+## 0.3.1 - 2026-11-11
+
+- **Release fix.** `v0.3.0` never built an image: the release workflow's `verify` job builds the old nginx image, and its
+  `rclone~=1.74` pin no longer installs because Alpine 3.24 now carries rclone 1.75.2. The pin is `~=1.75`. Everything else is
+  the 0.3.0 entry below, unchanged. Tags are never moved, so there is no `kabir-blog-cms:0.3.0`; deploy `0.3.1`.
+
+## 0.3.0 - 2026-11-11 (tagged, no image built)
 
 ### Added (the CMS app serves the public site, 2026-11-11)
 

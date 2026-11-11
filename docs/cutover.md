@@ -23,13 +23,13 @@ illustrative.
 1. **Prove a restore.** After this, Postgres holds the only copy of the content. Restore the latest `pg-main` backup into a
    throwaway CNPG cluster (not `pg-stg`, which must never hold production data) and start a scratch Payload on it
    (`docs/deploy.md`, "pg-main backups"). Do not continue until that works. _Undo: nothing changed yet._
-2. **Release the code.** `CHANGELOG.md` has the 0.3.0 entry. Push `main`, then the tag `v0.3.0`; wait for the `release`
+2. **Release the code.** `CHANGELOG.md` has the 0.3.0 entry. Push `main`, then the tag `v0.3.1`; wait for the `release`
    workflow (`gh run list --workflow release --limit 1`) to be green and the image to exist on GHCR. The workflow runs the
    unit tests, the parity test against the Astro build, the image smoke test and the vulnerability scan. If the scan flags
    the `d2` binary, stop: an exception is your decision, not an automatic one. _Undo: nothing is deployed by a tag._
 3. **Deploy the new CMS image without exposing the site.** In `homelab-terraform/prod/apps/cms/`, copy the new
    `cms.yaml` from `deploy/homelab-terraform/prod/apps/cms/cms.yaml` **without** the `cms-public` HTTPRoute at the bottom
-   (it is step 9), and bump the image to `0.3.0`. The migration applies when the first `/readyz` probe connects. Leave
+   (it is step 9), and bump the image to `0.3.1`. The migration applies when the first `/readyz` probe connects. Leave
    `AGENT_AUTO_PUBLISH: '0'`. Delete the old `cms-github` SealedSecret file if you made one and revoke its token. Commit by
    explicit path, push, wait for Argo CD (about 3 minutes). Check: the pod is Ready, `cms.smkabir.com/admin` still asks for
    Access, `kubectl -n cms top pod` shows the memory it uses. _Undo: `git revert` the commit; the migration only adds tables

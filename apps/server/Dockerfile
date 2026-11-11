@@ -8,7 +8,7 @@ FROM nginxinc/nginx-unprivileged:1.30.5-alpine
 
 USER root
 # rclone talks S3 to R2; jq renders redirects. Versions come from the pinned Alpine release of the base image.
-RUN apk add --no-cache 'rclone~=1.74' 'jq~=1.8' \
+RUN apk add --no-cache 'rclone~=1.75' 'jq~=1.8' \
  && rm -f /etc/nginx/conf.d/default.conf \
  && mkdir -p /etc/nginx/snippets /srv/site \
  && chown 101:101 /srv/site
