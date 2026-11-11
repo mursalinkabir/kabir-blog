@@ -44,6 +44,7 @@ const structuredData = [
   publishedTime={post.pubDate}
   modifiedTime={post.updatedDate}
   structuredData={structuredData}
+  image={post.hero ? absolute(publicUrl(post.hero)) : undefined}
   rss={[{ href: locale === 'en' ? '/rss.xml' : '/ja/rss.xml', title: siteName(locale) }]}
 >
   <article class="container post" data-pagefind-body>

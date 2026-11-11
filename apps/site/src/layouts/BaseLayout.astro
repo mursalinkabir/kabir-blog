@@ -18,6 +18,8 @@ interface Props {
   type?: 'website' | 'article';
   structuredData?: object[];
   noindex?: boolean;
+  /** Absolute URL of the share image (post hero). Pages without one get the small text card. */
+  image?: string;
   publishedTime?: string;
   modifiedTime?: string;
   rss?: { href: string; title: string }[];
@@ -32,6 +34,7 @@ const {
   type = 'website',
   structuredData = [],
   noindex = false,
+  image,
   publishedTime,
   modifiedTime,
   rss = [],
@@ -67,7 +70,9 @@ const alternateEntries = Object.entries(alternates) as [Locale, string][];
     {locales.filter((l) => l !== locale && alternates[l]).map((l) => <meta property="og:locale:alternate" content={ogLocale[l]} />)}
     {publishedTime && <meta property="article:published_time" content={publishedTime} />}
     {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
-    <meta name="twitter:card" content="summary" />
+    {image && <meta property="og:image" content={image} />}
+    <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+    {image && <meta name="twitter:image" content={image} />}
     {rss.map((r) => <link rel="alternate" type="application/rss+xml" title={r.title} href={r.href} />)}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     {/* Preload the one face that paints the first screen. Japanese pages also use Mulish for Latin letters and digits. */}
