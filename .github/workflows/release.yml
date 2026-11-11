@@ -192,6 +192,11 @@ jobs:
           severity: HIGH,CRITICAL
           ignore-unfixed: true
           exit-code: '1'
+          # The d2 binary (v0.9.0, the newest release) carries Go standard-library and x/net findings fixed upstream in
+          # newer Go releases. Owner-approved exception, 2026-11-11: d2 only ever runs as `d2 - -` (stdin to SVG) on diagram
+          # source that editors write, serves no HTTP and opens no TLS connection, so those code paths are not reachable.
+          # Remove this line when d2 ships a rebuilt binary (docs/versions.md). Everything else is still scanned.
+          skip-files: /usr/local/bin/d2
 
       - name: 'Push (version tag only, there is no `latest`)'
         uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0

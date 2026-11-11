@@ -2,7 +2,15 @@
 
 Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
-## 0.3.4 - 2026-11-11
+## 0.3.5 - 2026-11-11
+
+- **Release fix.** `v0.3.4` passed `verify` and the whole smoke test, then failed the release scan on the `d2` binary alone
+  (6 HIGH findings in its Go standard library and `golang.org/x/net`; d2 0.9.0 is the newest release). The owner approved an
+  exception for that one file (`skip-files: /usr/local/bin/d2`), with the reasoning in `release.yml` and `docs/versions.md`:
+  d2 runs only as `d2 - -` on editor-written diagram source and has no network use. The OS packages and every other file
+  are still scanned and are clean. Remove the exception when d2 ships a rebuilt binary. Deploy `0.3.5`.
+
+## 0.3.4 - 2026-11-11 (tagged, no image built)
 
 - **Release fix.** `v0.3.3` built the CMS image and passed every smoke check except one that was written wrong: it looked
   for the code highlighter in `/app/apps/cms`, but pnpm keeps it under `/app/node_modules/.pnpm/`. The check now finds the
