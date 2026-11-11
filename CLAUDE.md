@@ -1,3 +1,7 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 # kabir-blog — rules for Claude Code
 
 - Work phase by phase from docs/PLAN.md. Stop at each gate and show real command output.
@@ -32,11 +36,39 @@
 - `pnpm format` / `pnpm format:check` · `pnpm test` (unit tests) · `pnpm privacy` (GPS in images, personal-data patterns)
 - CMS: `docker compose up -d postgres` · `pnpm cms:migrate` · `pnpm cms:seed` · `pnpm cms:dev` (:3100) ·
   `pnpm cms:pull` · `pnpm cms:check-privacy`. Release builds set `SITE_CONTENT=cms`. See docs/cms.md.
-- `payload run <script>` exits when the module loads: scripts need top-level `await`.
-- AI agent publishing (MCP): `pnpm cms:agent-key`, `pnpm cms:check-agent`; rules and operation in docs/agents.md.
+- `payload run <script>` exits when the module loads: scripts need top-level `await`. It passes a script its flags only after a second `--`, so scripts take environment variables (see `import-fixtures.ts`).
+- Production content comes from the CMS (docs/cutover.md); `pnpm cms:import` moves the fixtures into a CMS over REST (dry run unless `IMPORT_APPLY=1`).
+- AI agent (MCP): `pnpm cms:agent-key`, `pnpm cms:check-agent`, `pnpm cms:check-scope`, `pnpm cms:check-hooks`; rules and operation in docs/agents.md. It edits posts, pages, projects, tags, category names, image details and the four settings, never deletes. After editing `apps/cms/src/mcp`, restart the dev server (tools are registered at startup).
   The agent's limits are enforced in CMS hooks (`apps/cms/src/hooks/agentGuards.ts`), never only in the tools. The
   audit log must not use relationships to posts or users (a foreign key made the publish hang).
 - `pnpm server:test` (builds the server image and tests the sidecar and nginx; needs Docker) · `pnpm server:headers` (re-render nginx headers after editing `security-headers.json`)
+- Single test (Vitest, files in `apps/<app>/tests/*.test.ts`):
+  `npx pnpm@12.9.1 --filter @smkabir/site exec vitest run tests/content.test.ts -t "<name>"` (same for `@smkabir/cms`).
+  Site tests always run on the fixtures (`SITE_CONTENT=fixtures` in its vitest config).
+- CMS only: `--filter @smkabir/cms typecheck` · `migrate:create` (after a schema change; commit the `.ts` and `.json`) ·
+  `generate:types` (regenerates `src/payload-types.ts`). `pnpm build` needs `d2` installed locally to render diagram blocks.
+
+## Architecture (the parts that span several files)
+
+pnpm monorepo, three apps:
+
+- `apps/site`: Astro static site (en + ja). Data goes only through `src/lib/cms.ts`. Rich text is Payload Lexical
+  JSON, walked by `src/lib/lexical/` and rendered by `components/RichText.astro` plus `components/blocks/*`, one
+  per CMS block in `apps/cms/src/blocks`. Adding a block means changing both apps and `scripts/lib/cms-map.mjs`.
+  `scripts/check-i18n.mjs` and `scripts/check-dist.mjs` are build gates, not lint.
+- `apps/cms`: Payload on Next.js (`src/payload.config.ts`), Postgres (local: `compose.yaml`, port 5433). Collections,
+  globals, access and hooks are in `src/`. The MCP agent is `@payloadcms/plugin-mcp`, with tools in `src/mcp/*.ts`
+  registered in `src/mcp/tools.ts`. Its policy is `src/lib/agentPolicy.ts`, enforced in `hooks/agentGuards.ts`, and
+  every agent write is recorded in the `AgentLog` collection. `src/lib/accessJwt.ts` verifies the Cloudflare Access JWT.
+- `apps/server`: the production image, nginx plus the `content-sync` sidecar (a POSIX shell script). nginx header
+  configs are generated from `apps/site/security-headers.json` by `pnpm server:headers`, and release CI fails if they drift.
+
+Content release flow: CMS publish → `hooks/dispatchContentPublished.ts` (debounced `repository_dispatch`) →
+`.github/workflows/content.yml`: `cms:pull` (all or nothing) → privacy scan → build with `SITE_CONTENT=cms` →
+upload to R2 `releases/<build_id>/`, then the `LATEST` pointer (`scripts/ci/release.sh`) → the sidecar polls `LATEST`
+and swaps the `current` symlink atomically → CI polls `/version.json`, writes `VERIFIED`, purges the Cloudflare cache.
+`content-rollback.yml` points `LATEST` at an earlier build. Code release: tag `vX.Y.Z` → `release.yml` (CHANGELOG
+check, header drift, image and release-script tests, CMS unit tests) → `ghcr.io/mursalinkabir/kabir-blog-server:X.Y.Z`.
 
 ## Code conventions
 
