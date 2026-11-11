@@ -2,7 +2,7 @@
 
 Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
-## 0.3.0 - unreleased
+## 0.3.0 - 2026-11-11
 
 ### Added (the CMS app serves the public site, 2026-11-11)
 
