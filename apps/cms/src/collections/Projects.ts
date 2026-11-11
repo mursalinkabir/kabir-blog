@@ -3,14 +3,18 @@ import { agentWritesContent } from '../access';
 import { agentAfterChange, agentDocBeforeChange } from '../hooks/agentGuards';
 import { articleEditor } from '../blocks';
 import { lockSlugAfterPublish, validateSlug } from '../hooks/slug';
-import { dispatchAfterPublish } from '../hooks/dispatchContentPublished';
+import { invalidateAfterChange, invalidateAfterDelete } from '../hooks/invalidateSite';
 
 export const Projects: CollectionConfig = {
   slug: 'projects',
   access: agentWritesContent,
   admin: { useAsTitle: 'title', defaultColumns: ['title', 'status', 'featured', 'order', '_status'] },
   versions: { drafts: { autosave: { interval: 2000 } }, maxPerDoc: 25 },
-  hooks: { beforeChange: [agentDocBeforeChange('project')], afterChange: [agentAfterChange, dispatchAfterPublish] },
+  hooks: {
+    beforeChange: [agentDocBeforeChange('project')],
+    afterChange: [agentAfterChange, invalidateAfterChange],
+    afterDelete: [invalidateAfterDelete],
+  },
   fields: [
     { name: 'title', type: 'text', localized: true, required: true },
     { name: 'summary', type: 'text', localized: true, required: true, maxLength: 200 },

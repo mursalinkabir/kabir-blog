@@ -77,14 +77,17 @@ async function writeDoc(
 
 async function uploadMedia(payload: Payload, m: Json): Promise<number | string> {
   const { buffer, name, mimetype } = await mediaFile(m);
+  // Alt text is required in the locale a document is created in. A cover used only by a Japanese-only post has Japanese alt only.
+  const locales = (['en', 'ja'] as const).filter((l) => m.alt[l]);
+  const [first, ...rest] = locales;
   const created = await payload.create({
     collection: 'media',
-    locale: 'en',
-    data: data({ alt: m.alt.en, credit: m.credit }),
+    locale: first ?? 'en',
+    data: data({ alt: first ? m.alt[first] : '', credit: m.credit }),
     file: { data: buffer, mimetype, name, size: buffer.length },
   });
-  if (m.alt.ja) {
-    await payload.update({ collection: 'media', id: created.id, locale: 'ja', data: data({ alt: m.alt.ja }) });
+  for (const locale of rest) {
+    await payload.update({ collection: 'media', id: created.id, locale, data: data({ alt: m.alt[locale] }) });
   }
   return created.id;
 }

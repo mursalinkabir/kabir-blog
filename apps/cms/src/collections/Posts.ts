@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload';
 import { isAdminField, postAccess } from '../access';
 import { agentAfterChange, agentBeforeChange } from '../hooks/agentGuards';
-import { dispatchAfterPublish } from '../hooks/dispatchContentPublished';
+import { invalidateAfterChange, invalidateAfterDelete } from '../hooks/invalidateSite';
 import { articleEditor } from '../blocks';
 import { lockSlugAfterPublish, validateSlug } from '../hooks/slug';
 import { requiredRichTextWhenPublished, requiredTextWhenPublished } from '../hooks/requiredWhenPublished';
@@ -15,7 +15,11 @@ export const Posts: CollectionConfig = {
     description: 'Save keeps a draft. Publish makes it public (and, once wired in Phase 7, rebuilds the site).',
   },
   versions: { drafts: { autosave: { interval: 2000 } }, maxPerDoc: 25 },
-  hooks: { beforeChange: [agentBeforeChange], afterChange: [agentAfterChange, dispatchAfterPublish] },
+  hooks: {
+    beforeChange: [agentBeforeChange],
+    afterChange: [agentAfterChange, invalidateAfterChange],
+    afterDelete: [invalidateAfterDelete],
+  },
   fields: [
     { name: 'title', type: 'text', localized: true, validate: requiredTextWhenPublished('Title') },
     {

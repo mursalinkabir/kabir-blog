@@ -4,7 +4,7 @@ import type { CollectionConfig } from 'payload';
 import { agentMayCreate } from '../access';
 import { stripImageMetadata } from '../hooks/stripImageMetadata';
 import { agentTextGuard } from '../hooks/agentGuards';
-import { dispatchAfterChange } from '../hooks/dispatchContentPublished';
+import { invalidateAfterChange, invalidateAfterDelete } from '../hooks/invalidateSite';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -40,7 +40,12 @@ export const Media: CollectionConfig = {
     focalPoint: true,
     withMetadata: false,
   },
-  hooks: { beforeOperation: [stripImageMetadata], beforeChange: [agentTextGuard], afterChange: [dispatchAfterChange] },
+  hooks: {
+    beforeOperation: [stripImageMetadata],
+    beforeChange: [agentTextGuard],
+    afterChange: [invalidateAfterChange],
+    afterDelete: [invalidateAfterDelete],
+  },
   fields: [
     {
       name: 'alt',

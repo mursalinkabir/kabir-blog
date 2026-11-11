@@ -2,14 +2,14 @@ import type { GlobalConfig } from 'payload';
 import { globalAccess, isAdminField } from '../access';
 import { articleEditor } from '../blocks';
 import { agentGlobalAfterChange, agentGlobalBeforeChange } from '../hooks/agentGuards';
-import { dispatchAfterGlobalChange } from '../hooks/dispatchContentPublished';
+import { invalidateAfterGlobalChange } from '../hooks/invalidateSite';
 
 const access = globalAccess;
 // A save is live as soon as it happens (these have no draft stage), so an agent's saves are gated like a publish
 // (hooks/agentGuards.ts) and the last versions are kept so a bad one can be restored in the admin.
 const hooks = (slug: string) => ({
   beforeChange: [agentGlobalBeforeChange(slug)],
-  afterChange: [agentGlobalAfterChange(slug), dispatchAfterGlobalChange],
+  afterChange: [agentGlobalAfterChange(slug), invalidateAfterGlobalChange],
 });
 const versions = { max: 25 };
 

@@ -1,13 +1,13 @@
 import type { CollectionConfig } from 'payload';
 import { agentMayRename, isAdminField } from '../access';
 import { agentTextGuard } from '../hooks/agentGuards';
-import { dispatchAfterChange } from '../hooks/dispatchContentPublished';
+import { invalidateAfterChange, invalidateAfterDelete } from '../hooks/invalidateSite';
 
 /** The three subjects. The slug set is closed on purpose: adding a category is a site change too (route, icon). */
 export const Categories: CollectionConfig = {
   slug: 'categories',
   access: agentMayRename,
-  hooks: { beforeChange: [agentTextGuard], afterChange: [dispatchAfterChange] },
+  hooks: { beforeChange: [agentTextGuard], afterChange: [invalidateAfterChange], afterDelete: [invalidateAfterDelete] },
   admin: { useAsTitle: 'slug', defaultColumns: ['slug', 'name'] },
   fields: [
     {
