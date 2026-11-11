@@ -93,24 +93,33 @@ describe('decide (the proxy policy)', () => {
   const prod = { NODE_ENV: 'production', CF_ACCESS_TEAM_DOMAIN: config.teamDomain, CF_ACCESS_AUD: config.audience };
 
   it('answers /healthz without an assertion, in any mode', async () => {
-    expect(await decide({ pathname: '/healthz', assertion: null, env: prod })).toEqual({ action: 'health' });
-    expect(await decide({ pathname: '/healthz', assertion: null, env: {} })).toEqual({ action: 'health' });
+    expect(await decide({ host: null, pathname: '/healthz', assertion: null, env: prod })).toEqual({ action: 'health' });
+    expect(await decide({ host: null, pathname: '/healthz', assertion: null, env: {} })).toEqual({ action: 'health' });
   });
   it('lets the readiness probe through without an assertion', async () => {
-    expect(await decide({ pathname: '/readyz', assertion: null, env: prod, keys })).toEqual({ action: 'pass' });
+    expect(await decide({ host: null, pathname: '/readyz', assertion: null, env: prod, keys })).toEqual({ action: 'pass' });
   });
   it('is open outside production', async () => {
-    expect(await decide({ pathname: '/admin', assertion: null, env: { NODE_ENV: 'development' } })).toEqual({ action: 'pass' });
+    expect(await decide({ host: null, pathname: '/admin', assertion: null, env: { NODE_ENV: 'development' } })).toEqual({ action: 'pass' });
   });
   it('denies in production without an assertion', async () => {
-    expect(await decide({ pathname: '/admin', assertion: null, env: prod, keys })).toMatchObject({ action: 'deny', status: 401 });
-    expect(await decide({ pathname: '/api/mcp', assertion: null, env: prod, keys })).toMatchObject({ action: 'deny', status: 401 });
+    expect(await decide({ host: null, pathname: '/admin', assertion: null, env: prod, keys })).toMatchObject({
+      action: 'deny',
+      status: 401,
+    });
+    expect(await decide({ host: null, pathname: '/api/mcp', assertion: null, env: prod, keys })).toMatchObject({
+      action: 'deny',
+      status: 401,
+    });
   });
   it('fails closed in production when Access is not configured', async () => {
     const env = { NODE_ENV: 'production' };
-    expect(await decide({ pathname: '/admin', assertion: await sign(), env, keys })).toMatchObject({ action: 'deny', status: 503 });
+    expect(await decide({ host: null, pathname: '/admin', assertion: await sign(), env, keys })).toMatchObject({
+      action: 'deny',
+      status: 503,
+    });
   });
   it('passes a valid assertion in production', async () => {
-    expect(await decide({ pathname: '/admin', assertion: await sign(), env: prod, keys })).toEqual({ action: 'pass' });
+    expect(await decide({ host: null, pathname: '/admin', assertion: await sign(), env: prod, keys })).toEqual({ action: 'pass' });
   });
 });

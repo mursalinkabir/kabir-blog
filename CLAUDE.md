@@ -74,9 +74,11 @@ check, header drift, image and release-script tests, CMS unit tests) → `ghcr.i
 
 - Content access goes through `apps/site/src/lib/cms.ts`. Pages never read fixtures or pulled CMS files directly: `cms.ts` picks `src/content/cms` (pulled from Payload) or the fixtures.
 - Pages live under `src/pages/[...locale]/` (English = no prefix, Japanese = `ja`). Use `perLocale()` for `getStaticPaths`.
-- No inline scripts on the public site. Put scripts in `src/scripts/` or `public/`. The one exception is the CMS
+- Public pages are React server components in `apps/cms/src/site` (the Astro site in `apps/site` is retired after the cutover;
+  see docs/superpowers/plans). Scripts on public pages carry the per-request nonce set in `apps/cms/src/proxy.ts`; no
+  other inline scripts, no `unsafe-inline` or `unsafe-eval` for scripts (`unsafe-eval` only in `next dev`). The one exception is the CMS
   "HTML embed" block: author HTML is written to `/embeds/<hash>.html` and framed with `sandbox="allow-scripts"`; that
-  path has its own CSP (`security-headers.json` > `embeds`, rendered to `embed-headers.conf`). Never add
+  path has its own CSP (`security-headers.json` > `embeds`). Never add
   `unsafe-inline` to the page CSP, `allow-same-origin` to an embed frame, or `connect-src` to the embed CSP.
 - A missing localized field means no page in that locale. Never fall back to another language.
 - Images: any public source whose licence allows commercial reuse (Unsplash License, Wikimedia Commons, CC0/public domain, CC BY, CC BY-SA, and the other sources in docs/images.md); never Unsplash+, NC or ND licences. Credit (author, licence, source) in the media `credit` field, WebP at 480/960/1600 px, EXIF stripped. See docs/images.md.

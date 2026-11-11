@@ -6,14 +6,38 @@ export const HEALTH_PATH = '/healthz';
 /** Readiness: a route handler (app/readyz) that checks Payload and the database. Not behind Access, like HEALTH_PATH. */
 export const READY_PATH = '/readyz';
 
-export type GateDecision = { action: 'pass' } | { action: 'health' } | { action: 'deny'; status: 401 | 403 | 503; reason: string };
+export type GateDecision = { action: 'pass' } | { action: 'health' } | { action: 'deny'; status: 401 | 403 | 404 | 503; reason: string };
 
 export type GateInput = {
   pathname: string;
+  /** The `host` header. Never `X-Forwarded-Host`. */
+  host: string | null;
   assertion: string | null;
   env: Record<string, string | undefined>;
   keys?: JWTVerifyGetKey;
 };
+
+const PRIVATE_PREFIXES = ['/admin', '/api', '/preview'];
+
+/** True when `pathname` is `prefix` or below it, at a segment boundary, ignoring case. */
+export function underPrefix(pathname: string, prefix: string): boolean {
+  const p = pathname.toLowerCase();
+  return p === prefix || p.startsWith(`${prefix}/`);
+}
+
+/**
+ * Which kind of hostname a request came in on. Only the listed public hosts (env `SITE_PUBLIC_HOSTS`, default
+ * `smkabir.com`) are public; anything else, including a missing host, is treated as the CMS host so a mistake fails closed.
+ */
+export function hostKind(host: string | null, env: Record<string, string | undefined>): 'public' | 'cms' {
+  if (!host) return 'cms';
+  const clean = host.toLowerCase().replace(/:\d+$/, '').replace(/\.$/, '');
+  const list = (env.SITE_PUBLIC_HOSTS ?? 'smkabir.com')
+    .split(',')
+    .map((h) => h.trim().toLowerCase())
+    .filter(Boolean);
+  return list.includes(clean) ? 'public' : 'cms';
+}
 
 /**
  * Decides what the proxy does with a request.
@@ -26,6 +50,13 @@ export async function decide(input: GateInput): Promise<GateDecision> {
   // The kubelet cannot present an Access assertion. The handler returns no data, only ok or not ok.
   if (input.pathname === READY_PATH) return { action: 'pass' };
   if (input.env.NODE_ENV !== 'production') return { action: 'pass' };
+  if (hostKind(input.host, input.env) === 'public') {
+    // The public hostname serves pages only: the admin, the API and previews do not exist there.
+    if (PRIVATE_PREFIXES.some((x) => underPrefix(input.pathname, x))) {
+      return { action: 'deny', status: 404, reason: 'private path on the public host' };
+    }
+    return { action: 'pass' };
+  }
   const result: AccessResult = await verifyAccessJwt(input.assertion, accessConfigFromEnv(input.env), input.keys);
   if (result.ok) return { action: 'pass' };
   return { action: 'deny', status: result.status, reason: result.reason };

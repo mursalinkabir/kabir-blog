@@ -29,10 +29,7 @@ it's live in a second, with no build step", with the whole site reachable by an 
 2. **The Payload app serves the public site itself.** One Next.js catch-all route handler in `apps/cms` reads the
    content through Payload's Local API and returns HTML. No Astro build, no R2 site releases, no nginx, no sidecar,
    no content workflows.
-3. **HTML comes from plain string templates with automatic escaping, not React pages.** Readers get the same
-   HTML and the same 4 KB of JavaScript as today. The strict content security policy stays as it is (no inline
-   scripts, no nonce), so no repository rule changes. The existing 2,231-line stylesheet applies unchanged, and the
-   new output can be compared page by page with the Astro output, which gives the work an objective finish line.
+3. **Pages are React server components in the Payload app** (owner's choice, 2026-11-11; I first proposed string templates). Next supplies routing, metadata and the 404. The page policy changes from "no inline scripts" to "only scripts with a per-request nonce", never `unsafe-inline`; readers download the React runtime. The existing stylesheet applies unchanged and the new output is compared with the Astro output by the parity test (text, links, headings, meta, classes).
 4. **Content is held in memory and refreshed on every change.** A snapshot of the whole site (a dozen posts) is
    loaded once, reused for every request, and thrown away by a hook on every save, publish or delete. This is
    valid because the app runs as one replica.
@@ -45,7 +42,7 @@ it's live in a second, with no build step", with the whole site reachable by an 
 8. **Preview** of unpublished changes is served under `/preview/` on the CMS hostname only, to a logged-in user.
 9. **One release, `0.3.0`**, carries both the agent work already on this branch and the new public site.
 
-Alternative kept in reserve, if the string-template approach hits a wall: Astro in server mode reading Payload at
+Alternative kept in reserve, if rendering in the Payload app hits a wall: Astro in server mode reading Payload at
 request time (two apps instead of one).
 
 ## Goals
@@ -69,7 +66,7 @@ request time (two apps instead of one).
 
 - A page in one language falling back to the other language.
 - The admin, the API or a preview reachable on the public hostname or without Cloudflare Access.
-- Inline scripts, or a weaker content security policy, on public pages.
+- Scripts without a nonce, `unsafe-inline` for scripts, or a weaker content security policy, on public pages.
 - One broken document taking the whole site down.
 - A changed slug or a lost trailing slash on a published URL.
 - Anything personal (home address, phone number, personal email, family details) in content, code, fixtures or tests.
