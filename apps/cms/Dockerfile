@@ -50,6 +50,8 @@ ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
     PORT=3100 \
     HOSTNAME=0.0.0.0
+# OS fixes released since the pinned base image was made (the release scan fails on a fixable HIGH or CRITICAL).
+RUN apk upgrade --no-cache
 WORKDIR /app
 COPY --from=build --chown=10001:10001 /repo/apps/cms/.next/standalone ./
 COPY --from=build --chown=10001:10001 /repo/apps/cms/.next/static ./apps/cms/.next/static

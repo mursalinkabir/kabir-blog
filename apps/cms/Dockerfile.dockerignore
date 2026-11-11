@@ -8,6 +8,9 @@ apps/cms/media
 apps/cms/tsconfig.tsbuildinfo
 apps/site/**
 !apps/site/package.json
+# Old /images/ and /fixtures/ URLs keep working: the asset script copies these into the CMS public folder.
+!apps/site/public/images
+!apps/site/public/fixtures
 .github
 docs
 deploy

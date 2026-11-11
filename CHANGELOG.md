@@ -2,7 +2,14 @@
 
 Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
-## 0.3.2 - 2026-11-11
+## 0.3.3 - 2026-11-11
+
+- **Release fix.** `v0.3.2` passed `verify` (including parity in CI) but built no image: the CMS image's
+  `Dockerfile.dockerignore` hid `apps/site/public/images` and `fixtures` (now un-ignored), and the release scan found
+  fixable OS vulnerabilities (brotli, curl, zlib, musl, nginx) in the old nginx image's base. Both images now run
+  `apk upgrade` after their pinned base. No `kabir-blog-cms:0.3.0` to `:0.3.2` exists; deploy `0.3.3`.
+
+## 0.3.2 - 2026-11-11 (tagged, no image built)
 
 - **Release fix.** `v0.3.1` got past the image tests but its new parity step failed: the Astro baseline build needs a
   `BUILD_ID` in CI. The step sets one (`parity-baseline`; that build is never published). No `kabir-blog-cms:0.3.0` or
