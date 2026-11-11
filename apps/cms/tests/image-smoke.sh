@@ -77,8 +77,11 @@ echo "== Tools inside the image (read-only root, uid 10001)"
 check "d2 is installed" "v0.9.0" "$(docker exec "$name" d2 --version)"
 svg="$(printf 'a -> b' | docker exec -i "$name" d2 - - 2>/dev/null | head -c 5)"
 check "d2 renders a diagram under the restrictions" "<?xml" "$svg"
-hl="$(docker exec -w /app/apps/cms "$name" node -e "import('rehype-expressive-code').then(async (m) => { const r = await m.createRenderer({ themes: ['github-light'] }); const o = await r.ec.render({ code: 'let a = 1', language: 'js' }); console.log(o.renderedGroupAst ? 'ok' : 'no') })" 2>&1 | tail -1)"
-check "the code highlighter loads and renders" "ok" "$hl"
+# pnpm keeps each package in /app/node_modules/.pnpm/<name>@<version>/, not hoisted next to the app, so look it up there.
+ecdir="$(docker exec "$name" sh -c 'ls -d /app/node_modules/.pnpm/rehype-expressive-code@*/node_modules/rehype-expressive-code 2>/dev/null | head -1' || true)"
+check "the code highlighter is in the image" "found" "$([ -n "$ecdir" ] && echo found || echo missing)"
+hl="$(docker exec "$name" node --input-type=module -e "const m = await import('${ecdir}/dist/index.js'); const r = await m.createRenderer({ themes: ['github-light'] }); const o = await r.ec.render({ code: 'let a = 1', language: 'js' }); console.log(o.renderedGroupAst ? 'ok' : 'no')" 2>&1 | tail -3 | tr '\n' ' ' || true)"
+check "the code highlighter loads and renders" "ok " "$hl"
 
 echo "== Process"
 check "runs as uid 10001" 10001 "$(docker exec "$name" id -u)"

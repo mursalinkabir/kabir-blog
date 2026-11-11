@@ -2,7 +2,14 @@
 
 Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
-## 0.3.3 - 2026-11-11
+## 0.3.4 - 2026-11-11
+
+- **Release fix.** `v0.3.3` built the CMS image and passed every smoke check except one that was written wrong: it looked
+  for the code highlighter in `/app/apps/cms`, but pnpm keeps it under `/app/node_modules/.pnpm/`. The check now finds the
+  package there, runs it, and prints its output if it fails. The old nginx image still fails the scan on three nginx CVEs
+  (fixed in nginx 1.30.6); that image is retired by the cutover and does not gate the CMS image. Deploy `0.3.4`.
+
+## 0.3.3 - 2026-11-11 (tagged, no image built)
 
 - **Release fix.** `v0.3.2` passed `verify` (including parity in CI) but built no image: the CMS image's
   `Dockerfile.dockerignore` hid `apps/site/public/images` and `fixtures` (now un-ignored), and the release scan found
