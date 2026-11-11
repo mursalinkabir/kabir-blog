@@ -17,10 +17,12 @@ export interface PageHeaderOptions {
   nonce: string;
   env?: Env;
   preview?: boolean;
+  /** Never cached by anyone (search results). */
+  noStore?: boolean;
 }
 
 /** Response headers for a public page. Production-ready. */
-export function pageHeaders({ nonce, env = process.env, preview = false }: PageHeaderOptions): Record<string, string> {
+export function pageHeaders({ nonce, env = process.env, preview = false, noStore = false }: PageHeaderOptions): Record<string, string> {
   let csp = config['Content-Security-Policy'];
   // Scripts: self, this request's nonce and the listed hosts. The old policy also had 'wasm-unsafe-eval', which only Pagefind needed.
   const dev = env.NODE_ENV === 'development' ? " 'unsafe-eval'" : '';
@@ -36,7 +38,7 @@ export function pageHeaders({ nonce, env = process.env, preview = false }: PageH
     'X-Content-Type-Options': config['X-Content-Type-Options'],
     'Referrer-Policy': config['Referrer-Policy'],
     'Permissions-Policy': config['Permissions-Policy'],
-    'Cache-Control': preview ? 'private, no-store' : 'public, max-age=0, must-revalidate',
+    'Cache-Control': preview || noStore ? 'private, no-store' : 'public, max-age=0, must-revalidate',
   };
   if (preview) headers['X-Robots-Tag'] = 'noindex';
   return headers;

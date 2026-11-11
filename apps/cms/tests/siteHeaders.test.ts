@@ -41,3 +41,7 @@ describe('pageHeaders', () => {
     expect(e).not.toContain('allow-same-origin');
   });
 });
+
+describe('pageHeaders for search', () => {
+  it('is never cached', () => expect(pageHeaders({ nonce: NONCE, env: {}, noStore: true })['Cache-Control']).toBe('private, no-store'));
+});

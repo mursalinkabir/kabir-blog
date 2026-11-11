@@ -12,29 +12,32 @@ import { jsonLd } from '../../../site/lib/jsonld';
 // Rendered per request: the content snapshot is the cache, and every response carries its own script nonce.
 export const dynamic = 'force-dynamic';
 
-type Params = { params: Promise<{ path?: string[] }> };
+type Params = { params: Promise<{ path?: string[] }>; searchParams: Promise<{ q?: string | string[] }> };
 
 /** `['posts', 'x']` -> `/posts/x/`; a segment holding a slash (an encoded %2F) is not a page. */
 const pathnameOf = (path: string[] | undefined): string | null =>
   path?.some((s) => s.includes('/') || s.includes('\\')) ? null : `/${(path ?? []).map((s) => s).join('/')}${path?.length ? '/' : ''}`;
 
 // One lookup per request, shared by generateMetadata and the page.
-const load = cache(async (pathname: string) => {
+const load = cache(async (pathname: string, query?: string) => {
   const site = await siteStore().get();
-  return { site, result: await resolvePage(site, pathname) };
+  return { site, result: await resolvePage(site, pathname, query) };
 });
 
-export async function generateMetadata({ params }: Params): Promise<Metadata> {
+/** The `q` parameter as one string (the first when repeated). */
+const queryOf = (q: string | string[] | undefined): string | undefined => (Array.isArray(q) ? q[0] : q);
+
+export async function generateMetadata({ params, searchParams }: Params): Promise<Metadata> {
   const pathname = pathnameOf((await params).path);
   if (!pathname) return {};
-  const { site, result } = await load(pathname);
+  const { site, result } = await load(pathname, queryOf((await searchParams).q));
   return result ? toMetadata(result.meta, site) : {};
 }
 
-export default async function Page({ params }: Params) {
+export default async function Page({ params, searchParams }: Params) {
   const pathname = pathnameOf((await params).path);
   if (!pathname) notFound();
-  const { site, result } = await load(pathname);
+  const { site, result } = await load(pathname, queryOf((await searchParams).q));
   if (!result) notFound();
   const nonce = (await headers()).get('x-nonce') ?? undefined;
   const { meta, body, usesCode } = result;

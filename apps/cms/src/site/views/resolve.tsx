@@ -3,10 +3,11 @@ import { matchRoute } from '../router';
 import { aboutPage, contactPage, contactThanksPage, nowPage, projectPage, projectsPage, resumePage, usesPage } from './pages/static';
 import { categoriesIndexPage, categoryPage, homePage, tagPage, tagsIndexPage } from './pages/listing';
 import { postPage } from './pages/post';
+import { searchPage } from './pages/search';
 import type { PageResult } from './pages/types';
 
 /** The page at `pathname` (canonical, with its trailing slash), or null when there is none. */
-export async function resolvePage(site: Site, pathname: string): Promise<PageResult | null> {
+export async function resolvePage(site: Site, pathname: string, query?: string): Promise<PageResult | null> {
   const route = matchRoute(pathname);
   if (!route) return null;
   switch (route.kind) {
@@ -39,6 +40,6 @@ export async function resolvePage(site: Site, pathname: string): Promise<PageRes
     case 'contact-thanks':
       return contactThanksPage(route.locale);
     case 'search':
-      return null; // Task 10
+      return searchPage(site, route.locale, query);
   }
 }

@@ -37,7 +37,7 @@ export async function proxy(request: NextRequest) {
   // A public page (or a file): give it this request's nonce. Next adds the nonce to its own scripts from the request header.
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
   const isPreview = underPrefix(pathname, '/preview');
-  const headers = pageHeaders({ nonce, preview: isPreview });
+  const headers = pageHeaders({ nonce, preview: isPreview, noStore: /^\/(ja\/)?search\/?$/.test(pathname) });
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-nonce', nonce);
   requestHeaders.set('x-locale', pathname === '/ja' || pathname.startsWith('/ja/') ? 'ja' : 'en');

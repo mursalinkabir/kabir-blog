@@ -128,6 +128,7 @@ export function listPaths(site: Site): ListedPath[] {
     add({ path: localePath(locale, '/categories/'), locale, alternates: bothLocales('/categories/') });
     add({ path: localePath(locale, '/contact/'), locale, alternates: bothLocales('/contact/') });
     add({ path: localePath(locale, '/contact/thanks/'), locale, noindex: true, alternates: {} });
+    add({ path: localePath(locale, '/search/'), locale, noindex: true, alternates: bothLocales('/search/') });
     if (site.sectionLocales.about().includes(locale))
       add({ path: localePath(locale, '/about/'), locale, alternates: alternatesFor('/about/', site.sectionLocales.about()) });
     if (site.sectionLocales.now().includes(locale))
