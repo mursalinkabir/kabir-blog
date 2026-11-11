@@ -213,6 +213,12 @@ export const HtmlEmbedBlock: Block = {
   ],
 };
 
+/** Slugs of the block and inline-block types, so the public site can check it renders every one of them. */
+export const BLOCK_SLUGS = [CodeBlock, TerminalBlock, CalloutBlock, FigureBlock, GalleryStripBlock, DiagramBlock, HtmlEmbedBlock].map(
+  (b) => b.slug,
+);
+export const INLINE_BLOCK_SLUGS = [JpInlineBlock].map((b) => b.slug);
+
 /**
  * The article editor. Everything the site can render and nothing it cannot: no upload node (use a Figure block),
  * no internal links, no alignment or indent. A feature the renderer does not know would fail the site build.

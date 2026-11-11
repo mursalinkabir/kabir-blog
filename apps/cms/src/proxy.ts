@@ -40,6 +40,7 @@ export async function proxy(request: NextRequest) {
   const headers = pageHeaders({ nonce, preview: isPreview });
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-nonce', nonce);
+  requestHeaders.set('x-locale', pathname === '/ja' || pathname.startsWith('/ja/') ? 'ja' : 'en');
   requestHeaders.set('Content-Security-Policy', headers['Content-Security-Policy']!);
   const response = NextResponse.next({ request: { headers: requestHeaders } });
   for (const [k, v] of Object.entries(headers)) response.headers.set(k, v);

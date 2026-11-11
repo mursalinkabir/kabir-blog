@@ -15,3 +15,6 @@ apps/site/src/content/cms.next/
 apps/site/public/media/
 apps/site/public/media.next/
 apps/cms/.dev-credentials
+
+# public site assets built by apps/cms/scripts/build-site-assets.mjs
+apps/cms/public/site/

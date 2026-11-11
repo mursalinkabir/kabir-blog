@@ -1,0 +1,47 @@
+import type { ReactElement } from 'react';
+import { initials } from '../../lib/routes';
+import { cx } from '../cx';
+import type { Category } from '../../lib/types';
+
+export { SocialIcon } from './SocialIcon';
+
+export function CategoryIcon({ category, size = 18 }: { category: Category['slug']; size?: number }): ReactElement {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      focusable="false"
+    >
+      {category === 'tech' ? (
+        <>
+          <rect x="6.5" y="6.5" width="11" height="11" rx="2" />
+          <rect x="9.5" y="9.5" width="5" height="5" rx="1" />
+          <path d="M9 3.5v3M15 3.5v3M9 17.5v3M15 17.5v3M3.5 9h3M3.5 15h3M17.5 9h3M17.5 15h3" />
+        </>
+      ) : category === 'finance' ? (
+        <>
+          <circle cx="12" cy="12" r="9" />
+          <path d="m8.5 7.5 3.5 5 3.5-5M12 12.5V17M9.5 13.5h5M9.5 15.5h5" />
+        </>
+      ) : (
+        <path d="M3 6.5c6-2 12-2 18 0M5 9.5h14M7 6v14M17 6v14M7 13h10" />
+      )}
+    </svg>
+  );
+}
+
+/** Monogram until a photo is added in Payload. Decorative: the author's name is printed beside it. */
+export function Avatar({ name, size = 'sm' }: { name: string; size?: 'sm' | 'xl' }): ReactElement {
+  return (
+    <span className={cx('avatar', `avatar-${size}`)} aria-hidden="true">
+      {initials(name)}
+    </span>
+  );
+}

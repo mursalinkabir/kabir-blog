@@ -1,0 +1,2231 @@
+@import './fonts.css';
+
+/*
+  smkabir.com: a bento-grid magazine. Large rounded tiles, big confident type, one teal accent plus a colour per topic,
+  light and dark. Teal #01ad9f fails contrast as text on white (2.8:1), so it is decoration only; links and buttons
+  use --link (#007a6e on light, #5eead4 on dark).
+*/
+
+:root {
+  --heading: #152035;
+  --text: #4f5560;
+  --muted: #646a75;
+  --accent: #01ad9f;
+  --link: #007a6e;
+  --link-hover: #005c52;
+  --on-link: #ffffff; /* text on a --link background */
+  --surface: #f6f7f9;
+  --surface-2: #eef0f4;
+  --border: #e4e7ec;
+  --field-border: #7b8089; /* 3.7:1 on white: a control's edge must be visible (WCAG 1.4.11) */
+  --bg: #ffffff;
+  --tint: #e3f5f3;
+  --warn: #9a5000;
+  --danger: #b3261e;
+  --footer-bg: #0f1829;
+  --ring: rgb(21 32 53 / 0.07);
+
+  /* One colour pair per topic: a tinted background and a foreground that passes AA on it. */
+  --t-tech-bg: #d8f1ed;
+  --t-tech-fg: #00675c;
+  --t-finance-bg: #fbebc6;
+  --t-finance-fg: #7a4b00;
+  --t-japan-bg: #fbdfe1;
+  --t-japan-fg: #9b2335;
+
+  --font:
+    'Mulish', system-ui, -apple-system, 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic UI', 'Yu Gothic',
+    'Noto Sans JP', 'Noto Sans CJK JP', Meiryo, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --radius-sm: 10px;
+  --radius: 14px;
+  --radius-lg: 24px;
+  --container: 1180px;
+  --content: 808px;
+  --gutter: clamp(1rem, 4vw, 1.5rem);
+  color-scheme: light;
+}
+
+/* Dark: follows the system unless the visitor chose (data-theme on <html>, set by /theme-init.js and the toggle).
+   Both blocks below hold the same values; CSS cannot share one declaration list between a media query and a selector. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --heading: #f2f5f8;
+    --text: #b7bfcb;
+    --muted: #94a0b0;
+    --accent: #14b8a6;
+    --link: #5eead4;
+    --link-hover: #99f6e4;
+    --on-link: #04211d;
+    --surface: #111821;
+    --surface-2: #18212c;
+    --border: #232d39;
+    --field-border: #5f6b7a;
+    --bg: #0a0e14;
+    --tint: rgb(45 212 191 / 0.14);
+    --warn: #fbbf24;
+    --danger: #f87171;
+    --footer-bg: #06090d;
+    --ring: rgb(255 255 255 / 0.09);
+    --t-tech-bg: #0e2b28;
+    --t-tech-fg: #5eead4;
+    --t-finance-bg: #2f2309;
+    --t-finance-fg: #fcd34d;
+    --t-japan-bg: #38131a;
+    --t-japan-fg: #fda4af;
+    color-scheme: dark;
+  }
+}
+:root[data-theme='dark'] {
+  --heading: #f2f5f8;
+  --text: #b7bfcb;
+  --muted: #94a0b0;
+  --accent: #14b8a6;
+  --link: #5eead4;
+  --link-hover: #99f6e4;
+  --on-link: #04211d;
+  --surface: #111821;
+  --surface-2: #18212c;
+  --border: #232d39;
+  --field-border: #5f6b7a;
+  --bg: #0a0e14;
+  --tint: rgb(45 212 191 / 0.14);
+  --warn: #fbbf24;
+  --danger: #f87171;
+  --footer-bg: #06090d;
+  --ring: rgb(255 255 255 / 0.09);
+  --t-tech-bg: #0e2b28;
+  --t-tech-fg: #5eead4;
+  --t-finance-bg: #2f2309;
+  --t-finance-fg: #fcd34d;
+  --t-japan-bg: #38131a;
+  --t-japan-fg: #fda4af;
+  color-scheme: dark;
+}
+
+/* ---- base --------------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 1.5rem;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.625;
+  text-rendering: optimizeLegibility;
+}
+/* Japanese is set looser than Latin, and breaks lines at phrase boundaries where the browser can (auto-phrase is
+   progressive: others fall back to the default). `strict` keeps small kana and the long-vowel mark off line starts. */
+html:lang(ja) body {
+  line-height: 1.85;
+  line-break: strict;
+  word-break: auto-phrase;
+}
+main {
+  flex: 1;
+  width: 100%;
+}
+main:focus {
+  outline: none;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+.container {
+  width: min(100% - 2 * var(--gutter), var(--container));
+  margin-inline: auto;
+}
+.prose-width {
+  width: min(100% - 2 * var(--gutter), var(--content));
+  margin-inline: auto;
+}
+.page {
+  padding-block: 3rem 0;
+}
+.listing {
+  padding-top: clamp(1.5rem, 5vw, 3rem);
+}
+
+a {
+  color: var(--link);
+  text-underline-offset: 0.18em;
+}
+a:hover {
+  color: var(--link-hover);
+}
+:focus-visible {
+  outline: 3px solid var(--link);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+::selection {
+  background: var(--tint);
+  color: var(--heading);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  color: var(--heading);
+  font-weight: 700;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+:lang(ja) :is(h1, h2, h3, h4) {
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+/* :where() keeps this reset at zero specificity so component margins still win. */
+:where(ul, ol)[role='list'] {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -5rem;
+  z-index: 60; /* above the sticky header (40) so a focused skip link is never covered */
+  padding: 0.6rem 1rem;
+  background: var(--heading);
+  color: var(--bg);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+.fixture-banner {
+  background: var(--tint);
+  color: var(--heading);
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.4rem var(--gutter);
+}
+
+/* Section and page titles carry a short teal bar. */
+.page-title,
+.section-title {
+  text-align: center;
+  font-size: clamp(2rem, 5vw, 2.5rem);
+}
+.page-title::after,
+.section-title::after {
+  content: '';
+  display: block;
+  width: 2.5rem;
+  height: 4px;
+  margin: 0.9rem auto 0;
+  border-radius: 2px;
+  background: var(--accent);
+}
+.section-title {
+  font-size: clamp(1.75rem, 4vw, 2.075rem);
+}
+.page-head {
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+.page-head-left .page-title,
+.page-head-left .page-lede,
+.page-head-left .resume-updated {
+  text-align: left;
+}
+.page-head-left .page-title::after {
+  margin-left: 0;
+}
+.page-head-left .page-lede {
+  margin-left: 0;
+}
+.page-head-left .page-aside,
+.page-head-left .tags {
+  justify-content: flex-start;
+}
+.page-lede {
+  max-width: 36rem;
+  margin: 1.25rem auto 0;
+  text-align: center;
+  color: var(--muted);
+}
+.page-aside,
+.page-aside-inline {
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+.page-aside {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem 1.25rem;
+  margin: 1rem 0 0;
+}
+.empty {
+  padding-block: 1rem 2rem;
+  text-align: center;
+  color: var(--muted);
+}
+.empty p {
+  margin: 0 0 1rem;
+}
+
+/* ---- buttons, icon buttons -------------------------------------------------------------- */
+.btn,
+.button {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  background: var(--link);
+  color: var(--on-link);
+  border: 0;
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn:hover,
+.button:hover:not(:disabled) {
+  background: var(--link-hover);
+  color: var(--on-link);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--link);
+  box-shadow: inset 0 0 0 2px var(--link);
+}
+.btn-ghost:hover {
+  background: var(--tint);
+  color: var(--link-hover);
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--heading);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+.icon-btn:hover {
+  color: var(--link);
+  background: var(--surface);
+}
+summary.icon-btn {
+  list-style: none;
+}
+summary.icon-btn::-webkit-details-marker {
+  display: none;
+}
+.icon-btn-outline {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-color: rgb(255 255 255 / 0.75);
+  color: #fff;
+}
+.icon-btn-outline:hover {
+  background: rgb(255 255 255 / 0.12);
+  color: #fff;
+}
+.icon-btn.is-done {
+  color: var(--link);
+  background: var(--tint);
+}
+
+/* ---- header ------------------------------------------------------------------------------ */
+.site-header {
+  background: var(--bg);
+}
+.header-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem 2rem;
+  min-height: 84px;
+}
+.logo {
+  flex: none;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+.logo-mark {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: var(--radius);
+  /* --link, not --accent: white on #01ad9f is only 2.8:1 */
+  background: var(--link);
+  color: var(--on-link);
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+.nav-desktop {
+  margin-inline: auto;
+}
+.nav-desktop a,
+.nav-desktop summary {
+  white-space: nowrap; /* Japanese labels may otherwise break between any two characters */
+}
+.nav-desktop > ul {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem 1.75rem;
+}
+.nav-desktop a,
+.nav-desktop summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding-block: 0.35rem;
+  color: var(--heading);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  list-style: none;
+}
+.nav-desktop summary::-webkit-details-marker {
+  display: none;
+}
+.nav-desktop a:hover,
+.nav-desktop summary:hover,
+.nav-desktop a[aria-current='page'],
+.nav-desktop details.is-active > summary {
+  color: var(--link);
+}
+/* The current page is also marked with a bar, so it never relies on colour alone. */
+.nav-desktop > ul > li > a[aria-current='page'],
+.nav-desktop details.is-active > summary {
+  box-shadow: inset 0 -3px 0 var(--link);
+}
+.more > ul a[aria-current='page'],
+.nav-mobile a[aria-current='page'] {
+  box-shadow: inset 3px 0 0 var(--link);
+}
+.more {
+  position: relative;
+}
+.more > ul {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.5rem);
+  z-index: 20;
+  min-width: 11rem;
+  padding: 0.5rem;
+  list-style: none;
+  margin: 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 32px rgb(21 32 53 / 0.12);
+}
+.more > ul a {
+  display: block;
+  padding: 0.45rem 0.75rem;
+  border-radius: var(--radius-sm);
+}
+.more > ul a:hover {
+  background: var(--surface);
+}
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: auto;
+}
+.lang-switch {
+  display: flex;
+  margin-right: 0.35rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+.lang-switch a,
+.lang-current {
+  white-space: nowrap;
+  display: grid;
+  place-items: center;
+  min-width: 2.6rem;
+  height: 2.1rem;
+  padding: 0 0.5rem;
+  text-decoration: none;
+}
+.lang-current {
+  background: var(--link);
+  color: var(--on-link);
+}
+.lang-switch a {
+  color: var(--heading);
+}
+.lang-switch a:hover {
+  background: var(--surface);
+}
+.menu {
+  display: none;
+  position: relative;
+}
+.nav-mobile {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.5rem);
+  z-index: 20;
+  min-width: 13rem;
+  padding: 0.5rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 32px rgb(21 32 53 / 0.12);
+}
+.nav-mobile a {
+  display: block;
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--radius-sm);
+  color: var(--heading);
+  font-weight: 600;
+  text-decoration: none;
+}
+.nav-mobile a:hover,
+.nav-mobile a[aria-current='page'] {
+  background: var(--surface);
+  color: var(--link);
+}
+/* The desktop menu needs about 1010px (English) or 985px (Japanese, after the tighter rules below) of row;
+   below 65rem the "More"-style phone menu is used instead of letting the header overflow. */
+@media (max-width: 64.99rem) {
+  .nav-desktop {
+    display: none;
+  }
+  .menu {
+    display: block;
+  }
+}
+/* Japanese labels are denser and the site name is longer: tighter spacing keeps the row inside the container. */
+@media (min-width: 65rem) {
+  :lang(ja) .logo {
+    font-size: 1.25rem;
+  }
+  :lang(ja) .nav-desktop > ul {
+    gap: 0.25rem 0.875rem;
+    font-size: 0.9375rem;
+  }
+}
+@media (max-width: 29.99rem) {
+  /* A long site name (the Japanese one is ten characters) wraps onto two lines instead of pushing the menu
+     button off the screen. It breaks after the middle dot. */
+  .logo {
+    flex: 0 1 auto;
+    min-width: 0;
+    white-space: normal;
+    line-height: 1.15;
+    font-size: 1rem;
+    gap: 0.45rem;
+  }
+  .logo-mark {
+    flex: none;
+    width: 1.9rem;
+    height: 1.9rem;
+  }
+  .header-row {
+    gap: 0.5rem;
+  }
+  .lang-switch a,
+  .lang-current {
+    min-width: 2.3rem;
+  }
+}
+
+/* ---- avatar, meta ------------------------------------------------------------------------ */
+.avatar {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  border-radius: 50%;
+  background: var(--tint);
+  color: var(--link);
+  font-weight: 800;
+  line-height: 1;
+}
+.avatar-sm {
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 0.6rem;
+}
+.avatar-xl {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius);
+  font-size: clamp(4rem, 12vw, 6rem);
+  background: var(--tint);
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+.meta li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.meta svg {
+  color: var(--accent);
+}
+.meta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+.meta a:hover {
+  color: var(--link);
+}
+
+/* ---- cards ------------------------------------------------------------------------------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(2rem, 5vw, 3.5rem) 2.5rem;
+}
+.card {
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+.card-grid > .card {
+  margin-bottom: 0;
+}
+.card-cover {
+  display: block;
+  margin-bottom: 1.1rem;
+}
+.cover {
+  aspect-ratio: 97 / 50;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+.card-cover:hover .cover img {
+  transform: scale(1.035);
+}
+.card:has(.card-cover:hover) .card-title a {
+  color: var(--link);
+}
+.cover-fallback {
+  display: grid;
+  place-items: center;
+  background: var(--t-tech-bg);
+  color: var(--t-tech-fg);
+}
+.cover-finance {
+  background: var(--t-finance-bg);
+  color: var(--t-finance-fg);
+}
+.cover-japan-life {
+  background: var(--t-japan-bg);
+  color: var(--t-japan-fg);
+}
+.card-title {
+  margin: 0.75rem 0 0.6rem;
+  font-size: 1.75rem;
+  letter-spacing: -0.01em;
+}
+.card-featured .card-title {
+  font-size: 2.075rem;
+}
+.card-title a {
+  color: var(--heading);
+  text-decoration: none;
+}
+.card-title a:hover {
+  color: var(--link);
+}
+.card-excerpt {
+  margin: 0;
+  color: var(--muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+@media (max-width: 47.99rem) {
+  .card-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .card-title,
+  .card-featured .card-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* ---- pagination -------------------------------------------------------------------------- */
+.pagination {
+  margin-block: 1rem 0;
+}
+.pagination ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.page-link {
+  display: grid;
+  place-items: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding: 0 0.5rem;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  color: var(--heading);
+  font-weight: 700;
+  text-decoration: none;
+}
+a.page-link:hover {
+  background: var(--tint);
+  color: var(--heading);
+}
+.page-link.is-current {
+  background: var(--link);
+  border-color: var(--link);
+  color: var(--on-link);
+}
+.page-link.is-disabled {
+  border-color: var(--border);
+  color: var(--muted);
+}
+.page-gap {
+  display: grid;
+  place-items: center;
+  height: 2.5rem;
+  color: var(--muted);
+}
+
+/* ---- pills, tags ------------------------------------------------------------------------- */
+.pills,
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+.pill,
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  color: var(--heading);
+  font-weight: 600;
+  text-decoration: none;
+}
+.pill svg {
+  color: var(--accent);
+}
+.pill:hover,
+.tag:hover {
+  background: var(--tint);
+  color: var(--heading);
+}
+.pill-count {
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+.tag-list {
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+.tag {
+  font-size: 0.9375rem;
+}
+
+/* ---- post -------------------------------------------------------------------------------- */
+.post {
+  padding-top: clamp(1.5rem, 5vw, 3rem);
+}
+.post-head {
+  max-width: 46rem;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+.post-head h1 {
+  font-size: clamp(1.85rem, 5vw, 2.5rem);
+  margin-bottom: 1rem;
+}
+.post-head .meta {
+  justify-content: center;
+}
+.post-series {
+  margin: 0.75rem 0 0;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+.post-cover {
+  margin: 0 0 2.5rem;
+}
+.post-cover img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 97 / 50;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+.post-cover figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  text-align: center;
+}
+.post-body {
+  max-width: var(--content);
+  margin-inline: auto;
+}
+.post-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-top: 3rem;
+}
+.share {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.share-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--heading);
+}
+.share ul {
+  display: flex;
+  gap: 0.15rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.share .icon-btn {
+  color: var(--muted);
+}
+.share .icon-btn:hover {
+  color: var(--link);
+}
+.related {
+  margin-top: clamp(3rem, 8vw, 5rem);
+}
+.related .section-title {
+  margin-bottom: 2rem;
+}
+
+.toc {
+  margin-bottom: 2rem;
+  padding: 0.9rem 1.25rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  font-size: 0.9375rem;
+}
+.toc summary {
+  cursor: pointer;
+  color: var(--heading);
+  font-weight: 700;
+}
+.toc ol {
+  margin: 0.6rem 0 0;
+  padding-left: 1.25rem;
+}
+.toc li {
+  padding-block: 0.15rem;
+}
+.toc .depth-3 {
+  margin-left: 1rem;
+  list-style: circle;
+}
+.toc .depth-4 {
+  margin-left: 2rem;
+  list-style: square;
+}
+
+/* ---- prose ------------------------------------------------------------------------------- */
+.prose {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--text);
+}
+:lang(ja) .prose {
+  line-height: 1.95;
+}
+.prose > * {
+  margin-block: 0;
+}
+.prose > * + * {
+  margin-top: 1.25em;
+}
+.prose h2 {
+  margin-top: 2.2em;
+  font-size: 1.75rem;
+}
+.prose h3 {
+  margin-top: 1.9em;
+  font-size: 1.4rem;
+}
+.prose h4 {
+  margin-top: 1.7em;
+  font-size: 1.15rem;
+}
+.prose :is(h2, h3, h4) + * {
+  margin-top: 0.6em;
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.4em;
+}
+.prose li + li {
+  margin-top: 0.35em;
+}
+.prose li::marker {
+  color: var(--accent);
+  font-weight: 700;
+}
+.prose blockquote {
+  margin-inline: 0;
+  padding: 1.1rem 1.5rem;
+  background: var(--surface);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  color: var(--heading);
+  font-size: 1.125rem;
+  font-style: italic;
+}
+:lang(ja) .prose blockquote {
+  font-style: normal; /* no italic in Japanese type */
+}
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin-block: 2.5em;
+}
+.prose :not(pre) > code {
+  padding: 0.1em 0.4em;
+  background: var(--surface);
+  border-radius: 4px;
+  color: var(--heading);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+.prose strong {
+  color: var(--heading);
+}
+.prose .anchor {
+  margin-left: 0.4rem;
+  color: var(--muted);
+  font-weight: 500;
+  text-decoration: none;
+  opacity: 0;
+}
+.prose :is(h2, h3, h4):hover .anchor {
+  opacity: 1;
+}
+
+.callout {
+  margin-inline: 0;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border-left: 4px solid var(--callout, var(--accent));
+  border-radius: var(--radius);
+}
+.callout > * + * {
+  margin-top: 0.5rem;
+}
+.callout p {
+  margin: 0;
+}
+.callout-title {
+  color: var(--callout, var(--link));
+  font-weight: 800;
+  font-size: 0.9375rem;
+}
+.callout-warn {
+  --callout: var(--warn);
+}
+.callout-danger {
+  --callout: var(--danger);
+}
+
+/* Tables: finance writing lives here. Numeric columns are right-aligned in tabular figures. */
+.table-wrap {
+  overflow-x: auto;
+}
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.prose th,
+.prose td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+}
+.prose thead th {
+  background: var(--surface);
+  color: var(--heading);
+  font-weight: 700;
+}
+.prose thead th:first-child {
+  border-top-left-radius: var(--radius);
+}
+.prose thead th:last-child {
+  border-top-right-radius: var(--radius);
+}
+.prose .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+.prose th.num {
+  white-space: normal;
+}
+
+figure.figure {
+  margin-inline: 0;
+}
+figure.figure img {
+  display: block;
+  width: 100%;
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+figure.figure figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+/* HTML embeds: an isolated frame (see src/lib/embeds.ts). The frame is as wide as the text column. */
+figure.embed {
+  margin-inline: 0;
+}
+figure.embed iframe {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color-scheme: normal;
+}
+figure.embed figcaption,
+.embed-note {
+  margin-top: 0.6rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+.gallery-strip {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scroll-snap-type: x proximity;
+}
+.gallery-strip img {
+  flex: none;
+  height: 13rem;
+  width: auto;
+  border-radius: var(--radius);
+  scroll-snap-align: start;
+  background: var(--surface);
+}
+.terminal-output {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  background: var(--surface);
+  border-radius: 0 0 var(--radius) var(--radius);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  color: var(--text);
+}
+.diagram {
+  margin-inline: 0;
+}
+.diagram img {
+  display: block;
+  margin-inline: auto;
+}
+.diagram details {
+  margin-top: 0.5rem;
+  font-size: 0.9375rem;
+}
+.diagram summary {
+  cursor: pointer;
+  color: var(--muted);
+}
+.diagram pre {
+  overflow-x: auto;
+  padding: 0.75rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  font-size: 0.8125rem;
+}
+
+/* Inline Japanese term: reading always visible, English gloss on hover / focus / tap. The tip is display:none
+   until shown (an invisible absolutely positioned box would still widen the page), is a child of the term so
+   it stays open while the pointer is over it, and scripts/jp-gloss.ts flips it inside the viewport. */
+.jp {
+  position: relative;
+  text-decoration: underline dotted var(--muted);
+  text-underline-offset: 0.25em;
+  cursor: help;
+}
+.jp-r {
+  color: var(--muted);
+  font-style: italic;
+}
+.jp-tip {
+  display: none;
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  z-index: 5;
+  width: max-content;
+  max-width: min(16rem, calc(100vw - 2rem));
+  padding: 0.3rem 0.65rem;
+  /* the transparent border keeps the pointer inside the term while it moves up to the tip */
+  border-bottom: 0.4rem solid transparent;
+  background: var(--heading);
+  background-clip: padding-box;
+  color: var(--bg);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: normal;
+}
+.jp:hover .jp-tip,
+.jp:focus .jp-tip {
+  display: block;
+}
+.jp.is-end .jp-tip {
+  left: auto;
+  right: 0;
+}
+.jp.is-start .jp-tip {
+  left: 0;
+  right: auto;
+}
+.jp.is-dismissed .jp-tip {
+  display: none;
+}
+
+/* Checklists from the rich-text editor. */
+.prose ul.checklist {
+  list-style: none;
+  padding-left: 0;
+}
+.prose .checklist li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+.check-mark {
+  flex: none;
+  width: 1.05rem;
+  height: 1.05rem;
+  margin-top: 0.3rem;
+  border: 2px solid var(--muted);
+  border-radius: 4px;
+}
+.is-checked > .check-mark {
+  border-color: var(--link);
+  background: var(--link)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 8.5 3 3 6-7' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    center / 80% no-repeat;
+}
+.prose li > ul,
+.prose li > ol {
+  margin-top: 0.35em;
+}
+[hidden] {
+  display: none !important;
+}
+
+/* ---- about ------------------------------------------------------------------------------- */
+.about-intro {
+  display: grid;
+  gap: 2rem 2.5rem;
+  align-items: start;
+}
+.about-photo {
+  aspect-ratio: 2 / 3;
+  max-width: 18rem;
+  width: 100%;
+}
+.about-title {
+  margin-bottom: 1rem;
+  font-size: clamp(1.85rem, 4vw, 2.25rem);
+}
+.about-topics {
+  margin-top: clamp(3rem, 8vw, 5rem);
+}
+.topics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 2rem;
+  margin-top: 2.5rem;
+  text-align: center;
+}
+.topic-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 0.75rem;
+  border-radius: var(--radius);
+  background: var(--tint);
+  color: var(--link);
+}
+.topics h3 {
+  font-size: 1.4rem;
+}
+.topics h3 a {
+  color: var(--heading);
+  text-decoration: none;
+}
+.topics h3 a:hover {
+  color: var(--link);
+}
+.topics p {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+}
+@media (min-width: 48rem) {
+  .about-intro {
+    grid-template-columns: 17rem 1fr;
+  }
+}
+
+/* ---- resume, uses, projects -------------------------------------------------------------- */
+.resume-updated {
+  margin: 0.75rem 0 0;
+  text-align: center;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+.resume-summary {
+  margin-top: 0;
+}
+.resume-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.5rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-weight: 700;
+}
+.resume h2 {
+  margin: 2.5rem 0 1rem;
+  font-size: 1.5rem;
+}
+.resume-entry {
+  margin-bottom: 1.5rem;
+}
+.resume-entry h3 {
+  font-size: 1.15rem;
+}
+.resume-entry p {
+  margin: 0.2rem 0 0;
+}
+.resume-entry .when {
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+.resume-entry ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.2rem;
+}
+.resume dl {
+  display: grid;
+  grid-template-columns: minmax(7rem, max-content) 1fr;
+  gap: 0.5rem 1.5rem;
+  margin: 0;
+}
+.resume dt {
+  font-weight: 700;
+  color: var(--heading);
+}
+.resume dd {
+  margin: 0;
+}
+.uses-group h2 {
+  margin: 2.5rem 0 0.5rem;
+  font-size: 1.5rem;
+}
+.uses-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.uses-group li {
+  padding-block: 0.75rem;
+  border-bottom: 1px solid var(--border);
+  font-weight: 700;
+  color: var(--heading);
+}
+.uses-group li span {
+  display: block;
+  font-weight: 400;
+  color: var(--muted);
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+}
+.tags li {
+  padding: 0.25rem 0.8rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--heading);
+}
+
+/* ---- forms ------------------------------------------------------------------------------- */
+.narrow {
+  max-width: 40rem;
+  margin-inline: auto;
+}
+.form {
+  display: grid;
+  gap: 1.25rem;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+@media (max-width: 36rem) {
+  .form-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.form label {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--heading);
+  font-weight: 700;
+  font-size: 0.9375rem;
+}
+.form input,
+.form textarea {
+  padding: 0.75rem 1rem;
+  color: var(--heading);
+  background: var(--bg);
+  border: 1px solid var(--field-border);
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-weight: 400;
+}
+.form input:focus,
+.form textarea:focus {
+  border-color: var(--link);
+  outline: 2px solid var(--link);
+  outline-offset: 0;
+}
+.form textarea {
+  min-height: 10rem;
+  resize: vertical;
+}
+.hp {
+  position: absolute;
+  left: -9999px;
+}
+.notice {
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-sm);
+  font-size: 0.9375rem;
+}
+
+/* ---- footer ------------------------------------------------------------------------------ */
+.site-footer {
+  margin-top: clamp(4rem, 10vw, 6rem);
+  background: var(--footer-bg);
+  color: rgb(255 255 255 / 0.75);
+  text-align: center;
+}
+.footer-inner {
+  display: grid;
+  justify-items: center;
+  gap: 1.75rem;
+  padding-block: 5rem;
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 2.5rem;
+}
+.footer-links a {
+  color: rgb(255 255 255 / 0.85);
+  font-weight: 600;
+  text-decoration: none;
+}
+.footer-links a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+.footer-copy {
+  margin: 0;
+  font-size: 0.9375rem;
+}
+.site-footer :focus-visible {
+  outline-color: #fff;
+}
+
+/* ---- bento layer -------------------------------------------------------------------------------------------
+   The redesign: floating pill header, a hero, a bento grid of tiles, colour per topic, light and dark. Placed last
+   so it overrides the base rules above. Motion is transform and opacity only, behind prefers-reduced-motion
+   (the rule at the end of this file), and never `transition: all`. */
+:root {
+  --shadow-sm: 0 1px 2px rgb(15 24 41 / 0.06);
+  --shadow-md: 0 10px 28px rgb(15 24 41 / 0.1);
+  --shadow-lg: 0 22px 50px rgb(15 24 41 / 0.16);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --header-h: 5.25rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+    --shadow-md: 0 10px 28px rgb(0 0 0 / 0.45);
+    --shadow-lg: 0 22px 50px rgb(0 0 0 / 0.55);
+  }
+}
+:root[data-theme='dark'] {
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+  --shadow-md: 0 10px 28px rgb(0 0 0 / 0.45);
+  --shadow-lg: 0 22px 50px rgb(0 0 0 / 0.55);
+}
+html {
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+  scroll-behavior: smooth;
+}
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent; /* every control has its own hover, active and focus state */
+}
+a,
+button,
+summary,
+label,
+input,
+textarea {
+  touch-action: manipulation;
+}
+::selection {
+  background: var(--tint);
+  color: var(--heading);
+}
+
+/* Header: a floating pill that stays in reach. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  padding-block: 0.75rem;
+  background: transparent;
+  pointer-events: none; /* the gap beside the pill stays clickable */
+}
+.header-row {
+  pointer-events: auto;
+  min-height: 3.5rem;
+  padding: 0.35rem 0.5rem 0.35rem 0.75rem;
+  gap: 0.75rem 1.25rem;
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  backdrop-filter: saturate(180%) blur(16px);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .header-row {
+    background: var(--bg);
+  }
+}
+.logo {
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+.logo-mark {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+}
+.nav-desktop > ul {
+  gap: 0.15rem;
+}
+.nav-desktop a,
+.nav-desktop summary {
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  font-weight: 650;
+}
+.nav-desktop a:hover,
+.nav-desktop summary:hover {
+  background: var(--surface-2);
+  color: var(--heading);
+}
+/* the current page is a filled pill, so it never relies on colour alone */
+.nav-desktop > ul > li > a[aria-current='page'],
+.nav-desktop details.is-active > summary {
+  box-shadow: none;
+  background: var(--tint);
+  color: var(--link);
+}
+.more > ul,
+.nav-mobile {
+  top: calc(100% + 0.75rem);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  overscroll-behavior: contain;
+}
+.nav-mobile {
+  max-height: calc(100dvh - var(--header-h) - 1.5rem);
+  overflow-y: auto;
+}
+.lang-switch {
+  border-radius: 999px;
+  margin-right: 0.15rem;
+}
+.icon-btn {
+  border-radius: 999px;
+}
+.nav-desktop a,
+.nav-desktop summary,
+.lang-switch a,
+.icon-btn,
+.more > ul a,
+.nav-mobile a {
+  transition:
+    color 0.15s var(--ease),
+    background-color 0.15s var(--ease);
+}
+
+/* Theme toggle: hidden until the script that makes it work is running. */
+.theme-toggle[hidden] {
+  display: none;
+}
+.theme-toggle .icon-moon {
+  display: none;
+}
+:root[data-theme='dark'] .theme-toggle .icon-sun {
+  display: none;
+}
+:root[data-theme='dark'] .theme-toggle .icon-moon {
+  display: block;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .theme-toggle .icon-sun {
+    display: none;
+  }
+  :root:not([data-theme='light']) .theme-toggle .icon-moon {
+    display: block;
+  }
+}
+
+/* Type: large sizes sit tighter, running text breaks without orphans. Japanese keeps its natural spacing. */
+h1 {
+  letter-spacing: -0.03em;
+}
+h2 {
+  letter-spacing: -0.02em;
+}
+:lang(ja) :is(h1, h2, h3, h4),
+:lang(ja) .card-title {
+  letter-spacing: 0;
+}
+.prose :is(p, li, blockquote),
+.card-excerpt,
+.page-lede {
+  text-wrap: pretty;
+}
+.meta,
+.page-link,
+.post-series {
+  font-variant-numeric: tabular-nums;
+}
+.meta {
+  font-size: 0.875rem;
+}
+.page-title,
+.section-title {
+  letter-spacing: -0.03em;
+}
+
+/* Japanese labels and the longer name need more room: tighter pill, and the phone menu until 80rem. */
+:lang(ja) .nav-desktop a,
+:lang(ja) .nav-desktop summary {
+  padding-inline: 0.6rem;
+}
+:lang(ja) .logo {
+  font-size: 1.05rem;
+}
+@media (max-width: 79.99rem) {
+  :lang(ja) .nav-desktop {
+    display: none;
+  }
+  :lang(ja) .menu {
+    display: block;
+  }
+}
+
+/* Home: hero. */
+.hero {
+  position: relative;
+  padding-block: clamp(1.5rem, 5vw, 3.5rem) clamp(1.75rem, 4vw, 2.75rem);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: -2rem -10vw auto auto;
+  width: min(60rem, 90vw);
+  height: 26rem;
+  z-index: -1;
+  background:
+    radial-gradient(closest-side at 70% 35%, color-mix(in srgb, var(--accent) 26%, transparent), transparent),
+    radial-gradient(closest-side at 25% 70%, color-mix(in srgb, var(--t-japan-fg) 14%, transparent), transparent);
+  filter: blur(8px);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1.25rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  background: var(--tint);
+  color: var(--link);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.hero-title {
+  margin: 0;
+  max-width: 16ch;
+  font-size: clamp(2.5rem, 8.5vw, 5.25rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  background: linear-gradient(100deg, var(--heading) 35%, var(--link) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+:lang(ja) .hero-title {
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  max-width: 14em;
+}
+@media (forced-colors: active) {
+  .hero-title {
+    -webkit-text-fill-color: currentColor;
+    color: CanvasText;
+    background: none;
+  }
+}
+.hero-lead {
+  max-width: 38rem;
+  margin: 1.25rem 0 0;
+  font-size: clamp(1.0625rem, 2.2vw, 1.3125rem);
+  line-height: 1.55;
+  color: var(--text);
+  text-wrap: pretty;
+}
+.hero-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1.75rem 0 0;
+}
+.topic-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.95rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--heading);
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background-color 0.15s var(--ease),
+    border-color 0.15s var(--ease),
+    transform 0.2s var(--ease);
+}
+.topic-chip svg {
+  color: var(--topic-fg, var(--accent));
+}
+.topic-chip:hover {
+  background: var(--topic-bg, var(--tint));
+  border-color: transparent;
+  color: var(--topic-fg, var(--heading));
+  transform: translateY(-2px);
+}
+.topic-chip-count {
+  color: var(--muted);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+[data-topic='tech'] {
+  --topic-bg: var(--t-tech-bg);
+  --topic-fg: var(--t-tech-fg);
+}
+[data-topic='finance'] {
+  --topic-bg: var(--t-finance-bg);
+  --topic-fg: var(--t-finance-fg);
+}
+[data-topic='japan-life'] {
+  --topic-bg: var(--t-japan-bg);
+  --topic-fg: var(--t-japan-fg);
+}
+
+/* Bento grid. First tile of a first page is the large, image-filled feature. */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition:
+    transform 0.35s var(--ease),
+    box-shadow 0.35s var(--ease),
+    border-color 0.2s var(--ease);
+}
+.tile:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: color-mix(in srgb, var(--topic-fg, var(--accent)) 45%, var(--border));
+}
+.tile:has(:focus-visible) {
+  outline: 3px solid var(--link);
+  outline-offset: 3px;
+}
+.tile .card-cover {
+  margin: 0;
+}
+.tile .cover {
+  aspect-ratio: 16 / 10;
+  border-radius: 0;
+}
+.tile .cover::after {
+  box-shadow: none;
+}
+.tile-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+  padding: 1.1rem 1.35rem 1.4rem;
+}
+.tile .meta {
+  gap: 0.4rem 0.9rem;
+}
+.tile .meta-author {
+  display: none;
+}
+.tile .card-title {
+  margin: 0;
+  font-size: 1.3rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+/* the whole tile is the link: the title's link is stretched over it */
+.tile .card-title a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.tile .meta a {
+  position: relative;
+  z-index: 2;
+}
+.tile .card-excerpt {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+.meta-topic a,
+.meta-topic {
+  color: var(--topic-fg, var(--muted));
+}
+.tile .meta-topic {
+  font-weight: 700;
+}
+.tile .meta-topic svg {
+  color: currentColor;
+}
+.tile:hover .card-title a {
+  color: var(--link);
+}
+
+.bento.has-feature > .tile:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+  min-height: 32rem;
+  border: 0;
+  color: #fff;
+  justify-content: flex-end;
+}
+.bento.has-feature > .tile:first-child .card-cover {
+  position: absolute;
+  inset: 0;
+}
+.bento.has-feature > .tile:first-child .cover {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+}
+.bento.has-feature > .tile:first-child::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top, rgb(6 10 18 / 0.94) 0%, rgb(6 10 18 / 0.62) 42%, rgb(6 10 18 / 0.05) 78%);
+  pointer-events: none;
+}
+.bento.has-feature > .tile:first-child .tile-body {
+  position: relative;
+  z-index: 2;
+  flex: none;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  pointer-events: none;
+}
+.bento.has-feature > .tile:first-child .tile-body a {
+  pointer-events: auto;
+}
+.bento.has-feature > .tile:first-child .card-title {
+  font-size: clamp(1.75rem, 3.4vw, 2.6rem);
+  letter-spacing: -0.03em;
+}
+.bento.has-feature > .tile:first-child .card-title a,
+.bento.has-feature > .tile:first-child .card-title,
+.bento.has-feature > .tile:first-child:hover .card-title a {
+  color: #fff;
+}
+.bento.has-feature > .tile:first-child .card-excerpt,
+.bento.has-feature > .tile:first-child .meta,
+.bento.has-feature > .tile:first-child .meta a {
+  color: rgb(255 255 255 / 0.88);
+}
+.bento.has-feature > .tile:first-child .meta-topic,
+.bento.has-feature > .tile:first-child .meta-topic a {
+  color: #fff;
+}
+.bento.has-feature > .tile:first-child .meta svg {
+  color: rgb(255 255 255 / 0.8);
+}
+.bento.has-feature > .tile:first-child:hover {
+  border: 0;
+}
+/* the last two tiles of a first page are wide: image beside text */
+.bento.has-feature > .tile:nth-child(n + 6) {
+  grid-column: span 3;
+  flex-direction: row;
+}
+.bento.has-feature > .tile:nth-child(n + 6) .card-cover {
+  flex: 0 0 42%;
+}
+.bento.has-feature > .tile:nth-child(n + 6) .cover {
+  height: 100%;
+  aspect-ratio: auto;
+  min-height: 11rem;
+}
+.bento.has-feature > .tile:nth-child(n + 6) .tile-body {
+  justify-content: center;
+}
+
+@media (min-width: 64rem) {
+  .bento.has-feature {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .bento.has-feature > .tile:nth-child(n + 6) {
+    grid-column: span 2;
+  }
+}
+@media (max-width: 63.99rem) {
+  .bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .bento.has-feature > .tile:first-child {
+    grid-column: span 2;
+    grid-row: auto;
+    min-height: 28rem;
+  }
+  .bento.has-feature > .tile:nth-child(n + 6) {
+    grid-column: span 2;
+  }
+}
+@media (max-width: 39.99rem) {
+  .bento,
+  .bento.has-feature {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .bento.has-feature > .tile:first-child,
+  .bento.has-feature > .tile:nth-child(n + 6) {
+    grid-column: auto;
+  }
+  .bento.has-feature > .tile:first-child {
+    min-height: 26rem;
+  }
+  .bento.has-feature > .tile:nth-child(n + 6) {
+    flex-direction: column;
+  }
+  .bento.has-feature > .tile:nth-child(n + 6) .card-cover {
+    flex: none;
+  }
+  .bento.has-feature > .tile:nth-child(n + 6) .cover {
+    aspect-ratio: 16 / 10;
+    height: auto;
+    min-height: 0;
+  }
+}
+
+/* Few posts (a language with only two or three): the feature spans the row and the rest sit two to a row, so the
+   grid never leaves a hole beside the feature. */
+@media (min-width: 40rem) {
+  .bento.is-few > .tile:first-child {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    min-height: 26rem;
+  }
+  .bento.is-few > .tile:not(:first-child) {
+    grid-column: span 2;
+  }
+  .bento.is-few > .tile:nth-child(2):last-child {
+    grid-column: 1 / -1;
+    flex-direction: row;
+  }
+  .bento.is-few > .tile:nth-child(2):last-child .card-cover {
+    flex: 0 0 42%;
+  }
+  .bento.is-few > .tile:nth-child(2):last-child .cover {
+    height: 100%;
+    min-height: 11rem;
+    aspect-ratio: auto;
+  }
+  .bento.is-few > .tile:nth-child(2):last-child .tile-body {
+    justify-content: center;
+  }
+}
+
+/* Scroll reveal: a CSS-only entrance for tiles that scroll into view. Browsers without scroll-driven animations
+   just show the tiles. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .tile {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+  }
+}
+
+/* Images: a calm zoom, a hairline ring. */
+.cover {
+  position: relative;
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px var(--ring);
+  pointer-events: none;
+}
+.cover img {
+  transition: transform 0.7s var(--ease);
+}
+.card-cover:hover .cover img,
+.tile:hover .cover img {
+  transform: scale(1.04);
+}
+.post-cover img {
+  border-radius: var(--radius-lg);
+  outline: 1px solid var(--ring);
+  outline-offset: -1px;
+  box-shadow: var(--shadow-md);
+}
+.diagram img {
+  background: #fff; /* the D2 diagrams are drawn for a white page */
+  border-radius: var(--radius);
+}
+
+/* Buttons and pills. */
+.btn:not(.btn-ghost),
+.button {
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+}
+.btn-ghost {
+  border-radius: 999px;
+}
+.btn,
+.button,
+.btn-ghost {
+  transition:
+    background-color 0.15s var(--ease),
+    color 0.15s var(--ease),
+    box-shadow 0.2s var(--ease),
+    transform 0.15s var(--ease);
+}
+.btn:not(.btn-ghost):hover,
+.button:hover:not(:disabled) {
+  box-shadow: var(--shadow-md);
+}
+.btn:active,
+.button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+.page-link {
+  border-radius: 999px;
+  border-color: var(--border);
+}
+a.page-link:hover {
+  border-color: var(--accent);
+}
+.pill,
+.tag {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.page-link,
+.pill,
+.tag,
+.icon-btn-outline {
+  transition:
+    background-color 0.15s var(--ease),
+    border-color 0.15s var(--ease),
+    color 0.15s var(--ease);
+}
+.icon-btn-outline:hover {
+  border-color: #fff;
+}
+.card-title a {
+  transition: color 0.15s var(--ease);
+}
+
+/* Post page: a bigger title and a reading-progress bar (CSS scroll timeline, no script). */
+.post-head h1 {
+  font-size: clamp(2rem, 5.5vw, 3.25rem);
+  line-height: 1.08;
+}
+.post-head {
+  max-width: 52rem;
+}
+.post-cover {
+  margin-bottom: 3rem;
+}
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .post::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 70;
+      width: 100%;
+      height: 3px;
+      background: var(--accent);
+      transform-origin: 0 50%;
+      transform: scaleX(0);
+      animation: progress linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+}
+
+/* Prose links: a thin, soft underline that firms up on hover. */
+.prose a:not(.btn):not(.anchor) {
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  transition: text-decoration-color 0.15s var(--ease);
+}
+.prose a:not(.btn):not(.anchor):hover {
+  text-decoration-thickness: 2px;
+  text-decoration-color: currentColor;
+}
+/* The heading-anchor link is hidden until hover; a keyboard user must see it on focus. */
+.prose .anchor:focus-visible {
+  opacity: 1;
+}
+
+.site-footer {
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Pagefind default UI follows the site. */
+.pagefind-ui {
+  --pagefind-ui-scale: 1;
+  --pagefind-ui-primary: var(--link);
+  --pagefind-ui-text: var(--heading);
+  --pagefind-ui-background: var(--bg);
+  --pagefind-ui-border: var(--border);
+  --pagefind-ui-tag: var(--surface);
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 8px;
+  --pagefind-ui-font: var(--font);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  .site-header,
+  .site-footer,
+  .skip-link,
+  .fixture-banner,
+  .share {
+    display: none !important;
+  }
+  body {
+    font-size: 10.5pt;
+    line-height: 1.45;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .page {
+    padding-block: 0;
+  }
+}
