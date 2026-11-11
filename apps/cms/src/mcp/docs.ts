@@ -15,6 +15,7 @@ import {
   LOCALES,
   markdownOf,
   slugShape,
+  reportLive,
 } from './shared';
 
 type Kind = 'pages' | 'projects';
@@ -179,7 +180,12 @@ export const docTools = [
         data: { title: p.title, slug: p.slug, content: p.content, _status: 'published' } as never,
         ...asWrite(ctx),
       });
-      return { id: a.id, published: true, note: 'The site rebuilds after a publish; it can take a few minutes to appear.' };
+      return {
+        id: a.id,
+        published: true,
+        ...(await reportLive('pages', p.slug)),
+        note: 'Live within about a second; see `live` and `notLive`.',
+      };
     },
     'pages',
   ),
@@ -338,7 +344,12 @@ export const docTools = [
         } as never,
         ...asWrite(ctx),
       });
-      return { id: a.id, published: true, note: 'The site rebuilds after a publish; it can take a few minutes to appear.' };
+      return {
+        id: a.id,
+        published: true,
+        ...(await reportLive('projects', p.slug)),
+        note: 'Live within about a second; see `live` and `notLive`.',
+      };
     },
     'projects',
   ),

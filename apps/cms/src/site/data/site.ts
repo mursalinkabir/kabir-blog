@@ -240,6 +240,11 @@ export function createSite(data: SiteData, opts: SiteOptions) {
     },
     /** Why `post` has no page in `locale`; empty means it has one. */
     pageBlockers: (post: Post, locale: Locale): string[] => postBlockers(post, locale, preview),
+    /** The same by slug; `['missing']` when no post has that slug. */
+    pageBlockersFor: (slug: string, locale: Locale): string[] => {
+      const post = data.posts.find((p) => p.slug === slug);
+      return post ? postBlockers(post, locale, preview) : ['missing'];
+    },
     /** The HTML embeds of everything the site renders, by id. */
     embeds: (): Map<string, FoundEmbed> => (embedMap ??= new Map(collectEmbeds(site).map((e) => [e.id, e]))),
   };

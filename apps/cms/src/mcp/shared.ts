@@ -4,6 +4,9 @@
  * rules apply; the publish rules live in hooks/agentGuards.ts and apply to any use of that user, not only to these
  * tools.
  */
+import { siteStore } from '../site/data/store';
+import type { Site } from '../site/data/site';
+import { localePath, locales as siteLocales, type Locale as SiteLocale } from '../site/i18n';
 import { createHash } from 'node:crypto';
 import { z } from 'zod';
 import type { Payload, PayloadRequest } from 'payload';
@@ -239,4 +242,42 @@ export async function fetchImage(url: string): Promise<Buffer> {
   const buf = Buffer.from(await res.arrayBuffer());
   if (buf.length > MAX_IMAGE_BYTES) throw new Error('The image is larger than 8 MB.');
   return buf;
+}
+
+// ---------------------------------------------------------------- where a document is live
+
+/** `https://<first public host>`, the address the public site answers on. */
+export const liveOrigin = (env: Record<string, string | undefined> = process.env): string =>
+  `https://${(env.SITE_PUBLIC_HOSTS ?? 'smkabir.com').split(',')[0]!.trim()}`;
+
+export interface LiveReport {
+  /** Language to the public address where the page is live now. */
+  live: Partial<Record<SiteLocale, string>>;
+  /** Language to the reasons it is not live there. */
+  notLive: Partial<Record<SiteLocale, string[]>>;
+}
+
+/** Where `slug` is live on `site`, and why it is not in the other languages. Pure. */
+export function liveReport(site: Site, kind: 'posts' | 'projects' | 'pages', slug: string, origin: string): LiveReport {
+  const out: LiveReport = { live: {}, notLive: {} };
+  for (const l of siteLocales) {
+    const path = kind === 'posts' ? `/posts/${slug}/` : kind === 'projects' ? `/projects/${slug}/` : `/${slug}/`;
+    const exists =
+      kind === 'posts'
+        ? site.getPosts(l).some((p) => p.slug === slug)
+        : kind === 'projects'
+          ? site.getProjects(l).some((p) => p.slug === slug)
+          : Boolean(site.getPage(slug, l));
+    if (exists) out.live[l] = `${origin}${localePath(l, path)}`;
+    else
+      out.notLive[l] =
+        kind === 'posts' ? site.pageBlockersFor(slug, l) : ['not published, or a required field is missing in this language'];
+  }
+  return out;
+}
+
+/** After a write: reloads the public site's snapshot now (the content is committed) and says where the document is live. */
+export async function reportLive(kind: 'posts' | 'projects' | 'pages', slug: string): Promise<LiveReport> {
+  siteStore().invalidate();
+  return liveReport(await siteStore().get(), kind, slug, liveOrigin());
 }

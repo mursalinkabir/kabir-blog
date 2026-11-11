@@ -12,10 +12,10 @@ Snippets are marked **production-ready** or **illustrative**.
 | Part                                                        | Works today                                                                                                                    |
 | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | Tools, rules, audit log, kill switch                        | Yes, against the local CMS (`check:agent` 28 on / 22 off, publish semantics 14, scope 71 on / 12 off, hooks 20, 83 unit tests) |
-| Agent-published posts build on the site                     | Yes: pulled and built, every dist gate passes                                                                                  |
+| Agent-published posts appear on the site                    | Yes: the public site is served by the CMS app, so a publish is live within about a second (`reportLive` in the publish reply)  |
 | Pages, projects, settings, words, edits to a person's posts | Yes, same checks (`pnpm cms:check-scope`, `cms:check-hooks`)                                                                   |
 | Remote agent against the live CMS                           | After the cutover in [cutover.md](cutover.md) (service token, builder key, `CMS_URL`)                                          |
-| Publishing triggers a site rebuild                          | Hook is built; needs `GITHUB_DISPATCH_TOKEN` and `CMS_URL` for CI to see the CMS                                               |
+| Publishing needs a site rebuild                             | No: there is no build step; a hook refreshes the in-memory copy of the site (see [cms.md](cms.md))                             |
 
 ## Connect Claude Code and Claude Desktop locally (production-ready commands)
 
@@ -184,38 +184,23 @@ GitHub Actions "content": pull from the CMS -> privacy scan -> build -> upload r
 nginx pods (content-sync polls LATEST every 60 s)  ->  smkabir.com shows the new post
 ```
 
-| Step                        | Typical time     | If it fails                                                                                         |
-| --------------------------- | ---------------- | --------------------------------------------------------------------------------------------------- |
-| Agent calls `publish_post`  | seconds          | refused with reasons; nothing changes                                                               |
-| Hook asks GitHub to rebuild | 20 s (debounced) | logged; the post is published in the CMS but the site is not rebuilt: re-run the `content` workflow |
-| Build and upload            | 2 to 4 minutes   | the previous release keeps serving; the job is red                                                  |
-| Pods pick up `LATEST`       | up to 60 s       | the previous release keeps serving                                                                  |
+| Step                       | Typical time   | If it fails                                                                                 |
+| -------------------------- | -------------- | ------------------------------------------------------------------------------------------- |
+| Agent calls `publish_post` | about a second | refused with reasons; nothing changes                                                       |
+| Hook refreshes the site    | at once        | logged; the site refreshes on its own within a minute, and keeps serving the last good copy |
 
-So a post is live roughly **3 to 6 minutes** after the agent publishes. If the CMS is down the **site stays up**
-(it is static); only writing stops. If the site's pods are down the CMS and the agent still work.
+The publish reply says where the page is live: `live` holds one public address per language that is visible now, and
+`notLive` says what is missing in a language that is not (for example `title`, `heroAlt`, `publishedIn`). Production-ready.
 
-Connecting from your laptop to the production CMS (illustrative; use the same bridge, no client change):
-
-```sh
-# Claude Code, direct HTTP:
-claude mcp add --transport http kabir-blog-live https://cms.smkabir.com/api/mcp \
-  --header "Authorization: Bearer <agent key>" \
-  --header "CF-Access-Client-Id: <id>" --header "CF-Access-Client-Secret: <secret>"
-# Claude Desktop (stdio bridge reading these from its environment; the bridge sends the three headers):
-#   env: { "MCP_URL": "https://cms.smkabir.com/api/mcp", "MCP_KEY": "...", "CF_ACCESS_CLIENT_ID": "...", "CF_ACCESS_CLIENT_SECRET": "..." }
-```
-
-Run the local and the live server side by side under different names (`kabir-blog` and `kabir-blog-live`) so a draft
-never goes to the wrong place.
+Because a publish is public at once, **`AGENT_AUTO_PUBLISH=1` means the agent can change the public site without a person
+reading it first**. That is your decision to make; the daily limit, the minimum length and the privacy denylist still apply.
 
 ## Before pointing a remote agent at the live CMS (Phase 4 checklist, illustrative)
 
 1. CMS deployed behind Cloudflare Access; the agent connects with an Access **service token** header plus its MCP key.
 2. `AGENT_AUTO_PUBLISH`, `AGENT_MAX_PUBLISHES_PER_DAY`, `PRIVACY_DENYLIST` set in the CMS environment.
-3. `GITHUB_DISPATCH_TOKEN` (fine-grained, this repo only, Contents read/write) so a publish rebuilds the site, and the
-   repository variable `CMS_URL` plus `PAYLOAD_BUILDER_KEY`, `CF_ACCESS_CLIENT_ID`, `CF_ACCESS_CLIENT_SECRET` so
-   `content.yml` builds from the CMS (docs/secrets.md).
-4. The failover Worker (Phase 9) serves `/embeds/*` with the embed header set (docs/cms.md).
+3. `SITE_PUBLIC_HOSTS` set (default `smkabir.com`) so the publish reply names the right public address.
+4. The CMS app serves `/embeds/*` itself, with the embed header set (docs/cms.md).
 5. Next.js needs `outputFileTracingRoot` at the repo root when the CMS image is built, because the policy imports
    `scripts/privacy-core.mjs`.
 

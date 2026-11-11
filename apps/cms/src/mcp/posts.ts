@@ -21,6 +21,7 @@ import {
   slugShape,
   tagIds,
   view,
+  reportLive,
 } from './shared';
 
 export const postTools = [
@@ -285,7 +286,14 @@ export const postTools = [
           results[l] = { published: false, reason: error instanceof Error ? error.message : String(error) };
         }
       }
-      return { id: a.id, results, note: 'The site rebuilds after a publish; it can take a few minutes to appear.' };
+      const slug = (await loadPost(ctx, a.id, a.languages[0])).slug as string;
+      const where = await reportLive('posts', slug);
+      return {
+        id: a.id,
+        results,
+        ...where,
+        note: 'A publish is live within about a second. `live` lists the addresses; `notLive` says what is missing in a language that is not live.',
+      };
     },
     'posts',
   ),
