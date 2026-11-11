@@ -79,3 +79,32 @@ describe('RichText', () => {
     expect(out).toContain('expressive-code');
   });
 });
+
+describe('diagrams with d2 installed', async () => {
+  const { execFileSync } = await import('node:child_process');
+  const hasD2 = (() => {
+    try {
+      execFileSync('d2', ['--version']);
+      return true;
+    } catch {
+      return false;
+    }
+  })();
+  it.skipIf(!hasD2)('renders d2 to an <img> with an SVG data URI and the source in a details block', async () => {
+    const out = await html(doc(BLOCK('diagram', { kind: 'd2', source: 'a -> b', alt: 'A to B' })));
+    expect(out).toContain('<img src="data:image/svg+xml;base64,');
+    expect(out).toContain('alt="A to B"');
+    expect(out).toContain('<details>');
+  });
+  it('shows the source when d2 cannot run', async () => {
+    const saved = process.env.PATH;
+    process.env.PATH = '/nonexistent';
+    try {
+      const out = await html(doc(BLOCK('diagram', { kind: 'd2', source: 'zz -> <b>', alt: 'x' })));
+      expect(out).toContain('expressive-code');
+      expect(out.replace(/ data-code="[^"]*"/g, '')).not.toContain('<b>');
+    } finally {
+      process.env.PATH = saved;
+    }
+  });
+});

@@ -4,6 +4,42 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## 0.3.0 - unreleased
 
+### Added (the CMS app serves the public site, 2026-11-11)
+
+- **A publish is live within about a second, with no build step.** The Payload app now serves `smkabir.com` itself: pages
+  are React server components in `apps/cms/src/site`, rendered from an in-memory copy of the content that a hook throws
+  away on every save, publish, unpublish or delete. A reload that fails keeps serving the last good copy; a document that
+  cannot be read is skipped and counted (`/version.json`, `skipped_documents`), never the whole site. Measured against a
+  seeded staging database: an edit visible after 916 ms, an unpublish after 616 ms.
+- **Two hostnames, one pod.** `smkabir.com` (env `SITE_PUBLIC_HOSTS`) serves pages, feeds, the sitemap, `robots.txt`,
+  `version.json`, embeds and static files, and answers 404 for `/admin`, `/api` and `/preview`. Any other hostname, or none,
+  is the CMS hostname and needs the Cloudflare Access assertion as before (it fails closed).
+- **Same pages as before.** A parity test compares all 77 pages, the five feeds and the sitemap with the Astro build of the
+  same fixtures: text, links, headings, meta tags, JSON-LD, image sources and class names are identical
+  (`PARITY_DIST=apps/site/dist pnpm --filter @smkabir/cms test:parity`).
+- **Search on the server** (`/search/?q=`, `/ja/search/?q=`) replaces Pagefind: substring match on normalised text, no
+  script, never indexed or cached, query cut to 100 characters, 30 results.
+- **Preview of drafts** under `/preview/` on the CMS hostname only, with live refresh in the admin's Live Preview pane.
+- **Diagrams** (`d2` 0.9.0, SHA-256 pinned) render on first view inside the image and are cached; if `d2` fails the
+  diagram's source is shown.
+- The agent's publish replies say where the page is live (`live`, `notLive`) instead of "the site rebuilds in a few minutes".
+
+### Changed (the CMS app serves the public site)
+
+- The page security policy now allows scripts with a per-request nonce (set in `apps/cms/src/proxy.ts`) instead of "no
+  inline scripts at all"; never `unsafe-inline`, and `unsafe-eval` only under `next dev`. `'wasm-unsafe-eval'` is gone (it
+  was for Pagefind). Embeds keep their own policy.
+- New dependencies of `@smkabir/cms`: `rehype-expressive-code` 0.44.2, `@payloadcms/live-preview-react` 3.90.2 and the two
+  fontsource packages.
+- Pages carry no ETag; HTML is `Cache-Control: public, max-age=0, must-revalidate` (no `s-maxage`), so a publish is never
+  held back by a shared cache.
+
+### Removed
+
+- The content-dispatch hook and `GITHUB_DISPATCH_TOKEN`: nothing builds when content changes any more. The Astro site,
+  the nginx image, the content workflows and the R2 site releases stay in the repository until the cutover is done (see
+  `docs/cutover.md`); `/_astro/` and `/pagefind/` URLs stop resolving when the new site takes over.
+
 ### Added (the agent edits the whole site, 2026-11-02)
 
 - The MCP agent can edit **any** post (not only its own), and create, edit, check, publish and unpublish **pages** and

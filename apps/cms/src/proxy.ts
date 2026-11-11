@@ -3,8 +3,23 @@ import { ACCESS_HEADER, decide, underPrefix } from './lib/accessGate';
 import { slashRedirect } from './site/canonical';
 import { pageHeaders } from './site/headers';
 
-/** Paths that are the CMS itself, not public pages: no page policy, no nonce. */
-const APP_PREFIXES = ['/admin', '/api', '/_next', '/healthz', '/readyz', '/embeds'];
+/**
+ * Paths that are the CMS itself or static files, not public pages: no page policy, no nonce. Static files get their cache
+ * headers from next.config.mjs; /embeds/ and /site/ec.* set their own.
+ */
+const APP_PREFIXES = [
+  '/admin',
+  '/api',
+  '/_next',
+  '/healthz',
+  '/readyz',
+  '/embeds',
+  '/site',
+  '/images',
+  '/fixtures',
+  '/favicon.svg',
+  '/theme-init.js',
+];
 
 /**
  * Every request is checked here (see lib/accessGate): the public hostname serves pages only, any other hostname needs a

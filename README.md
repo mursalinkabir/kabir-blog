@@ -1,6 +1,6 @@
 # kabir-blog
 
-Source for [smkabir.com](https://smkabir.com): a static Astro site (English and Japanese) fed by a headless Payload CMS, served from a homelab with an R2 failover.
+Source for [smkabir.com](https://smkabir.com): a blog in English and Japanese. A Payload CMS (PostgreSQL) serves the public pages itself, so a publish is live within about a second; an AI agent can write and edit it over MCP. Runs on a homelab. (The older static Astro site and its R2 pipeline stay until the cutover: [docs/cutover.md](docs/cutover.md).)
 
 - Plan and phases: [docs/PLAN.md](docs/PLAN.md)
 - Pinned versions and verification log: [docs/versions.md](docs/versions.md)

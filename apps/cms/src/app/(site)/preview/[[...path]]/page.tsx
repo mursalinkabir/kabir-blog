@@ -41,7 +41,7 @@ export default async function PreviewPage({ params }: Params) {
   if (!loaded) notFound();
   const { site, result } = loaded;
   const { meta, body, usesCode } = result;
-  const serverURL = process.env.NEXT_PUBLIC_SERVER_URL ?? '';
+  const serverURL = process.env.CMS_PUBLIC_URL ?? '';
   return (
     <>
       {usesCode && (

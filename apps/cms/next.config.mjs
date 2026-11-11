@@ -19,6 +19,19 @@ const nextConfig = {
   skipTrailingSlashRedirect: true,
   // The code highlighter loads language grammars at run time; keep it out of the bundle.
   serverExternalPackages: ['rehype-expressive-code', 'expressive-code', 'shiki'],
+  // Cache headers for the static files of the public site. /site/* is always referenced with ?v=<release>, so it is
+  // immutable; old image and fixture URLs may be revalidated daily at the edge.
+  async headers() {
+    if (process.env.NODE_ENV !== 'production') return [];
+    const day = 'public, max-age=3600, s-maxage=86400';
+    return [
+      { source: '/site/:path*', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
+      { source: '/images/:path*', headers: [{ key: 'Cache-Control', value: day }] },
+      { source: '/fixtures/:path*', headers: [{ key: 'Cache-Control', value: day }] },
+      { source: '/favicon.svg', headers: [{ key: 'Cache-Control', value: day }] },
+      { source: '/theme-init.js', headers: [{ key: 'Cache-Control', value: day }] },
+    ];
+  },
   outputFileTracingRoot: path.resolve(here, '../..'),
 };
 

@@ -41,4 +41,12 @@ for (const f of readdirSync(styles)
   .sort()) {
   writeFileSync(path.join(out, 'site.css'), `\n${readFileSync(path.join(styles, f), 'utf8')}`, { flag: 'a' });
 }
+// Old image and fixture URLs keep working: the Astro site's committed files are copied next to the new assets
+// (git-ignored; they move into apps/cms/public for good when the Astro site is retired).
+for (const folder of ['images', 'fixtures']) {
+  const from = path.join(root, '../site/public', folder);
+  const to = path.join(root, 'public', folder);
+  rmSync(to, { recursive: true, force: true });
+  if (existsSync(from)) cpSync(from, to, { recursive: true });
+}
 console.log(`site assets: ${readdirSync(path.join(out, 'fonts')).length} fonts, site.css, site.js`);

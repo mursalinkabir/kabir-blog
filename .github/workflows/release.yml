@@ -45,10 +45,23 @@ jobs:
         with:
           node-version: 24
 
-      - name: CMS unit tests (Access JWT verification, agent policy, markdown, dispatch)
+      - name: Install d2 (pinned by SHA-256)
         run: |
-          npx --yes pnpm@12.9.1 install --frozen-lockfile --filter @smkabir/cms...
-          npx --yes pnpm@12.9.1 --filter @smkabir/cms test
+          sh scripts/ci/install-tools.sh d2
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      # While apps/site exists the new site is proven against it: every page, feed and the sitemap on the same fixtures.
+      - name: Build the Astro site on the fixtures (the parity baseline)
+        env:
+          SITE_CONTENT: fixtures
+        run: |
+          npx --yes pnpm@12.9.1 install --frozen-lockfile
+          npx --yes pnpm@12.9.1 build
+
+      - name: CMS unit tests and parity with the Astro build (Access JWT, agent policy, site, search, feeds)
+        env:
+          PARITY_DIST: ${{ github.workspace }}/apps/site/dist
+        run: npx --yes pnpm@12.9.1 --filter @smkabir/cms test
 
   image:
     needs: verify
@@ -168,7 +181,7 @@ jobs:
           cache-from: type=gha,scope=cms
           cache-to: type=gha,scope=cms,mode=max
 
-      - name: Smoke test (non-root, read-only filesystem, Access gate fails closed)
+      - name: Smoke test (non-root, read-only filesystem, Access gate fails closed, public host serves pages only, d2 and the highlighter work)
         run: bash apps/cms/tests/image-smoke.sh kabir-blog-cms:test
 
       - name: Scan (fixable HIGH and CRITICAL fail the release)

@@ -21,13 +21,12 @@ Stored in the `site-publish` **environment** unless noted, so only the publish j
 
 Added with the agent path (docs/agents.md). Production only; none exists yet:
 
-| Name                                              | Kind                              | Scope                                                                 | Used by                |
-| ------------------------------------------------- | --------------------------------- | --------------------------------------------------------------------- | ---------------------- |
-| `PAYLOAD_BUILDER_KEY`                             | repository secret                 | the read-only builder user's API key                                  | `content.yml` CMS pull |
-| `CF_ACCESS_CLIENT_ID` / `CF_ACCESS_CLIENT_SECRET` | repository secret                 | Cloudflare Access service token for the CMS application               | `content.yml` CMS pull |
-| `CMS_URL`                                         | repository variable               | `https://cms.smkabir.com`; its presence switches CI to CMS content    | `content.yml`          |
-| `GITHUB_DISPATCH_TOKEN`                           | CMS runtime secret (SealedSecret) | fine-grained, `kabir-blog` only, Contents read and write              | CMS publish hook       |
-| agent MCP key                                     | the agent's own secret store      | one per agent, created with `pnpm cms:agent-key`; revoke in the admin | the AI agent           |
+| Name                                              | Kind                         | Scope                                                                 | Used by                |
+| ------------------------------------------------- | ---------------------------- | --------------------------------------------------------------------- | ---------------------- |
+| `PAYLOAD_BUILDER_KEY`                             | repository secret            | the read-only builder user's API key                                  | `content.yml` CMS pull |
+| `CF_ACCESS_CLIENT_ID` / `CF_ACCESS_CLIENT_SECRET` | repository secret            | Cloudflare Access service token for the CMS application               | `content.yml` CMS pull |
+| `CMS_URL`                                         | repository variable          | `https://cms.smkabir.com`; its presence switches CI to CMS content    | `content.yml`          |
+| agent MCP key                                     | the agent's own secret store | one per agent, created with `pnpm cms:agent-key`; revoke in the admin | the AI agent           |
 
 Added by later phases (not used yet): `CF_ACCESS_CLIENT_ID`, `CF_ACCESS_CLIENT_SECRET` (CI service token for the
 CMS, Phase 3), `PAYLOAD_BUILDER_KEY` (read-only, Phase 3), the dispatch PAT (Phase 7).
@@ -42,7 +41,6 @@ CMS, Phase 3), `PAYLOAD_BUILDER_KEY` (read-only, Phase 3), the dispatch PAT (Pha
 
 | `cms-app` | `cms` | `PAYLOAD_SECRET`, `DATABASE_URL` | generated at seal time, never displayed | on suspicion |
 | `cms-media` | `cms` | `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY` | R2 **object read and write**, bucket `kabir-blog-media` only | yearly |
-| `cms-github` | `cms` | `GITHUB_DISPATCH_TOKEN` | fine-grained PAT, this repository, Contents read and write | before expiry |
 | `payload-postgres-credentials` | `platform` | role `payload` password (basic-auth) | same generated password as `DATABASE_URL` | with `cms-app` |
 
 The two R2 tokens are different on purpose: CI can write releases, the pods can only read them, so a compromised

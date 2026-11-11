@@ -5,6 +5,11 @@ Status: **the deploy path is built and tested locally; nothing is deployed.**
 reference behind it: how the pieces fit, what was tested, and how operations work afterwards. It implements docs/PLAN.md Phase 5 (first deploy on `next.smkabir.com`) and
 Phase 6 (apex cutover). Everything marked **(you)** needs a login this repo does not and must not have.
 
+> **0.3.0 changes the shape of this document.** The CMS image now serves the public site too (one pod, two hostnames), so the
+> blog Deployment, the content workflows and the R2 release pointers described below are retired by the cutover in
+> [cutover.md](cutover.md). Until that is done they are still how the live site works. The new draft for the CMS (with the
+> apex route) is `deploy/homelab-terraform/prod/apps/cms/cms.yaml`.
+
 ## How a release works
 
 ```
@@ -166,7 +171,6 @@ Runtime configuration (production-ready; names only, values live in SealedSecret
 | `DATABASE_URL`                                 | SealedSecret | `pg-main-rw` directly (the pooler is transaction-mode), role `payload` |
 | `PAYLOAD_SECRET`                               | SealedSecret | signs sessions and API keys                                            |
 | `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`     | SealedSecret | R2 token for the media bucket only                                     |
-| `GITHUB_DISPATCH_TOKEN`                        | SealedSecret | fine-grained, this repo, Contents write; rebuilds the site on publish  |
 | `S3_BUCKET`, `S3_ENDPOINT`, `MEDIA_PUBLIC_URL` | ConfigMap    | media bucket, R2 endpoint, `https://media.smkabir.com`                 |
 | `CF_ACCESS_TEAM_DOMAIN`, `CF_ACCESS_AUD`       | ConfigMap    | the Access application; **empty = the CMS refuses everything**         |
 | `CMS_PUBLIC_URL`, `AGENT_AUTO_PUBLISH`         | ConfigMap    | `https://cms.smkabir.com`; `0` until you decide agents may publish     |

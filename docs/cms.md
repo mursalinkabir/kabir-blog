@@ -39,6 +39,35 @@ npx pnpm@12.9.1 cms:pull                         # writes apps/site/src/content/
 SITE_CONTENT=cms npx pnpm@12.9.1 build           # fails if nothing was pulled
 ```
 
+## How the public site is served (0.3.0, production-ready)
+
+From 0.3.0 the CMS app serves `smkabir.com` itself. Nothing is built or uploaded when content changes.
+
+- **Snapshot.** The app loads the whole site (a dozen posts) through Payload's Local API into memory (`site/data/store.ts`).
+  Every save, publish, unpublish or delete runs `hooks/invalidateSite.ts`, which marks it stale and again 2 seconds later (the
+  hooks run before the database transaction commits). The next request reloads it. Unchanged content keeps its version.
+- **Failure behaviour.** A failed reload keeps serving the last good snapshot (`stale: true` in `/version.json`). A document
+  that cannot be mapped is skipped and counted (`skipped_documents`), never the whole site. A cold start with the database
+  down answers an error page until it is back.
+- **Hostnames.** `SITE_PUBLIC_HOSTS` (default `smkabir.com`) serves pages, feeds, `sitemap-index.xml`, `robots.txt`,
+  `version.json`, `/embeds/<id>.html` and static files. `/admin`, `/api` and `/preview` answer 404 there. Any other hostname
+  needs the Cloudflare Access assertion; an unknown or missing host is treated as the CMS host. One replica only.
+- **Pages.** React server components in `apps/cms/src/site/views`, one per Astro page, with the same class names, so
+  `global.css` is the Astro site's file. The parity test (`tests/parity.test.ts`, `PARITY_DIST=apps/site/dist`) keeps them equal.
+- **Scripts and policy.** Scripts on public pages are external or carry the per-request nonce set in `src/proxy.ts`. Never
+  `unsafe-inline` or (outside `next dev`) `unsafe-eval` for scripts. Embeds are served with their own policy and framed with
+  `sandbox="allow-scripts"` only.
+- **Code and diagrams.** Expressive Code (the same engine as before) renders code blocks; `d2` (in the image) renders
+  diagrams on first view and caches them; if it fails the source is shown.
+- **Search** is `/search/?q=` (`site/search.ts`): substring match on normalised text, never indexed or cached.
+- **Preview.** Live Preview in the admin shows unsaved drafts at `/preview/<page path>` on the CMS hostname, for a signed-in
+  user only (`src/app/(site)/preview`).
+- **Media.** Page images use the URLs Payload returns: R2's public URL in production. In local development they are
+  `/api/media/file/...`, which only work on the CMS host. `/version.json` counts a production image URL under `/api/` as an error.
+
+The sections below describe the Astro pipeline (pull, build, upload to R2). They stay accurate until the cutover in
+[cutover.md](cutover.md) is done and the old stack is removed.
+
 ## How the site decides what to read
 
 `apps/site/src/lib/cms.ts` reads `src/content/cms/` (pulled) or `src/content/fixtures/` (committed samples). They have
