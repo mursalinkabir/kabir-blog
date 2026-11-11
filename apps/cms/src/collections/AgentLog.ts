@@ -7,7 +7,11 @@ import { isAdmin } from '../access';
  */
 export const AgentLog: CollectionConfig = {
   slug: 'agent-log',
-  admin: { useAsTitle: 'summary', defaultColumns: ['createdAt', 'tool', 'outcome', 'locale', 'postId', 'summary'], group: 'MCP' },
+  admin: {
+    useAsTitle: 'summary',
+    defaultColumns: ['createdAt', 'tool', 'outcome', 'locale', 'collection', 'postId', 'summary'],
+    group: 'MCP',
+  },
   access: {
     read: isAdmin,
     create: () => false, // the CMS writes with overrideAccess
@@ -17,6 +21,8 @@ export const AgentLog: CollectionConfig = {
   timestamps: true,
   fields: [
     { name: 'tool', type: 'text', required: true, index: true },
+    // What the call touched: a collection slug, or `global:<slug>`. Plain text for the same reason as the ids below.
+    { name: 'collection', type: 'text', index: true },
     { name: 'outcome', type: 'select', required: true, index: true, options: ['ok', 'refused', 'error'] },
     // Plain ids, not relationships, on purpose: a foreign key makes the audit insert wait for locks on the post and
     // user rows, and the insert runs from inside the very save that holds them (found by the end-to-end check).

@@ -391,17 +391,48 @@ export function markdownToLexical(markdown: string, opts: ToLexicalOptions = {})
 
 const esc = (s: string) => s.replace(/([\\`*_{}[\]<>|~])/g, '\\$1').replace(/^(#{1,6} |[-+] |\d+\. |> )/, '\\$1');
 
+/**
+ * Wraps text in an emphasis marker. Whitespace goes outside the marker: `**word **` is not emphasis in CommonMark
+ * (the closing marker may not follow a space), so a bold run that ends in a space would come back with literal asterisks.
+ */
+function wrapMark(s: string, mark: string): string {
+  const m = /^(\s*)([\s\S]*?)(\s*)$/.exec(s)!;
+  return m[2] ? `${m[1]}${mark}${m[2]}${mark}${m[3]}` : s;
+}
+
+/** Adjacent text runs with the same format are one run, so `**a**` + `**b**` is written `**ab**`. */
+function mergeRuns(nodes: LexicalNode[]): LexicalNode[] {
+  const out: LexicalNode[] = [];
+  for (const n of nodes) {
+    const last = out[out.length - 1];
+    if (n.type === 'text' && last?.type === 'text' && (Number(last.format) || 0) === (Number(n.format) || 0)) {
+      out[out.length - 1] = { ...last, text: String(last.text) + String(n.text) };
+    } else out.push(n);
+  }
+  return out;
+}
+
+/** Where two different runs both end and start with bold (or strike), drop the doubled marker: `**a****b**`. */
+const joinSeams = (md: string): string =>
+  md
+    .split(/(`(?:\\`|[^`])*`)/)
+    .map((part, i) => (i % 2 ? part : part.replace(/\*\*\*\*/g, '').replace(/~~~~/g, '')))
+    .join('');
+
 function inlineToMd(nodes: LexicalNode[] = []): string {
+  return joinSeams(inlineRuns(mergeRuns(nodes)));
+}
+
+function inlineRuns(nodes: LexicalNode[]): string {
   return nodes
     .map((n) => {
       if (n.type === 'text') {
         const f = Number(n.format) || 0;
         let s = String(n.text);
-        if (f & FORMAT.code) return '`' + s.replace(/`/g, '\\`') + '`';
-        s = esc(s);
-        if (f & FORMAT.bold) s = `**${s}**`;
-        if (f & FORMAT.italic) s = `*${s}*`;
-        if (f & FORMAT.strike) s = `~~${s}~~`;
+        s = f & FORMAT.code ? '`' + s.replace(/`/g, '\\`') + '`' : esc(s);
+        if (f & FORMAT.bold) s = wrapMark(s, '**');
+        if (f & FORMAT.italic) s = wrapMark(s, '*');
+        if (f & FORMAT.strike) s = wrapMark(s, '~~');
         return s;
       }
       if (n.type === 'linebreak') return '  \n';

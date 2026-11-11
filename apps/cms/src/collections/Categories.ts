@@ -1,10 +1,13 @@
 import type { CollectionConfig } from 'payload';
-import { readerReadsAdminWrites } from '../access';
+import { agentMayRename, isAdminField } from '../access';
+import { agentTextGuard } from '../hooks/agentGuards';
+import { dispatchAfterChange } from '../hooks/dispatchContentPublished';
 
 /** The three subjects. The slug set is closed on purpose: adding a category is a site change too (route, icon). */
 export const Categories: CollectionConfig = {
   slug: 'categories',
-  access: readerReadsAdminWrites,
+  access: agentMayRename,
+  hooks: { beforeChange: [agentTextGuard], afterChange: [dispatchAfterChange] },
   admin: { useAsTitle: 'slug', defaultColumns: ['slug', 'name'] },
   fields: [
     {
@@ -12,6 +15,7 @@ export const Categories: CollectionConfig = {
       type: 'select',
       required: true,
       unique: true,
+      access: { update: isAdminField },
       options: [
         { label: 'Tech', value: 'tech' },
         { label: 'Finance', value: 'finance' },

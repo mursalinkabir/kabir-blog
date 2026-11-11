@@ -176,8 +176,13 @@ four migrations applied to database `payload` on `pg-main`, and the `payload` `D
 **Access gate proven 2026-10-17:** after the `cms.smkabir.com` tunnel route was added by hand (dashboard; the tunnel is
 remotely managed), an unauthenticated `GET /` and `GET /api/users/me` both answered `302` to
 `kabirlab.cloudflareaccess.com` with the `cms` application's AUD, and no CMS content.
-Not yet proven: login through Access to `/admin`, media in R2, publish dispatch, and a backup **restore** (backups now
-run, see below; `deploy/homelab-terraform/prod/data-platform/backup/`).
+**Admin login and media proven 2026-10-17 (`kabir-blog-cms:0.2.2`):** the email PIN, then Payload's own login and
+first-user form, worked; an uploaded image (`ktrk.png`) landed in `kabir-blog-media` with its 480 and 960 px WebP sizes
+(no 1600 px size: the source is smaller and Payload does not upscale), and all three load from `media.smkabir.com` with
+the right content types; the bucket root and a missing key answer 404. The first `0.2.1` image had no migration for the
+column the S3 plugin adds (`media._objectkey`); `0.2.2` has it (CHANGELOG).
+Not yet proven: publish dispatch (a publish rebuilding the site) and a backup **restore** (backups now run, see
+below; `deploy/homelab-terraform/prod/data-platform/backup/`).
 
 **Cloudflare side, done 2026-10-17 (through the API, not the dashboard):** R2 buckets `kabir-blog-media` and
 `kabir-blog-pg-backups` (public access off; `kabir-blog-site` already existed); custom domain `media.smkabir.com` on
@@ -186,8 +191,8 @@ the media bucket (SSL and ownership active, minimum TLS 1.2); Access application
 session 24 h. `preview.smkabir.com` was in it at first, but a multi-hostname app signs you in on every hostname, and
 the PIN login ended on `preview.smkabir.com/cdn-cgi/access/authorized` with `ERR_NAME_NOT_RESOLVED`; add it back when
 the preview service has DNS and a route. The two R2 tokens and the sealed files (`cms-media`, `pg-backups-r2`) were made by
-hand. The `pg-backups` key pair listed its bucket with HTTP 200 (`check-r2-credentials.sh`); the media pair is still
-untested until the CMS uploads an image. No service token exists yet, so the CI and agent Service Auth policy is still
+hand. The `pg-backups` key pair listed its bucket with HTTP 200 (`check-r2-credentials.sh`); the media pair works (an image
+uploaded through the CMS). No service token exists yet, so the CI and agent Service Auth policy is still
 to add.
 
 **pg-main backups, proven 2026-10-17:** the Barman Cloud plugin v0.15.1 and the `ObjectStore` are in homelab-terraform

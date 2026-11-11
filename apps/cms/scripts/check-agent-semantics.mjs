@@ -7,6 +7,7 @@
 import { readFileSync } from 'node:fs';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
+import { makeCaller } from './agent-tools.mjs';
 
 const BASE = process.env.CMS_URL ?? 'http://localhost:3100';
 if (!/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(BASE)) throw new Error('local CMS only');
@@ -22,13 +23,10 @@ await client.connect(
     requestInit: { headers: { Authorization: `Bearer ${creds.AGENT_MCP_KEY}` } },
   }),
 );
+const send = makeCaller(client);
 const call = async (name, args) => {
-  const text = (await client.callTool({ name, arguments: args })).content[0].text;
-  try {
-    return JSON.parse(text);
-  } catch {
-    return { error: text };
-  }
+  const r = await send(name, args);
+  return r.json ?? { error: r.text };
 };
 const live = async (slug) => {
   const r = await fetch(`${BASE}/api/posts?where[slug][equals]=${slug}&locale=all&fallback-locale=none&draft=false&depth=0`, {

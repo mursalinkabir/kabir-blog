@@ -30,24 +30,31 @@ export const readerReadsAdminWrites = {
   delete: isAdmin,
 };
 
-/** Admins write anything; an AI agent may create posts and may change only posts it created itself. */
-export const postAccess = {
+const canWrite = ({ req: { user } }: Parameters<Access>[0]) => ['admin', 'agent'].includes(roleOf(user) ?? '');
+
+/**
+ * Posts, pages and projects: an AI agent may create and change any of them (what it may publish is decided by the
+ * hooks in hooks/agentGuards.ts, not here). Nobody deletes through the API but an admin: an agent cannot remove
+ * history or its own mistakes.
+ */
+export const agentWritesContent = {
   read: isLoggedIn,
-  create: ({ req: { user } }: Parameters<Access>[0]) => ['admin', 'agent'].includes(roleOf(user) ?? ''),
-  update: ({ req: { user } }: Parameters<Access>[0]) => {
-    const role = roleOf(user);
-    if (role === 'admin') return true;
-    if (role === 'agent') return { createdByAgent: { equals: true } };
-    return false;
-  },
-  // Nobody deletes through the API but an admin: an agent cannot remove history or its own mistakes.
+  create: canWrite,
+  update: canWrite,
+  delete: isAdmin,
+};
+export const postAccess = agentWritesContent;
+
+/** Tags and media: an agent creates and edits them; deleting stays with admins. */
+export const agentMayCreate = agentWritesContent;
+
+/** Categories are a closed set (a new one is a site change): an agent may rename them (the slug field is admin-only). */
+export const agentMayRename = {
+  read: isLoggedIn,
+  create: isAdmin,
+  update: canWrite,
   delete: isAdmin,
 };
 
-/** Agents may upload images and create tags; everything else on those collections stays admin-only. */
-export const agentMayCreate = {
-  read: isLoggedIn,
-  create: ({ req: { user } }: Parameters<Access>[0]) => ['admin', 'agent'].includes(roleOf(user) ?? ''),
-  update: isAdmin,
-  delete: isAdmin,
-};
+/** Site-wide settings (the four globals): readers read, admins and agents write. */
+export const globalAccess = { read: isLoggedIn, update: canWrite };

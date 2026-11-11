@@ -8,6 +8,7 @@
 import { readFileSync } from 'node:fs';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
+import { EXPECTED_TOOLS, makeCaller } from './agent-tools.mjs';
 
 const mode = process.argv[2];
 if (!['on', 'off'].includes(mode)) throw new Error('usage: check-agent.mjs on|off');
@@ -39,15 +40,7 @@ const client = new Client({ name: 'check-agent', version: '1.0.0' });
 await client.connect(
   new StreamableHTTPClientTransport(new URL('/api/mcp', BASE), { requestInit: { headers: { Authorization: `Bearer ${key}` } } }),
 );
-const call = async (name, args = {}) => {
-  const res = await client.callTool({ name, arguments: args });
-  const text = res.content?.[0]?.text ?? '';
-  let json;
-  try {
-    json = JSON.parse(text);
-  } catch {}
-  return { text, json, isError: text.startsWith('ERROR') };
-};
+const call = makeCaller(client);
 
 const EN =
   `This is a test post written by the automated agent check. It exists to prove that a post can be written in Markdown, stored as structured content, and published only when every rule is met. `.repeat(
@@ -64,18 +57,7 @@ console.log(`== connect and discover (mode: ${mode})`);
 const tools = (await client.listTools()).tools.map((t) => t.name).sort();
 ok(
   'exactly the custom tools are exposed (no generic collection tools)',
-  JSON.stringify(tools) ===
-    JSON.stringify([
-      'check_post',
-      'create_draft',
-      'get_post',
-      'list_posts',
-      'publish_post',
-      'site_guide',
-      'unpublish_post',
-      'update_draft',
-      'upload_image',
-    ]),
+  JSON.stringify(tools) === JSON.stringify(EXPECTED_TOOLS),
   tools.join(','),
 );
 const guide = await call('site_guide');
@@ -152,12 +134,20 @@ const dup = await call('create_draft', {
   markdown: EN,
 });
 ok('a duplicate slug is refused', dup.isError, dup.text);
-const humanPost = (await call('list_posts', { limit: 50 })).json?.find((p) => !p.createdByAgent && p.status === 'published');
-if (humanPost) {
-  const own = await call('update_draft', { id: humanPost.id, language: 'en', title: 'Hijacked title for a human post' });
-  ok("an agent cannot change a human's post", own.isError, own.text);
-  const pub = await call('publish_post', { id: humanPost.id, languages: ['en'] });
-  ok("an agent cannot publish over a human's post", pub.json?.results?.en?.published === false || pub.isError, pub.text);
+// Ownership is no longer a limit (an agent may edit any post), but a stale edit is: it must name the version it read.
+{
+  const mine = (await call('list_posts', { limit: 50 })).json?.find((p) => p.createdByAgent);
+  if (mine) {
+    const stale = await call('update_draft', {
+      id: mine.id,
+      language: 'en',
+      title: 'Stale edit must fail',
+      expected_updated_at: '2020-01-01T00:00:00.000Z',
+    });
+    ok('an edit that names an old version is refused', stale.isError && /changed after you read it/.test(stale.text), stale.text);
+    const none = await call.raw('update_draft', { id: mine.id, language: 'en', title: 'No version' });
+    ok('an edit that names no version is refused', /expected_updated_at/.test(none.text), none.text);
+  }
 }
 
 console.log('== the Japanese side of the same post');

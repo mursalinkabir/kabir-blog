@@ -6,6 +6,7 @@ Source for [smkabir.com](https://smkabir.com): a static Astro site (English and 
 - Pinned versions and verification log: [docs/versions.md](docs/versions.md)
 - Rules for Claude Code: [CLAUDE.md](CLAUDE.md)
 - CMS and how the site reads it: [docs/cms.md](docs/cms.md)
+- Letting an AI agent edit the site: [docs/agents.md](docs/agents.md); moving live content to the CMS: [docs/cutover.md](docs/cutover.md)
 - Deploying: [docs/deploy.md](docs/deploy.md); secrets register: [docs/secrets.md](docs/secrets.md)
 
 ## Status

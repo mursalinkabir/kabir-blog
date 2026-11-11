@@ -22,7 +22,10 @@
     "cms:pull": "pnpm --filter @smkabir/site cms:pull",
     "cms:agent-key": "pnpm --filter @smkabir/cms agent-key",
     "cms:check-agent": "pnpm --filter @smkabir/cms check:agent",
-    "cms:install-claude": "pnpm --filter @smkabir/cms install:claude"
+    "cms:install-claude": "pnpm --filter @smkabir/cms install:claude",
+    "cms:check-scope": "pnpm --filter @smkabir/cms check:scope",
+    "cms:check-hooks": "pnpm --filter @smkabir/cms check:hooks",
+    "cms:import": "pnpm --filter @smkabir/cms import:fixtures"
   },
   "devDependencies": {
     "prettier": "^3.6.0",

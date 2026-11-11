@@ -3,6 +3,8 @@ import { fileURLToPath } from 'node:url';
 import type { CollectionConfig } from 'payload';
 import { agentMayCreate } from '../access';
 import { stripImageMetadata } from '../hooks/stripImageMetadata';
+import { agentTextGuard } from '../hooks/agentGuards';
+import { dispatchAfterChange } from '../hooks/dispatchContentPublished';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -38,7 +40,7 @@ export const Media: CollectionConfig = {
     focalPoint: true,
     withMetadata: false,
   },
-  hooks: { beforeOperation: [stripImageMetadata] },
+  hooks: { beforeOperation: [stripImageMetadata], beforeChange: [agentTextGuard], afterChange: [dispatchAfterChange] },
   fields: [
     {
       name: 'alt',

@@ -1,15 +1,16 @@
 import type { CollectionConfig } from 'payload';
-import { readerReadsAdminWrites } from '../access';
+import { agentWritesContent } from '../access';
+import { agentAfterChange, agentDocBeforeChange } from '../hooks/agentGuards';
 import { articleEditor } from '../blocks';
 import { lockSlugAfterPublish, validateSlug } from '../hooks/slug';
 import { dispatchAfterPublish } from '../hooks/dispatchContentPublished';
 
 export const Projects: CollectionConfig = {
   slug: 'projects',
-  access: readerReadsAdminWrites,
+  access: agentWritesContent,
   admin: { useAsTitle: 'title', defaultColumns: ['title', 'status', 'featured', 'order', '_status'] },
   versions: { drafts: { autosave: { interval: 2000 } }, maxPerDoc: 25 },
-  hooks: { afterChange: [dispatchAfterPublish] },
+  hooks: { beforeChange: [agentDocBeforeChange('project')], afterChange: [agentAfterChange, dispatchAfterPublish] },
   fields: [
     { name: 'title', type: 'text', localized: true, required: true },
     { name: 'summary', type: 'text', localized: true, required: true, maxLength: 200 },

@@ -16,7 +16,10 @@
     "test": "vitest run",
     "agent-key": "payload run src/scripts/create-agent-key.ts",
     "check:agent": "node scripts/check-agent.mjs on && node scripts/check-agent-semantics.mjs && node scripts/check-bridge.mjs && node scripts/check-bridge-headers.mjs",
-    "install:claude": "node scripts/install-claude-clients.mjs"
+    "install:claude": "node scripts/install-claude-clients.mjs",
+    "import:fixtures": "payload run src/scripts/import-fixtures.ts",
+    "check:scope": "node scripts/check-agent-scope.mjs on",
+    "check:hooks": "payload run src/scripts/check-agent-hooks.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.90.2",

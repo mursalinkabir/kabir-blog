@@ -52,6 +52,12 @@ export const dispatchAfterPublish: CollectionAfterChangeHook = ({ doc, req }) =>
   return doc;
 };
 
+/** Unversioned collections (tags, categories, media): any change is live at the next build. */
+export const dispatchAfterChange: CollectionAfterChangeHook = ({ doc, req }) => {
+  scheduleDispatch(req.payload.logger);
+  return doc;
+};
+
 export const dispatchAfterGlobalChange: GlobalAfterChangeHook = ({ doc, req }) => {
   scheduleDispatch(req.payload.logger);
   return doc;

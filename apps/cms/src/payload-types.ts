@@ -409,6 +409,7 @@ export interface Page {
 export interface AgentLog {
   id: number;
   tool: string;
+  collection?: string | null;
   outcome: 'ok' | 'refused' | 'error';
   userId?: number | null;
   postId?: number | null;
@@ -440,7 +441,7 @@ export interface PayloadMcpApiKey {
   description?: string | null;
   'payload-mcp-tool'?: {
     /**
-     * Read this first: the rules, limits, categories, tags and the Markdown dialect for writing posts.
+     * Read this first: what you may change, the rules, limits, categories, tags and the Markdown dialect.
      */
     siteGuide?: boolean | null;
     /**
@@ -456,7 +457,7 @@ export interface PayloadMcpApiKey {
      */
     createDraft?: boolean | null;
     /**
-     * Change one language of a post you created (or add a language to it). Send only what changes; markdown replaces the whole text.
+     * Change one language of any post (or add a language to it). Send only what changes; markdown replaces the whole text. Needs expected_updated_at from get_post.
      */
     updateDraft?: boolean | null;
     /**
@@ -468,13 +469,105 @@ export interface PayloadMcpApiKey {
      */
     checkPost?: boolean | null;
     /**
-     * Publish one or both languages of a post you created. Every language that will be visible must pass the rules; if one fails, nothing changes and the reasons are returned.
+     * Publish one or both languages of a post. Every language that will be visible must pass the rules; if one fails, nothing changes and the reasons are returned.
      */
     publishPost?: boolean | null;
     /**
-     * Take a post you created OFF the site entirely (both languages). It stays as a draft you can edit and publish again. Never blocked.
+     * Take a post OFF the site entirely (both languages). It stays as a draft you can edit and publish again. Never blocked.
      */
     unpublishPost?: boolean | null;
+    /**
+     * List standalone pages (About and similar), newest change first, with id, slug, status and titles.
+     */
+    listPages?: boolean | null;
+    /**
+     * Read one page in both languages as Markdown, with updatedAt for later edits.
+     */
+    getPage?: boolean | null;
+    /**
+     * Create a page (send slug, title and markdown) or change one language of an existing page (send id and expected_updated_at). Saved as a DRAFT; nothing goes live.
+     */
+    savePage?: boolean | null;
+    /**
+     * Dry run of the publish rules for one language of a page. Changes nothing.
+     */
+    checkPage?: boolean | null;
+    /**
+     * Publish a page. Every language that has a title or text goes live together, so each must pass the rules; if one fails nothing changes.
+     */
+    publishPage?: boolean | null;
+    /**
+     * Take a page OFF the site (both languages). It stays as a draft. Never blocked.
+     */
+    unpublishPage?: boolean | null;
+    /**
+     * List projects, newest change first, with id, slug, status and titles.
+     */
+    listProjects?: boolean | null;
+    /**
+     * Read one project in both languages as Markdown, with its links, stack and updatedAt.
+     */
+    getProject?: boolean | null;
+    /**
+     * Create a project (send slug, title, summary and markdown) or change one language of an existing one (send id and expected_updated_at). Saved as a DRAFT; nothing goes live. Fields without a language (stack, links, repo, state, featured, order, hero) apply to every language; a list you send replaces the old list.
+     */
+    saveProject?: boolean | null;
+    /**
+     * Dry run of the publish rules for one language of a project. Changes nothing.
+     */
+    checkProject?: boolean | null;
+    /**
+     * Publish a project. Every language that has a title or text goes live together, so each must pass the rules; if one fails nothing changes.
+     */
+    publishProject?: boolean | null;
+    /**
+     * Take a project OFF the site (both languages). It stays as a draft. Never blocked.
+     */
+    unpublishProject?: boolean | null;
+    /**
+     * Every tag with its slug and its name in each language (null = not named in that language, so not listed there).
+     */
+    listTags?: boolean | null;
+    /**
+     * Name (or rename) a tag in one language. The slug is permanent. Use it to add the Japanese name of a tag created in English.
+     */
+    updateTag?: boolean | null;
+    /**
+     * The three categories with their slug and name in each language. New categories are an admin and site change.
+     */
+    listCategories?: boolean | null;
+    /**
+     * Change how a category is named in one language. The slug cannot change.
+     */
+    updateCategoryName?: boolean | null;
+    /**
+     * Uploaded images, newest first, with alt text in each language, caption and credit. Use the id as a cover image or in ![](media:ID).
+     */
+    listMedia?: boolean | null;
+    /**
+     * Change the alt text or caption of an image in one language, or its credit. The image file itself cannot be replaced: upload a new one instead.
+     */
+    updateMedia?: boolean | null;
+    /**
+     * Read a site-wide setting: site (name, tagline, socials, menus), now (Markdown), uses (groups of items), resume. Returns a version for the update_* tools. Rows carry ids: keep them when you send a list back.
+     */
+    getGlobal?: boolean | null;
+    /**
+     * Replace the text of the Now page in one language (Markdown). Live as soon as it is saved. Needs expected_version from get_global.
+     */
+    updateNow?: boolean | null;
+    /**
+     * Replace the Uses groups, naming them in one language. Send the whole list; keep each row's id from get_global (a row without id is new). Rows you leave out are deleted in BOTH languages, so that needs remove_missing. Live as soon as it is saved.
+     */
+    updateUses?: boolean | null;
+    /**
+     * Change sections of the Resume (English only). Each section you send replaces that whole section; sections you leave out are unchanged. A section with fewer rows than now needs allow_shrink. Live as soon as it is saved.
+     */
+    updateResume?: boolean | null;
+    /**
+     * Change the site name and tagline (one language), the social buttons and the menus. socials must be https:// links on an allowed host. The contact email cannot be changed here. Live as soon as it is saved.
+     */
+    updateSite?: boolean | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -775,6 +868,7 @@ export interface PagesSelect<T extends boolean = true> {
  */
 export interface AgentLogSelect<T extends boolean = true> {
   tool?: T;
+  collection?: T;
   outcome?: T;
   userId?: T;
   postId?: T;
@@ -804,6 +898,29 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
         checkPost?: T;
         publishPost?: T;
         unpublishPost?: T;
+        listPages?: T;
+        getPage?: T;
+        savePage?: T;
+        checkPage?: T;
+        publishPage?: T;
+        unpublishPage?: T;
+        listProjects?: T;
+        getProject?: T;
+        saveProject?: T;
+        checkProject?: T;
+        publishProject?: T;
+        unpublishProject?: T;
+        listTags?: T;
+        updateTag?: T;
+        listCategories?: T;
+        updateCategoryName?: T;
+        listMedia?: T;
+        updateMedia?: T;
+        getGlobal?: T;
+        updateNow?: T;
+        updateUses?: T;
+        updateResume?: T;
+        updateSite?: T;
       };
   updatedAt?: T;
   createdAt?: T;

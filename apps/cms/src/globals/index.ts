@@ -1,23 +1,31 @@
 import type { GlobalConfig } from 'payload';
-import { isAdmin, isLoggedIn } from '../access';
+import { globalAccess, isAdminField } from '../access';
 import { articleEditor } from '../blocks';
+import { agentGlobalAfterChange, agentGlobalBeforeChange } from '../hooks/agentGuards';
 import { dispatchAfterGlobalChange } from '../hooks/dispatchContentPublished';
 
-const access = { read: isLoggedIn, update: isAdmin };
-const hooks = { afterChange: [dispatchAfterGlobalChange] };
+const access = globalAccess;
+// A save is live as soon as it happens (these have no draft stage), so an agent's saves are gated like a publish
+// (hooks/agentGuards.ts) and the last versions are kept so a bad one can be restored in the admin.
+const hooks = (slug: string) => ({
+  beforeChange: [agentGlobalBeforeChange(slug)],
+  afterChange: [agentGlobalAfterChange(slug), dispatchAfterGlobalChange],
+});
+const versions = { max: 25 };
 
-const NAV_KEYS = ['home', 'tech', 'finance', 'japan', 'about', 'contact', 'projects', 'resume', 'now', 'uses', 'categories', 'tags'];
+export const NAV_KEYS = ['home', 'tech', 'finance', 'japan', 'about', 'contact', 'projects', 'resume', 'now', 'uses', 'categories', 'tags'];
 const navOptions = NAV_KEYS.map((value) => ({ label: value, value }));
 
 export const SiteGlobal: GlobalConfig = {
   slug: 'site',
   access,
-  hooks,
+  hooks: hooks('site'),
+  versions,
   admin: { description: 'Name, tagline, contact address, links and the navigation.' },
   fields: [
     { name: 'name', type: 'text', localized: true, required: true },
     { name: 'tagline', type: 'text', localized: true, required: true },
-    { name: 'email', type: 'email', required: true, defaultValue: 'hello@smkabir.com' },
+    { name: 'email', type: 'email', required: true, defaultValue: 'hello@smkabir.com', access: { update: isAdminField } },
     {
       name: 'socials',
       type: 'array',
@@ -36,7 +44,8 @@ export const NowGlobal: GlobalConfig = {
   slug: 'now',
   label: 'Now',
   access,
-  hooks,
+  hooks: hooks('now'),
+  versions,
   fields: [{ name: 'content', type: 'richText', localized: true, editor: articleEditor }],
 };
 
@@ -44,7 +53,8 @@ export const UsesGlobal: GlobalConfig = {
   slug: 'uses',
   label: 'Uses',
   access,
-  hooks,
+  hooks: hooks('uses'),
+  versions,
   fields: [
     {
       name: 'groups',
@@ -71,7 +81,8 @@ export const ResumeGlobal: GlobalConfig = {
   slug: 'resume',
   label: 'Resume',
   access,
-  hooks,
+  hooks: hooks('resume'),
+  versions,
   fields: [
     {
       name: 'basics',
@@ -79,7 +90,7 @@ export const ResumeGlobal: GlobalConfig = {
       fields: [
         { name: 'name', type: 'text', required: true },
         { name: 'label', type: 'text', required: true },
-        { name: 'email', type: 'email', required: true, defaultValue: 'hello@smkabir.com' },
+        { name: 'email', type: 'email', required: true, defaultValue: 'hello@smkabir.com', access: { update: isAdminField } },
         { name: 'url', type: 'text', defaultValue: 'https://smkabir.com' },
         { name: 'summary', type: 'textarea' },
         {

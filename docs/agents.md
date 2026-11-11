@@ -1,19 +1,21 @@
 # Letting an AI agent write and publish posts
 
-An AI agent (Claude Code, Claude Desktop, any MCP client) can write posts in **English and Japanese** and publish them
-through the CMS's MCP endpoint. It writes Markdown; the CMS turns it into the same structured content the site
-renders, applies the publishing rules **inside the CMS**, and records everything it does.
+An AI agent (Claude Code, Claude Desktop, any MCP client) can write and edit the site's content in **English and
+Japanese** through the CMS's MCP endpoint: posts, pages, projects, tags, category names, image details, and the Now,
+Uses, Resume and Site settings. It writes Markdown; the CMS turns it into the same structured content the site
+renders, applies the publishing rules **inside the CMS**, and records everything it does. It never deletes anything.
 
 Snippets are marked **production-ready** or **illustrative**.
 
 ## Status
 
-| Part                                    | Works today                                                                    |
-| --------------------------------------- | ------------------------------------------------------------------------------ |
-| Tools, rules, audit log, kill switch    | Yes, against the local CMS (28 + 22 + 14 end-to-end checks)                    |
-| Agent-published posts build on the site | Yes: pulled and built, every dist gate passes                                  |
-| Remote agent against the live CMS       | After Phase 4 (CMS in the cluster, behind Cloudflare Access)                   |
-| Publishing triggers a site rebuild      | Hook is built; needs `GITHUB_DISPATCH_TOKEN` and Phase 4 for CI to see the CMS |
+| Part                                                        | Works today                                                                                                                    |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Tools, rules, audit log, kill switch                        | Yes, against the local CMS (`check:agent` 28 on / 22 off, publish semantics 14, scope 71 on / 12 off, hooks 20, 83 unit tests) |
+| Agent-published posts build on the site                     | Yes: pulled and built, every dist gate passes                                                                                  |
+| Pages, projects, settings, words, edits to a person's posts | Yes, same checks (`pnpm cms:check-scope`, `cms:check-hooks`)                                                                   |
+| Remote agent against the live CMS                           | After the cutover in [cutover.md](cutover.md) (service token, builder key, `CMS_URL`)                                          |
+| Publishing triggers a site rebuild                          | Hook is built; needs `GITHUB_DISPATCH_TOKEN` and `CMS_URL` for CI to see the CMS                                               |
 
 ## Connect Claude Code and Claude Desktop locally (production-ready commands)
 
@@ -44,23 +46,52 @@ Then ask the agent, for example: _"Read the site guide, then write a short post 
 what the homelab costs to run. Upload no images. Check it and publish if it passes."_ The agent starts with
 `site_guide`, which tells it the rules, the categories and tags, and the Markdown dialect.
 
-**Publishing is off until you turn it on.** With `AGENT_AUTO_PUBLISH` unset or not exactly `1` the agent can write and
-check drafts, and `publish_post` is refused with an explanation. Set `AGENT_AUTO_PUBLISH=1` in the CMS environment and
+**Going live is off until you turn it on.** With `AGENT_AUTO_PUBLISH` unset or not exactly `1` the agent can write and
+check drafts (posts, pages, projects), and edit tags, category names and image details; every `publish_*` tool and every
+save of Now, Uses, Resume or Site is refused with an explanation, and only unpublishing still works. Set `AGENT_AUTO_PUBLISH=1` in the CMS environment and
 restart it to allow publishing. Setting it back to `0` is the kill switch.
+
+## What it can change
+
+| Content                          | Can do                                                            | Stays with an admin                                        |
+| -------------------------------- | ----------------------------------------------------------------- | ---------------------------------------------------------- |
+| Posts, pages, projects           | Create, edit any of them (draft first), check, publish, unpublish | Delete; adding an HTML embed or photo strip                |
+| Tags                             | Create, name in a language                                        | Delete; the slug                                           |
+| Category names                   | Rename in a language                                              | Create, delete, the slug (a new category is a site change) |
+| Images (media)                   | Upload; edit alt text, caption, credit                            | Replace the file; delete                                   |
+| Now, Uses, Resume, Site settings | Edit (**live as soon as saved**)                                  | The contact email (`site.email`, `resume.basics.email`)    |
+| Users, API keys, the audit log   | Nothing                                                           | Everything                                                 |
+
+An agent edits **any** post, not only its own. An embed or photo strip a person put in a document stays (the agent
+gets it back as `[[keep:id]]` and the save is refused if it is new or altered). Every edit of an existing document
+names the version the agent read (`expected_updated_at`, or `expected_version` for the four settings), and Payload's
+document lock is respected: an edit is refused if the document changed since the read or is open in the admin.
 
 ## The tools
 
-| Tool             | What it does                                                                                                                  |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `site_guide`     | The rules, limits, categories, existing tags and the Markdown dialect. Always first.                                          |
-| `list_posts`     | Existing posts (id, slug, status, titles, which languages are visible).                                                       |
-| `get_post`       | One post in both languages as Markdown. Blocks Markdown cannot express appear as `[[keep:id]]`.                               |
-| `create_draft`   | New post, one language, saved as a **draft**.                                                                                 |
-| `update_draft`   | Change one language of a post the agent created, or add a language. `visible: false` hides a language.                        |
-| `upload_image`   | JPEG/PNG/WebP/AVIF up to 8 MB (base64 or an allow-listed https host). Metadata stripped. Alt text in both languages required. |
-| `check_post`     | Dry run of the publish rules for one language. Changes nothing.                                                               |
-| `publish_post`   | Publish one or both languages. Refused, with reasons, if any visible language breaks a rule.                                  |
-| `unpublish_post` | Take the whole post offline (back to draft). Never blocked.                                                                   |
+| Area        | Tools                                                                                                                    |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Orientation | `site_guide` (always first: the rules, limits, categories, tags, Markdown dialect)                                       |
+| Posts       | `list_posts`, `get_post`, `create_draft`, `update_draft`, `check_post`, `publish_post`, `unpublish_post`, `upload_image` |
+| Pages       | `list_pages`, `get_page`, `save_page`, `check_page`, `publish_page`, `unpublish_page`                                    |
+| Projects    | `list_projects`, `get_project`, `save_project`, `check_project`, `publish_project`, `unpublish_project`                  |
+| Words       | `list_tags`, `update_tag`, `list_categories`, `update_category_name`, `list_media`, `update_media`                       |
+| Settings    | `get_global` (site, now, uses, resume), `update_now`, `update_uses`, `update_resume`, `update_site`                      |
+
+Details that matter:
+
+- `update_draft` also changes category, cover image, series, contents list and dates. `get_*` returns `updatedAt`
+  (settings: `version`); send it back as `expected_updated_at` (`expected_version`).
+- `publish_post`, `publish_page` and `publish_project` put **every language that has content** live together (Payload
+  promotes the whole latest draft), so each language must pass the rules.
+- `update_uses` takes the whole list and the rows' ids from `get_global`. Rows left out would be deleted in **both**
+  languages, so that needs `remove_missing: true`. `update_resume` replaces whole sections and refuses to shrink one
+  unless `allow_shrink: true`; `update_site` does the same for the social buttons.
+- Social buttons must be `https://` on an allowed host (`AGENT_SOCIAL_HOSTS`, default github.com, linkedin.com, x.com,
+  mastodon.social, bsky.app, youtube.com, zenn.dev, qiita.com). Project and resume links must be `https://` or a path
+  inside the site; a link that was already there is never the agent's problem.
+- A key can switch any single tool off in the admin (**MCP > API keys**). To keep a browsing agent away from the
+  high-impact settings, untick `update_site`, `update_resume`, `update_uses`, `update_now` and the `publish_*` tools.
 
 ## The writing format
 
@@ -97,20 +128,21 @@ callouts. `# H1` becomes `##`.
 
 Enforcement is in the CMS, so it holds for anything that uses the agent's key, not only these tools.
 
-| Rule                                                                                       | Where                                                         |
-| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
-| Only an `agent` user's key works on the MCP endpoint; keys are stored hashed               | plugin + `create-agent-key.ts`                                |
-| An MCP key is **not** a general login: it cannot read the REST API or the user list        | `src/access` (`roleOf`)                                       |
-| The agent changes only posts it created itself; never anyone else's; never deletes         | `postAccess`, `agentBeforeChange`                             |
-| No HTML embeds or photo strips from an agent (script and layout are admin-only)            | `agentBeforeChange`                                           |
-| Publishing needs the kill switch on                                                        | `agentBeforeChange`                                           |
-| **Every language that will be visible** passes the rules, not only the one requested       | `agentBeforeChange` (see below)                               |
-| Title ≤ 120, description ≤ 160, body ≥ 600 chars (EN) / 300 (JA), category, cover alt text | `src/lib/agentPolicy.ts`                                      |
-| No email, phone number, postal code, address marker or `PRIVACY_DENYLIST` term in the text | `scripts/privacy-core.mjs` (the same detector as the CI scan) |
-| At most `AGENT_MAX_PUBLISHES_PER_DAY` publishes per 24 hours (default 6)                   | `agent-log` count                                             |
-| Every tool call, publish and refusal is recorded                                           | `agent-log` collection (admin, MCP)                           |
-| Published slugs are permanent                                                              | existing `lockSlugAfterPublish`                               |
-| The build still re-checks: locale rule, no drafts, privacy scan, embed isolation           | `check-dist.mjs`, CI privacy scan                             |
+| Rule                                                                                                                                                                                              | Where                                                                  |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Only an `agent` user's key works on the MCP endpoint; keys are stored hashed                                                                                                                      | plugin + `create-agent-key.ts`                                         |
+| An MCP key is **not** a general login: it cannot read the REST API or the user list                                                                                                               | `src/access` (`roleOf`)                                                |
+| Nothing is ever deleted by an agent; category slugs, contact emails, image files, users stay admin-only                                                                                           | `access/index.ts`, field access, `agentTextGuard`                      |
+| No new or altered HTML embed or photo strip from an agent (script and layout are admin-only); existing ones stay byte for byte                                                                    | `restrictedBlockProblems`, all three content hooks                     |
+| An edit names the version it read, and is refused if the document changed or is open in the admin                                                                                                 | `expected_updated_at` / `expected_version`, `overrideLock: false`      |
+| Going live needs the kill switch on: a publish, and any save of Now, Uses, Resume or Site                                                                                                         | `agentBeforeChange`, `agentDocBeforeChange`, `agentGlobalBeforeChange` |
+| **Every language that will be visible** passes the rules, not only the one requested                                                                                                              | `agentBeforeChange` (see below)                                        |
+| Posts: title ≤ 120, description ≤ 160, body ≥ 600 chars (EN) / 300 (JA), category, cover alt text. Pages and projects: title ≤ 120, project summary ≤ 200, body ≥ 120 (EN) / 60 (JA), https links | `src/lib/agentPolicy.ts`                                               |
+| No email, phone number, postal code, address marker or `PRIVACY_DENYLIST` term in what the agent adds (posts, pages, projects, settings, tags, alt text)                                          | `scripts/privacy-core.mjs` (the same detector as the CI scan)          |
+| At most `AGENT_MAX_PUBLISHES_PER_DAY` go-live saves per 24 hours (default 6): posts, pages, projects and settings count together                                                                  | `agent-log` count                                                      |
+| Every tool call, publish and refusal is recorded, with the collection and document                                                                                                                | `agent-log` collection (admin, MCP)                                    |
+| Published slugs are permanent                                                                                                                                                                     | existing `lockSlugAfterPublish`                                        |
+| The build still re-checks: locale rule, no drafts, privacy scan, embed isolation                                                                                                                  | `check-dist.mjs`, CI privacy scan                                      |
 
 ### Why "every visible language"
 
@@ -123,14 +155,16 @@ while Japanese is unfinished: `update_draft` with `language: ja, visible: false`
 
 ## Operate it
 
-| Task                          | How                                                                                               |
-| ----------------------------- | ------------------------------------------------------------------------------------------------- |
-| Stop publishing               | `AGENT_AUTO_PUBLISH=0`, restart the CMS. Drafts still work.                                       |
-| Revoke an agent               | Admin, **MCP > API keys**, delete the key (or delete the agent user).                             |
-| Rotate a key                  | Create a new one with `pnpm cms:agent-key`, update the agent, delete the old one.                 |
-| See what an agent did         | Admin, **MCP > Agent log**: tool, outcome (ok / refused / error), language, post id, reason.      |
-| Switch one tool off for a key | Admin, **MCP > API keys**, the tool checkboxes.                                                   |
-| Review before it goes live    | Leave auto-publish off: the agent's drafts wait in the admin under Posts for a person to publish. |
+| Task                          | How                                                                                                                   |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Stop publishing               | `AGENT_AUTO_PUBLISH=0`, restart the CMS. Drafts still work.                                                           |
+| Revoke an agent               | Admin, **MCP > API keys**, delete the key (or delete the agent user).                                                 |
+| Rotate a key                  | Create a new one with `pnpm cms:agent-key`, update the agent, delete the old one.                                     |
+| See what an agent did         | Admin, **MCP > Agent log**: tool, outcome (ok / refused / error), collection, document id, language, reason.          |
+| Undo a bad settings save      | Admin, **Globals > (Now, Uses, Resume, Site) > Versions**: restore one of the last 25.                                |
+| Undo a bad edit to a post     | Admin, the post, **Versions**: restore (posts, pages and projects keep 25).                                           |
+| Switch one tool off for a key | Admin, **MCP > API keys**, the tool checkboxes.                                                                       |
+| Review before it goes live    | Leave auto-publish off: the agent's drafts wait in the admin under Posts, Pages and Projects for a person to publish. |
 
 ## After the site goes live: where the agent connects and what happens on publish
 

@@ -2,6 +2,53 @@
 
 Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
+## 0.3.0 - unreleased
+
+### Added (the agent edits the whole site, 2026-11-02)
+
+- The MCP agent can edit **any** post (not only its own), and create, edit, check, publish and unpublish **pages** and
+  **projects**; name tags and rename categories in a language; change image alt text, caption and credit; and update
+  the **Now, Uses, Resume and Site** settings. It still never deletes, and the contact emails, category slugs, image
+  files, users and keys stay admin-only. 23 new tools (32 in all): `list_pages`, `get_page`, `save_page`, `check_page`,
+  `publish_page`, `unpublish_page`, the same six for projects, `list_tags`, `update_tag`, `list_categories`,
+  `update_category_name`, `list_media`, `update_media`, `get_global`, `update_now`, `update_uses`, `update_resume`,
+  `update_site`. `update_draft` also changes category, cover, series, contents list and dates.
+- **Stale-edit protection.** An edit of an existing document names the version it read (`expected_updated_at`; the four
+  settings use `expected_version`, a fingerprint of their content, because Payload does not move a global's `updatedAt`
+  when only language-specific fields were saved and writes the saved version's timestamp after the save returns) and is
+  refused if the document changed since, or is open in the admin (`overrideLock: false`).
+- **Settings are gated like a publish**: a save of Now, Uses, Resume or Site needs `AGENT_AUTO_PUBLISH=1`, counts toward
+  `AGENT_MAX_PUBLISHES_PER_DAY` with posts, pages and projects, is privacy-scanned for the text it adds, and the social
+  links must be https on an allowed host (`AGENT_SOCIAL_HOSTS`). Rows an edit would delete (Uses in both languages,
+  Resume sections, social buttons) need an explicit `remove_missing` / `allow_shrink`.
+- The four settings keep their last 25 versions (restore in the admin).
+- `import-fixtures` (`pnpm cms:import`): moves the site's content into a running CMS over REST, for the production
+  cutover. Dry run by default, https and `IMPORT_ALLOW_REMOTE=1` for a remote CMS, existing slugs skipped, images uploaded
+  only when a document needs them, settings that already have content left alone. The mapping is shared with the local
+  seed (`src/scripts/fixtureModel.ts`).
+- `docs/cutover.md`: the runbook for switching the live site to Payload and enabling the agent.
+- Checks: `pnpm cms:check-scope` (71 on, 12 with the kill switch off), `pnpm cms:check-hooks` (20, Local API as the agent
+  user: new or altered embeds, deletes, category slug, contact emails, role, image replacement, locks), 83 unit tests
+  including a Markdown round trip over every fixture.
+- Migration `20261101_145841_mcp_full_content` (adds `agent_log.collection`, the version tables of the four settings and
+  the tool switches of the new tools; applies, rolls back, re-applies). Generated with the `S3_*` variables set; the
+  variant without them differs only by `DROP COLUMN "_objectkey"`, which must never ship.
+
+### Changed
+
+- An agent's HTML embeds and photo strips: it can no longer add or alter one, but one a person put in a document stays
+  exactly as it is (it used to refuse any save of a document containing one).
+- The audit log records the collection and document of every call and refusal; the daily limit counts every kind of
+  go-live save.
+- `docs/agents.md`, `docs/cms.md` and `CLAUDE.md` describe the new scope; `check-agent*.mjs` read a document's version before
+  editing it, as an agent must.
+
+### Fixed
+
+- The Markdown an agent reads back could not be saved without changing the text in two cases: bold text ending in a space
+  (`**word **`, which is not emphasis in CommonMark) and two adjacent bold runs (`**a****b**`). Both produced literal
+  asterisks on the site after an agent edit. Bold code now keeps its bold, and adjacent runs are merged.
+
 ## 0.2.2 - 2026-10-17
 
 ### Fixed (CMS media list failed once R2 was enabled, 2026-10-17)

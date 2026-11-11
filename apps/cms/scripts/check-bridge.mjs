@@ -3,6 +3,7 @@
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import { fileURLToPath } from 'node:url';
+import { EXPECTED_TOOLS } from './agent-tools.mjs';
 
 const bridge = fileURLToPath(new URL('./mcp-stdio-bridge.mjs', import.meta.url));
 const client = new Client({ name: 'bridge-check', version: '1.0.0' });
@@ -21,11 +22,7 @@ const ok = (name, cond, detail = '') => {
 };
 
 const names = (await client.listTools()).tools.map((t) => t.name).sort();
-ok(
-  'the bridge exposes the nine CMS tools and nothing else',
-  names.length === 9 && names.includes('publish_post') && names.includes('site_guide'),
-  names.join(','),
-);
+ok('the bridge exposes every CMS tool and nothing else', JSON.stringify(names) === JSON.stringify(EXPECTED_TOOLS), names.join(','));
 const guide = await client.callTool({ name: 'site_guide', arguments: {} });
 ok(
   'a tool call reaches the CMS and returns its answer',

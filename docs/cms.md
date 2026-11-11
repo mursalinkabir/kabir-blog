@@ -4,16 +4,18 @@ Snippets are marked **production-ready** (what CI or you run for real) or **illu
 
 ## What exists
 
-| Part                          | Where                                               | Notes                                                                                         |
-| ----------------------------- | --------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| Payload 3.90.2 on Next 16.4.0 | `apps/cms`                                          | admin at `/admin`, REST at `/api`, GraphQL disabled                                           |
-| Collections                   | `apps/cms/src/collections`                          | users, media, categories, tags, posts, projects, pages                                        |
-| Globals                       | `apps/cms/src/globals`                              | site, now, uses, resume                                                                       |
-| Rich-text blocks              | `apps/cms/src/blocks`                               | code, terminal, callout, figure, gallery-strip, diagram, and the inline `jp` term             |
-| Upload privacy hook           | `apps/cms/src/hooks/stripImageMetadata.ts`          | re-encodes every upload before storage: no EXIF, GPS, XMP, IPTC or ICC in the stored original |
-| Migrations                    | `apps/cms/src/migrations`                           | committed; `push` is off everywhere                                                           |
-| Seed (local only)             | `apps/cms/src/scripts/seed.ts`                      | loads the site fixtures into Payload; refuses any database host except localhost              |
-| Pull script and mapper        | `apps/site/scripts/pull-cms.mjs`, `lib/cms-map.mjs` | Payload REST to the site's content files                                                      |
+| Part                          | Where                                               | Notes                                                                                                                |
+| ----------------------------- | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Payload 3.90.2 on Next 16.4.0 | `apps/cms`                                          | admin at `/admin`, REST at `/api`, GraphQL disabled                                                                  |
+| Collections                   | `apps/cms/src/collections`                          | users, media, categories, tags, posts, projects, pages                                                               |
+| Globals                       | `apps/cms/src/globals`                              | site, now, uses, resume                                                                                              |
+| Rich-text blocks              | `apps/cms/src/blocks`                               | code, terminal, callout, figure, gallery-strip, diagram, and the inline `jp` term                                    |
+| Upload privacy hook           | `apps/cms/src/hooks/stripImageMetadata.ts`          | re-encodes every upload before storage: no EXIF, GPS, XMP, IPTC or ICC in the stored original                        |
+| Migrations                    | `apps/cms/src/migrations`                           | committed; `push` is off everywhere                                                                                  |
+| Seed (local only)             | `apps/cms/src/scripts/seed.ts`                      | loads the site fixtures into Payload; refuses any database host except localhost                                     |
+| Importer (any CMS, over REST) | `apps/cms/src/scripts/import-fixtures.ts`           | moves the same content into a running CMS (the production cutover); dry run by default; see [cutover.md](cutover.md) |
+| Shared mapping                | `apps/cms/src/scripts/fixtureModel.ts`              | how a fixture becomes CMS documents, used by both of the above                                                       |
+| Pull script and mapper        | `apps/site/scripts/pull-cms.mjs`, `lib/cms-map.mjs` | Payload REST to the site's content files                                                                             |
 
 ## Run it locally (production-ready commands)
 
@@ -102,7 +104,13 @@ cd apps/site && node scripts/pull-cms.mjs --raw tests/fixtures/payload-raw.json
 
 ## Writing through an AI agent
 
-An agent can write and publish posts over MCP, with the rules enforced inside the CMS. See [agents.md](agents.md).
+An agent can write, edit and publish posts, pages and projects, edit tags, category names and image details, and update the Now, Uses, Resume and Site settings over MCP, with the rules enforced inside the CMS. See [agents.md](agents.md).
+
+## Where the content lives
+
+Once the cutover in [cutover.md](cutover.md) is done, **Payload is the source of truth** for the live site: a post is
+written in the admin or by the agent, not by editing a fixture. `apps/site/src/content/fixtures/` stays as sample content
+for the tests and for local work without a CMS; changing it no longer changes the live site.
 
 ## HTML embeds: author HTML with JavaScript
 
