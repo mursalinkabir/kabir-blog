@@ -54,6 +54,7 @@ jobs:
       - name: Build the Astro site on the fixtures (the parity baseline)
         env:
           SITE_CONTENT: fixtures
+          BUILD_ID: parity-baseline # the Astro build refuses to run in CI without one; this build is never published
         run: |
           npx --yes pnpm@12.9.1 install --frozen-lockfile
           npx --yes pnpm@12.9.1 build

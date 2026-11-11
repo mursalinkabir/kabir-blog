@@ -2,7 +2,13 @@
 
 Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
-## 0.3.1 - 2026-11-11
+## 0.3.2 - 2026-11-11
+
+- **Release fix.** `v0.3.1` got past the image tests but its new parity step failed: the Astro baseline build needs a
+  `BUILD_ID` in CI. The step sets one (`parity-baseline`; that build is never published). No `kabir-blog-cms:0.3.0` or
+  `:0.3.1` exists; deploy `0.3.2`. Everything else is the 0.3.0 entry below.
+
+## 0.3.1 - 2026-11-11 (tagged, no image built)
 
 - **Release fix.** `v0.3.0` never built an image: the release workflow's `verify` job builds the old nginx image, and its
   `rclone~=1.74` pin no longer installs because Alpine 3.24 now carries rclone 1.75.2. The pin is `~=1.75`. Everything else is
