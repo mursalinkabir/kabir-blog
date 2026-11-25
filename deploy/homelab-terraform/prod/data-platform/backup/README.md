@@ -1,7 +1,7 @@
 # pg-main backups to R2 (drafts)
 
 `pg-main` holds Zitadel, TraderBuddy and the CMS (`payload`). Continuous WAL archiving and daily base backups to
-Cloudflare R2 were verified on 2026-10-17. The restore drill is the remaining gate. See
+Cloudflare R2 were verified on 2026-10-17. The restore drill passed on 2026-11-26 JST. See
 [deployment evidence](../../../../../docs/deploy.md#the-cms-service-phase-4).
 
 **Why the plugin and not `spec.backup.barmanObjectStore`:** the in-tree integration still works in CNPG 1.30 but is

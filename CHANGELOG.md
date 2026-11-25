@@ -2,7 +2,7 @@
 
 Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
-## 0.3.6 - unreleased
+## 0.3.6 - 2026-11-26
 
 - Bump the static server base to NGINX Unprivileged `1.30.8-alpine` and pin its image index by digest. This includes
   the fixes for the three nginx findings that blocked the legacy server image in `v0.3.5`.

@@ -185,8 +185,7 @@ first-user form, worked; an uploaded image (`ktrk.png`) landed in `kabir-blog-me
 (no 1600 px size: the source is smaller and Payload does not upscale), and all three load from `media.smkabir.com` with
 the right content types; the bucket root and a missing key answer 404. The first `0.2.1` image had no migration for the
 column the S3 plugin adds (`media._objectkey`); `0.2.2` has it (CHANGELOG).
-Not yet proven: publish dispatch (a publish rebuilding the site) and a backup **restore** (backups now run, see
-below; `deploy/homelab-terraform/prod/data-platform/backup/`).
+The static publish dispatch is superseded by the [single-app cutover](cutover.md).
 
 **Cloudflare side, done 2026-10-17 (through the API, not the dashboard):** R2 buckets `kabir-blog-media` and
 `kabir-blog-pg-backups` (public access off; `kabir-blog-site` already existed); custom domain `media.smkabir.com` on
@@ -202,8 +201,14 @@ to add.
 **pg-main backups, proven 2026-10-17:** the Barman Cloud plugin v0.15.1 and the `ObjectStore` are in homelab-terraform
 `prod/data-platform/` (`07`, `09`), the Cluster carries `spec.plugins` (`03`), and the daily `ScheduledBackup` (`10`) ran
 its first base backup in 22 s. `ContinuousArchiving=True`; the ObjectStore reports a recovery window from
-`2026-10-17T04:08:43Z`; the bucket holds the base backup `20261017T040821` and the WAL segments. Not yet proven: a
-**restore** into a scratch cluster.
+`2026-10-17T04:08:43Z`; the bucket holds the base backup `20261017T040821` and the WAL segments.
+
+**Restore drill passed on 2026-11-26 (JST).** CloudNativePG recovered R2 backup `20261125T031501` into a dedicated
+PostgreSQL 16.15 scratch cluster using a temporary read-only R2 credential. The recovery job completed in 97 seconds.
+The restored `payload` database matched the source counts of 0 posts, 0 pages, and 1 media record, and the media record
+identifier matched. Scratch Payload `0.3.5` returned HTTP 200 from `/readyz` and loaded a fresh snapshot. It reported
+the restored media record's local URL because the scratch deployment omitted R2 media credentials. The private
+production CMS check returned zero skipped documents.
 
 Two things the rollout found, both fixed in `03-cnpg-cluster.yaml`:
 

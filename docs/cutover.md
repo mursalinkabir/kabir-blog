@@ -9,14 +9,15 @@ illustrative.
 
 ## What has been proven, and what has not
 
-| Step                                                                                  | Proven                                                                                                             |
-| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| Every page, feed and the sitemap match the Astro build of the same content            | Yes, in CI and locally (`PARITY_DIST=apps/site/dist pnpm --filter @smkabir/cms test`): 77 pages, 5 feeds, sitemap  |
-| An edit or an unpublish shows on the public pages within two seconds                  | Yes, against a seeded staging database: 916 ms and 616 ms                                                          |
-| `smkabir.com` serves pages only; `/admin`, `/api`, `/preview` answer 404              | Yes, in the image smoke test (also host case, port and trailing-dot variants)                                      |
-| Agent scope, kill switch, hooks, stale-edit and lock protection                       | Yes: `check:scope` 71, `check:hooks` 20, `check:agent` 28, semantics 14                                            |
-| Migration `20261101_145841_mcp_full_content`, importer, restore of a `pg-main` backup | The migration and importer: 2026-11-02 against `pg-stg`. **The restore is not proven: it is step 1.**              |
-| The CMS image in the cluster (memory, `d2` under PodSecurity `restricted`)            | **No.** Check `kubectl -n cms top pod` after step 3 and raise the request in `cms.yaml` if the pod is near 512 MiB |
+| Step                                                                       | Proven                                                                                                                   |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Every page, feed and the sitemap match the Astro build of the same content | Yes, in CI and locally (`PARITY_DIST=apps/site/dist pnpm --filter @smkabir/cms test`): 77 pages, 5 feeds, sitemap        |
+| An edit or an unpublish shows on the public pages within two seconds       | Yes, against a seeded staging database: 916 ms and 616 ms                                                                |
+| `smkabir.com` serves pages only; `/admin`, `/api`, `/preview` answer 404   | Yes, in the image smoke test (also host case, port and trailing-dot variants)                                            |
+| Agent scope, kill switch, hooks, stale-edit and lock protection            | Yes: `check:scope` 71, `check:hooks` 20, `check:agent` 28, semantics 14                                                  |
+| Migration `20261101_145841_mcp_full_content` and importer                  | Yes, on 2026-11-02 against `pg-stg`.                                                                                     |
+| R2 backup restore and scratch Payload startup                              | Yes, on 2026-11-26 JST. Backup `20261125T031501` restored in 97 s. [Restore evidence](deploy.md#the-cms-service-phase-4) |
+| The CMS image in the cluster (memory, `d2` under PodSecurity `restricted`) | **No.** Check `kubectl -n cms top pod` after step 3 and raise the request in `cms.yaml` if the pod is near 512 MiB       |
 
 The CMS image `ghcr.io/mursalinkabir/kabir-blog-cms:0.3.5` passed its smoke test and scan and was published.
 The overall release failed on three nginx findings in the legacy server image. [Release run](https://github.com/mursalinkabir/kabir-blog/actions/runs/42995920579)
