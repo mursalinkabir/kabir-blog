@@ -1,16 +1,15 @@
 # Deploying smkabir.com
 
-Status: **the deploy path is built and tested locally; nothing is deployed.**
-**To put smkabir.com live, follow the click-by-click guide: [docs/go-live.md](go-live.md).** This page is the
-reference behind it: how the pieces fit, what was tested, and how operations work afterwards. It implements docs/PLAN.md Phase 5 (first deploy on `next.smkabir.com`) and
-Phase 6 (apex cutover). Everything marked **(you)** needs a login this repo does not and must not have.
+**Payload `0.3.6` has served the public site since 2026-11-26 JST.** The cutover runbook records production
+verification and the rollback commit. [Cutover evidence](cutover.md#production-cutover-on-2026-11-26-jst)
 
-> **0.3.0 changes the shape of this document.** The CMS image now serves the public site too (one pod, two hostnames), so the
-> blog Deployment, the content workflows and the R2 release pointers described below are retired by the cutover in
-> [cutover.md](cutover.md). Until that is done they are still how the live site works. The new draft for the CMS (with the
-> apex route) is `deploy/homelab-terraform/prod/apps/cms/cms.yaml`.
+CMS publishes refresh the content snapshot without triggering a build. For a code release, tag the tested commit and
+wait for GitHub Actions to publish the image before bumping the CMS Deployment in `homelab-terraform`.
+The legacy Astro, nginx and R2 procedures below remain available for rollback during the observation period.
 
 ## How a release works
+
+### Legacy static release workflow
 
 ```
  git push (main)  ->  content.yml  builds dist/  ->  R2  releases/<build_id>/   then pointer LATEST

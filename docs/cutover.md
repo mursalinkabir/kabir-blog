@@ -1,11 +1,22 @@
-# Cutover: smkabir.com is served by the CMS app, and the agent can edit it
+# Cutover to the Payload site
 
-Until this is done the live site is the Astro site built from the committed sample content in
-`apps/site/src/content/fixtures/` (nginx pods that read releases from R2). After it, **one app serves everything**: the
-Payload app (`kabir-blog-cms`) answers `smkabir.com` with the public pages and `cms.smkabir.com` with the admin, the API,
-the MCP endpoint and previews. A publish is live within about a second, with no build step. Design:
+The Payload app (`kabir-blog-cms`) serves the public pages at `smkabir.com` and the admin, API, MCP endpoint and previews
+at `cms.smkabir.com`. A publish appears on the public site within about a second. Design:
 `docs/superpowers/specs/2026-11-11-single-app-blog-design.md`. Snippets are **production-ready** unless marked
 illustrative.
+
+## Production cutover on 2026-11-26 JST
+
+- CMS image `0.3.6` passed CI. The import created 12 posts, including one draft, 2 projects, 1 page, 24 media records
+  and 4 globals. A repeat dry run found no missing records. The temporary Payload API key was revoked, the Cloudflare
+  service token was disabled, and its Service Auth policy was detached from the CMS application.
+- GitOps commit `814e43a` moved the apex route to the CMS. Both Argo CD applications became Synced and Healthy.
+  After the hostname cache purge, all 74 URLs from the previous sitemap returned HTTP 200. The English and Japanese
+  feeds, search, and public R2 media passed. The apex returned 404 for the draft, `/admin`, `/api`, and `/preview/`.
+- `/version.json` reported `content_version: e3160855edf4bdb6`, `stale: false`, and `skipped_documents: 0`.
+  Its `build_id` still defaults to the asset version `0.3.5`. The Deployment and running image use `0.3.6`.
+- Revert `814e43a` in `homelab-terraform` to restore the Astro route. The legacy stack remains available for rollback
+  during the observation period. Agent automatic publishing is set to `0`.
 
 ## What has been proven, and what has not
 
@@ -17,10 +28,10 @@ illustrative.
 | Agent scope, kill switch, hooks, stale-edit and lock protection            | Yes: `check:scope` 71, `check:hooks` 20, `check:agent` 28, semantics 14                                                  |
 | Migration `20261101_145841_mcp_full_content` and importer                  | Yes, on 2026-11-02 against `pg-stg`.                                                                                     |
 | R2 backup restore and scratch Payload startup                              | Yes, on 2026-11-26 JST. Backup `20261125T031501` restored in 97 s. [Restore evidence](deploy.md#the-cms-service-phase-4) |
-| The CMS image in the cluster (memory, `d2` under PodSecurity `restricted`) | **No.** Check `kubectl -n cms top pod` after step 3 and raise the request in `cms.yaml` if the pod is near 512 MiB       |
+| CMS deployment under PodSecurity `restricted`                              | Image `0.3.6` became Ready. Memory was 217 MiB after import, below the 512 MiB request.                                  |
 
-The CMS image `ghcr.io/mursalinkabir/kabir-blog-cms:0.3.5` passed its smoke test and scan and was published.
-The overall release failed on three nginx findings in the legacy server image. [Release run](https://github.com/mursalinkabir/kabir-blog/actions/runs/42995920579)
+Both images passed their smoke tests and scans and were published for `v0.3.6`.
+[Release run](https://github.com/mursalinkabir/kabir-blog/actions/runs/45645298728)
 
 ## Steps (you do these: they use Cloudflare, GitHub and the cluster repository)
 
