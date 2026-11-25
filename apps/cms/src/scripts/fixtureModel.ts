@@ -60,6 +60,11 @@ const pickLocale = <T>(value: Localized<T> | undefined, locale: Locale): T | und
 
 // ---------------------------------------------------------------- media
 
+/** Upload an image in a locale with alt text, with English first when both are present. */
+export function mediaAltLocales(alt: Localized<string>): Locale[] {
+  return LOCALES.filter((locale) => alt[locale]);
+}
+
 /** Each distinct image the content refers to, by fixture id. */
 export function collectMedia(fx: Fixtures): Map<string, Json> {
   const found = new Map<string, Json>();

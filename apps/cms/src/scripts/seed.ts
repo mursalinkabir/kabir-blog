@@ -22,6 +22,7 @@ import {
   collectMedia,
   globalPlans,
   loadFixtures,
+  mediaAltLocales,
   mediaFile,
   pagePlans,
   postPlans,
@@ -78,8 +79,7 @@ async function writeDoc(
 async function uploadMedia(payload: Payload, m: Json): Promise<number | string> {
   const { buffer, name, mimetype } = await mediaFile(m);
   // Alt text is required in the locale a document is created in. A cover used only by a Japanese-only post has Japanese alt only.
-  const locales = (['en', 'ja'] as const).filter((l) => m.alt[l]);
-  const [first, ...rest] = locales;
+  const [first, ...rest] = mediaAltLocales(m.alt);
   const created = await payload.create({
     collection: 'media',
     locale: first ?? 'en',

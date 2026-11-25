@@ -2,6 +2,10 @@
 
 Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
+## Unreleased
+
+- The fixture importer uploads media in the first locale that has alt text. This allows Japanese-only images to import without copying alt text into English.
+
 ## 0.3.6 - 2026-11-26
 
 - Bump the static server base to NGINX Unprivileged `1.30.8-alpine` and pin its image index by digest. This includes

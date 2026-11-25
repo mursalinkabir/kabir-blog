@@ -27,6 +27,7 @@ import {
   collectMedia,
   globalPlans,
   loadFixtures,
+  mediaAltLocales,
   mediaFile,
   pagePlans,
   postPlans,
@@ -123,16 +124,20 @@ async function uploadMedia(fixtureId: string): Promise<number | string> {
     console.log(`  reuse   media/${name} (exists)`);
     return found.docs[0].id;
   }
+  const [first, ...rest] = mediaAltLocales(m.alt);
+  if (!first) throw new Error(`import: media ${name} has no alt text in either locale.`);
   count('media', 'created');
   if (!apply) {
     console.log(`  would upload media/${name}`);
     return `dry:${fixtureId}`;
   }
   const form = new FormData();
-  form.set('_payload', JSON.stringify({ alt: m.alt.en, credit: m.credit }));
+  form.set('_payload', JSON.stringify({ alt: m.alt[first], credit: m.credit }));
   form.set('file', new Blob([new Uint8Array(buffer)], { type: mimetype }), name);
-  const id = must(await api('POST', '/media?locale=en', undefined, form), `upload media ${name}`).doc.id as number | string;
-  if (m.alt.ja) must(await api('PATCH', `/media/${id}?locale=ja`, { alt: m.alt.ja }), `alt text (ja) for ${name}`);
+  const id = must(await api('POST', `/media?locale=${first}`, undefined, form), `upload media ${name}`).doc.id as number | string;
+  for (const locale of rest) {
+    must(await api('PATCH', `/media/${id}?locale=${locale}`, { alt: m.alt[locale] }), `alt text (${locale}) for ${name}`);
+  }
   console.log(`  uploaded media/${name}`);
   return id;
 }
