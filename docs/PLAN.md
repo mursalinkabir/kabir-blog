@@ -2,6 +2,9 @@
 
 - [ ] Oct 6, 2026 · @mursalin kabir · reviewed and corrected Oct 6, 2026
 
+> The [single-app plan](superpowers/plans/2026-11-11-single-app-blog.md) supersedes the static publishing architecture
+> below. Follow the [cutover runbook](cutover.md) for the current rollout gates, starting with the backup restore drill.
+
 ## Review changes (2026-10-06)
 
 Checked against the live `homelab-prod` cluster, `homelab-terraform`, DNS, and how

@@ -4,7 +4,7 @@
 # No site content is baked in; releases come from R2 at runtime (docs/PLAN.md, "Site server image").
 #
 # Base is the stable-branch unprivileged nginx (uid 101, port 8080). Bump it by hand and note it in docs/versions.md.
-FROM nginxinc/nginx-unprivileged:1.30.5-alpine
+FROM nginx/nginx-unprivileged:1.30.8-alpine@sha256:637c35e46af7bc0dd3d3bcf7162e004e13ab3b370fde7cd416e2ac410b5a985a
 
 USER root
 # rclone talks S3 to R2; jq renders redirects. Versions come from the pinned Alpine release of the base image.

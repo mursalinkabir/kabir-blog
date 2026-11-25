@@ -1,7 +1,6 @@
-# ILLUSTRATIVE: a scratch cluster that restores pg-main from R2, to prove the backups work (Phase 4 gate). Apply it
-# in a scratch namespace by hand, check the data, then delete it. It needs its own copy of the ObjectStore and the
-# pg-backups-r2 Secret in that namespace. Never leave it running: two clusters archiving to one path corrupt it, so
-# the recovered cluster must NOT have spec.plugins pointing at the same ObjectStore.
+# ILLUSTRATIVE: stage this in a dedicated scratch namespace through GitOps. Match the source PostgreSQL major version
+# and size storage for the full backup. Use a namespace-local ObjectStore and read-only backup credentials.
+# Keep WAL archiving disabled for the scratch cluster.
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:

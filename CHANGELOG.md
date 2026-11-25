@@ -2,13 +2,20 @@
 
 Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
+## 0.3.6 - unreleased
+
+- Bump the static server base to NGINX Unprivileged `1.30.8-alpine` and pin its image index by digest. This includes
+  the fixes for the three nginx findings that blocked the legacy server image in `v0.3.5`.
+
 ## 0.3.5 - 2026-11-11
 
 - **Release fix.** `v0.3.4` passed `verify` and the whole smoke test, then failed the release scan on the `d2` binary alone
   (6 HIGH findings in its Go standard library and `golang.org/x/net`; d2 0.9.0 is the newest release). The owner approved an
   exception for that one file (`skip-files: /usr/local/bin/d2`), with the reasoning in `release.yml` and `docs/versions.md`:
   d2 runs only as `d2 - -` on editor-written diagram source and has no network use. The OS packages and every other file
-  are still scanned and are clean. Remove the exception when d2 ships a rebuilt binary. Deploy `0.3.5`.
+  are still scanned. The CMS image passed its scan and was pushed to GHCR. The legacy server image failed its separate
+  nginx scan, so the [release workflow](https://github.com/mursalinkabir/kabir-blog/actions/runs/42995920579) was red.
+  Remove the d2 exception when d2 ships a rebuilt binary.
 
 ## 0.3.4 - 2026-11-11 (tagged, no image built)
 
