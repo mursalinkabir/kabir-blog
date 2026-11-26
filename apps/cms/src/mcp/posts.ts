@@ -1,6 +1,6 @@
 /** The post tools: write, check and publish posts in English and Japanese. */
 import { z } from 'zod';
-import { autoPublishEnabled, MAX_DESCRIPTION, MAX_TITLE, publishProblems } from '../lib/agentPolicy';
+import { postPublishEnabled, MAX_DESCRIPTION, MAX_TITLE, publishProblems } from '../lib/agentPolicy';
 import { markdownToLexical, preservedBlocks } from '../lib/markdown';
 import {
   adminUrl,
@@ -247,8 +247,8 @@ export const postTools = [
       return {
         id: a.id,
         language: a.language,
-        canPublish: problems.length === 0 && autoPublishEnabled(),
-        autoPublish: autoPublishEnabled(),
+        canPublish: problems.length === 0 && postPublishEnabled(),
+        autoPublish: postPublishEnabled(),
         problems,
       };
     },

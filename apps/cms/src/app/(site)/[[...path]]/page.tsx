@@ -2,6 +2,7 @@ import { cache } from 'react';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { siteStore } from '../../../site/data/store';
 import { resolvePage } from '../../../site/views/resolve';
 import { toMetadata } from '../../../site/views/metadata';
@@ -43,6 +44,13 @@ export default async function Page({ params, searchParams }: Params) {
   const { meta, body, usesCode } = result;
   return (
     <>
+      {(meta.path === '/' || meta.path === '/ja/') && (
+        <>
+          <link rel="stylesheet" href="/magazine/motion/motion.css" precedence="default" />
+          <Script type="module" src="/magazine/motion/motion.js" strategy="afterInteractive" />
+          <Script type="module" src="/magazine/moments/moments.js" strategy="afterInteractive" />
+        </>
+      )}
       {usesCode && (
         <>
           <link rel="stylesheet" href={assetUrl('/site/ec.css')} precedence="default" />

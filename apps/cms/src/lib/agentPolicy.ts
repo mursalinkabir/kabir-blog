@@ -87,6 +87,14 @@ export const dailyLimit = (env: Record<string, string | undefined> = process.env
 
 export const autoPublishEnabled = (env: Record<string, string | undefined> = process.env): boolean => env.AGENT_AUTO_PUBLISH === '1';
 
+export const postPublishEnabled = (env: Record<string, string | undefined> = process.env): boolean =>
+  autoPublishEnabled(env) || env.AGENT_POST_PUBLISH === '1';
+
+export function agentPublishingMode(env: Record<string, string | undefined> = process.env): 'all' | 'posts' | 'drafts' {
+  if (autoPublishEnabled(env)) return 'all';
+  return postPublishEnabled(env) ? 'posts' : 'drafts';
+}
+
 // ---- blocks only an admin may add ---------------------------------------------------------------------------------
 
 /** Block types an agent can keep but never create or change: script and free layout. */

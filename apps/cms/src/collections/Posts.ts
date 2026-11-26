@@ -12,7 +12,7 @@ export const Posts: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'category', 'pubDate', '_status', 'updatedAt'],
-    description: 'Save keeps a draft. Publish makes it public (and, once wired in Phase 7, rebuilds the site).',
+    description: 'Save Draft keeps your work private. Publish updates the public site.',
   },
   versions: { drafts: { autosave: { interval: 2000 } }, maxPerDoc: 25 },
   hooks: {

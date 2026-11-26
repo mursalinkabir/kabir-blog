@@ -79,6 +79,31 @@ function diff(mine: string[], astro: string[]): string {
   return '';
 }
 
+/** The new home redesigns its lead, while keeping the same chrome, post links and subsequent cards. */
+function magazineParity(mine: string[], astro: string[]) {
+  const main = (tokens: string[]) => tokens.slice(tokens.findIndex((token) => token.startsWith('<main ')) + 1, tokens.indexOf('</main>'));
+  const chrome = (tokens: string[]) => [
+    ...tokens.slice(0, tokens.findIndex((token) => token.startsWith('<main ')) + 1),
+    ...tokens.slice(tokens.indexOf('</main>')),
+  ];
+  const links = (tokens: string[]) => [...new Set(tokens.flatMap((token) => token.match(/^<a\b[^>]*?\shref="([^"]+)"/)?.[1] ?? []))].sort();
+  const cards = (tokens: string[]) => {
+    const out: string[][] = [];
+    let start = -1;
+    tokens.forEach((token, index) => {
+      if (token.startsWith('<article class="card tile"')) start = index;
+      if (token === '</article>' && start >= 0) {
+        out.push(tokens.slice(start, index + 1).map((t) => t.replace(/^<(\/?)h3([ >])/, '<$1h2$2')));
+        start = -1;
+      }
+    });
+    return out;
+  };
+  expect(chrome(mine)).toEqual(chrome(astro));
+  expect(links(main(mine))).toEqual(links(main(astro)));
+  expect(cards(main(mine))).toEqual(cards(main(astro)).slice(1));
+}
+
 describe.skipIf(!DIST || !existsSync(DIST))('parity with the Astro build', () => {
   const all = listPaths(site)
     .map((p) => p.path)
@@ -114,7 +139,14 @@ describe.skipIf(!DIST || !existsSync(DIST))('parity with the Astro build', () =>
         hA.filter((x) => !h.includes(x)),
         'head tags only in Astro',
       ).toEqual([]);
-      expect(diff(tokensOf(mine), tokensOf(astro))).toBe('');
+      if (p === '/' || p === '/ja/') {
+        magazineParity(tokensOf(mine), tokensOf(astro));
+      } else {
+        // Articles now show the existing metadata description beneath the title.
+        const article = /^\/(?:ja\/)?posts\//.test(p);
+        const body = article ? mine.replace(/<p class="post-dek">[^<]*<\/p>/, '') : mine;
+        expect(diff(tokensOf(body), tokensOf(astro))).toBe('');
+      }
     });
   }
 });

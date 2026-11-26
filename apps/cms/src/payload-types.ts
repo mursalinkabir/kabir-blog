@@ -116,6 +116,7 @@ export interface Config {
   };
   locale: 'en' | 'ja';
   widgets: {
+    editorial: EditorialWidget;
     collections: CollectionsWidget;
   };
   user: User | PayloadMcpApiKey;
@@ -270,7 +271,7 @@ export interface Tag {
   createdAt: string;
 }
 /**
- * Save keeps a draft. Publish makes it public (and, once wired in Phase 7, rebuilds the site).
+ * Save Draft keeps your work private. Publish updates the public site.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts".
@@ -1311,6 +1312,16 @@ export interface ResumeSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "editorial_widget".
+ */
+export interface EditorialWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -14,7 +14,7 @@ const require = createRequire(import.meta.url);
 const out = path.join(root, 'public/site');
 const styles = path.join(root, 'src/site/styles');
 const clientDir = path.join(root, 'src/site/client');
-const SCRIPTS = ['theme', 'menu', 'copy-link', 'jp-gloss', 'embed-frame'];
+const SCRIPTS = ['theme', 'menu', 'copy-link', 'jp-gloss', 'embed-frame', 'reading'];
 
 rmSync(out, { recursive: true, force: true });
 mkdirSync(path.join(out, 'fonts'), { recursive: true });

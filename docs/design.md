@@ -240,3 +240,17 @@ Pagefind and every dist gate are as before.
 
 Rules kept: teal `#01ad9f` is decoration only; text and buttons use `--link` (`#007a6e` light, `#5eead4` dark);
 Japanese terms carry Romaji in English UI text; no inline scripts; a missing translation means no page.
+
+## 11. Magazine and editorial dashboard (2026-11-26)
+
+The production homepage uses a split feature with the newest eligible story in each language. The original site name,
+topic links and publication order stay in place. A warm paper palette and Georgia headings set the English edition apart,
+while Japanese keeps its system type. The lead photograph develops once, with motion disabled by preference. A recent-story
+grid and topic directory follow. On articles, the summary sits under the title, the progress line follows the article, and the
+contents list marks the current section. Wide screens use a sticky contents sidebar. Narrow screens keep it above the text.
+
+The Payload dashboard starts with the editorial widget and the standard collection cards. It shows five recent drafts
+and five recently published posts. When the saved draft has a preview in a language, that language gets a direct preview
+link. The widget uses the authenticated editor’s permissions and works with Payload’s light and dark themes. The Astro
+baseline comparison keeps exact body parity outside the two redesigned homepages and compares the homepages’ chrome,
+link destinations and recent cards.

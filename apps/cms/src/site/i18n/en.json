@@ -42,6 +42,11 @@
   },
   "posts": {
     "description": "Everything I have written, newest first.",
+    "readStory": "Read the story",
+    "browseTopics": "Explore topics",
+    "topicCountOne": "{n} article",
+    "topicCount": "{n} articles",
+    "latestStories": "Latest stories",
     "readingTime": "{n} min read",
     "tags": "Tags",
     "series": "Series",

@@ -5,23 +5,31 @@ import { cx } from '../cx';
 import { CategoryIcon } from './icons';
 import { MediaImage } from './MediaImage';
 
-/** Always decorative: the title link next to it names the destination. Posts without a cover get a tinted tile. */
+/** Link previews use a decorative image. Posts without a cover get a tinted tile. */
 export function Cover({
   hero,
   category,
   locale,
   eager = false,
+  decorative = true,
+  develop = false,
   sizes,
 }: {
   hero?: Media;
   category: Category['slug'];
   locale: Locale;
   eager?: boolean;
+  decorative?: boolean;
+  develop?: boolean;
   sizes?: string;
 }): ReactElement {
   return hero ? (
-    <div className="cover">
-      <MediaImage media={hero} locale={locale} decorative loading={eager ? 'eager' : 'lazy'} sizes={sizes} />
+    <div
+      className="cover"
+      data-moment={develop ? 'picture-develops' : undefined}
+      data-moment-opts={develop ? '{"look":"film"}' : undefined}
+    >
+      <MediaImage media={hero} locale={locale} decorative={decorative} loading={eager ? 'eager' : 'lazy'} sizes={sizes} />
     </div>
   ) : (
     <div className={cx('cover', 'cover-fallback', `cover-${category}`)}>

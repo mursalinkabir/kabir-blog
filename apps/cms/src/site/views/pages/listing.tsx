@@ -1,13 +1,15 @@
 import type { ReactElement } from 'react';
 import { locales, t, localePath, formatNumber, type Locale } from '../../i18n';
-import { categoryByRoute, pick, categoryRoute, type CategoryRoute, type PostView, type Site } from '../../data/site';
+import { categoryByRoute, pick, type CategoryRoute, type PostView, type Site } from '../../data/site';
 import { categoryMeta, categoryOrder } from '../../lib/categories';
 import { pageCount, pageItems, pagePath } from '../../lib/paginate';
 import { absolute, alternatesFor, bothLocales, type Alternates } from '../../lib/routes';
 import { cx } from '../cx';
+import { MagazineLead } from '../components/MagazineLead';
 import { CategoryIcon } from '../components/icons';
 import { Pagination } from '../components/Pagination';
 import { PostCard } from '../components/PostCard';
+import { TopicDirectory } from '../components/TopicDirectory';
 import type { PageResult } from './types';
 
 interface ListingProps {
@@ -50,54 +52,67 @@ export function postsPage({
   const pageLabel = page > 1 ? ` (${t(locale, 'pagination.page', { n: page })})` : '';
   const heading = title ?? site.siteName(locale);
   const hero = !title && page === 1;
+  const lead = hero ? items[0] : undefined;
+  const recent = lead ? items.slice(1) : items;
   const tagline = pick(site.getSite().tagline, locale);
-  const topics = [...new Map(posts.map((p) => [p.category.slug, p.category])).values()].map((c) => ({
-    ...c,
-    count: posts.filter((p) => p.category.slug === c.slug).length,
-  }));
   const metaTitle = title ? `${title}${pageLabel}` : page > 1 ? t(locale, 'pagination.page', { n: page }) : heading;
   const siteName = site.siteName(locale);
+  const pagination = <Pagination locale={locale} current={page} total={total} hrefFor={(n) => pagePath(locale, base, n)} />;
+  const empty = (
+    <div className="empty">
+      <p>{t(locale, locale === 'en' ? 'posts.noPosts' : 'posts.noPostsLocale')}</p>
+      {locale !== 'en' && (
+        <p>
+          <a className="btn" href={alternates.en ?? '/'} lang="en">
+            {t('en', 'posts.readEnglish')}
+          </a>
+        </p>
+      )}
+    </div>
+  );
 
-  const body = (
+  const body = hero ? (
+    <>
+      <section className="hero magazine-lead" data-enter="" aria-labelledby="magazine-title">
+        <div className="container wrap">
+          <header className="magazine-masthead">
+            <h1 id="magazine-title" className="hero-title" data-enter-whole="">
+              {heading}
+            </h1>
+            {tagline && <p className="hero-lead">{tagline}</p>}
+          </header>
+          {lead ? <MagazineLead post={lead} locale={locale} /> : empty}
+        </div>
+      </section>
+      {recent.length > 0 && (
+        <section className="magazine-recent" aria-labelledby="latest-stories">
+          <div className="container wrap">
+            <h2 id="latest-stories" className="section-title" data-moment="word-highlight">
+              {t(locale, 'posts.latestStories')}
+            </h2>
+            <div className="bento">
+              {recent.map((post) => (
+                <PostCard key={post.slug} post={post} locale={locale} siteName={siteName} level={3} />
+              ))}
+            </div>
+            {pagination}
+          </div>
+        </section>
+      )}
+      {items.length > 0 && <TopicDirectory locale={locale} posts={posts} />}
+    </>
+  ) : (
     <div className="container listing">
       {title ? (
         <header className="page-head">
           <h1 className="page-title">{title}</h1>
           {description && <p className="page-lede">{description}</p>}
         </header>
-      ) : hero ? (
-        <header className="hero">
-          <p className="hero-eyebrow">{topics.map((c) => c.name).join(' · ') || t(locale, 'posts.description')}</p>
-          <h1 className="hero-title">{heading}</h1>
-          {tagline && <p className="hero-lead">{tagline}</p>}
-          {topics.length > 1 && (
-            <ul className="hero-topics" role="list">
-              {topics.map((c) => (
-                <li key={c.slug}>
-                  <a className="topic-chip" data-topic={c.slug} href={localePath(locale, `/${categoryRoute[c.slug]}/`)}>
-                    <CategoryIcon category={c.slug} size={18} />
-                    {c.name}
-                    <span className="topic-chip-count">{c.count}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )}
-        </header>
       ) : (
         <h1 className="visually-hidden">{heading}</h1>
       )}
       {items.length === 0 ? (
-        <div className="empty">
-          <p>{t(locale, locale === 'en' ? 'posts.noPosts' : 'posts.noPostsLocale')}</p>
-          {locale !== 'en' && (
-            <p>
-              <a className="btn" href={alternates.en ?? '/'} lang="en">
-                {t('en', 'posts.readEnglish')}
-              </a>
-            </p>
-          )}
-        </div>
+        empty
       ) : (
         <div className={cx('bento', showFeatured && 'has-feature', showFeatured && items.length < 5 && 'is-few')}>
           {items.map((post, i) => (
@@ -112,7 +127,7 @@ export function postsPage({
           ))}
         </div>
       )}
-      <Pagination locale={locale} current={page} total={total} hrefFor={(n) => pagePath(locale, base, n)} />
+      {pagination}
     </div>
   );
   return {

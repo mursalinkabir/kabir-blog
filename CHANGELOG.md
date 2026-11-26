@@ -4,6 +4,12 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## Unreleased
 
+## 0.3.7 - 2026-11-26
+
+- Redesign the English and Japanese homepages with a photographic lead story, recent-story grid, and topic directory. Articles show their summary, article-length reading progress, and the current section in their contents list.
+- Add a Payload editorial dashboard with recent drafts, published posts, and shortcuts to edit, preview, and review agent activity.
+- Add posts-only MCP publishing, with the active mode shown on the dashboard and enforced by Payload’s existing publish checks.
+
 - The fixture importer uploads media in the first locale that has alt text. This allows Japanese-only images to import without copying alt text into English.
 
 ## 0.3.6 - 2026-11-26

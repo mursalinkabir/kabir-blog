@@ -15,6 +15,7 @@ const APP_PREFIXES = [
   '/readyz',
   '/embeds',
   '/site',
+  '/magazine',
   '/images',
   '/fixtures',
   '/favicon.svg',

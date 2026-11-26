@@ -1,5 +1,5 @@
 import {
-  autoPublishEnabled,
+  agentPublishingMode,
   dailyLimit,
   defaultPolicy,
   docMinChars,
@@ -10,10 +10,12 @@ import {
 } from '../lib/agentPolicy';
 import { as, define } from './shared';
 
-const guide = (state: { autoPublish: boolean; limit: number; categories: string[]; tags: string[] }) => `
+const publishingLabels = { all: 'all supported content', posts: 'posts only', drafts: 'drafts only' };
+
+const guide = (state: { publishingMode: keyof typeof publishingLabels; limit: number; categories: string[]; tags: string[] }) => `
 # Writing for smkabir.com (English and Japanese)
 
-Status: auto-publishing is ${state.autoPublish ? 'ON' : 'OFF (drafts only; a person publishes in the admin)'}; at most ${state.limit} go-live saves per 24 hours (a post in two languages is two; a page, a project and each settings save count too).
+Status: publishing mode is ${publishingLabels[state.publishingMode]}; at most ${state.limit} go-live saves per 24 hours (a post in two languages is two; a page, a project and each settings save count too).
 
 ## What you can change
 - Posts, pages, projects: write and edit any of them (drafts first), check, publish, unpublish. Never delete.
@@ -26,7 +28,7 @@ Status: auto-publishing is ${state.autoPublish ? 'ON' : 'OFF (drafts only; a per
 2. Every edit of an existing document sends expected_updated_at from the get_* result. If it was refused as stale, read again and redo the edit.
 3. upload_image for new pictures (alt text in BOTH languages; credit them), list_media for existing ones.
 4. Save drafts (create_draft / update_draft / save_page / save_project), then check_post / check_page / check_project for each language.
-5. publish_*. If refused, the reason is returned and nothing changes.
+5. If the user asked to go live, read the latest revision and publish it with the relevant publish_* tool. In posts-only mode, use publish_post. If refused, inspect the returned reasons and live URLs before retrying.
 
 ## Rules
 - Categories: ${state.categories.join(', ')}. Existing tags: ${state.tags.slice(0, 40).join(', ') || '(none)'}.
@@ -57,7 +59,7 @@ export const guideTool = define(
     const cats = await ctx.payload.find({ collection: 'categories', limit: 20, depth: 0, ...as(ctx) });
     const tags = await ctx.payload.find({ collection: 'tags', limit: 200, depth: 0, ...as(ctx) });
     return guide({
-      autoPublish: autoPublishEnabled(),
+      publishingMode: agentPublishingMode(),
       limit: dailyLimit(),
       categories: cats.docs.map((c: any) => String(c.slug)),
       tags: tags.docs.map((t: any) => String(t.slug)),

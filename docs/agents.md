@@ -1,6 +1,6 @@
 # Letting an AI agent write and publish posts
 
-An AI agent (Claude Code, Claude Desktop, any MCP client) can write and edit the site's content in **English and
+An AI agent (Codex, Claude Code, Claude Desktop, or another MCP client) can write and edit the site's content in **English and
 Japanese** through the CMS's MCP endpoint: posts, pages, projects, tags, category names, image details, and the Now,
 Uses, Resume and Site settings. It writes Markdown; the CMS turns it into the same structured content the site
 renders, applies the publishing rules **inside the CMS**, and records everything it does. It never deletes anything.
@@ -14,7 +14,7 @@ Snippets are marked **production-ready** or **illustrative**.
 | Tools, rules, audit log, kill switch                        | Yes, against the local CMS (`check:agent` 28 on / 22 off, publish semantics 14, scope 71 on / 12 off, hooks 20, 83 unit tests) |
 | Agent-published posts appear on the site                    | Yes: the public site is served by the CMS app, so a publish is live within about a second (`reportLive` in the publish reply)  |
 | Pages, projects, settings, words, edits to a person's posts | Yes, same checks (`pnpm cms:check-scope`, `cms:check-hooks`)                                                                   |
-| Remote agent against the live CMS                           | After the cutover in [cutover.md](cutover.md) (service token, builder key, `CMS_URL`)                                          |
+| Remote agent against the live CMS                           | After the cutover in [cutover.md](cutover.md) (Cloudflare Access service token, agent MCP key, `MCP_URL`)                      |
 | Publishing needs a site rebuild                             | No: there is no build step; a hook refreshes the in-memory copy of the site (see [cms.md](cms.md))                             |
 
 ## Connect Claude Code and Claude Desktop locally (production-ready commands)
@@ -46,10 +46,29 @@ Then ask the agent, for example: _"Read the site guide, then write a short post 
 what the homelab costs to run. Upload no images. Check it and publish if it passes."_ The agent starts with
 `site_guide`, which tells it the rules, the categories and tags, and the Markdown dialect.
 
-**Going live is off until you turn it on.** With `AGENT_AUTO_PUBLISH` unset or not exactly `1` the agent can write and
-check drafts (posts, pages, projects), and edit tags, category names and image details; every `publish_*` tool and every
-save of Now, Uses, Resume or Site is refused with an explanation, and only unpublishing still works. Set `AGENT_AUTO_PUBLISH=1` in the CMS environment and
-restart it to allow publishing. Setting it back to `0` is the kill switch.
+### Enable Codex to publish posts
+
+| CMS environment                                   | Publishing scope                                                     |
+| ------------------------------------------------- | -------------------------------------------------------------------- |
+| Both switches unset or set to `0`                 | An editor publishes the drafts in Payload.                           |
+| `AGENT_POST_PUBLISH=1` and `AGENT_AUTO_PUBLISH=0` | Agent keys with the post publishing tool can publish articles.       |
+| `AGENT_AUTO_PUBLISH=1`                            | Agent publishing also covers pages, projects and live site settings. |
+
+The **Codex publishing** panel on the Payload dashboard shows the active mode and links to MCP keys and agent activity.
+The collection hooks enforce the same setting on all agent saves. The privacy scan, rolling publish limit and edit
+locks still apply. Set both switches to `0` and restart the CMS to return publishing to editors.
+
+For Codex, the existing [stdio bridge](../apps/cms/scripts/mcp-stdio-bridge.mjs) accepts the deployed
+`MCP_URL=https://cms.smkabir.com/api/mcp`, `MCP_KEY`, and both Cloudflare Access service-token headers via
+`CF_ACCESS_CLIENT_ID` and `CF_ACCESS_CLIENT_SECRET`. Supply the credentials from the client's secret store or launch
+environment. Keep the local bridge profile separate from the live profile. On the live MCP key, enable the tools the
+workflow needs, including `list_posts`, `get_post`, `check_post` and `publish_post`. Enable draft tools if Codex should
+also write. Confirm connectivity with `site_guide`.
+
+When you want Codex to publish, tell it which post and languages to publish. Codex reads the current revision with
+`get_post`, checks each language with `check_post`, then passes that revision's `updatedAt` to `publish_post`.
+Check the response's per-language results and the returned public URLs. Payload can promote all visible languages from
+the latest draft, so review every language marked visible before publishing.
 
 ## What it can change
 
@@ -168,20 +187,15 @@ while Japanese is unfinished: `update_draft` with `language: ja, visible: false`
 
 ## After the site goes live: where the agent connects and what happens on publish
 
-The public site is static files served by nginx; **it has no MCP endpoint and never will**. The agent talks to the CMS,
-which is a separate application (Phase 4) at `https://cms.smkabir.com`, behind Cloudflare Access.
+The same Next.js and Payload application serves the public blog and the protected CMS. Codex connects through
+Cloudflare Access to `https://cms.smkabir.com/api/mcp`. The public hostname answers 404 for that endpoint.
+
+Illustrative request path:
 
 ```text
-Claude Code / Claude Desktop
-        | MCP over HTTPS   (Authorization: Bearer <agent key>  +  CF-Access-Client-Id/Secret <service token>)
-        v
-Cloudflare Access  -- service-token policy -->  cms.smkabir.com/api/mcp   (Payload CMS, in the cluster)
-                                                   |  rules, audit log, drafts, versions (Postgres)
-                                                   |  publish -> hook -> GitHub repository_dispatch
-                                                   v
-GitHub Actions "content": pull from the CMS -> privacy scan -> build -> upload release to R2 -> move LATEST
-                                                   v
-nginx pods (content-sync polls LATEST every 60 s)  ->  smkabir.com shows the new post
+Codex → local stdio bridge → Cloudflare Access → Payload MCP
+                                               → publish hook in Payload
+                                               → PostgreSQL and refreshed public snapshot
 ```
 
 | Step                       | Typical time   | If it fails                                                                                 |

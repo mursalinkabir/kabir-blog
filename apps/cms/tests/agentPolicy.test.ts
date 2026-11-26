@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
   autoPublishEnabled,
+  postPublishEnabled,
+  agentPublishingMode,
   dailyLimit,
   defaultPolicy,
   publishProblems,
@@ -79,6 +81,15 @@ describe('limits and the kill switch', () => {
     expect(dailyLimit({ AGENT_MAX_PUBLISHES_PER_DAY: '2' } as never)).toBe(2);
     expect(dailyLimit({ AGENT_MAX_PUBLISHES_PER_DAY: 'lots' } as never)).toBe(6);
     expect(dailyLimit({ AGENT_MAX_PUBLISHES_PER_DAY: '-1' } as never)).toBe(6);
+  });
+
+  it('enables only post publishing with the narrower setting', () => {
+    const postsOnly = { AGENT_AUTO_PUBLISH: '0', AGENT_POST_PUBLISH: '1' };
+    expect(postPublishEnabled(postsOnly)).toBe(true);
+    expect(autoPublishEnabled(postsOnly)).toBe(false);
+    expect(agentPublishingMode(postsOnly)).toBe('posts');
+    expect(agentPublishingMode({ AGENT_POST_PUBLISH: 'true' })).toBe('drafts');
+    expect(agentPublishingMode({ AGENT_AUTO_PUBLISH: '1' })).toBe('all');
   });
 
   it('auto-publish is off unless it is exactly "1"', () => {

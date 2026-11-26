@@ -10,6 +10,7 @@ import {
 import { roleOf } from '../access';
 import {
   autoPublishEnabled,
+  postPublishEnabled,
   badUrls,
   dailyLimit,
   docProblems,
@@ -79,9 +80,10 @@ function refuser(req: PayloadRequest, collection: string, id?: number | string) 
 }
 
 /** Kill switch first, then the rolling daily allowance. Both are CMS-wide, shared by every kind of content. */
-async function assertMayGoLive(payload: Payload, refuse: (m: string) => Promise<never>, what: string) {
-  if (!autoPublishEnabled()) {
-    await refuse(`Auto-publishing is switched off (AGENT_AUTO_PUBLISH is not 1). ${what}`);
+async function assertMayGoLive(payload: Payload, refuse: (m: string) => Promise<never>, what: string, scope: 'posts' | 'all' = 'all') {
+  if (scope === 'posts' ? !postPublishEnabled() : !autoPublishEnabled()) {
+    const flag = scope === 'posts' ? 'AGENT_POST_PUBLISH or AGENT_AUTO_PUBLISH' : 'AGENT_AUTO_PUBLISH';
+    await refuse(`Auto-publishing is switched off (${flag} must be 1). ${what}`);
   }
   const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
   const recent = await payload.count({
@@ -141,9 +143,9 @@ export const agentBeforeChange: CollectionBeforeChangeHook = async ({ data, orig
     const category = typeof merged.category === 'object' ? merged.category?.id : merged.category;
     const hero = merged.hero && typeof merged.hero === 'object' ? merged.hero : undefined;
     const visible = LOCALES.filter((l) => byLocale('publishedIn', l) === true);
-    if (visible.length && !autoPublishEnabled()) {
+    if (visible.length && !postPublishEnabled()) {
       await refuse(
-        'Auto-publishing is switched off (AGENT_AUTO_PUBLISH is not 1). The draft is saved; a person publishes it in the admin.',
+        'Post publishing is switched off (AGENT_POST_PUBLISH or AGENT_AUTO_PUBLISH must be 1). The draft is saved; a person publishes it in the admin.',
       );
     }
     for (const l of visible) {
@@ -165,7 +167,7 @@ export const agentBeforeChange: CollectionBeforeChangeHook = async ({ data, orig
         );
       }
     }
-    if (visible.length) await assertMayGoLive(payload, refuse, 'The draft is saved; a person publishes it in the admin.');
+    if (visible.length) await assertMayGoLive(payload, refuse, 'The draft is saved; a person publishes it in the admin.', 'posts');
   }
   return data;
 };

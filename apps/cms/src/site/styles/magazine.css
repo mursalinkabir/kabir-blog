@@ -1,0 +1,402 @@
+/* Magazine home and long-form reading. The theme values come from global.css. */
+:root {
+  --editorial-paper: #faf8f2;
+  --editorial-surface: #f1ede2;
+  --editorial-rule: #dbd4c5;
+  --editorial-serif: Georgia, 'Times New Roman', serif;
+  --editorial-radius: 0.875rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --editorial-paper: #0b1015;
+    --editorial-surface: #141d24;
+    --editorial-rule: #2c3942;
+  }
+}
+:root[data-theme='dark'] {
+  --editorial-paper: #0b1015;
+  --editorial-surface: #141d24;
+  --editorial-rule: #2c3942;
+}
+body:has(.magazine-lead, .post) {
+  --bg: var(--editorial-paper);
+  --surface: var(--editorial-surface);
+  --border: var(--editorial-rule);
+  background: var(--bg);
+}
+:is(.magazine-lead, .magazine-recent) {
+  --ink: var(--heading);
+  --line: var(--border);
+}
+.magazine-lead.hero {
+  display: grid;
+  align-content: center;
+  min-height: calc(100svh - var(--header-h));
+  padding-block: clamp(1.25rem, 3vw, 2.75rem);
+}
+.magazine-lead > .wrap {
+  display: grid;
+  gap: clamp(1.1rem, 2.25vw, 1.8rem);
+}
+.magazine-lead.hero::before {
+  display: none;
+}
+.magazine-masthead {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 0.65rem 2rem;
+  padding-bottom: clamp(0.75rem, 2vw, 1.35rem);
+  border-bottom: 1px solid var(--border);
+}
+.magazine-masthead .hero-title {
+  max-width: none;
+  color: var(--heading);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  font-size: clamp(2.75rem, 8vw, 7.5rem);
+  line-height: 0.96;
+}
+.magazine-masthead .hero-lead {
+  max-width: 24ch;
+  margin: 0;
+  padding-bottom: 0.25rem;
+  font-size: clamp(1rem, 1.5vw, 1.175rem);
+}
+.magazine-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 46fr) minmax(0, 54fr);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--editorial-radius);
+  background: var(--surface);
+}
+.magazine-feature-copy {
+  display: grid;
+  justify-items: start;
+  align-content: center;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: clamp(1.4rem, 2.65vw, 2.6rem);
+}
+.magazine-feature-copy h2 {
+  color: var(--heading);
+  margin: 0;
+  font-size: clamp(1.8rem, 3.1vw, 2.85rem);
+  letter-spacing: -0.045em;
+  line-height: 1.12;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+.magazine-feature-copy h2:lang(ja) {
+  font-size: clamp(1.5rem, 3vw, 2.625rem);
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+.magazine-feature-copy p {
+  margin: 0;
+  max-width: 47ch;
+  color: var(--heading);
+  text-wrap: pretty;
+}
+.magazine-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.75rem;
+  color: var(--link-hover);
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-underline-offset: 0.3em;
+}
+.magazine-feature-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.875rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+.magazine-read {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-height: 2.75rem;
+  margin-top: 0.3rem;
+}
+.magazine-photo {
+  position: relative;
+  min-height: clamp(22rem, 38vw, 32rem);
+  overflow: hidden;
+}
+.magazine-photo .cover {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  aspect-ratio: auto;
+  border-radius: 0;
+}
+.magazine-photo .cover::after {
+  display: none;
+}
+/* Georgia supplies the editorial contrast without adding a font request or replacing the Japanese face. */
+:lang(en):is(.magazine-masthead .hero-title, .magazine-feature-copy h2, .magazine-recent h2, .magazine-directory h2, .post-head h1) {
+  font-family: var(--editorial-serif);
+  font-weight: 500;
+}
+.magazine-masthead .hero-title:lang(ja) {
+  font-size: clamp(2.4rem, 6.7vw, 5.75rem);
+  line-height: 1.18;
+}
+@media (hover: hover) and (pointer: fine) {
+  .magazine-read span {
+    transition: transform 180ms var(--ease);
+  }
+  .magazine-read:hover span {
+    transform: translate(2px, -2px);
+  }
+}
+.magazine-recent {
+  padding-block: clamp(2rem, 4vw, 4rem) 1.25rem;
+  border-block-start: 1px solid var(--border);
+}
+.magazine-recent .section-title {
+  margin-block: 0 clamp(1.25rem, 3vw, 2.5rem);
+  font-size: clamp(1.75rem, 3.6vw, 3rem);
+  text-align: start;
+}
+.magazine-recent .section-title::after {
+  margin-inline: 0;
+}
+.magazine-recent .tile {
+  border-radius: var(--editorial-radius);
+  background: var(--bg);
+}
+.magazine-recent .tile .card-title a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.24em;
+}
+.magazine-recent .tile .card-excerpt {
+  display: block;
+  color: var(--heading);
+}
+.magazine-recent .tile:hover {
+  transform: translateY(-2px);
+}
+.magazine-recent .tile .meta-topic a {
+  min-height: 2.75rem;
+  scroll-margin-block: 0.5rem;
+}
+
+.magazine-recent .tile .meta-topic a:focus-visible {
+  outline-offset: 1px;
+  background: var(--tint);
+}
+.magazine-directory {
+  padding-block: clamp(2rem, 5vw, 4rem);
+  margin-block-start: clamp(1.5rem, 4vw, 3.5rem);
+  background: var(--surface);
+  border-block-start: 1px solid var(--border);
+}
+.magazine-directory h2 {
+  margin: 0 0 1.4rem;
+  font-size: clamp(1.8rem, 3.6vw, 3rem);
+  line-height: 1.14;
+}
+.magazine-directory ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.magazine-directory li {
+  display: flex;
+  min-width: 0;
+}
+.magazine-directory a {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.7rem;
+  width: 100%;
+  min-width: 0;
+  padding: 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--editorial-radius);
+  background: var(--bg);
+  color: var(--heading);
+  text-decoration: none;
+  transition:
+    transform 180ms var(--ease),
+    border-color 180ms var(--ease);
+}
+.magazine-directory h3,
+.magazine-directory p {
+  margin: 0;
+}
+.magazine-directory h3 {
+  font-size: 1.22rem;
+}
+.magazine-directory p {
+  color: var(--text);
+  font-size: 0.9375rem;
+  text-wrap: pretty;
+}
+.directory-icon {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  color: var(--topic-fg);
+  background: var(--topic-bg);
+}
+.directory-count {
+  margin-top: auto;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+.directory-arrow {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  color: var(--link);
+  transition: transform 180ms var(--ease);
+}
+.magazine-directory a:is(:hover, :focus-visible) {
+  border-color: var(--link);
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .magazine-directory a:hover {
+    transform: translateY(-2px);
+  }
+  .magazine-directory a:hover .directory-arrow {
+    transform: translate(2px, -2px);
+  }
+}
+.post .post-head {
+  max-width: 62rem;
+  margin-block-end: clamp(2rem, 4vw, 3rem);
+}
+.post .post-head h1 {
+  font-size: clamp(2.125rem, 5.1vw, 4.125rem);
+  text-wrap: balance;
+}
+.post-dek {
+  color: var(--text);
+  max-width: 58ch;
+  margin: 0 auto 1.4rem;
+  font-size: clamp(1.0625rem, 2vw, 1.375rem);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+.post .post-cover {
+  margin-block-end: clamp(2rem, 5vw, 4.5rem);
+}
+.post .post-cover img {
+  border-radius: var(--editorial-radius);
+}
+.post .prose {
+  font-size: clamp(1.0625rem, 1.45vw, 1.1875rem);
+  line-height: 1.8;
+}
+.post .prose:lang(ja) {
+  line-height: 1.95;
+}
+.post .toc {
+  min-width: 0;
+  padding: 0.625rem 1rem;
+  border: 1px solid var(--border);
+}
+.post .toc summary {
+  min-height: 2.75rem;
+  padding-block: 0.625rem;
+}
+.post .toc a {
+  display: inline-block;
+  padding-block: 0.2rem;
+  overflow-wrap: anywhere;
+  text-underline-offset: 0.2em;
+}
+.post .toc a[aria-current='location'] {
+  color: var(--link);
+  font-weight: 800;
+  text-decoration: underline;
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .post::before {
+    content: '';
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 70;
+    height: 3px;
+    pointer-events: none;
+    background: var(--accent);
+    transform: scaleX(var(--article-progress, 0));
+    transform-origin: left;
+  }
+}
+@media screen and (min-width: 72rem) {
+  .post-body:has(> .toc) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 48rem);
+    align-items: start;
+    gap: 0 clamp(2rem, 5vw, 5rem);
+    max-width: 100%;
+  }
+  .post-body > .toc {
+    position: sticky;
+    top: calc(var(--header-h) + 1.5rem);
+    grid-row: span 2;
+    max-height: calc(100svh - var(--header-h) - 3rem);
+    overflow: auto;
+  }
+  .post-body:has(> .toc) > :is(.prose, .post-foot) {
+    grid-column: 2;
+    min-width: 0;
+  }
+}
+@media (max-width: 51.99rem) {
+  .magazine-masthead {
+    flex-direction: column;
+    align-items: start;
+  }
+  .magazine-masthead .hero-lead {
+    max-width: 55ch;
+  }
+  .magazine-lead.hero {
+    min-height: auto;
+  }
+  .magazine-feature {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .magazine-photo {
+    grid-row: 1;
+    min-height: auto;
+    aspect-ratio: 16 / 9;
+  }
+}
+@media (max-width: 39.99rem) {
+  .magazine-feature-copy {
+    padding: 1.15rem;
+  }
+  .magazine-photo {
+    aspect-ratio: 2 / 1;
+  }
+  .magazine-feature-copy h2 {
+    font-size: 1.7rem;
+  }
+  .magazine-read {
+    grid-area: 3 / 1;
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .magazine-recent .tile:hover {
+    transform: none;
+  }
+}

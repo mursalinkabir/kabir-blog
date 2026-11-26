@@ -42,6 +42,11 @@
   },
   "posts": {
     "description": "これまでに書いた記事を新しい順に並べています。",
+    "readStory": "記事を読む",
+    "browseTopics": "テーマから探す",
+    "topicCountOne": "{n}件の記事",
+    "topicCount": "{n}件の記事",
+    "latestStories": "新着記事",
     "readingTime": "読了目安 {n} 分",
     "tags": "タグ",
     "series": "シリーズ",

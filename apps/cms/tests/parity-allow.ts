@@ -1,6 +1,6 @@
 // Parity between the Astro output (apps/site/dist) and the new site, on the same fixture content. Both sides are reduced to
 // a list of tokens (tags with sorted attributes, text) and compared. Everything this file ignores is listed here with
-// a reason; a difference in text, link target, heading, meta tag, JSON-LD, image source or class name is never allowed.
+// a reason. The homepage comparison in parity.test.ts covers the intentional magazine layout change.
 
 /** Attributes the Astro build or Pagefind adds, or that mean nothing to a reader. */
 export const IGNORED_ATTRIBUTES: { name: RegExp; reason: string }[] = [
@@ -25,5 +25,7 @@ export const ALLOWED_DIFFS = [
       'scripts, preloads and Next internals in <head> are compared by their meaning (title, meta, canonical, hreflang, feeds, icon), not one by one',
   },
   { name: 'extra-twitter-tags', reason: 'Next adds twitter:title and twitter:description; the content is the same as og:*' },
+  { name: 'article-summary', reason: 'articles display the same description as their metadata beneath the title' },
+  { name: 'magazine-home', reason: 'lead story presentation changed on / and /ja/; metadata, chrome, links and recent cards still match' },
   { name: 'search-pages', reason: 'the search page is new (server-side); /search/ and /ja/search/ are not compared' },
 ] as const;

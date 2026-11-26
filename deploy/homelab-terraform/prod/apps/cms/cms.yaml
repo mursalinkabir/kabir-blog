@@ -36,9 +36,8 @@ data:
   # The hostnames that serve the PUBLIC site (pages only; /admin, /api and /preview answer 404 there). Any other hostname,
   # or none, is the CMS hostname and needs the Cloudflare Access assertion. Comma separated.
   SITE_PUBLIC_HOSTS: 'smkabir.com'
-  # The kill switch for agent publishing. Anything but exactly "1" means an agent can write drafts, not publish.
-  # YOUR DECISION: a publish is public within a second now, so '1' lets the agent change smkabir.com without a person
-  # reading it first. Left at '0' here; set '1' only when you want that.
+  # Set only AGENT_POST_PUBLISH to 1 for post publishing. Set both to 0 for draft review.
+  AGENT_POST_PUBLISH: '0'
   AGENT_AUTO_PUBLISH: '0'
   # The Access application. Empty = the CMS answers 503 to everything but the probes (fails closed).
   # Zero Trust team domain, and the AUD tag of the "cms" application (covers cms.smkabir.com only; add preview.smkabir.com to the app when it has DNS and a route).

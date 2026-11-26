@@ -27,6 +27,7 @@ export async function postPage(site: Site, locale: Locale, slug: string): Promis
       <article className="container post">
         <header className="post-head">
           <h1>{post.title}</h1>
+          {post.description && <p className="post-dek">{post.description}</p>}
           <PostMeta post={post} locale={locale} siteName={siteName} readingTime />
           {post.series && (
             <p className="post-series">
