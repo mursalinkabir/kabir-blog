@@ -179,13 +179,13 @@ export async function tagIds(ctx: Ctx, tags: { slug: string; name?: string }[], 
   return ids;
 }
 
-export async function loadPost(ctx: Ctx, id: number | string, locale: Locale) {
+export async function loadPost(ctx: Ctx, id: number | string, locale: Locale, depth: 0 | 1 = 1) {
   return (await ctx.payload.findByID({
     collection: 'posts',
     id,
     locale,
     draft: true,
-    depth: 1,
+    depth,
     fallbackLocale: false,
     ...as(ctx),
   })) as Record<string, any>;

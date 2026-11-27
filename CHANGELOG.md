@@ -4,6 +4,10 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## Unreleased
 
+## 0.3.9 - 2026-11-28
+
+- Fix MCP publishing for posts with inline images by preserving the media IDs inside their figure blocks.
+
 ## 0.3.8 - 2026-11-27
 
 - Let Payload administrators enable or disable image uploads for individual MCP agent keys from the editorial dashboard.

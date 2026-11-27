@@ -263,8 +263,9 @@ export const postTools = [
       const results: Record<string, unknown> = {};
       assertFresh(a.expected_updated_at, (await loadPost(ctx, a.id, a.languages[0])).updatedAt);
       for (const l of a.languages) {
-        const p = await loadPost(ctx, a.id, l);
         // Publishing sends the whole current draft, so the live copy is exactly what check_post just judged.
+        // Payload validates media inside Lexical blocks as IDs, so do not populate those relationships.
+        const p = await loadPost(ctx, a.id, l, 0);
         const data = {
           title: p.title,
           description: p.description,
