@@ -109,6 +109,42 @@
   gap: 0.5rem;
 }
 
+.editorial-mcp-uploads {
+  width: 100%;
+  padding-block-start: 0.9rem;
+  border-block-start: 1px solid var(--theme-elevation-150);
+
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  ul {
+    display: grid;
+    gap: 0.4rem;
+    margin: 0.6rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.8rem;
+  }
+
+  button {
+    min-height: 2.5rem;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--theme-elevation-250);
+    border-radius: 0.5rem;
+    background: var(--theme-elevation-50);
+    color: var(--theme-text);
+    cursor: pointer;
+  }
+}
+
 .editorial-mode {
   padding: 0.15rem 0.55rem;
   border-radius: 0.375rem;

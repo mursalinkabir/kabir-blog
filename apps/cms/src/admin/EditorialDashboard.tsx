@@ -9,6 +9,8 @@ import { absolute } from '../site/lib/routes';
 import type { Post } from '../site/lib/types';
 import { previewPath } from '../site/preview';
 import { SLUG_PATTERN } from '../hooks/slug';
+import { listAgentImageUploadPermissions } from '../mcp/imageUploadPermission';
+import { setAgentImageUploadAction } from './setAgentImageUploadAction';
 
 const publishingModes = {
   drafts: { label: 'Drafts only', detail: 'Codex can prepare articles. An editor publishes them.' },
@@ -115,9 +117,13 @@ export async function EditorialDashboard({ req }: WidgetServerProps) {
   const postsUrl = `${collectionsUrl}/posts`;
   const mode = agentPublishingMode();
   const publishing = publishingModes[mode];
-  const [drafts, published] = await Promise.allSettled([recentPosts(req, 'draft'), recentPosts(req, 'published')]);
-  for (const result of [drafts, published]) {
-    if (result.status === 'rejected') req.payload.logger.error({ err: result.reason, msg: 'Could not load editorial dashboard posts' });
+  const [drafts, published, imageUploads] = await Promise.allSettled([
+    recentPosts(req, 'draft'),
+    recentPosts(req, 'published'),
+    listAgentImageUploadPermissions(req),
+  ]);
+  for (const result of [drafts, published, imageUploads]) {
+    if (result.status === 'rejected') req.payload.logger.error({ err: result.reason, msg: 'Could not load editorial dashboard data' });
   }
   const panels = [
     { title: 'Recent drafts', result: drafts, empty: 'There are no drafts yet.', draft: true },
@@ -147,6 +153,29 @@ export async function EditorialDashboard({ req }: WidgetServerProps) {
         <div className="editorial-actions">
           <a href={`${collectionsUrl}/agent-log`}>Agent activity</a>
           <a href={`${collectionsUrl}/payload-mcp-api-keys`}>MCP keys</a>
+        </div>
+        <div className="editorial-mcp-uploads">
+          <h3>MCP image uploads</h3>
+          {imageUploads.status === 'rejected' ? (
+            <p>Couldn’t load agent keys.</p>
+          ) : imageUploads.value.length === 0 ? (
+            <p>No agent keys are configured.</p>
+          ) : (
+            <ul>
+              {imageUploads.value.map(({ id, label, enabled }) => (
+                <li key={id}>
+                  <span>{label ? `${label} (key #${id})` : `Key #${id}`}</span>
+                  <form action={setAgentImageUploadAction}>
+                    <input type="hidden" name="id" value={id} />
+                    <input type="hidden" name="enabled" value={String(!enabled)} />
+                    <button type="submit" aria-label={`${enabled ? 'Disable' : 'Enable'} uploads for ${label || `key #${id}`}`}>
+                      {enabled ? 'Disable uploads' : 'Enable uploads'}
+                    </button>
+                  </form>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </section>
       <div className="editorial-panels">

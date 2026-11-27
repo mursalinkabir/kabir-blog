@@ -4,6 +4,10 @@ Every release gets an entry here, written before the `vX.Y.Z` tag is pushed.
 
 ## Unreleased
 
+## 0.3.8 - 2026-11-27
+
+- Let Payload administrators enable or disable image uploads for individual MCP agent keys from the editorial dashboard.
+
 ## 0.3.7 - 2026-11-26
 
 - Redesign the English and Japanese homepages with a photographic lead story, recent-story grid, and topic directory. Articles show their summary, article-length reading progress, and the current section in their contents list.

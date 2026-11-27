@@ -55,6 +55,8 @@ what the homelab costs to run. Upload no images. Check it and publish if it pass
 | `AGENT_AUTO_PUBLISH=1`                            | Agent publishing also covers pages, projects and live site settings. |
 
 The **Codex publishing** panel on the Payload dashboard shows the active mode and links to MCP keys and agent activity.
+Under **MCP image uploads**, an administrator can enable or disable `upload_image` for an individual agent key.
+Reconnect the MCP client to refresh its tool list after changing the setting.
 The collection hooks enforce the same setting on all agent saves. The privacy scan, rolling publish limit and edit
 locks still apply. Set both switches to `0` and restart the CMS to return publishing to editors.
 
