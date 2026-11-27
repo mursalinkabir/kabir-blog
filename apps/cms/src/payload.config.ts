@@ -28,14 +28,10 @@ const useR2 = Boolean(process.env.S3_BUCKET);
 export default buildConfig({
   admin: {
     user: Users.slug,
-    dashboard: {
-      widgets: [
-        { slug: 'editorial', Component: '/admin/EditorialDashboard#EditorialDashboard', label: 'Editorial dashboard', minWidth: 'full' },
-      ],
-      defaultLayout: [
-        { widgetSlug: 'editorial', width: 'full' },
-        { widgetSlug: 'collections', width: 'full' },
-      ],
+    components: {
+      views: {
+        dashboard: { Component: '/admin/EditorialDashboard#EditorialDashboardView' },
+      },
     },
     importMap: { baseDir: path.resolve(dirname) },
     // The editor sees unpublished changes next to the form. The preview lives on the CMS hostname only (see site/preview.ts).

@@ -1,7 +1,8 @@
+import type { DashboardViewServerProps } from '@payloadcms/next/views';
+import type { PayloadRequest } from 'payload';
 import { renderToStaticMarkup } from 'react-dom/server';
-import type { WidgetServerProps } from 'payload';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { EditorialDashboard } from '../src/admin/EditorialDashboard';
+import { EditorialDashboard, EditorialDashboardView } from '../src/admin/EditorialDashboard';
 
 vi.mock('../src/admin/setAgentImageUploadAction', () => ({ setAgentImageUploadAction: vi.fn() }));
 
@@ -11,7 +12,7 @@ function props(role: 'admin' | 'reader', find = vi.fn()) {
       user: { collection: 'users', role },
       payload: { config: { routes: { admin: '/admin' } }, find, logger: { error: vi.fn() } },
     },
-  } as unknown as WidgetServerProps;
+  } as unknown as { req: PayloadRequest };
 }
 
 describe('editorial dashboard', () => {
@@ -25,6 +26,17 @@ describe('editorial dashboard', () => {
     expect(html).toContain('Codex publishing');
     expect(html).toContain('Posts only');
     expect(html).toContain('href="/admin/collections/agent-log"');
+  });
+
+  it('provides the dashboard with the signed-in request and content shortcuts', async () => {
+    const find = vi.fn().mockResolvedValue({ docs: [], totalDocs: 0 });
+    const view = EditorialDashboardView({ initPageResult: props('admin', find) } as DashboardViewServerProps);
+    const html = renderToStaticMarkup(await EditorialDashboard(view.props));
+    for (const slug of ['posts', 'media', 'pages', 'projects']) {
+      expect(html).toContain(`href="/admin/collections/${slug}"`);
+    }
+    expect(html).toContain('href="/admin/collections/posts/create"');
+    expect(html).toContain('aria-label="Content shortcuts"');
   });
 
   it('links an incomplete Japanese-only draft to its editor without a broken preview', async () => {

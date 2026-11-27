@@ -1,4 +1,5 @@
-import type { PayloadRequest, WidgetServerProps } from 'payload';
+import type { DashboardViewServerProps } from '@payloadcms/next/views';
+import type { PayloadRequest } from 'payload';
 import { roleOf } from '../access';
 import { agentPublishingMode } from '../lib/agentPolicy';
 import type { Post as PayloadPost } from '../payload-types';
@@ -17,6 +18,35 @@ const publishingModes = {
   posts: { label: 'Posts only', detail: 'Codex can check and publish articles through MCP.' },
   all: { label: 'Full publishing', detail: 'Codex can publish posts, pages, projects and site settings through MCP.' },
 };
+
+const iconPaths = {
+  posts: 'M7 3h8l4 4v13a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm7 0v5h5M8.5 12h7m-7 4h7',
+  media: 'M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm-.5 13 5-5 3 3 2-2 5 5M15.75 8h.01',
+  pages: 'M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2ZM3 8h18m-12 0v13',
+  projects: 'M3 8a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z',
+  draft: 'M12 20h9M15 5l4 4M4 20l4-1L21 6l-4-4L4 15Z',
+  published: 'M21 12a9 9 0 1 1-9-9 9 9 0 0 1 9 9Zm-13 0 2.5 2.5 5.5-5.5',
+  codex: 'm5 7 5 5-5 5m7 0h7',
+  add: 'M12 5v14M5 12h14',
+  outbound: 'M7 17 17 7M7 7h10v10',
+  next: 'M9 6l6 6-6 6',
+} as const;
+
+function Icon({ name }: { name: keyof typeof iconPaths }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.65"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d={iconPaths[name]} />
+    </svg>
+  );
+}
 
 type Status = 'draft' | 'published';
 type EditorialPost = Pick<
@@ -84,6 +114,9 @@ function PostRow({ doc, draft, postsUrl }: { doc: EditorialPost; draft: boolean;
   const available = availableLocales(doc);
   return (
     <li className="editorial-row">
+      <span className="editorial-row-icon" data-kind={draft ? 'draft' : 'published'}>
+        <Icon name={draft ? 'draft' : 'published'} />
+      </span>
       <div>
         <a
           className="editorial-post"
@@ -95,14 +128,15 @@ function PostRow({ doc, draft, postsUrl }: { doc: EditorialPost; draft: boolean;
         {date && <time dateTime={date}>{formatDate('en', date, { month: 'short' })}</time>}
       </div>
       {available.length > 0 && (
-        <div className="editorial-actions">
+        <div className="editorial-row-actions">
           {available.map((locale) => (
             <a
               key={locale}
               href={draft ? previewPath('posts', doc.slug, locale) : absolute(localePath(locale, `/posts/${doc.slug}/`))}
               aria-label={`${draft ? 'Preview' : 'Read'} ${title} in ${locale === 'ja' ? 'Japanese' : 'English'}`}
             >
-              {draft ? 'Preview' : 'Read'} {locale.toUpperCase()} <span aria-hidden="true">↗</span>
+              <span>{draft ? 'Preview' : 'Read'}</span> {locale.toUpperCase()}
+              <Icon name="outbound" />
             </a>
           ))}
         </div>
@@ -111,7 +145,11 @@ function PostRow({ doc, draft, postsUrl }: { doc: EditorialPost; draft: boolean;
   );
 }
 
-export async function EditorialDashboard({ req }: WidgetServerProps) {
+export function EditorialDashboardView({ initPageResult: { req } }: DashboardViewServerProps) {
+  return <EditorialDashboard req={req} />;
+}
+
+export async function EditorialDashboard({ req }: { req: PayloadRequest }) {
   if (roleOf(req.user) !== 'admin') return null;
   const collectionsUrl = `${req.payload.config.routes.admin}/collections`;
   const postsUrl = `${collectionsUrl}/posts`;
@@ -126,62 +164,52 @@ export async function EditorialDashboard({ req }: WidgetServerProps) {
     if (result.status === 'rejected') req.payload.logger.error({ err: result.reason, msg: 'Could not load editorial dashboard data' });
   }
   const panels = [
-    { title: 'Recent drafts', result: drafts, empty: 'There are no drafts yet.', draft: true },
-    { title: 'Recently published', result: published, empty: 'There are no published posts yet.', draft: false },
+    { id: 'editorial-drafts', title: 'Recent drafts', result: drafts, empty: 'There are no drafts yet.', draft: true },
+    { id: 'editorial-published', title: 'Recently published', result: published, empty: 'There are no published posts yet.', draft: false },
   ];
+  const shortcuts = [
+    { slug: 'posts', title: 'Posts', detail: 'Write and publish' },
+    { slug: 'media', title: 'Media', detail: 'Manage images' },
+    { slug: 'pages', title: 'Pages', detail: 'Edit site pages' },
+    { slug: 'projects', title: 'Projects', detail: 'Manage the portfolio' },
+  ] as const;
   return (
     <section className="editorial-dashboard" aria-labelledby="editorial-title">
       <header className="editorial-header">
-        <h1 id="editorial-title">Editorial dashboard</h1>
-        <div className="editorial-actions">
-          <a href={postsUrl}>Browse posts</a>
+        <div>
+          <h1 id="editorial-title">Editorial workspace</h1>
+          <p>Manage English and Japanese content for smkabir.com.</p>
+        </div>
+        <div className="editorial-header-actions">
+          <a href={absolute('/')} className="editorial-visit">
+            View site <Icon name="outbound" />
+          </a>
           <a className="editorial-primary" href={`${postsUrl}/create`}>
-            New post <span aria-hidden="true">+</span>
+            <Icon name="add" /> New post
           </a>
         </div>
       </header>
-      <section className="editorial-mcp" aria-labelledby="editorial-mcp-title">
-        <div>
-          <div className="editorial-mcp-heading">
-            <h2 id="editorial-mcp-title">Codex publishing</h2>
-            <span className="editorial-mode" data-mode={mode}>
-              {publishing.label}
+      <nav className="editorial-shortcuts" aria-label="Content shortcuts">
+        {shortcuts.map(({ slug, title, detail }) => (
+          <a key={slug} href={`${collectionsUrl}/${slug}`}>
+            <span className="editorial-shortcut-icon" data-kind={slug}>
+              <Icon name={slug} />
             </span>
-          </div>
-          <p>{publishing.detail}</p>
-        </div>
-        <div className="editorial-actions">
-          <a href={`${collectionsUrl}/agent-log`}>Agent activity</a>
-          <a href={`${collectionsUrl}/payload-mcp-api-keys`}>MCP keys</a>
-        </div>
-        <div className="editorial-mcp-uploads">
-          <h3>MCP image uploads</h3>
-          {imageUploads.status === 'rejected' ? (
-            <p>Couldn’t load agent keys.</p>
-          ) : imageUploads.value.length === 0 ? (
-            <p>No agent keys are configured.</p>
-          ) : (
-            <ul>
-              {imageUploads.value.map(({ id, label, enabled }) => (
-                <li key={id}>
-                  <span>{label ? `${label} (key #${id})` : `Key #${id}`}</span>
-                  <form action={setAgentImageUploadAction}>
-                    <input type="hidden" name="id" value={id} />
-                    <input type="hidden" name="enabled" value={String(!enabled)} />
-                    <button type="submit" aria-label={`${enabled ? 'Disable' : 'Enable'} uploads for ${label || `key #${id}`}`}>
-                      {enabled ? 'Disable uploads' : 'Enable uploads'}
-                    </button>
-                  </form>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      </section>
+            <span>
+              <strong>{title}</strong>
+              <small>{detail}</small>
+            </span>
+            <Icon name="next" />
+          </a>
+        ))}
+      </nav>
       <div className="editorial-panels">
-        {panels.map(({ title, result, empty, draft }) => (
-          <section key={title} className="editorial-panel" aria-labelledby={draft ? 'editorial-drafts' : 'editorial-published'}>
-            <h2 id={draft ? 'editorial-drafts' : 'editorial-published'}>{title}</h2>
+        {panels.map(({ id, title, result, empty, draft }) => (
+          <section key={id} className="editorial-panel" data-kind={draft ? 'draft' : 'published'} aria-labelledby={id}>
+            <header className="editorial-panel-header">
+              <h2 id={id}>{title}</h2>
+              {result.status === 'fulfilled' && <span className="editorial-count">{result.value.totalDocs} total</span>}
+            </header>
             {result.status === 'rejected' ? (
               <p className="editorial-empty">Couldn’t load these posts. Open the posts collection to try again.</p>
             ) : result.value.docs.length === 0 ? (
@@ -195,6 +223,52 @@ export async function EditorialDashboard({ req }: WidgetServerProps) {
             )}
           </section>
         ))}
+        <section className="editorial-panel editorial-mcp" aria-labelledby="editorial-mcp-title">
+          <header className="editorial-panel-header">
+            <div>
+              <div className="editorial-mcp-heading">
+                <span className="editorial-row-icon">
+                  <Icon name="codex" />
+                </span>
+                <h2 id="editorial-mcp-title">Codex publishing</h2>
+                <span className="editorial-mode" data-mode={mode}>
+                  {publishing.label}
+                </span>
+              </div>
+              <p>{publishing.detail}</p>
+            </div>
+            <nav className="editorial-row-actions" aria-label="Codex tools">
+              <a href={`${collectionsUrl}/agent-log`}>Agent activity</a>
+              <a href={`${collectionsUrl}/payload-mcp-api-keys`}>MCP keys</a>
+            </nav>
+          </header>
+          <div className="editorial-mcp-uploads">
+            <h3>MCP image uploads</h3>
+            {imageUploads.status === 'rejected' ? (
+              <p>Couldn’t load agent keys.</p>
+            ) : imageUploads.value.length === 0 ? (
+              <p>No agent keys are configured.</p>
+            ) : (
+              <ul>
+                {imageUploads.value.map(({ id, label, enabled }) => (
+                  <li key={id}>
+                    <div>
+                      <strong>{label ? `${label} (key #${id})` : `Key #${id}`}</strong>
+                      <small>{enabled ? 'Uploads enabled' : 'Uploads disabled'}</small>
+                    </div>
+                    <form action={setAgentImageUploadAction}>
+                      <input type="hidden" name="id" value={id} />
+                      <input type="hidden" name="enabled" value={String(!enabled)} />
+                      <button type="submit" aria-label={`${enabled ? 'Disable' : 'Enable'} uploads for ${label || `key #${id}`}`}>
+                        {enabled ? 'Disable uploads' : 'Enable uploads'}
+                      </button>
+                    </form>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </section>
       </div>
     </section>
   );
